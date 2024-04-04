@@ -19,7 +19,7 @@ namespace Restoran_Otomasyon
 		}
 		Tedarikci tedarikci = new Tedarikci();
 		Context db = new Context();
-		
+
 		private void button1_Click(object sender, EventArgs e)
 		{
 			if (Yardimcilar.HepsiDoluMu(groupTedarikci))
@@ -32,9 +32,10 @@ namespace Restoran_Otomasyon
 						tedarikci.Soyad = txtsoyad.Text;
 						tedarikci.Telefon = txttelefon.Text;
 						tedarikci.Eposta = txteposta.Text;
-						tedarikci.KayitT = DateTime.Now;
+						tedarikci.KayitTarihi = DateTime.Now;
 						tedarikci.Gorunurluk = true;
-						tedarikci.AdresId = Convert.ToInt32(hiddenAdresID.Text);
+						tedarikci.AdresBİlgisi = txtAdres.Text;
+						//tedarikci.AdresId = Convert.ToInt32(hiddenAdresID.Text)
 						db.Tedarikciler.Add(tedarikci);
 						timer1.Start();
 						MessageBox.Show("Yeni Tedarikçi Kayıt Edildi");
@@ -46,7 +47,8 @@ namespace Restoran_Otomasyon
 						x.Ad = txtad.Text;
 						x.Soyad = txtsoyad.Text;
 						x.Telefon = txttelefon.Text;
-						x.AdresId = Convert.ToInt32(hiddenAdresID.Text);
+						x.AdresBİlgisi = txtAdres.Text;
+						//x.AdresId = Convert.ToInt32(hiddenAdresID.Text);
 						x.Eposta = txteposta.Text;
 						timer1.Start();
 						MessageBox.Show("Tedarikçi Bilgisi Güncellendi");
@@ -55,8 +57,11 @@ namespace Restoran_Otomasyon
 					TedarikciList();
 					Yardimcilar.Temizle(groupTedarikci);
 				}
-				timer1.Start();
-				MessageBox.Show("Girdiğiniz E-Posta Geçersizdir");
+				else
+				{
+					timer1.Start();
+					MessageBox.Show("Girdiğiniz E-Posta Geçersizdir");
+				}
 			}
 			else
 			{
@@ -73,13 +78,12 @@ namespace Restoran_Otomasyon
 				Soyad = o.Soyad,
 				Eposta = o.Eposta,
 				Telefon = o.Telefon,
-				AdresAdi = db.Adresler.FirstOrDefault(r => r.Id == o.AdresId).Ad, // Adres adını al
-				AdresID = o.AdresId, // Adres ID'sini al
+				Adres=o.AdresBİlgisi,
 			}).ToList();
 			gridTedarikci.DataSource = Tedarikciler;
 		}
 
-		private void button4_Click(object sender, EventArgs e)
+		private void button4_Click(object sender, EventArgs e)//Adresi Adres tablosu yerine doğrudan içerisinde tuttuğumuz için buna gerek kalmadı Visible ı kapalı
 		{
 			// Adres formunu aç
 			using (AdresESG adresForm = new AdresESG())
@@ -95,7 +99,7 @@ namespace Restoran_Otomasyon
 		private void TedarikciESG_Load(object sender, EventArgs e)
 		{
 			TedarikciList();
-			gridTedarikci.Columns["AdresID"].Visible = false;
+			//gridTedarikci.Columns["AdresID"].Visible = false;
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridTedarikci);
 		}
 
@@ -129,18 +133,18 @@ namespace Restoran_Otomasyon
 				txtsoyad.Text = row.Cells["Soyad"].Value.ToString();
 				txteposta.Text = row.Cells["Eposta"].Value.ToString();
 				txttelefon.Text = row.Cells["Telefon"].Value.ToString();
-
+				txtAdres.Text = row.Cells["Adres"].Value.ToString();
 				// Adres Id'sini al
-				int adresID = Convert.ToInt32(row.Cells["AdresID"].Value);
+				//int adresID = Convert.ToInt32(row.Cells["AdresID"].Value);
 				int perId = Convert.ToInt32(hiddenTedarikciId.Text);
 				// Veritabanından seçilen adresin açık adresini al
-				var selectedAddress = db.Adresler.FirstOrDefault(a => a.Id == adresID);
-				if (selectedAddress != null)
-				{
-					// Seçilen adresin açık adresini txtadres öğesine atayın
-					txtAdres.Text = selectedAddress.AcikAdres;
-				}
-				hiddenAdresID.Text = adresID.ToString();
+				//var selectedAddress = db.Adresler.FirstOrDefault(a => a.Id == adresID);
+				//if (selectedAddress != null)
+				//{
+				//	// Seçilen adresin açık adresini txtadres öğesine atayın
+				//	txtAdres.Text = selectedAddress.AcikAdres;
+				//}
+				//hiddenAdresID.Text = adresID.ToString();
 			}
 		}
 	}

@@ -123,6 +123,7 @@
 			this.txtfiyat.Name = "txtfiyat";
 			this.txtfiyat.Size = new System.Drawing.Size(175, 24);
 			this.txtfiyat.TabIndex = 3;
+			this.txtfiyat.Leave += new System.EventHandler(this.txtfiyat_Leave);
 			// 
 			// txtad
 			// 
@@ -211,6 +212,7 @@
 			this.txtmax.Name = "txtmax";
 			this.txtmax.Size = new System.Drawing.Size(175, 24);
 			this.txtmax.TabIndex = 5;
+			this.txtmax.Leave += new System.EventHandler(this.txtmax_Leave);
 			// 
 			// txtmin
 			// 
@@ -218,6 +220,7 @@
 			this.txtmin.Name = "txtmin";
 			this.txtmin.Size = new System.Drawing.Size(175, 24);
 			this.txtmin.TabIndex = 4;
+			this.txtmin.Leave += new System.EventHandler(this.txtmin_Leave);
 			// 
 			// txtstok
 			// 
@@ -227,6 +230,7 @@
 			this.txtstok.Size = new System.Drawing.Size(175, 24);
 			this.txtstok.TabIndex = 48;
 			this.txtstok.Text = "0";
+			this.txtstok.Leave += new System.EventHandler(this.txtstok_Leave);
 			// 
 			// label7
 			// 
@@ -243,13 +247,14 @@
 			// 
 			this.comboOlcu.FormattingEnabled = true;
 			this.comboOlcu.Items.AddRange(new object[] {
-            "Gram",
-            "Mili Litre",
+            "Kg",
+            "Litre",
             "Adet"});
 			this.comboOlcu.Location = new System.Drawing.Point(133, 149);
 			this.comboOlcu.Name = "comboOlcu";
 			this.comboOlcu.Size = new System.Drawing.Size(175, 26);
 			this.comboOlcu.TabIndex = 2;
+			this.comboOlcu.SelectedIndexChanged += new System.EventHandler(this.comboOlcu_SelectedIndexChanged);
 			// 
 			// comboTedarik
 			// 
@@ -296,7 +301,7 @@
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label11.Location = new System.Drawing.Point(142, 122);
+			this.label11.Location = new System.Drawing.Point(112, 119);
 			this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(221, 16);
@@ -340,6 +345,7 @@
 			this.gridMalzeme.Size = new System.Drawing.Size(1111, 787);
 			this.gridMalzeme.TabIndex = 41;
 			this.gridMalzeme.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMalzeme_CellClick);
+			this.gridMalzeme.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridMalzeme_CellFormatting);
 			// 
 			// hiddenStokId
 			// 

@@ -15,9 +15,9 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Temizlik { get; set; }
 
-		public int Tutar { get; set; }
+		public decimal Tutar { get; set; }
 
-		public int OdenenTutar { get; set; }
+		public decimal OdenenTutar { get; set; }
 
 		public int PersonelId { get; set; }
 

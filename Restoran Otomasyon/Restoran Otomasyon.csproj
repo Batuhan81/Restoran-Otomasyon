@@ -243,11 +243,11 @@
     <Compile Include="MalzemeESG.Designer.cs">
       <DependentUpon>MalzemeESG.cs</DependentUpon>
     </Compile>
-    <Compile Include="StokGirdi.cs">
+    <Compile Include="StokGirdiESG.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StokGirdi.Designer.cs">
-      <DependentUpon>StokGirdi.cs</DependentUpon>
+    <Compile Include="StokGirdiESG.Designer.cs">
+      <DependentUpon>StokGirdiESG.cs</DependentUpon>
     </Compile>
     <Compile Include="RolESG.cs">
       <SubType>Form</SubType>
@@ -299,8 +299,8 @@
     <EmbeddedResource Include="MalzemeESG.resx">
       <DependentUpon>MalzemeESG.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StokGirdi.resx">
-      <DependentUpon>StokGirdi.cs</DependentUpon>
+    <EmbeddedResource Include="StokGirdiESG.resx">
+      <DependentUpon>StokGirdiESG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RolESG.resx">
       <DependentUpon>RolESG.cs</DependentUpon>

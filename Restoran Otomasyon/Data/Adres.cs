@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Restoran_Otomasyon.Data
 {
@@ -20,6 +21,7 @@ namespace Restoran_Otomasyon.Data
 
 		public int No { get; set; }
 
+		
 		public string Tarif { get; set; }
 
 		public bool Gorunurluk {  get; set; }

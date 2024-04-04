@@ -51,6 +51,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupTedarikci = new System.Windows.Forms.GroupBox();
 			this.gridTedarikci = new System.Windows.Forms.DataGridView();
+			this.label5 = new System.Windows.Forms.Label();
 			this.groupTedarikci.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridTedarikci)).BeginInit();
 			this.SuspendLayout();
@@ -101,20 +102,21 @@
 			// 
 			// button4
 			// 
-			this.button4.Location = new System.Drawing.Point(191, 282);
+			this.button4.Location = new System.Drawing.Point(681, 75);
 			this.button4.Margin = new System.Windows.Forms.Padding(4);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(146, 28);
 			this.button4.TabIndex = 5;
 			this.button4.Text = "Adres Seç";
 			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Visible = false;
 			this.button4.Click += new System.EventHandler(this.button4_Click);
 			// 
 			// txtAdres
 			// 
-			this.txtAdres.Location = new System.Drawing.Point(8, 318);
+			this.txtAdres.Location = new System.Drawing.Point(8, 280);
 			this.txtAdres.Name = "txtAdres";
-			this.txtAdres.Size = new System.Drawing.Size(377, 50);
+			this.txtAdres.Size = new System.Drawing.Size(377, 88);
 			this.txtAdres.TabIndex = 36;
 			this.txtAdres.Text = "";
 			// 
@@ -158,7 +160,7 @@
 			// 
 			this.label9.AutoSize = true;
 			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label9.Location = new System.Drawing.Point(127, 287);
+			this.label9.Location = new System.Drawing.Point(173, 261);
 			this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(52, 16);
@@ -220,7 +222,6 @@
 			// groupTedarikci
 			// 
 			this.groupTedarikci.Controls.Add(this.uzanti);
-			this.groupTedarikci.Controls.Add(this.button4);
 			this.groupTedarikci.Controls.Add(this.txtAdres);
 			this.groupTedarikci.Controls.Add(this.button2);
 			this.groupTedarikci.Controls.Add(this.button1);
@@ -280,12 +281,26 @@
 			this.gridTedarikci.TabIndex = 41;
 			this.gridTedarikci.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridTedarikci_CellClick);
 			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label5.Location = new System.Drawing.Point(595, 43);
+			this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(262, 16);
+			this.label5.TabIndex = 39;
+			this.label5.Text = "Adres ıd için kullanmıştık kapalı şuan";
+			this.label5.Visible = false;
+			// 
 			// TedarikciESG
 			// 
 			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1047, 482);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.button4);
 			this.Controls.Add(this.hiddenAdresID);
 			this.Controls.Add(this.hiddenTedarikciId);
 			this.Controls.Add(this.groupTedarikci);
@@ -325,5 +340,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.GroupBox groupTedarikci;
 		private System.Windows.Forms.DataGridView gridTedarikci;
+		private System.Windows.Forms.Label label5;
 	}
 }

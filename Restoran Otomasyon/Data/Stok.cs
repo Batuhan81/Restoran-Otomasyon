@@ -7,17 +7,19 @@ namespace Restoran_Otomasyon.Data
 	{
 		public int Id { get; set; }
 
-		public int Miktar { get; set; }
+		public decimal Miktar { get; set; }
 
-		public int MinStok { get; set; }
+		public decimal MinStok { get; set; }
 
-		public int MaxStok { get; set; }
+		public decimal MaxStok { get; set; }
 
 		public int TedarikciId { get; set; }
 
 		public bool Gorunurluk { get; set; }
 
 		public int MalzemeId { get; set; }
+
+		public Malzeme Malzeme { get; set; }
 
 		public ICollection<Malzeme> Malzemelers { get; set; } = new List<Malzeme>();
 

@@ -93,7 +93,7 @@
 			this.gridAdres.RowHeadersWidth = 51;
 			this.gridAdres.RowTemplate.Height = 24;
 			this.gridAdres.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridAdres.Size = new System.Drawing.Size(635, 672);
+			this.gridAdres.Size = new System.Drawing.Size(635, 606);
 			this.gridAdres.TabIndex = 19;
 			this.gridAdres.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid1_CellClick);
 			// 
@@ -288,13 +288,14 @@
 			// 
 			// SecBtn
 			// 
-			this.SecBtn.Location = new System.Drawing.Point(83, 618);
+			this.SecBtn.Location = new System.Drawing.Point(391, 390);
 			this.SecBtn.Margin = new System.Windows.Forms.Padding(4);
 			this.SecBtn.Name = "SecBtn";
 			this.SecBtn.Size = new System.Drawing.Size(128, 72);
 			this.SecBtn.TabIndex = 11;
 			this.SecBtn.Text = "Seç";
 			this.SecBtn.UseVisualStyleBackColor = true;
+			this.SecBtn.Visible = false;
 			this.SecBtn.Click += new System.EventHandler(this.SecBtn_Click);
 			// 
 			// AdresESG
@@ -302,7 +303,7 @@
 			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(935, 689);
+			this.ClientSize = new System.Drawing.Size(935, 620);
 			this.Controls.Add(this.SecBtn);
 			this.Controls.Add(this.hiddenAdresId);
 			this.Controls.Add(this.button2);

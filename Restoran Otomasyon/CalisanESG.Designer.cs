@@ -39,7 +39,6 @@
 			this.txttelefon = new System.Windows.Forms.MaskedTextBox();
 			this.groupPersonel = new System.Windows.Forms.GroupBox();
 			this.uzanti = new System.Windows.Forms.Label();
-			this.button4 = new System.Windows.Forms.Button();
 			this.txtAdres = new System.Windows.Forms.RichTextBox();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
@@ -59,6 +58,7 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.button4 = new System.Windows.Forms.Button();
 			this.hiddenPersonelId = new System.Windows.Forms.TextBox();
 			this.hiddenAdresID = new System.Windows.Forms.TextBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -105,6 +105,7 @@
 			this.gridPersonel.Size = new System.Drawing.Size(1111, 787);
 			this.gridPersonel.TabIndex = 18;
 			this.gridPersonel.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridPersonel_CellClick);
+			this.gridPersonel.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridPersonel_CellFormatting);
 			// 
 			// label1
 			// 
@@ -148,7 +149,6 @@
 			// groupPersonel
 			// 
 			this.groupPersonel.Controls.Add(this.uzanti);
-			this.groupPersonel.Controls.Add(this.button4);
 			this.groupPersonel.Controls.Add(this.txtAdres);
 			this.groupPersonel.Controls.Add(this.button3);
 			this.groupPersonel.Controls.Add(this.button2);
@@ -191,23 +191,13 @@
 			this.uzanti.Size = new System.Drawing.Size(0, 16);
 			this.uzanti.TabIndex = 38;
 			this.uzanti.Visible = false;
-			// 
-			// button4
-			// 
-			this.button4.Location = new System.Drawing.Point(191, 545);
-			this.button4.Margin = new System.Windows.Forms.Padding(4);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(146, 28);
-			this.button4.TabIndex = 10;
-			this.button4.Text = "Adres Seç";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Click += new System.EventHandler(this.button4_Click);
+			this.uzanti.TextChanged += new System.EventHandler(this.uzanti_TextChanged);
 			// 
 			// txtAdres
 			// 
-			this.txtAdres.Location = new System.Drawing.Point(8, 581);
+			this.txtAdres.Location = new System.Drawing.Point(8, 560);
 			this.txtAdres.Name = "txtAdres";
-			this.txtAdres.Size = new System.Drawing.Size(377, 50);
+			this.txtAdres.Size = new System.Drawing.Size(377, 71);
 			this.txtAdres.TabIndex = 36;
 			this.txtAdres.Text = "";
 			// 
@@ -261,6 +251,7 @@
 			this.txtmaas.Name = "txtmaas";
 			this.txtmaas.Size = new System.Drawing.Size(175, 27);
 			this.txtmaas.TabIndex = 5;
+			this.txtmaas.Leave += new System.EventHandler(this.txtmaas_Leave);
 			// 
 			// txtbaslamaT
 			// 
@@ -313,7 +304,7 @@
 			// 
 			this.label9.AutoSize = true;
 			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label9.Location = new System.Drawing.Point(127, 550);
+			this.label9.Location = new System.Drawing.Point(164, 541);
 			this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(52, 16);
@@ -397,6 +388,18 @@
 			this.label2.TabIndex = 20;
 			this.label2.Text = "Soyad:";
 			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(493, 12);
+			this.button4.Margin = new System.Windows.Forms.Padding(4);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(146, 28);
+			this.button4.TabIndex = 10;
+			this.button4.Text = "Adres Seç";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Visible = false;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
 			// hiddenPersonelId
 			// 
 			this.hiddenPersonelId.Location = new System.Drawing.Point(425, 48);
@@ -436,6 +439,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1536, 815);
 			this.Controls.Add(this.pictureBox1);
+			this.Controls.Add(this.button4);
 			this.Controls.Add(this.hiddenPersonelId);
 			this.Controls.Add(this.hiddenAdresID);
 			this.Controls.Add(this.groupPersonel);

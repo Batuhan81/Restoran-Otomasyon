@@ -21,6 +21,8 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Gorunurluk { get; set; }
 
+		public bool Onay {  get; set; }	
+
 		public Musteri Musteri { get; set; }
 
 		public ICollection<Siparis> Siparislers { get; set; } = new List<Siparis>();

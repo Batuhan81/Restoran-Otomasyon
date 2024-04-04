@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Net.Mail;
 using System.Windows.Forms;
 
@@ -38,7 +39,140 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
+		public static string FormatliDeger(string deger)
+		{
+			if (string.IsNullOrWhiteSpace(deger))
+				return "";
 
+			// Eğer değer zaten ₺ işareti ile bitiyorsa, sadece geri döndür
+			if (deger.EndsWith("₺"))
+				return deger;
+
+			decimal degerDecimal = decimal.Parse(deger, NumberStyles.Currency, CultureInfo.GetCultureInfo("tr-TR"));
+			return degerDecimal.ToString("N2") + "₺";
+		}
+
+		public static string BirimFormatı(decimal deger, string birim)
+		{
+			string formatliDeger = deger.ToString("N2"); // Gelen değeri belirtilen format ile string'e çevir
+			switch (birim)
+			{
+				case "Kg":
+					formatliDeger += " Kg"; // Birim "Kg" ise sonuna "Kg" ekle
+					break;
+				case "Litre":
+					formatliDeger += " L"; // Birim "L" ise sonuna "L" ekle
+					break;
+				case "Adet":
+					formatliDeger += " Adet"; // Birim "Adet" ise sonuna "Adet" ekle
+					break;
+					// Diğer birimler için gerekli durumları buraya ekleyebilirsiniz
+			}
+			return formatliDeger;
+		}
+
+		public static void gridFormatStokMiktari(DataGridView dataGridView, string hedefSutunAdi, DataGridViewCellFormattingEventArgs e)
+		{
+			dataGridView.CellFormatting += (sender, args) =>
+			{
+				if (args.Value != null && args.Value != DBNull.Value && args.ColumnIndex == dataGridView.Columns[hedefSutunAdi].Index)
+				{
+					var row = dataGridView.Rows[args.RowIndex];
+					var turValue = row.Cells["MalzemeTur"].Value?.ToString(); // Null-check ekledik
+
+					// Malzeme türüne göre uygun bir birimi belirle
+					string birim;
+					switch (turValue)
+					{
+						case "Kg":
+							birim = "Kg";
+							break;
+						case "Litre":
+							birim = "Litre";
+							break;
+						case "Adet":
+							birim = "Adet";
+							break;
+						default:
+							birim = ""; // Varsayılan olarak boş birim belirle
+							break;
+					}
+
+					// Eğer birim belirlenmişse ve args.Value null veya boş bir string değilse, değeri uygun formata dönüştür ve DataGridView hücresine atayarak uygula
+					if (!string.IsNullOrEmpty(birim) && !string.IsNullOrEmpty(args.Value?.ToString())) // Null-check ekledik
+					{
+						decimal deger;
+						if (decimal.TryParse(args.Value.ToString(), out deger)) // Decimal'e dönüşümü TryParse ile güvenli hale getirdik
+						{
+							// Degeri gram cinsinden kaydedilen veriyi uygun bir formata dönüştürme
+							if (birim == "Kg")
+							{
+								deger = deger/1000; // Gramı kilograma dönüştürme
+							}
+							else if (birim == "Litre")
+							{
+								deger = deger /1000 ; // Gramı kilograma dönüştürme
+							}
+							else
+							{
+
+							}
+							
+							string formatliDeger = BirimFormatı(deger, birim);
+							args.Value = formatliDeger;
+							args.FormattingApplied = true;
+						}
+						else
+						{
+							// Değerin decimal'e dönüşümü başarısız olduğunda uygun bir işlem yapılabilir, örneğin:
+							// args.Value = "Geçersiz Değer";
+							// args.FormattingApplied = true;
+						}
+					}
+				}
+			};
+
+		}
+
+
+
+		public static string FormatsizDeger(string deger)
+		{
+			// Eğer kullanıcı sadece ₺ işaretini girdiyse, sadece nokta kaldıysa veya aradaki bir noktayı sildiyse, bunları temizleyerek döndür
+			if (deger.Contains("₺"))
+			{
+				deger = deger.Replace("₺", "");
+			}
+			else if (deger.EndsWith("."))
+			{
+				deger = deger.Remove(deger.Length - 1); // Sondaki noktayı kaldır
+			}
+			else if (deger.Contains(".") && deger.LastIndexOf(".") < deger.LastIndexOf("₺"))
+			{
+				// Aradaki bir noktayı sildiyse ve bu nokta ₺ işaretinden önceyse, sadece bu noktayı kaldır
+				deger = deger.Remove(deger.LastIndexOf("."));
+			}
+
+			// Formatlı değeri formatlı olmayan hale çevirerek döndür
+			return decimal.Parse(deger, NumberStyles.AllowCurrencySymbol | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands).ToString();
+		}
+
+		public static void GridFormat(DataGridView dataGridView, string columnName, DataGridViewCellFormattingEventArgs e)
+		{
+			if (e.Value != null && e.Value != DBNull.Value)
+			{
+				// Belirtilen sütun adında ise
+				if (dataGridView.Columns[e.ColumnIndex].Name == columnName)
+				{
+					e.Value = ((decimal)e.Value).ToString("N2") + "₺"; // "N2" formatı ile iki basamaklı virgülden sonraki sayıları gösteriyoruz
+					e.FormattingApplied = true;
+				}
+			}//Kullanışı
+			 //private void urunGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+			 //{
+			 //	FormatCurrencyColumn(urunGrid, "Satış_Fiyatı", e);
+			 //}
+		}
 		public class SecilenAdres
 		{
 			public int AdresId { get; set; }

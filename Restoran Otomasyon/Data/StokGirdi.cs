@@ -7,11 +7,17 @@ namespace Restoran_Otomasyon.Data
 	{
 		public int Id { get; set; }
 
-		public int Miktar { get; set; }
+		public decimal Miktar { get; set; }
 
-		public int AlısFiyati { get; set; }
+		public decimal AlısFiyati { get; set; }
 
 		public DateTime Tarih { get; set; }
+
+		public decimal SonStokMiktari { get; set; }
+
+		public int MalzemeId { get; set; }
+
+		public Malzeme Malzeme { get; set; }
 
 		public int TedarikciId { get; set; }
 

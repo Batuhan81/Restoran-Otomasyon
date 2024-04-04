@@ -42,12 +42,14 @@ namespace Restoran_Otomasyon
 					{
 						c.Database.Create(); // Yeni bir veritabanı oluştur
 						MessageBox.Show("Veri Tabanı Oluşturuldu.");
+						MessageBox.Show("Tekrar Giriş Sayfasına Yönlendirileceksiniz.");
+						this.Close();
 					}
 					else
 					{
 						MessageBox.Show("Girdiğiniz isimde bir veritabanı zaten mevcut.");
 					}
-					MessageBox.Show("Tekrar Giriş Sayfasına Yönlendirileceksiniz.");
+					
 				}
 				catch (Exception ex)
 				{
@@ -58,7 +60,6 @@ namespace Restoran_Otomasyon
 			{
 				MessageBox.Show("Tüm Bilgileri Girmeden Bir Veri Tabanı Oluşturamazsınız.");
 			}
-			this.Close();
 		}
 	}
 }

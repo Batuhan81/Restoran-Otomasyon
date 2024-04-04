@@ -42,7 +42,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void stokGirdisiEkleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			StokGirdi git=new StokGirdi();
+			StokGirdiESG git=new StokGirdiESG();
 			git.Show();
 		}
 
