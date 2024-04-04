@@ -15,7 +15,7 @@ namespace Restoran_Otomasyon.Data
 
 		public string Eposta { get; set; }
 
-        public string Adres { get; set; }
+        public string AdresBİlgisi { get; set; }
         public bool Gorunurluk { get; set; }
 
         public DateTime KayitT { get; set; }
