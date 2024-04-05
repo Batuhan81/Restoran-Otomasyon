@@ -102,34 +102,46 @@ namespace Restoran_Otomasyon
 						decimal deger;
 						if (decimal.TryParse(args.Value.ToString(), out deger)) // Decimal'e dönüşümü TryParse ile güvenli hale getirdik
 						{
-							// Degeri gram cinsinden kaydedilen veriyi uygun bir formata dönüştürme
-							if (birim == "Kg")
+							// Birim kontrolü yaparak değeri uygun şekilde dönüştürme
+							if (birim == "Kg" || birim == "Litre")
 							{
-								deger = deger / 1000; // Gramı kilograma dönüştürme
+								deger = deger / 1000; // Gramı kilograma veya litreye dönüştürme
 							}
-							else if (birim == "Litre")
-							{
-								deger = deger / 1000; // Gramı kilograma dönüştürmek
-							}
-							else if (birim == "Adet")
-							{
-
-							}
-
+							// Diğer birimler için herhangi bir işlem yapmıyoruz, değeri değiştirmiyoruz
 							string formatliDeger = BirimFormatı(deger, birim);
 							args.Value = formatliDeger;
 							args.FormattingApplied = true;
 						}
 						else
 						{
-						//	//Değerin decimal'e dönüşümü başarısız olduğunda uygun bir işlem yapılabilir, örneğin:
-						//	args.Value = "Geçersiz Değer";
-						//	args.FormattingApplied = true;
+							// Değerin decimal'e dönüşümü başarısız olduğunda uygun bir işlem yapılabilir
+							// Örneğin:
+							// args.Value = "Geçersiz Değer";
+							// args.FormattingApplied = true;
 						}
 					}
 				}
 			};
 		}
+		public static decimal TemizleVeDondur(TextBox textBox, string birim)
+		{
+			string text = textBox.Text.Trim(); // Textbox'tan değeri alırken baştaki ve sondaki boşlukları temizle
+			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't','₺'); // Textbox'tan birim ifadesini temizle
+
+			// Temizlenmiş değeri uygun formata dönüştür ve decimal türüne dönüştür
+			decimal deger;
+			if (decimal.TryParse(text, out deger))
+			{
+				//// Birim kontrolü yaparak değeri uygun şekilde dönüştürme
+				//if (birim == "Kg" || birim == "Litre")
+				//{
+				//	deger = deger / 1000; // Gramı kilograma veya litreye dönüştürme
+				//}
+				// Diğer birimler için herhangi bir işlem yapmıyoruz, değeri değiştirmiyoruz
+			}
+			return deger;
+		}
+
 
 
 		public static string FormatsizDeger(string deger)

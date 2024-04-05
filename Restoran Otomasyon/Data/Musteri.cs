@@ -21,15 +21,14 @@ namespace Restoran_Otomasyon.Data
 
 		public int MasaId { get; set; }
 
-		public int AdresId { get; set; }
 
 		public bool Gorunurluk { get; set; }
 
-		public Adres Adres { get; set; }
 
 		public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 
 		public ICollection<Kampanya> Kampanyalars { get; set; } = new List<Kampanya>();
+		public ICollection<Adres> Adresler { get; set; } = new List<Adres>();
 
 		public Masa Masa { get; set; }
 

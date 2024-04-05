@@ -36,9 +36,8 @@ namespace Restoran_Otomasyon.Data
 				return $"{Mahalle}, {Sokak} Sk. No {No}, {Il} {Ilce}";
 			}
 		}
-		public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
-
-		public ICollection<Personel> Personellers { get; set; } = new List<Personel>();
+        public Musteri Musteri { get; set; }
+        public ICollection<Personel> Personellers { get; set; } = new List<Personel>();
 
 		public ICollection<Tedarikci> Tedarikcilers { get; set; } = new List<Tedarikci>();
 

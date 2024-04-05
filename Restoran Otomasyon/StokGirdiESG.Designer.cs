@@ -124,6 +124,7 @@
 			this.txtAlisF.Name = "txtAlisF";
 			this.txtAlisF.Size = new System.Drawing.Size(149, 22);
 			this.txtAlisF.TabIndex = 42;
+			this.txtAlisF.Leave += new System.EventHandler(this.txtAlisF_Leave);
 			// 
 			// label2
 			// 
@@ -140,6 +141,7 @@
 			this.txtalinanMik.Name = "txtalinanMik";
 			this.txtalinanMik.Size = new System.Drawing.Size(149, 22);
 			this.txtalinanMik.TabIndex = 40;
+			this.txtalinanMik.Leave += new System.EventHandler(this.txtalinanMik_Leave);
 			// 
 			// label1
 			// 
@@ -163,7 +165,7 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(71, 294);
+			this.button1.Location = new System.Drawing.Point(77, 294);
 			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(177, 66);
@@ -209,6 +211,7 @@
 			this.gridStokGirdi.Size = new System.Drawing.Size(1111, 391);
 			this.gridStokGirdi.TabIndex = 46;
 			this.gridStokGirdi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridStokGirdi_CellClick);
+			this.gridStokGirdi.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridStokGirdi_CellFormatting);
 			// 
 			// hiddenTedarikciId
 			// 

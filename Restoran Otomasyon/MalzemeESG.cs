@@ -152,16 +152,16 @@ namespace Restoran_Otomasyon.Paneller
 				txtfiyat.Text = Yardimcilar.FormatliDeger(fiyat);
 
 				string stok = row.Cells["StokMiktar"].Value.ToString();
-				formatsizStok = Convert.ToDecimal(stok);
+				formatsizStok = Convert.ToDecimal(stok)/1000;
 				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
 
 
 				string minstok = row.Cells["StokMin"].Value.ToString();
-				formatsizMin = Convert.ToDecimal(minstok);
+				formatsizMin = Convert.ToDecimal(minstok) / 1000;
 				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
 
-				string maxstok = row.Cells["StokMin"].Value.ToString();
-				formatsizMax = Convert.ToDecimal(maxstok);
+				string maxstok = row.Cells["StokMax"].Value.ToString();
+				formatsizMax = Convert.ToDecimal(maxstok) / 1000;
 				txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
 			}
 		}
@@ -189,7 +189,7 @@ namespace Restoran_Otomasyon.Paneller
 		decimal formatsizStok;
 		private void txtmin_Leave(object sender, EventArgs e)
 		{
-			formatsizMin = Convert.ToDecimal(txtmin.Text);
+			formatsizMin = Yardimcilar.TemizleVeDondur(txtmin,olcu);
 			txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
 		}
 		string olcu;
@@ -211,13 +211,13 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtmax_Leave(object sender, EventArgs e)
 		{
-			formatsizMax = Convert.ToDecimal(txtmax.Text);
+			formatsizMax = Yardimcilar.TemizleVeDondur(txtmax, olcu);
 			txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
 		}
 
 		private void txtstok_Leave(object sender, EventArgs e)
 		{
-			formatsizStok = Convert.ToDecimal(txtstok.Text);
+			formatsizStok = Yardimcilar.TemizleVeDondur(txtstok, olcu);
 			txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
 		}
 	}
