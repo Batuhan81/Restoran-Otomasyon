@@ -86,21 +86,34 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void Sil_Click(object sender, EventArgs e)
 		{
-			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes)
+			int rolId = Convert.ToInt32(hiddenRolId.Text);
+			int kisiSayisi = db.Personeller.Count(k => k.RolId == rolId);
+
+			
+			if (kisiSayisi == 0)
 			{
-				if(hiddenRolId.Text != "")
+				DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (result == DialogResult.Yes)
 				{
-					id = Convert.ToInt32(hiddenRolId.Text);
-					var rol = db.Roller.Find(id);
-					rol.Gorunurluk = false;
-					db.SaveChanges();
-					timer1.Start();
-					MessageBox.Show("Kayıt Silindi");
-					Temizle();
-					Listele();
+					if (hiddenRolId.Text != "")
+					{
+						id = Convert.ToInt32(hiddenRolId.Text);
+						var rol = db.Roller.Find(id);
+						rol.Gorunurluk = false;
+						db.SaveChanges();
+						timer1.Start();
+						MessageBox.Show("Kayıt Silindi");
+						Temizle();
+						Listele();
+					}
 				}
 			}
+			else
+			{
+				timer1.Start ();
+				MessageBox.Show($"Silmek İstediğiniz Role Sahip {kisiSayisi}  Kişi Var","İşlem Gerçekleştirilemez",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+			}
+			
 		}
 
 		private void grid1_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -39,7 +39,7 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
-		public static string FormatliDeger(string deger)
+		public static string FormatliDeger(string deger)//Veriyi 100 =>100.00₺ ye çevirir
 		{
 			if (string.IsNullOrWhiteSpace(deger))
 				return "";
@@ -61,12 +61,11 @@ namespace Restoran_Otomasyon
 					formatliDeger += " Kg"; // Birim "Kg" ise sonuna "Kg" ekle
 					break;
 				case "Litre":
-					formatliDeger += " L"; // Birim "L" ise sonuna "L" ekle
+					formatliDeger += " L"; // Birim "Litre" ise sonuna "L" ekle
 					break;
 				case "Adet":
 					formatliDeger += " Adet"; // Birim "Adet" ise sonuna "Adet" ekle
 					break;
-					// Diğer birimler için gerekli durumları buraya ekleyebilirsiniz
 			}
 			return formatliDeger;
 		}
@@ -80,7 +79,6 @@ namespace Restoran_Otomasyon
 					var row = dataGridView.Rows[args.RowIndex];
 					var turValue = row.Cells["MalzemeTur"].Value?.ToString(); // Null-check ekledik
 
-					// Malzeme türüne göre uygun bir birimi belirle
 					string birim;
 					switch (turValue)
 					{
@@ -107,33 +105,31 @@ namespace Restoran_Otomasyon
 							// Degeri gram cinsinden kaydedilen veriyi uygun bir formata dönüştürme
 							if (birim == "Kg")
 							{
-								deger = deger/1000; // Gramı kilograma dönüştürme
+								deger = deger / 1000; // Gramı kilograma dönüştürme
 							}
 							else if (birim == "Litre")
 							{
-								deger = deger /1000 ; // Gramı kilograma dönüştürme
+								deger = deger / 1000; // Gramı kilograma dönüştürmek
 							}
-							else
+							else if (birim == "Adet")
 							{
 
 							}
-							
+
 							string formatliDeger = BirimFormatı(deger, birim);
 							args.Value = formatliDeger;
 							args.FormattingApplied = true;
 						}
 						else
 						{
-							// Değerin decimal'e dönüşümü başarısız olduğunda uygun bir işlem yapılabilir, örneğin:
-							// args.Value = "Geçersiz Değer";
-							// args.FormattingApplied = true;
+						//	//Değerin decimal'e dönüşümü başarısız olduğunda uygun bir işlem yapılabilir, örneğin:
+						//	args.Value = "Geçersiz Değer";
+						//	args.FormattingApplied = true;
 						}
 					}
 				}
 			};
-
 		}
-
 
 
 		public static string FormatsizDeger(string deger)
@@ -173,12 +169,6 @@ namespace Restoran_Otomasyon
 			 //	FormatCurrencyColumn(urunGrid, "Satış_Fiyatı", e);
 			 //}
 		}
-		public class SecilenAdres
-		{
-			public int AdresId { get; set; }
-			public string AdresBilgisi { get; set; }
-			public string AdresTarif { get; set; }
-		}
 
 		public class ResimBoyutlandir
 		{
@@ -202,7 +192,6 @@ namespace Restoran_Otomasyon
 
 					return pictureBox.Image;
 				}
-
 				return null;
 			}
 

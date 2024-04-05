@@ -45,8 +45,17 @@ namespace Restoran_Otomasyon.Paneller
 					stok.MalzemeId = maxMalId;
 					stok.Gorunurluk = true;
 					stok.Miktar = 0;
-					stok.MinStok = formatsizMin*1000;
-					stok.MaxStok = formatsizMax*1000;
+					if (olcu != "Adet")
+					{
+						stok.MinStok = formatsizMin * 1000;
+						stok.MaxStok = formatsizMax * 1000;
+					}
+					else
+					{
+						stok.MinStok = formatsizMin;
+						stok.MaxStok = formatsizMax;
+					}
+
 					stok.TedarikciId = (int)comboTedarik.SelectedValue;
 
 					db.Stoklar.Add(stok);
@@ -63,9 +72,16 @@ namespace Restoran_Otomasyon.Paneller
 					int stokId = Convert.ToInt32(hiddenStokId.Text);
 					var t = db.Stoklar.Find(stokId);
 					t.Gorunurluk = true;
-					//t.Miktar = 0;
-					t.MinStok = formatsizMin * 1000;
-					t.MaxStok = formatsizMax*1000;
+					if (olcu != "Adet")
+					{
+						t.MinStok = formatsizMin * 1000;
+						t.MaxStok = formatsizMax * 1000;
+					}
+					else
+					{
+						t.MinStok = formatsizMin;
+						t.MaxStok = formatsizMax;
+					}
 					t.TedarikciId = (int)comboTedarik.SelectedValue;
 					timer1.Start();
 					MessageBox.Show("Malzeme Bilgisi Güncellendi");
@@ -135,14 +151,14 @@ namespace Restoran_Otomasyon.Paneller
 				fiyatformatsiz = Decimal.Parse(fiyat);
 				txtfiyat.Text = Yardimcilar.FormatliDeger(fiyat);
 
-				string stok= row.Cells["StokMiktar"].Value.ToString();
-				formatsizStok =Convert.ToDecimal( stok);
+				string stok = row.Cells["StokMiktar"].Value.ToString();
+				formatsizStok = Convert.ToDecimal(stok);
 				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
 
 
 				string minstok = row.Cells["StokMin"].Value.ToString();
-				formatsizMin=Convert.ToDecimal( minstok);
-				txtmin.Text= Yardimcilar.BirimFormatı(formatsizMin, olcu);
+				formatsizMin = Convert.ToDecimal(minstok);
+				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
 
 				string maxstok = row.Cells["StokMin"].Value.ToString();
 				formatsizMax = Convert.ToDecimal(maxstok);
@@ -158,7 +174,7 @@ namespace Restoran_Otomasyon.Paneller
 		private void gridMalzeme_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			Yardimcilar.GridFormat(gridMalzeme, "MalzemeFiyat", e);
-			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMiktar",e);
+			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMiktar", e);
 			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMin", e);
 			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMax", e);
 		}
@@ -174,16 +190,16 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtmin_Leave(object sender, EventArgs e)
 		{
 			formatsizMin = Convert.ToDecimal(txtmin.Text);
-			txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin,olcu);
+			txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
 		}
 		string olcu;
 		private void comboOlcu_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if(comboOlcu.SelectedIndex == 0)
+			if (comboOlcu.SelectedIndex == 0)
 			{
 				olcu = "Kg";
 			}
-			else if(comboOlcu.SelectedIndex == 1)
+			else if (comboOlcu.SelectedIndex == 1)
 			{
 				olcu = "Litre";
 			}

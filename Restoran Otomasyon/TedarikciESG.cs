@@ -105,21 +105,33 @@ namespace Restoran_Otomasyon
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes)
+
+			int tedId = Convert.ToInt32(hiddenTedarikciId.Text);
+			int kisiSayisi = db.StokGirdiler.Count(k => k.TedarikciId == tedId);
+			if(kisiSayisi == 0)
 			{
-				if (hiddenTedarikciId.Text != null)
+				DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (result == DialogResult.Yes)
 				{
-					int id = Convert.ToInt32(hiddenTedarikciId.Text);
-					var x = db.Personeller.Find(id);//Hangi tablodan silme işlemini yapacaksın ve neye göre sileceksin
-					x.Gorunurluk = false;
-					db.SaveChanges();
-					MessageBox.Show("Kayıt Silindi");
-					TedarikciList();
-					Yardimcilar.Temizle(groupTedarikci);
-					hiddenTedarikciId.Text = "";
+					if (hiddenTedarikciId.Text != null)
+					{
+						int id = Convert.ToInt32(hiddenTedarikciId.Text);
+						var x = db.Personeller.Find(id);//Hangi tablodan silme işlemini yapacaksın ve neye göre sileceksin
+						x.Gorunurluk = false;
+						db.SaveChanges();
+						MessageBox.Show("Kayıt Silindi");
+						TedarikciList();
+						Yardimcilar.Temizle(groupTedarikci);
+						hiddenTedarikciId.Text = "";
+					}
 				}
 			}
+			else
+			{
+				timer1.Start();
+				MessageBox.Show($"Silmek İstediğiniz Tedarikçiden Almış Olduğunuz {kisiSayisi} Adet Malzeme Var Önce Bunların Tedarikçilerini Değiştirmelisiniz ", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			
 		}
 
 		private void gridTedarikci_CellClick(object sender, DataGridViewCellEventArgs e)
