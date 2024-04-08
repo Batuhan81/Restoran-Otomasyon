@@ -205,6 +205,7 @@
 			this.StokGir.TabIndex = 8;
 			this.StokGir.Text = "Stok Girdi";
 			this.StokGir.UseVisualStyleBackColor = true;
+			this.StokGir.Click += new System.EventHandler(this.StokGir_Click);
 			// 
 			// txtmax
 			// 

@@ -96,6 +96,7 @@ namespace Restoran_Otomasyon
 		{
 			Listele();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridAdres);
+			gridAdres.Columns["Id"].Visible = false;
 		}
 		private void grid1_CellClick(object sender, DataGridViewCellEventArgs e)
 		{

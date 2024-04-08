@@ -19,7 +19,6 @@ namespace Restoran_Otomasyon.Paneller
 			InitializeComponent();
 		}
 		Context db = new Context();
-		Malzeme mal = new Malzeme();
 		Stok stok = new Stok();
 		private void TedarikciDoldur()
 		{
@@ -31,6 +30,8 @@ namespace Restoran_Otomasyon.Paneller
 		}
 		private void button1_Click(object sender, EventArgs e)
 		{
+			Malzeme mal = new Malzeme();
+
 			if (Yardimcilar.HepsiDoluMu(groupMalzeme))
 			{
 				if (hiddenMalzemeId.Text == "")
@@ -72,7 +73,7 @@ namespace Restoran_Otomasyon.Paneller
 					int stokId = Convert.ToInt32(hiddenStokId.Text);
 					var t = db.Stoklar.Find(stokId);
 					t.Gorunurluk = true;
-					if (olcu != "Adet")
+					if (olcu != "Adet")//Ürün Türü Adet Değilse Gr ve Ml dönüşümü yap Adetse doğrudan yaz
 					{
 						t.MinStok = formatsizMin * 1000;
 						t.MaxStok = formatsizMax * 1000;
@@ -130,6 +131,7 @@ namespace Restoran_Otomasyon.Paneller
 			MalzemeList();
 			TedarikciDoldur();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridMalzeme);
+			gridMalzeme.Columns["MalzemeId"].Visible = false;
 		}
 
 		private void gridMalzeme_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -174,9 +176,9 @@ namespace Restoran_Otomasyon.Paneller
 		private void gridMalzeme_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			Yardimcilar.GridFormat(gridMalzeme, "MalzemeFiyat", e);
-			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMiktar", e);
-			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMin", e);
-			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMax", e);
+			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMiktar");
+			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMin");
+			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMax");
 		}
 		decimal fiyatformatsiz;
 		private void txtfiyat_Leave(object sender, EventArgs e)
@@ -219,6 +221,13 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			formatsizStok = Yardimcilar.TemizleVeDondur(txtstok, olcu);
 			txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
+		}
+
+		private void StokGir_Click(object sender, EventArgs e)
+		{
+			StokGirdiESG git = new StokGirdiESG();
+			git.Show();
+			this.Close();
 		}
 	}
 }

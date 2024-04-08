@@ -62,6 +62,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			Listele();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(grid1);
+			grid1.Columns["Id"].Visible = false;
 		}
 
 		void Listele()

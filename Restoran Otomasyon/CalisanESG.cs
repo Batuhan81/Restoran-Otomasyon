@@ -45,64 +45,72 @@ namespace Restoran_Otomasyon.Paneller
 				fotouzanti=uzanti.Text;
 				if (fotouzanti != "")
 				{
-					if (Restoran_Otomasyon.Yardimcilar.MailKontrol(txteposta.Text))
+					if (!Yardimcilar.GecerliTarihMi(txtdogumT.Text) && !Yardimcilar.GecerliTarihMi(txtbaslamaT.Text))
 					{
-						bool cinsiyet = false;//Kadın
-						if (comboCinsiyet.SelectedIndex == 0)
+						if (Restoran_Otomasyon.Yardimcilar.MailKontrol(txteposta.Text))
 						{
-							cinsiyet = false;
+							bool cinsiyet = false;//Kadın
+							if (comboCinsiyet.SelectedIndex == 0)
+							{
+								cinsiyet = false;
+							}
+							else
+							{
+								cinsiyet = true;
+							}
+							int rolId = (int)ComboRol.SelectedValue;
+							if (hiddenPersonelId.Text == "")
+							{
+								p.Ad = txtad.Text;
+								p.Soyad = txtsoyad.Text;
+								p.Eposta = txteposta.Text;
+								p.Telefon = txttelefon.Text;
+								p.Maas = maasformatsız;
+								p.DogumTarihi = DateTime.Parse(txtdogumT.Text);
+								p.BaslamaTarihi = DateTime.Parse(txtbaslamaT.Text);
+								p.Cinsiyet = cinsiyet;
+								p.RolId = rolId;
+								p.Adres = txtAdres.Text;
+								p.Gorunurluk = true;
+								p.fotograf = fotouzanti;
+								db.Personeller.Add(p);
+								timer1.Start();
+								MessageBox.Show("Yeni Personel Kayıt Edildi");
+							}
+							else
+							{
+								int perId = Convert.ToInt32(hiddenPersonelId.Text);
+								var x = db.Personeller.Find(perId);
+								x.Ad = txtad.Text;
+								x.Soyad = txtsoyad.Text;
+								x.Eposta = txteposta.Text;
+								x.Telefon = txttelefon.Text;
+								x.Maas = maasformatsız;
+								x.DogumTarihi = DateTime.Parse(txtdogumT.Text);
+								x.BaslamaTarihi = DateTime.Parse(txtbaslamaT.Text);
+								x.Cinsiyet = cinsiyet;
+								x.RolId = rolId;
+								x.fotograf = fotouzanti;
+								x.Adres = txtAdres.Text;
+								timer1.Start();
+								MessageBox.Show("Personel Bilgisi Güncellendi");
+							}
+							db.SaveChanges();
+							PersonelList();
+							Yardimcilar.Temizle(groupPersonel);
+							pictureBox1.Visible = false;
+							uzanti.Text = "";
 						}
 						else
 						{
-							cinsiyet = true;
-						}
-						int rolId = (int)ComboRol.SelectedValue;
-						if (hiddenPersonelId.Text == "")
-						{
-							p.Ad = txtad.Text;
-							p.Soyad = txtsoyad.Text;
-							p.Eposta = txteposta.Text;
-							p.Telefon = txttelefon.Text;
-							p.Maas = maasformatsız;
-							p.DogumTarihi = DateTime.Parse(txtdogumT.Text);
-							p.BaslamaTarihi = DateTime.Parse(txtbaslamaT.Text);
-							p.Cinsiyet = cinsiyet;
-							p.RolId = rolId;
-							p.Adres = txtAdres.Text;
-							p.Gorunurluk = true;
-							p.fotograf = fotouzanti;
-							db.Personeller.Add(p);
 							timer1.Start();
-							MessageBox.Show("Yeni Personel Kayıt Edildi");
+							MessageBox.Show("Girdiğiniz E-Posta Geçersizdir");
 						}
-						else
-						{
-							int perId = Convert.ToInt32(hiddenPersonelId.Text);
-							var x = db.Personeller.Find(perId);
-							x.Ad = txtad.Text;
-							x.Soyad = txtsoyad.Text;
-							x.Eposta = txteposta.Text;
-							x.Telefon = txttelefon.Text;
-							x.Maas = maasformatsız;
-							x.DogumTarihi = DateTime.Parse(txtdogumT.Text);
-							x.BaslamaTarihi = DateTime.Parse(txtbaslamaT.Text);
-							x.Cinsiyet = cinsiyet;
-							x.RolId = rolId;
-							x.fotograf = fotouzanti;
-							x.Adres = txtAdres.Text;
-							timer1.Start();
-							MessageBox.Show("Personel Bilgisi Güncellendi");
-						}
-						db.SaveChanges();
-						PersonelList();
-						Yardimcilar.Temizle(groupPersonel);
-						pictureBox1.Visible = false;
-						uzanti.Text = "";
 					}
 					else
 					{
 						timer1.Start();
-						MessageBox.Show("Girdiğiniz E-Posta Geçersizdir");
+						MessageBox.Show("Geçerli Bir Tarih Girdiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 				}
 				else
@@ -153,8 +161,12 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			RolleriDoldur();
 			PersonelList();
+			string gününT = DateTime.Now.ToString("dd/MM/yyyy");
+			txtbaslamaT.Text = gününT;
+
 			//gridPersonel.Columns["AdresID"].Visible = false;
 			gridPersonel.Columns["Foto"].Visible = false;
+			gridPersonel.Columns["Id"].Visible = false;
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridPersonel);
 		}
 

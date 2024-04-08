@@ -15,6 +15,11 @@ namespace Restoran_Otomasyon
 			grid.RowsDefaultCellStyle.BackColor = Color.White;
 			grid.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
 		}
+		public static bool GecerliTarihMi(string tarih)
+		{
+			DateTime sonuc;
+			return DateTime.TryParseExact(tarih, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out sonuc);
+		}
 
 		public static bool MailKontrol(string mail)
 		{
@@ -39,6 +44,7 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
+
 		public static string FormatliDeger(string deger)//Veriyi 100 =>100.00₺ ye çevirir
 		{
 			if (string.IsNullOrWhiteSpace(deger))
@@ -52,9 +58,72 @@ namespace Restoran_Otomasyon
 			return degerDecimal.ToString("N2") + "₺";
 		}
 
+		//Bunda hayla bir sorun var son eklenen ürünün türüne göre fotmatlıyor hepsini olması gereken şey her satırdaki MalzemeTur Sütununu okuyup o satırdaki tüm formatla işlemlerini burada okuduğu türe göre işlemlerini gerçekleştirmeli bu sayede grid içerisinde birden fazla Ture göre formatlama sağlanmalı
+		public static void gridFormatStokMiktari(DataGridView dataGridView, string hedefSutunAdi)
+		{
+			// Olay dinleyicisini tanımlayalım
+			DataGridViewCellFormattingEventHandler gridFormatStokMiktariHandler = null;
+
+			// Olay dinleyicisini oluşturalım
+			gridFormatStokMiktariHandler = (sender, args) =>
+			{
+				if (args.Value != null && args.Value != DBNull.Value && args.ColumnIndex == dataGridView.Columns[hedefSutunAdi].Index)
+				{
+					var row = dataGridView.Rows[args.RowIndex];
+					var turValue = row.Cells["MalzemeTur"].Value?.ToString(); // Malzeme türünü al
+
+					if (!string.IsNullOrEmpty(turValue))
+					{
+						decimal deger;
+						if (decimal.TryParse(args.Value.ToString(), out deger)) // Decimal'e dönüşümü TryParse ile güvenli hale getirdik
+						{
+							string birim = "";
+
+							switch (turValue)
+							{
+								case "Kg":
+									birim = "Kg";
+									deger = deger / 1000;
+									break;
+								case "Litre":
+									birim = "Litre";
+									deger = deger / 1000;
+									break;
+								case "Adet":
+									birim = "Adet";
+
+									break;
+								default:
+									birim = "";
+									break;
+
+							}
+							string formatliDeger = BirimFormatı(deger, birim);
+							args.Value = formatliDeger;
+							
+							
+							args.FormattingApplied = true;
+
+						}
+					}
+				}
+			};
+
+			// Olay dinleyicisini ekleyelim
+			dataGridView.CellFormatting += gridFormatStokMiktariHandler;
+		}
+
 		public static string BirimFormatı(decimal deger, string birim)
 		{
-			string formatliDeger = deger.ToString("N2"); // Gelen değeri belirtilen format ile string'e çevir
+			string formatliDeger;
+
+			// Adet birimiyse, ondalık kısmı kaldırarak formatla
+			if (birim == "Adet")
+				formatliDeger = Math.Round(deger).ToString();
+			else
+				formatliDeger = deger.ToString("N2"); // Diğer birimler için standart format
+
+			// Birim ekle
 			switch (birim)
 			{
 				case "Kg":
@@ -70,63 +139,11 @@ namespace Restoran_Otomasyon
 			return formatliDeger;
 		}
 
-		public static void gridFormatStokMiktari(DataGridView dataGridView, string hedefSutunAdi, DataGridViewCellFormattingEventArgs e)
-		{
-			dataGridView.CellFormatting += (sender, args) =>
-			{
-				if (args.Value != null && args.Value != DBNull.Value && args.ColumnIndex == dataGridView.Columns[hedefSutunAdi].Index)
-				{
-					var row = dataGridView.Rows[args.RowIndex];
-					var turValue = row.Cells["MalzemeTur"].Value?.ToString(); // Null-check ekledik
 
-					string birim;
-					switch (turValue)
-					{
-						case "Kg":
-							birim = "Kg";
-							break;
-						case "Litre":
-							birim = "Litre";
-							break;
-						case "Adet":
-							birim = "Adet";
-							break;
-						default:
-							birim = ""; // Varsayılan olarak boş birim belirle
-							break;
-					}
-
-					// Eğer birim belirlenmişse ve args.Value null veya boş bir string değilse, değeri uygun formata dönüştür ve DataGridView hücresine atayarak uygula
-					if (!string.IsNullOrEmpty(birim) && !string.IsNullOrEmpty(args.Value?.ToString())) // Null-check ekledik
-					{
-						decimal deger;
-						if (decimal.TryParse(args.Value.ToString(), out deger)) // Decimal'e dönüşümü TryParse ile güvenli hale getirdik
-						{
-							// Birim kontrolü yaparak değeri uygun şekilde dönüştürme
-							if (birim == "Kg" || birim == "Litre")
-							{
-								deger = deger / 1000; // Gramı kilograma veya litreye dönüştürme
-							}
-							// Diğer birimler için herhangi bir işlem yapmıyoruz, değeri değiştirmiyoruz
-							string formatliDeger = BirimFormatı(deger, birim);
-							args.Value = formatliDeger;
-							args.FormattingApplied = true;
-						}
-						else
-						{
-							// Değerin decimal'e dönüşümü başarısız olduğunda uygun bir işlem yapılabilir
-							// Örneğin:
-							// args.Value = "Geçersiz Değer";
-							// args.FormattingApplied = true;
-						}
-					}
-				}
-			};
-		}
 		public static decimal TemizleVeDondur(TextBox textBox, string birim)
 		{
 			string text = textBox.Text.Trim(); // Textbox'tan değeri alırken baştaki ve sondaki boşlukları temizle
-			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't','₺'); // Textbox'tan birim ifadesini temizle
+			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't', '₺'); // Textbox'tan birim ifadesini temizle
 
 			// Temizlenmiş değeri uygun formata dönüştür ve decimal türüne dönüştür
 			decimal deger;
@@ -141,8 +158,6 @@ namespace Restoran_Otomasyon
 			}
 			return deger;
 		}
-
-
 
 		public static string FormatsizDeger(string deger)
 		{
@@ -230,8 +245,6 @@ namespace Restoran_Otomasyon
 				return Boyutlandir(image, width, height);
 			}
 		}
-
-
 
 		public static bool HepsiDoluMu(GroupBox groupBox)
 		{

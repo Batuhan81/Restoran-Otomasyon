@@ -1,4 +1,5 @@
 ﻿using Restoran_Otomasyon.Data;
+using Restoran_Otomasyon.Paneller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,8 +37,8 @@ namespace Restoran_Otomasyon
 				}
 				else if(kullanici.Ad == "Admin")
 				{
-					//Admin Paneli
-					MessageBox.Show("Admin paneli");
+					Admin_Paneli git=new Admin_Paneli();
+					git.Show();
 				}
 				else if (kullanici.Ad == "Mutfak")
 				{
@@ -47,6 +48,7 @@ namespace Restoran_Otomasyon
 				{
 					MessageBox.Show("Kullanıcı Bulunamadı Lütfen Bilgileri Kontrol Ediniz");
 				}
+				this.Close();
 			}
 			else
 			{

@@ -101,6 +101,7 @@ namespace Restoran_Otomasyon
 			TedarikciList();
 			//gridTedarikci.Columns["AdresID"].Visible = false;
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridTedarikci);
+			gridTedarikci.Columns["Id"].Visible = false;
 		}
 
 		private void button2_Click(object sender, EventArgs e)
