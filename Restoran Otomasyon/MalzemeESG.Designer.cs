@@ -29,9 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.hiddenTedarikciId = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.hiddenMalzemeId = new System.Windows.Forms.TextBox();
@@ -44,7 +44,6 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupMalzeme = new System.Windows.Forms.GroupBox();
-			this.StokGir = new System.Windows.Forms.Button();
 			this.txtmax = new System.Windows.Forms.TextBox();
 			this.txtmin = new System.Windows.Forms.TextBox();
 			this.txtstok = new System.Windows.Forms.TextBox();
@@ -57,6 +56,7 @@
 			this.label11 = new System.Windows.Forms.Label();
 			this.gridMalzeme = new System.Windows.Forms.DataGridView();
 			this.hiddenStokId = new System.Windows.Forms.TextBox();
+			this.StokGir = new System.Windows.Forms.Button();
 			this.groupMalzeme.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridMalzeme)).BeginInit();
 			this.SuspendLayout();
@@ -196,17 +196,6 @@
 			this.groupMalzeme.TabStop = false;
 			this.groupMalzeme.Text = "Malzeme Bilgileri";
 			// 
-			// StokGir
-			// 
-			this.StokGir.Location = new System.Drawing.Point(104, 712);
-			this.StokGir.Margin = new System.Windows.Forms.Padding(4);
-			this.StokGir.Name = "StokGir";
-			this.StokGir.Size = new System.Drawing.Size(177, 66);
-			this.StokGir.TabIndex = 8;
-			this.StokGir.Text = "Stok Girdi";
-			this.StokGir.UseVisualStyleBackColor = true;
-			this.StokGir.Click += new System.EventHandler(this.StokGir_Click);
-			// 
 			// txtmax
 			// 
 			this.txtmax.Location = new System.Drawing.Point(133, 435);
@@ -312,34 +301,34 @@
 			// gridMalzeme
 			// 
 			this.gridMalzeme.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridMalzeme.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridMalzeme.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this.gridMalzeme.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridMalzeme.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridMalzeme.DefaultCellStyle = dataGridViewCellStyle8;
 			this.gridMalzeme.Location = new System.Drawing.Point(414, 13);
 			this.gridMalzeme.Margin = new System.Windows.Forms.Padding(4);
 			this.gridMalzeme.Name = "gridMalzeme";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridMalzeme.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridMalzeme.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
 			this.gridMalzeme.RowHeadersWidth = 51;
 			this.gridMalzeme.RowTemplate.Height = 24;
 			this.gridMalzeme.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -356,6 +345,17 @@
 			this.hiddenStokId.Size = new System.Drawing.Size(49, 24);
 			this.hiddenStokId.TabIndex = 45;
 			this.hiddenStokId.Visible = false;
+			// 
+			// StokGir
+			// 
+			this.StokGir.Location = new System.Drawing.Point(104, 712);
+			this.StokGir.Margin = new System.Windows.Forms.Padding(4);
+			this.StokGir.Name = "StokGir";
+			this.StokGir.Size = new System.Drawing.Size(177, 66);
+			this.StokGir.TabIndex = 8;
+			this.StokGir.Text = "Stok Girdi";
+			this.StokGir.UseVisualStyleBackColor = true;
+			this.StokGir.Click += new System.EventHandler(this.StokGir_Click);
 			// 
 			// MalzemeESG
 			// 

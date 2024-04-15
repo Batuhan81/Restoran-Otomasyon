@@ -223,6 +223,18 @@
     <Compile Include="Giris.Designer.cs">
       <DependentUpon>Giris.cs</DependentUpon>
     </Compile>
+    <Compile Include="Paneller\KategoriESG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paneller\KategoriESG.Designer.cs">
+      <DependentUpon>KategoriESG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UrunESG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UrunESG.Designer.cs">
+      <DependentUpon>UrunESG.cs</DependentUpon>
+    </Compile>
     <Compile Include="Yardimcilar.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Paneller\Admin_Paneli.cs">
@@ -257,12 +269,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Admin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Admin.Designer.cs">
-      <DependentUpon>Admin.cs</DependentUpon>
-    </Compile>
     <Compile Include="SifremiUnuttum.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,6 +305,12 @@
     <EmbeddedResource Include="MalzemeESG.resx">
       <DependentUpon>MalzemeESG.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Paneller\KategoriESG.resx">
+      <DependentUpon>KategoriESG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UrunESG.resx">
+      <DependentUpon>UrunESG.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StokGirdiESG.resx">
       <DependentUpon>StokGirdiESG.cs</DependentUpon>
     </EmbeddedResource>
@@ -315,9 +327,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Admin.resx">
-      <DependentUpon>Admin.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SifremiUnuttum.resx">
       <DependentUpon>SifremiUnuttum.cs</DependentUpon>
     </EmbeddedResource>

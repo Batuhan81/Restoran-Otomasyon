@@ -37,6 +37,9 @@
 			this.stokİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.stokGirdisiEkleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.malzemeEkleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ürünİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.kategoriEkleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ürünOluşturToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -47,7 +50,8 @@
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.çalışanİşlemleriToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.stokİşlemleriToolStripMenuItem});
+            this.stokİşlemleriToolStripMenuItem,
+            this.ürünİşlemleriToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(1672, 31);
@@ -105,16 +109,39 @@
 			// stokGirdisiEkleToolStripMenuItem
 			// 
 			this.stokGirdisiEkleToolStripMenuItem.Name = "stokGirdisiEkleToolStripMenuItem";
-			this.stokGirdisiEkleToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.stokGirdisiEkleToolStripMenuItem.Size = new System.Drawing.Size(219, 28);
 			this.stokGirdisiEkleToolStripMenuItem.Text = "Stok Girdisi Ekle";
 			this.stokGirdisiEkleToolStripMenuItem.Click += new System.EventHandler(this.stokGirdisiEkleToolStripMenuItem_Click);
 			// 
 			// malzemeEkleToolStripMenuItem
 			// 
 			this.malzemeEkleToolStripMenuItem.Name = "malzemeEkleToolStripMenuItem";
-			this.malzemeEkleToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.malzemeEkleToolStripMenuItem.Size = new System.Drawing.Size(219, 28);
 			this.malzemeEkleToolStripMenuItem.Text = "Malzeme Ekle";
 			this.malzemeEkleToolStripMenuItem.Click += new System.EventHandler(this.malzemeEkleToolStripMenuItem_Click);
+			// 
+			// ürünİşlemleriToolStripMenuItem
+			// 
+			this.ürünİşlemleriToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kategoriEkleToolStripMenuItem,
+            this.ürünOluşturToolStripMenuItem});
+			this.ürünİşlemleriToolStripMenuItem.Name = "ürünİşlemleriToolStripMenuItem";
+			this.ürünİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(133, 27);
+			this.ürünİşlemleriToolStripMenuItem.Text = "Ürün İşlemleri";
+			// 
+			// kategoriEkleToolStripMenuItem
+			// 
+			this.kategoriEkleToolStripMenuItem.Name = "kategoriEkleToolStripMenuItem";
+			this.kategoriEkleToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.kategoriEkleToolStripMenuItem.Text = "Kategori Ekle";
+			this.kategoriEkleToolStripMenuItem.Click += new System.EventHandler(this.kategoriEkleToolStripMenuItem_Click);
+			// 
+			// ürünOluşturToolStripMenuItem
+			// 
+			this.ürünOluşturToolStripMenuItem.Name = "ürünOluşturToolStripMenuItem";
+			this.ürünOluşturToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.ürünOluşturToolStripMenuItem.Text = "Ürün Oluştur";
+			this.ürünOluşturToolStripMenuItem.Click += new System.EventHandler(this.ürünOluşturToolStripMenuItem_Click);
 			// 
 			// Admin_Paneli
 			// 
@@ -147,5 +174,8 @@
 		private System.Windows.Forms.ToolStripMenuItem stokİşlemleriToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem stokGirdisiEkleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem malzemeEkleToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ürünİşlemleriToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem kategoriEkleToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ürünOluşturToolStripMenuItem;
 	}
 }

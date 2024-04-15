@@ -129,10 +129,10 @@ namespace Restoran_Otomasyon.Paneller
 		private void RolleriDoldur()
 		{
 			// Profesörleri veritabanından al ve combo box'a doldur
-			var profesorler = db.Roller.ToList();
-			ComboRol.DisplayMember = "Ad"; // ComboBox'ta görünecek metin profesör adı olacak
-			ComboRol.ValueMember = "Id"; // ComboBox'ta saklanacak değer profesör ID'si olacak
-			ComboRol.DataSource = profesorler;
+			var Roller = db.Roller.ToList();
+			ComboRol.DisplayMember = "Ad";
+			ComboRol.ValueMember = "Id"; 
+			ComboRol.DataSource = Roller;
 		}
 
 		void PersonelList()

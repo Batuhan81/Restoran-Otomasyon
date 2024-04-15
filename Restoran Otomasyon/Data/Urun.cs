@@ -19,7 +19,11 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Akitf { get; set; }
 
-		public int IndirimliFiyat { get; set; }
+		public DateTime IndirimTarihi { get; set; }
+
+		public decimal IndirimliFiyat { get; set; }
+
+		public int IndirimYuzdesi { get; set; }
 
 		public int KategorId { get; set; }
 

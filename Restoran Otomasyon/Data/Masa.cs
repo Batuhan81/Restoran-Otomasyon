@@ -9,11 +9,10 @@ namespace Restoran_Otomasyon.Data
 
 		public string Kod { get; set; }
 
-		public bool Durum { get; set; }
+		public int Durum { get; set; }
 
 		public int Kapasite { get; set; }
 
-		public bool Temizlik { get; set; }
 
 		public decimal Tutar { get; set; }
 

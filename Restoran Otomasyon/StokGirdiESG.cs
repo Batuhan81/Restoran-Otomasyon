@@ -40,7 +40,6 @@ namespace Restoran_Otomasyon.Paneller
 				
 				if (hiddensStokGirdiId.Text == "")
 				{
-					
 					girdi.Tarih = DateTime.Now;
 					girdi.TedarikciId = Convert.ToInt32(hiddenTedarikciId.Text);
 					girdi.AlısFiyati = fiyatformatsiz;
@@ -51,7 +50,6 @@ namespace Restoran_Otomasyon.Paneller
 					
 					if (Olcu != "Adet")
 					{
-						
 						stok.Miktar = ((stok.Miktar / 1000) + alinanMikFormatsız) * 1000;
 						islemSonu = stok.Miktar;
 
@@ -64,15 +62,12 @@ namespace Restoran_Otomasyon.Paneller
 						girdi.Miktar = alisMiktari;
 					}
 					girdi.SonStokMiktari = islemSonu;
-
-					
 					db.StokGirdiler.Add(girdi);
-					db.SaveChanges(); // Değişiklikleri veritabanına kaydet
+					db.SaveChanges();
 					timer1.Start();
 					MessageBox.Show("Yeni Stok Girdisi Kayıt Edildi");
 				}
-				// Eğer varolan bir stok girdisi güncelleniyorsa
-				else
+				else// Eğer varolan bir stok girdisi güncelleniyorsa
 				{
 					// Malzeme bazında en son eklenen stok girdisini bul
 					var sonStokGirdisi = db.StokGirdiler
@@ -105,9 +100,7 @@ namespace Restoran_Otomasyon.Paneller
 						// Eğer güncelleme yapılmadan önceki miktar ile güncellenmek istenen miktar aynı değilse
 						if (alisMiktari != guncellemedenAlinan)
 						{
-							//Seçilen malzemenin IDsinden Olcu türünü al
-																								  // Ölçü birimi "Adet" değilse miktarı gram cinsine çevirerek güncelle
-							if (Olcu != "Adet")
+							if (Olcu != "Adet") // Ölçü birimi "Adet" değilse miktarı gram cinsine çevirerek güncelle
 							{
 								ilgiliStok.Miktar = alisMiktari * 1000;
 								sonStokGirdisi.Miktar += alisMiktari * 1000;
@@ -160,38 +153,31 @@ namespace Restoran_Otomasyon.Paneller
 											   {
 												   Id = o.Id,
 												   GirdiMiktar = o.Miktar,
-												   TedarikciAdi = o.Tedarikci.Ad, // Tedarikçi adını al
-												   MalzemeAdi = o.Malzeme.Ad, // Malzeme adını al
+												   TedarikciAdi = o.Tedarikci.Ad, 
+												   MalzemeAdi = o.Malzeme.Ad,
 												   AlisFiyati = o.AlısFiyati,
 												   TedarikciId = o.TedarikciId,
 												   MalzemeId = o.MalzemeId,
 												   İşlemSonuStok = o.SonStokMiktari,
 												   GirdiTarih = o.Tarih,
 												   MalzemeTur = db.Malzemeler.Where(s=>s.Id== o.MalzemeId).Select(x=>x.Tur).FirstOrDefault(),
-												   //db.Stoklar
-												   //	 .Where(s => s.MalzemeId == o.MalzemeId)
-												   //	 .Select(s => s.Miktar)
-												   //	 .FirstOrDefault() // Malzeme ID'sine göre stok miktarını al
 											   })
 											   .ToList();
-			// DataGridView kontrolüne verileri bağla
 			gridStokGirdi.DataSource = stokGirdiler;
 
-			// DataGridView'deki sütunları düzenleme
+			// DataGridView'deki sütunları düzenleme ve Gizleme
 			gridStokGirdi.Columns["Id"].DisplayIndex = 0; // Girdi ID sütununu en başa al
 			gridStokGirdi.Columns["TedarikciId"].Visible = false;
 			gridStokGirdi.Columns["MalzemeId"].Visible = false;
-			gridStokGirdi.Columns["MalzemeTur"].Visible = true;
-
+			gridStokGirdi.Columns["MalzemeTur"].Visible = false;
+			gridStokGirdi.Columns["Id"].Visible = false;
 		}
-
 
 		private void StokGirdiESG_Load(object sender, EventArgs e)
 		{
 			malzemeleriDoldur();
 			Girdilİstesi();
 			Yardimcilar.GridRenklendir(gridStokGirdi);
-			gridStokGirdi.Columns["Id"].Visible = false;
 			Olcu="";
 		}
 		

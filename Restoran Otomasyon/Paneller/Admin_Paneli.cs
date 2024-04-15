@@ -51,5 +51,17 @@ namespace Restoran_Otomasyon.Paneller
 			MalzemeESG git=new MalzemeESG();
 			git.Show();
 		}
+
+		private void kategoriEkleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			KategoriESG git=new KategoriESG();	
+			git.Show();
+		}
+
+		private void ürünOluşturToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			UrunESG git = new UrunESG();
+			git.Show();
+		}
 	}
 }
