@@ -72,8 +72,25 @@ namespace Restoran_Otomasyon.Paneller
 				newRow.Cells[2].Value = 1; // Başlangıçta miktarı 1 olarak ayarla
 				newRow.Cells[3].Value = "+";
 				newRow.Cells[4].Value = "-";
+				// Malzeme ID'sini saklamak için gizli bir sütun ekle
+				gridSecilenMalzemeler.Columns["MalzemeID"].Visible = false;
 				gridSecilenMalzemeler.Rows.Add(newRow);
 			}
+			//else // Eğer işaret kaldırılan bir öğe ise
+			//{
+			//	string secilenMalzemeAdi = checkedListMalzeme.Items[e.Index].ToString();
+
+			//	// Kontrol etmek için gridSecilenMalzemeler'deki her bir satırdaki malzeme adını ara
+			//	foreach (DataGridViewRow existingRow in gridSecilenMalzemeler.Rows)
+			//	{
+			//		if (existingRow.Cells["MalzemeAdi"].Value != null && existingRow.Cells["MalzemeAdi"].Value.ToString() == secilenMalzemeAdi)
+			//		{
+			//			// Eğer aynı malzeme listede varsa, satırı sil
+			//			gridSecilenMalzemeler.Rows.Remove(existingRow);
+			//			break;
+			//		}
+			//	}
+			//}
 		}
 
 
@@ -126,6 +143,8 @@ namespace Restoran_Otomasyon.Paneller
 								urn.KategorId = (int)comboKategori.SelectedValue;
 								urn.Gorunurluk = true;
 								db.Urunler.Add(urn);
+								timer1.Start();
+								MessageBox.Show("Yeni Ürün Kayıt Edildi");
 							}
 							else//Güncelleme İşlemi
 							{
@@ -148,6 +167,8 @@ namespace Restoran_Otomasyon.Paneller
 								x.IndirimliFiyat = decimal.Parse(txtindirimli.Text);
 								x.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 								x.KategorId = (int)comboKategori.SelectedValue;
+								timer1.Start();
+								MessageBox.Show("Ürün Güncellendi");
 							}
 							Yardimcilar.Temizle(groupUrun);
 							db.SaveChanges();
@@ -358,6 +379,45 @@ namespace Restoran_Otomasyon.Paneller
 				Image resizedImage = Yardimcilar.ResimBoyutlandir.Boyutlandir(selectedImage, pictureBox1.Width, pictureBox1.Height);
 				pictureBox1.Image = resizedImage;
 			}
+		}
+
+		private void button2_Click(object sender, EventArgs e)//Sil butonu
+		{
+			int UrunId = Convert.ToInt32(hiddenUrunId.Text);
+			//int Urunler = db.Urunler.Count(k => k.KategorId == UrunId);//Bu kısım menüler bu ürünü kullanıyorsa olarak güncellenecek
+
+
+			//if (Urunler == 0)
+			//{
+			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result == DialogResult.Yes)
+			{
+				if (hiddenUrunId.Text != "")//Ürünün görünürlüğünün kapattım
+				{
+					int id = Convert.ToInt32(hiddenUrunId.Text);
+					var urun = db.Urunler.Find(id);
+					urun.Gorunurluk = false;
+					db.SaveChanges();
+					timer1.Start();
+					MessageBox.Show("Kayıt Silindi");
+					Yardimcilar.Temizle(groupUrun);
+					// Ürüne ait malzemeleri bul
+					var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == UrunId).ToList();
+
+					// Her bir malzemenin görünürlüğünü kapat
+					foreach (var urunMalzeme in urunMalzemeler)
+					{
+						urunMalzeme.Gorunurluk = false;
+					}
+					Urunlist();
+				}
+			}
+			//}
+			//else
+			//{
+			//	timer1.Start();
+			//	MessageBox.Show($"Silmek İstediğiniz Kategoriye  Ait {Urunler}  Adet Ürün Var", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			//}
 		}
 	}
 }

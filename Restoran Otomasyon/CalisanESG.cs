@@ -42,7 +42,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (Yardimcilar.HepsiDoluMu(groupPersonel))
 			{
-				fotouzanti=uzanti.Text;
+				fotouzanti = uzanti.Text;
 				if (fotouzanti != "")
 				{
 					if (!Yardimcilar.GecerliTarihMi(txtdogumT.Text) && !Yardimcilar.GecerliTarihMi(txtbaslamaT.Text))
@@ -131,7 +131,7 @@ namespace Restoran_Otomasyon.Paneller
 			// Profesörleri veritabanından al ve combo box'a doldur
 			var Roller = db.Roller.ToList();
 			ComboRol.DisplayMember = "Ad";
-			ComboRol.ValueMember = "Id"; 
+			ComboRol.ValueMember = "Id";
 			ComboRol.DataSource = Roller;
 		}
 
@@ -181,8 +181,8 @@ namespace Restoran_Otomasyon.Paneller
 				txtsoyad.Text = row.Cells["Soyad"].Value.ToString();
 				txteposta.Text = row.Cells["Eposta"].Value.ToString();
 				txttelefon.Text = row.Cells["Telefon"].Value.ToString();
-				string maas= row.Cells["Maas"].Value.ToString();
-				maasformatsız=Decimal.Parse(maas);
+				string maas = row.Cells["Maas"].Value.ToString();
+				maasformatsız = Decimal.Parse(maas);
 				txtmaas.Text = Yardimcilar.FormatliDeger(maas);//amaç 100 geleni 100.00₺ yapmak ama arkada hayla 100
 				txtdogumT.Text = row.Cells["Doğum_Tarihi"].Value.ToString();
 				txtbaslamaT.Text = row.Cells["Baslangıç_Tarihi"].Value.ToString();
@@ -265,13 +265,15 @@ namespace Restoran_Otomasyon.Paneller
 		Decimal maasformatsız;
 		private void txtmaas_Leave(object sender, EventArgs e)
 		{
-			maasformatsız=Convert.ToDecimal(txtmaas.Text);
-			txtmaas.Text=Yardimcilar.FormatliDeger(txtmaas.Text);
+
+			maasformatsız = Convert.ToDecimal(Yardimcilar.FormatsizDeger(txtmaas.Text));
+			txtmaas.Text=maasformatsız.ToString();
+			txtmaas.Text = Yardimcilar.FormatliDeger(txtmaas.Text);
 		}
 
 		private void uzanti_TextChanged(object sender, EventArgs e)
 		{
-			fotouzanti=uzanti.Text;
+			fotouzanti = uzanti.Text;
 		}
 	}
 }

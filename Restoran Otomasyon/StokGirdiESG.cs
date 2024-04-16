@@ -29,15 +29,15 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			
+
 			if (Yardimcilar.HepsiDoluMu(groupGirdi))
 			{
 				malzemeId = (int)comboMalzeme.SelectedValue;
 				stokID = Convert.ToInt32(hiddenStokId.Text);
-				
+
 				alisMiktari = alinanMikFormatsız;
 				var stok = db.Stoklar.Find(stokID);
-				
+
 				if (hiddensStokGirdiId.Text == "")
 				{
 					girdi.Tarih = DateTime.Now;
@@ -47,7 +47,7 @@ namespace Restoran_Otomasyon.Paneller
 					var stokKaydi = db.Stoklar.FirstOrDefault(s => s.Malzeme.Id == malzemeId);
 					int selectedMalzemeId = (int)comboMalzeme.SelectedValue;
 					Olcu = db.Malzemeler.FirstOrDefault(o => o.Id == selectedMalzemeId).Tur;
-					
+
 					if (Olcu != "Adet")
 					{
 						stok.Miktar = ((stok.Miktar / 1000) + alinanMikFormatsız) * 1000;
@@ -101,7 +101,7 @@ namespace Restoran_Otomasyon.Paneller
 
 						// Stok miktarını al
 						decimal oncekiStokMiktari = ilgiliStok.Miktar;
-						
+
 						// Eğer güncelleme yapılmadan önceki miktar ile güncellenmek istenen miktar aynı değilse
 						if (alisMiktari != guncellemedenAlinan)
 						{
@@ -140,7 +140,7 @@ namespace Restoran_Otomasyon.Paneller
 					}
 				}
 				// Yenileme ve temizleme işlemleri
-				db.SaveChanges(); 
+				db.SaveChanges();
 				Yardimcilar.Temizle(groupGirdi);
 				Girdilİstesi();
 				hiddenTedarikciId.Text = "";
@@ -163,14 +163,14 @@ namespace Restoran_Otomasyon.Paneller
 											   {
 												   Id = o.Id,
 												   GirdiMiktar = o.Miktar,
-												   TedarikciAdi = o.Tedarikci.AdSoyad, 
+												   TedarikciAdi = o.Tedarikci.AdSoyad,
 												   MalzemeAdi = o.Malzeme.Ad,
 												   AlisFiyati = o.AlısFiyati,
 												   TedarikciId = o.TedarikciId,
 												   MalzemeId = o.MalzemeId,
 												   İşlemSonuStok = o.SonStokMiktari,
 												   GirdiTarih = o.Tarih,
-												   MalzemeTur = db.Malzemeler.Where(s=>s.Id== o.MalzemeId).Select(x=>x.Tur).FirstOrDefault(),
+												   MalzemeTur = db.Malzemeler.Where(s => s.Id == o.MalzemeId).Select(x => x.Tur).FirstOrDefault(),
 											   })
 											   .ToList();
 			gridStokGirdi.DataSource = stokGirdiler;
@@ -188,18 +188,18 @@ namespace Restoran_Otomasyon.Paneller
 			malzemeleriDoldur();
 			Girdilİstesi();
 			Yardimcilar.GridRenklendir(gridStokGirdi);
-			
+
 		}
-		
+
 		void malzemeleriDoldur()
 		{
-			// Profesörleri veritabanından al ve combo box'a doldur
-			var malzemeler = db.Malzemeler.ToList();
-			comboMalzeme.DisplayMember = "Ad"; // ComboBox'ta görünecek metin profesör adı olacak
-			comboMalzeme.ValueMember = "Id"; // ComboBox'ta saklanacak değer profesör ID'si olacak
-			comboMalzeme.DataSource = malzemeler; 
-			
+			// Görünürlüğü true olan malzemeleri veritabanından al ve combo box'a doldur
+			var malzemeler = db.Malzemeler.Where(m => m.Gorunurluk).ToList();
+			comboMalzeme.DisplayMember = "Ad"; // ComboBox'ta görünecek metin malzeme adı olacak
+			comboMalzeme.ValueMember = "Id"; // ComboBox'ta saklanacak değer malzeme ID'si olacak
+			comboMalzeme.DataSource = malzemeler;
 		}
+
 		string Olcu;
 		private void comboMalzeme_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -221,7 +221,7 @@ namespace Restoran_Otomasyon.Paneller
 				txtfirma.Text = Firma;
 				txtTedarikci.Text = tedarikciAdi;
 				hiddenTedarikciId.Text = tedarikciId.ToString();
-				
+
 			}
 			else
 			{
@@ -251,13 +251,13 @@ namespace Restoran_Otomasyon.Paneller
 				txtfirma.Text = row.Cells["TedarikciAdi"].Value.ToString();
 				comboMalzeme.Text = row.Cells["MalzemeAdi"].Value.ToString();
 				txtAlisF.Text = row.Cells["AlisFiyati"].Value.ToString();
-				int tedarikciId =Convert.ToInt32( row.Cells["TedarikciId"].Value.ToString());
+				int tedarikciId = Convert.ToInt32(row.Cells["TedarikciId"].Value.ToString());
 				hiddenMalzemeId.Text = row.Cells["MalzemeId"].Value.ToString();
 				malzemeId = Convert.ToInt32(hiddenMalzemeId.Text);
 
-				hiddenTedarikciId.Text=tedarikciId.ToString();
-				txtfirma.Text=db.Tedarikciler.FirstOrDefault(o => o.Id== tedarikciId).Firma;
-				txtTedarikci.Text=db.Tedarikciler.FirstOrDefault(o => o.Id== tedarikciId).AdSoyad;
+				hiddenTedarikciId.Text = tedarikciId.ToString();
+				txtfirma.Text = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikciId).Firma;
+				txtTedarikci.Text = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikciId).AdSoyad;
 				Olcu = row.Cells["MalzemeTur"].Value.ToString();
 				//string islemsonu = gridStokGirdi.CurrentRow.Cells["İşlemSonuStok"].Value.ToString();
 				//formatsizİslemSonu = Convert.ToDecimal(islemsonu);
@@ -288,14 +288,20 @@ namespace Restoran_Otomasyon.Paneller
 		decimal alinanMikFormatsız;
 		private void txtalinanMik_Leave(object sender, EventArgs e)
 		{
-			alinanMikFormatsız = Yardimcilar.TemizleVeDondur(txtalinanMik, Olcu);
-			txtalinanMik.Text = Yardimcilar.BirimFormatı(alinanMikFormatsız, Olcu);
+			if (txtalinanMik.Text != "")
+			{
+				alinanMikFormatsız = Yardimcilar.TemizleVeDondur(txtalinanMik, Olcu);
+				txtalinanMik.Text = Yardimcilar.BirimFormatı(alinanMikFormatsız, Olcu);
+			}
 		}
 		decimal fiyatformatsiz;
 		private void txtAlisF_Leave(object sender, EventArgs e)
 		{
-			fiyatformatsiz = Yardimcilar.TemizleVeDondur(txtAlisF, "");
-			txtAlisF.Text = Yardimcilar.FormatliDeger(txtAlisF.Text);
+			if (txtalinanMik.Text != "")
+			{
+				fiyatformatsiz = Yardimcilar.TemizleVeDondur(txtAlisF, "");
+				txtAlisF.Text = Yardimcilar.FormatliDeger(txtAlisF.Text);
+			}
 		}
 
 		private void gridStokGirdi_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

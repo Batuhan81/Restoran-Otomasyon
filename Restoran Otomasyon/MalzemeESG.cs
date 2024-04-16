@@ -91,6 +91,9 @@ namespace Restoran_Otomasyon.Paneller
 				Yardimcilar.Temizle(groupMalzeme);
 				MalzemeList();
 				txtstok.Text = "0";
+				hiddenMalzemeId.Text = "";
+				hiddenTedarikciId.Text = "";
+				hiddenMalzemeId.Text = "";
 			}
 			else
 			{
@@ -113,7 +116,7 @@ namespace Restoran_Otomasyon.Paneller
 										   StokMiktar = stok.Miktar,
 										   StokMin = stok.MinStok,
 										   StokMax = stok.MaxStok,
-										   TedarikciFirma=tedarikci.Firma,
+										   TedarikciFirma = tedarikci.Firma,
 										   TedarikciAd = tedarikci.AdSoyad,
 										   TedarikciId = tedarikci.Id, // Tedarikçi ID'sini gösteriyoruz
 										   StokId = stok.Id,
@@ -133,6 +136,7 @@ namespace Restoran_Otomasyon.Paneller
 			TedarikciDoldur();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridMalzeme);
 			gridMalzeme.Columns["MalzemeId"].Visible = false;
+			
 		}
 
 		private void gridMalzeme_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -155,23 +159,46 @@ namespace Restoran_Otomasyon.Paneller
 				txtfiyat.Text = Yardimcilar.FormatliDeger(fiyat);
 
 				string stok = row.Cells["StokMiktar"].Value.ToString();
-				formatsizStok = Convert.ToDecimal(stok)/1000;
-				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
-
-
 				string minstok = row.Cells["StokMin"].Value.ToString();
-				formatsizMin = Convert.ToDecimal(minstok) / 1000;
+				string maxstok = row.Cells["StokMax"].Value.ToString();
+
+				if (olcu != "Adet")
+				{
+					formatsizStok = Convert.ToDecimal(stok) / 1000;
+					formatsizMin = Convert.ToDecimal(minstok) / 1000;
+					formatsizMax = Convert.ToDecimal(maxstok) / 1000;
+				}
+				else
+				{
+					formatsizStok = Convert.ToDecimal(stok) ;
+					formatsizMin = Convert.ToDecimal(minstok) ;
+					formatsizMax = Convert.ToDecimal(maxstok) ;
+				}
+				txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
+				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
 				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
 
-				string maxstok = row.Cells["StokMax"].Value.ToString();
-				formatsizMax = Convert.ToDecimal(maxstok) / 1000;
-				txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
 			}
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
+			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result == DialogResult.Yes)
+			{
+				if (hiddenMalzemeId.Text != "")//Ürünün görünürlüğünün kapattım
+				{
+					int id = Convert.ToInt32(hiddenMalzemeId.Text);
+					var malzeme = db.Malzemeler.Find(id);
+					malzeme.Gorunurluk = false;
+					db.SaveChanges();
+					timer1.Start();
+					MessageBox.Show("Kayıt Silindi");
+					Yardimcilar.Temizle(groupMalzeme);
+				}
+			}
 			Yardimcilar.Temizle(groupMalzeme);
+			MalzemeList();
 		}
 
 		private void gridMalzeme_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -184,16 +211,22 @@ namespace Restoran_Otomasyon.Paneller
 		decimal fiyatformatsiz;
 		private void txtfiyat_Leave(object sender, EventArgs e)
 		{
-			fiyatformatsiz = Convert.ToDecimal(txtfiyat.Text);
-			txtfiyat.Text = Yardimcilar.FormatliDeger(txtfiyat.Text);
+			if (txtfiyat.Text != "")
+			{
+				fiyatformatsiz = Decimal.Parse(Yardimcilar.FormatsizDeger(txtfiyat.Text));
+				txtfiyat.Text = Yardimcilar.FormatliDeger(txtfiyat.Text);
+			}
 		}
 		decimal formatsizMin;
 		decimal formatsizMax;
 		decimal formatsizStok;
 		private void txtmin_Leave(object sender, EventArgs e)
 		{
-			formatsizMin = Yardimcilar.TemizleVeDondur(txtmin,olcu);
-			txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
+			if (txtmin.Text != "")
+			{
+				formatsizMin = Yardimcilar.TemizleVeDondur(txtmin, olcu);
+				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
+			}
 		}
 		string olcu;
 		private void comboOlcu_SelectedIndexChanged(object sender, EventArgs e)
@@ -210,18 +243,29 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				olcu = "Adet";
 			}
+			if (txtstok.Text != "")
+			{
+				formatsizStok = Yardimcilar.TemizleVeDondur(txtstok, olcu);
+				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
+			}
 		}
 
 		private void txtmax_Leave(object sender, EventArgs e)
 		{
-			formatsizMax = Yardimcilar.TemizleVeDondur(txtmax, olcu);
-			txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
+			if (txtmax.Text != "")
+			{
+				formatsizMax = Yardimcilar.TemizleVeDondur(txtmax, olcu);
+				txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
+			}
 		}
 
 		private void txtstok_Leave(object sender, EventArgs e)
 		{
-			formatsizStok = Yardimcilar.TemizleVeDondur(txtstok, olcu);
-			txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
+			if (txtstok.Text != "")
+			{
+				formatsizStok = Yardimcilar.TemizleVeDondur(txtstok, olcu);
+				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
+			}
 		}
 
 		private void StokGir_Click(object sender, EventArgs e)

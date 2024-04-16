@@ -100,8 +100,8 @@ namespace Restoran_Otomasyon
 							}
 							string formatliDeger = BirimFormatı(deger, birim);
 							args.Value = formatliDeger;
-							
-							
+
+
 							args.FormattingApplied = true;
 
 						}
@@ -158,6 +158,7 @@ namespace Restoran_Otomasyon
 			}
 			return deger;
 		}
+
 
 		public static string FormatsizDeger(string deger)
 		{
