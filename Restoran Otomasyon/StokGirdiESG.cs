@@ -85,6 +85,11 @@ namespace Restoran_Otomasyon.Paneller
 						{
 							timer1.Start();
 							MessageBox.Show("Sadece En Son Eklenen Stok Girdisini Güncelleyebilirsiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+							Yardimcilar.Temizle(groupGirdi);
+							hiddenMalzemeId.Text = "";
+							hiddensStokGirdiId.Text = "";
+							hiddenStokId.Text = "";
+							hiddenTedarikciId.Text = "";
 							return; // İşlemi sonlandır
 						}
 
@@ -122,6 +127,11 @@ namespace Restoran_Otomasyon.Paneller
 							timer1.Start();
 							MessageBox.Show("Stok Girdi Bilgisi Güncellendi");
 						}
+						else
+						{
+							timer1.Start();
+							MessageBox.Show("Miktarda Değişiklik Yapılmadı", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						}
 					}
 					else
 					{
@@ -153,7 +163,7 @@ namespace Restoran_Otomasyon.Paneller
 											   {
 												   Id = o.Id,
 												   GirdiMiktar = o.Miktar,
-												   TedarikciAdi = o.Tedarikci.Ad, 
+												   TedarikciAdi = o.Tedarikci.AdSoyad, 
 												   MalzemeAdi = o.Malzeme.Ad,
 												   AlisFiyati = o.AlısFiyati,
 												   TedarikciId = o.TedarikciId,
@@ -178,7 +188,7 @@ namespace Restoran_Otomasyon.Paneller
 			malzemeleriDoldur();
 			Girdilİstesi();
 			Yardimcilar.GridRenklendir(gridStokGirdi);
-			Olcu="";
+			
 		}
 		
 		void malzemeleriDoldur()
@@ -206,9 +216,12 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				// Seçilen malzemenin en son stok girdisinin tedarikçi Id'sini ve adını al
 				int tedarikciId = sonStokGirdisi.TedarikciId;
-				string tedarikciAdi = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikciId).Ad;
+				string tedarikciAdi = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikciId).AdSoyad;
+				string Firma = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikciId).Firma;
+				txtfirma.Text = Firma;
 				txtTedarikci.Text = tedarikciAdi;
 				hiddenTedarikciId.Text = tedarikciId.ToString();
+				
 			}
 			else
 			{
@@ -235,13 +248,16 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				DataGridViewRow row = gridStokGirdi.Rows[e.RowIndex];
 				hiddensStokGirdiId.Text = row.Cells["Id"].Value.ToString();
-				txtTedarikci.Text = row.Cells["TedarikciAdi"].Value.ToString();
+				txtfirma.Text = row.Cells["TedarikciAdi"].Value.ToString();
 				comboMalzeme.Text = row.Cells["MalzemeAdi"].Value.ToString();
 				txtAlisF.Text = row.Cells["AlisFiyati"].Value.ToString();
-				hiddenTedarikciId.Text = row.Cells["TedarikciId"].Value.ToString();
+				int tedarikciId =Convert.ToInt32( row.Cells["TedarikciId"].Value.ToString());
 				hiddenMalzemeId.Text = row.Cells["MalzemeId"].Value.ToString();
 				malzemeId = Convert.ToInt32(hiddenMalzemeId.Text);
 
+				hiddenTedarikciId.Text=tedarikciId.ToString();
+				txtfirma.Text=db.Tedarikciler.FirstOrDefault(o => o.Id== tedarikciId).Firma;
+				txtTedarikci.Text=db.Tedarikciler.FirstOrDefault(o => o.Id== tedarikciId).AdSoyad;
 				Olcu = row.Cells["MalzemeTur"].Value.ToString();
 				//string islemsonu = gridStokGirdi.CurrentRow.Cells["İşlemSonuStok"].Value.ToString();
 				//formatsizİslemSonu = Convert.ToDecimal(islemsonu);

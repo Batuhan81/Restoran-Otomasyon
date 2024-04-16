@@ -223,10 +223,10 @@
     <Compile Include="Giris.Designer.cs">
       <DependentUpon>Giris.cs</DependentUpon>
     </Compile>
-    <Compile Include="Paneller\KategoriESG.cs">
+    <Compile Include="KategoriESG.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Paneller\KategoriESG.Designer.cs">
+    <Compile Include="KategoriESG.Designer.cs">
       <DependentUpon>KategoriESG.cs</DependentUpon>
     </Compile>
     <Compile Include="UrunESG.cs">
@@ -305,7 +305,7 @@
     <EmbeddedResource Include="MalzemeESG.resx">
       <DependentUpon>MalzemeESG.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Paneller\KategoriESG.resx">
+    <EmbeddedResource Include="KategoriESG.resx">
       <DependentUpon>KategoriESG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UrunESG.resx">

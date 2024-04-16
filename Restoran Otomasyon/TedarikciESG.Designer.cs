@@ -29,9 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.hiddenAdresID = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.hiddenTedarikciId = new System.Windows.Forms.TextBox();
@@ -42,7 +42,7 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.txteposta = new System.Windows.Forms.TextBox();
 			this.txttelefon = new System.Windows.Forms.MaskedTextBox();
-			this.txtsoyad = new System.Windows.Forms.TextBox();
+			this.txtfirma = new System.Windows.Forms.TextBox();
 			this.label9 = new System.Windows.Forms.Label();
 			this.txtad = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -148,13 +148,13 @@
 			this.txttelefon.Size = new System.Drawing.Size(175, 27);
 			this.txttelefon.TabIndex = 4;
 			// 
-			// txtsoyad
+			// txtfirma
 			// 
-			this.txtsoyad.Location = new System.Drawing.Point(149, 99);
-			this.txtsoyad.Margin = new System.Windows.Forms.Padding(4);
-			this.txtsoyad.Name = "txtsoyad";
-			this.txtsoyad.Size = new System.Drawing.Size(175, 27);
-			this.txtsoyad.TabIndex = 2;
+			this.txtfirma.Location = new System.Drawing.Point(149, 52);
+			this.txtfirma.Margin = new System.Windows.Forms.Padding(4);
+			this.txtfirma.Name = "txtfirma";
+			this.txtfirma.Size = new System.Drawing.Size(175, 27);
+			this.txtfirma.TabIndex = 2;
 			// 
 			// label9
 			// 
@@ -169,7 +169,7 @@
 			// 
 			// txtad
 			// 
-			this.txtad.Location = new System.Drawing.Point(149, 38);
+			this.txtad.Location = new System.Drawing.Point(149, 109);
 			this.txtad.Margin = new System.Windows.Forms.Padding(4);
 			this.txtad.Name = "txtad";
 			this.txtad.Size = new System.Drawing.Size(175, 27);
@@ -201,23 +201,23 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(63, 105);
+			this.label2.Location = new System.Drawing.Point(46, 58);
 			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(56, 16);
+			this.label2.Size = new System.Drawing.Size(73, 16);
 			this.label2.TabIndex = 20;
-			this.label2.Text = "Soyad:";
+			this.label2.Text = "Firma Ad:";
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(89, 44);
+			this.label1.Location = new System.Drawing.Point(19, 120);
 			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(30, 16);
+			this.label1.Size = new System.Drawing.Size(100, 16);
 			this.label1.TabIndex = 19;
-			this.label1.Text = "Ad:";
+			this.label1.Text = "Ad ve Soyad:";
 			// 
 			// groupTedarikci
 			// 
@@ -227,7 +227,7 @@
 			this.groupTedarikci.Controls.Add(this.button1);
 			this.groupTedarikci.Controls.Add(this.txteposta);
 			this.groupTedarikci.Controls.Add(this.txttelefon);
-			this.groupTedarikci.Controls.Add(this.txtsoyad);
+			this.groupTedarikci.Controls.Add(this.txtfirma);
 			this.groupTedarikci.Controls.Add(this.label9);
 			this.groupTedarikci.Controls.Add(this.txtad);
 			this.groupTedarikci.Controls.Add(this.label4);
@@ -246,34 +246,34 @@
 			// gridTedarikci
 			// 
 			this.gridTedarikci.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridTedarikci.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridTedarikci.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.gridTedarikci.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridTedarikci.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridTedarikci.DefaultCellStyle = dataGridViewCellStyle2;
 			this.gridTedarikci.Location = new System.Drawing.Point(414, 13);
 			this.gridTedarikci.Margin = new System.Windows.Forms.Padding(4);
 			this.gridTedarikci.Name = "gridTedarikci";
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridTedarikci.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridTedarikci.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.gridTedarikci.RowHeadersWidth = 51;
 			this.gridTedarikci.RowTemplate.Height = 24;
 			this.gridTedarikci.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -331,7 +331,7 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.TextBox txteposta;
 		private System.Windows.Forms.MaskedTextBox txttelefon;
-		private System.Windows.Forms.TextBox txtsoyad;
+		private System.Windows.Forms.TextBox txtfirma;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.TextBox txtad;
 		private System.Windows.Forms.Label label4;

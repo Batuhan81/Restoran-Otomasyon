@@ -385,7 +385,7 @@
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.gridUrun.DefaultCellStyle = dataGridViewCellStyle2;
-			this.gridUrun.Location = new System.Drawing.Point(425, 8);
+			this.gridUrun.Location = new System.Drawing.Point(434, 7);
 			this.gridUrun.Margin = new System.Windows.Forms.Padding(4);
 			this.gridUrun.Name = "gridUrun";
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;

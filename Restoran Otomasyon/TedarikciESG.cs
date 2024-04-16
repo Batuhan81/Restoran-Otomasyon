@@ -28,8 +28,8 @@ namespace Restoran_Otomasyon
 				{
 					if (hiddenTedarikciId.Text == "")
 					{
-						tedarikci.Ad = txtad.Text;
-						tedarikci.Soyad = txtsoyad.Text;
+						tedarikci.AdSoyad = txtad.Text;
+						tedarikci.Firma = txtfirma.Text;
 						tedarikci.Telefon = txttelefon.Text;
 						tedarikci.Eposta = txteposta.Text;
 						tedarikci.KayitTarihi = DateTime.Now;
@@ -44,8 +44,8 @@ namespace Restoran_Otomasyon
 					{
 						int id = Convert.ToInt32(hiddenTedarikciId.Text);
 						var x = db.Tedarikciler.Find(id);
-						x.Ad = txtad.Text;
-						x.Soyad = txtsoyad.Text;
+						x.AdSoyad = txtad.Text;
+						x.Firma = txtfirma.Text;
 						x.Telefon = txttelefon.Text;
 						x.AdresBİlgisi = txtAdres.Text;
 						//x.AdresId = Convert.ToInt32(hiddenAdresID.Text);
@@ -74,8 +74,8 @@ namespace Restoran_Otomasyon
 			var Tedarikciler = db.Tedarikciler.Where(r => r.Gorunurluk == true).Select(o => new
 			{
 				Id = o.Id,
-				Ad = o.Ad,
-				Soyad = o.Soyad,
+				Ad = o.AdSoyad,
+				Firma = o.Firma,
 				Eposta = o.Eposta,
 				Telefon = o.Telefon,
 				Adres=o.AdresBİlgisi,
@@ -143,7 +143,7 @@ namespace Restoran_Otomasyon
 
 				hiddenTedarikciId.Text = row.Cells["Id"].Value.ToString();
 				txtad.Text = row.Cells["Ad"].Value.ToString();
-				txtsoyad.Text = row.Cells["Soyad"].Value.ToString();
+				txtfirma.Text = row.Cells["Firma"].Value.ToString();
 				txteposta.Text = row.Cells["Eposta"].Value.ToString();
 				txttelefon.Text = row.Cells["Telefon"].Value.ToString();
 				txtAdres.Text = row.Cells["Adres"].Value.ToString();

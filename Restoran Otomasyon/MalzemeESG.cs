@@ -23,10 +23,10 @@ namespace Restoran_Otomasyon.Paneller
 		private void TedarikciDoldur()
 		{
 			// Profesörleri veritabanından al ve combo box'a doldur
-			var tedarikciAd = db.Tedarikciler.ToList();
-			comboTedarik.DisplayMember = "Ad";
+			var tedarikciFirma = db.Tedarikciler.ToList();
+			comboTedarik.DisplayMember = "Firma";
 			comboTedarik.ValueMember = "Id";
-			comboTedarik.DataSource = tedarikciAd;
+			comboTedarik.DataSource = tedarikciFirma;
 		}
 		private void button1_Click(object sender, EventArgs e)
 		{
@@ -113,7 +113,8 @@ namespace Restoran_Otomasyon.Paneller
 										   StokMiktar = stok.Miktar,
 										   StokMin = stok.MinStok,
 										   StokMax = stok.MaxStok,
-										   TedarikciAd = tedarikci.Ad,
+										   TedarikciFirma=tedarikci.Firma,
+										   TedarikciAd = tedarikci.AdSoyad,
 										   TedarikciId = tedarikci.Id, // Tedarikçi ID'sini gösteriyoruz
 										   StokId = stok.Id,
 									   };
@@ -146,7 +147,7 @@ namespace Restoran_Otomasyon.Paneller
 				hiddenTedarikciId.Text = row.Cells["TedarikciId"].Value.ToString();
 				hiddenStokId.Text = row.Cells["StokId"].Value.ToString();
 				int tedarikID = Convert.ToInt32(hiddenTedarikciId.Text);
-				comboTedarik.Text = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikID).Ad;
+				comboTedarik.Text = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikID).Firma;
 
 
 				string fiyat = row.Cells["MalzemeFiyat"].Value.ToString();

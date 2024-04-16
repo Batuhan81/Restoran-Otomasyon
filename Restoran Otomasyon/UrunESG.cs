@@ -46,36 +46,37 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void checkedListMalzeme_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
-			gridSecilenMalzemeler.Rows.Clear(); // Önce mevcut satırları temizle
-
-			// Eğer sütunlar daha önce eklenmediyse, sütunları ekle
-			if (gridSecilenMalzemeler.Columns.Count == 0)
+			if (!isGridLoading && e.NewValue == CheckState.Checked) // Yalnızca işaret durumu değişen öğeleri işle
 			{
-				gridSecilenMalzemeler.Columns.Add("MalzemeAdi", "Malzeme Adı");
-				gridSecilenMalzemeler.Columns.Add("MalzemeID", "Malzeme ID");
-				gridSecilenMalzemeler.Columns.Add("Miktar", "Miktar");
-				gridSecilenMalzemeler.Columns.Add("Arttir", "Arttir");
-				gridSecilenMalzemeler.Columns.Add("Azalt", "Azalt");
-			}
-
-			foreach (var selectedItem in checkedListMalzeme.CheckedItems)
-			{
-				string secilenMalzemeAdi = selectedItem.ToString();
+				string secilenMalzemeAdi = checkedListMalzeme.Items[e.Index].ToString();
 				int secilenMalzemeID = db.Malzemeler.FirstOrDefault(o => o.Ad == secilenMalzemeAdi)?.Id ?? 0;
-				int miktar = 1; // Başlangıçta miktarı 1 olarak ayarla
 
-				// Grid'e satır ekleme
-				DataGridViewButtonCell btnArttir = new DataGridViewButtonCell();
-				btnArttir.Value = "+";
-				DataGridViewButtonCell btnAzalt = new DataGridViewButtonCell();
-				btnAzalt.Value = "-";
+				// Kontrol etmek için gridSecilenMalzemeler'deki her bir satırdaki malzeme adını ara
+				foreach (DataGridViewRow existingRow in gridSecilenMalzemeler.Rows)
+				{
+					if (existingRow.Cells["MalzemeAdi"].Value != null && existingRow.Cells["MalzemeAdi"].Value.ToString() == secilenMalzemeAdi)
+					{
+						// Eğer aynı malzeme zaten listede varsa, işlem yapma ve check işaretini kaldır
+						checkedListMalzeme.ItemCheck -= checkedListMalzeme_ItemCheck;
+						checkedListMalzeme.SetItemChecked(e.Index, false);
+						checkedListMalzeme.ItemCheck += checkedListMalzeme_ItemCheck;
+						return;
+					}
+				}
 
-				int rowIndex = gridSecilenMalzemeler.Rows.Add(secilenMalzemeAdi, secilenMalzemeID, miktar);
-				gridSecilenMalzemeler.Rows[rowIndex].Cells["Arttir"] = btnArttir;
-				gridSecilenMalzemeler.Rows[rowIndex].Cells["Azalt"] = btnAzalt;
-				gridSecilenMalzemeler.Columns["MalzemeID"].Visible = false;
+				// Yeni bir satır oluştur ve verileri ekle
+				DataGridViewRow newRow = new DataGridViewRow();
+				newRow.CreateCells(gridSecilenMalzemeler);
+				newRow.Cells[0].Value = secilenMalzemeAdi;
+				newRow.Cells[1].Value = secilenMalzemeID;
+				newRow.Cells[2].Value = 1; // Başlangıçta miktarı 1 olarak ayarla
+				newRow.Cells[3].Value = "+";
+				newRow.Cells[4].Value = "-";
+				gridSecilenMalzemeler.Rows.Add(newRow);
 			}
 		}
+
+
 
 		private void gridSecileMalzemeler_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
@@ -93,7 +94,6 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 		UrunMalzeme Umalzeme = new UrunMalzeme();
-
 
 		private void button1_Click(object sender, EventArgs e)
 		{
@@ -212,6 +212,16 @@ namespace Restoran_Otomasyon.Paneller
 			Urunlist();
 			Yardimcilar.GridRenklendir(gridUrun);
 			Yardimcilar.GridRenklendir(gridSecilenMalzemeler);
+
+			// Eğer sütunlar daha önce eklenmediyse, sütunları ekle
+			if (gridSecilenMalzemeler.Columns.Count == 0)
+			{
+				gridSecilenMalzemeler.Columns.Add("MalzemeAdi", "Malzeme Adı");
+				gridSecilenMalzemeler.Columns.Add("MalzemeID", "Malzeme ID");
+				gridSecilenMalzemeler.Columns.Add("Miktar", "Miktar");
+				gridSecilenMalzemeler.Columns.Add("Arttir", "Arttir");
+				gridSecilenMalzemeler.Columns.Add("Azalt", "Azalt");
+			}
 		}
 		void Urunlist()
 		{
@@ -244,7 +254,7 @@ namespace Restoran_Otomasyon.Paneller
 			comboKategori.DisplayMember = "Ad"; // ComboBox'ta görünecek metin profesör adı olacak
 			comboKategori.ValueMember = "Id";
 		}
-
+		private bool isGridLoading = false;
 		private void gridUrun_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex >= 0)
@@ -265,7 +275,7 @@ namespace Restoran_Otomasyon.Paneller
 				// Ürün ID'sini sakla (Güncelleme işlemi için kullanılacak)
 				int urunId = Convert.ToInt32(row.Cells["Id"].Value.ToString());
 				hiddenUrunId.Text = urunId.ToString();
-
+				isGridLoading = true;
 				// Eğer resim yolu boş değilse, resmi boyutlandır
 				if (!string.IsNullOrEmpty(uzanti.Text))
 				{
@@ -284,32 +294,27 @@ namespace Restoran_Otomasyon.Paneller
 
 				// Mevcut satırları temizle
 				gridSecilenMalzemeler.Rows.Clear();
+				MalzemeListe();
 
 				// Her bir ilişkili malzeme için işlem yap
 				foreach (var urunMalzeme in urunMalzemeler)
 				{
 					// Malzeme özelliği null değilse, Ad özelliğine güvenle erişebiliriz
 					string malzemeAdi = db.Malzemeler.FirstOrDefault(o => o.Id == urunMalzeme.MalzemeId)?.Ad;
-
-					// Grid'e satır ekleme
-					DataGridViewButtonCell btnArttir = new DataGridViewButtonCell();
-					btnArttir.Value = "+";
-					DataGridViewButtonCell btnAzalt = new DataGridViewButtonCell();
-					btnAzalt.Value = "-";
-					if (gridSecilenMalzemeler.Columns.Count == 0)
-					{
-						gridSecilenMalzemeler.Columns.Add("MalzemeAdi", "Malzeme Adı");
-						gridSecilenMalzemeler.Columns.Add("MalzemeID", "Malzeme ID");
-						gridSecilenMalzemeler.Columns.Add("Miktar", "Miktar");
-						gridSecilenMalzemeler.Columns.Add("Arttir", "Arttir");
-						gridSecilenMalzemeler.Columns.Add("Azalt", "Azalt");
-					}
 					int rowIndex = gridSecilenMalzemeler.Rows.Add(malzemeAdi, urunMalzeme.MalzemeId, urunMalzeme.Miktar);
-					gridSecilenMalzemeler.Rows[rowIndex].Cells["Arttir"] = btnArttir;
-					gridSecilenMalzemeler.Rows[rowIndex].Cells["Azalt"] = btnAzalt;
-					gridSecilenMalzemeler.Columns["MalzemeID"].Visible = false;
-					// Eğer malzeme, checkedListMalzeme içinde ise işaretle
-					int index = checkedListMalzeme.FindStringExact(malzemeAdi);
+					//buraya +- eksi butonlarını oluşturacak ve işlevlerinin itemcheck metodundaki yerine getirecek bir şey ekle
+					int index = -1;
+					for (int i = 0; i < checkedListMalzeme.Items.Count; i++)
+					{
+						//Eğer malzeme ID'si checkedListMalzeme içinde bulunuyorsa, dizinini al
+						if (checkedListMalzeme.Items[i].ToString() == malzemeAdi)
+						{
+							index = i;
+							break;
+						}
+					}
+
+					// Eğer malzeme ID'si checkedListMalzeme içinde bulunuyorsa, işaretle
 					if (index != -1)
 					{
 						checkedListMalzeme.SetItemChecked(index, true);
@@ -335,6 +340,7 @@ namespace Restoran_Otomasyon.Paneller
 					gridSecilenMalzemeler.BeginEdit(true);
 				}
 			}
+			isGridLoading = false;
 		}
 
 		private void button3_Click(object sender, EventArgs e)
