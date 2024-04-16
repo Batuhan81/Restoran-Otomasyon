@@ -27,33 +27,11 @@ namespace Restoran_Otomasyon
 			{
 				if (hiddenAdresId.Text == "")
 				{
-					adres.Ad = txtad.Text;
-					adres.Il = txtil.Text;
-					adres.Ilce = txtilce.Text;
-					adres.Koy = txtkoy.Text;
-					adres.Mahalle = txtmahalle.Text;
-					adres.Sokak = txtsokak.Text;
-					adres.No = Convert.ToInt32(txtno.Text);
-					adres.Tarif = txttarif.Text;
-					adres.Gorunurluk = true;
-					db.Adresler.Add(adres);
-					timer1.Start();
-					MessageBox.Show("Yeni Adres Kayıt Edildi");
+					AdresEkle();
 				}
 				else
 				{
-					int id = Convert.ToInt32(hiddenAdresId.Text);
-					var x = db.Adresler.Find(id);
-					x.Ad = txtad.Text;
-					x.Il = txtil.Text;
-					x.Ilce = txtilce.Text;
-					x.Koy = txtkoy.Text;
-					x.Mahalle = txtmahalle.Text;
-					x.Sokak = txtsokak.Text;
-					x.No = Convert.ToInt32(txtno.Text);
-					x.Tarif = txttarif.Text;
-					timer1.Start();
-					MessageBox.Show("Adres Bilgisi Güncellendi");
+					AdresGuncelle();
 				}
 				db.SaveChanges();
 				db.SaveChanges();
@@ -67,7 +45,39 @@ namespace Restoran_Otomasyon
 			}
 		}
 
-		void Listele()
+		private void AdresGuncelle()//Adres Güncelleme İşlemi
+		{
+			int id = Convert.ToInt32(hiddenAdresId.Text);
+			var x = db.Adresler.Find(id);
+			x.Ad = txtad.Text;
+			x.Il = txtil.Text;
+			x.Ilce = txtilce.Text;
+			x.Koy = txtkoy.Text;
+			x.Mahalle = txtmahalle.Text;
+			x.Sokak = txtsokak.Text;
+			x.No = Convert.ToInt32(txtno.Text);
+			x.Tarif = txttarif.Text;
+			timer1.Start();
+			MessageBox.Show("Adres Bilgisi Güncellendi");
+		}
+
+		private void AdresEkle()//Adres Ekleme İşlemi
+		{
+			adres.Ad = txtad.Text;
+			adres.Il = txtil.Text;
+			adres.Ilce = txtilce.Text;
+			adres.Koy = txtkoy.Text;
+			adres.Mahalle = txtmahalle.Text;
+			adres.Sokak = txtsokak.Text;
+			adres.No = Convert.ToInt32(txtno.Text);
+			adres.Tarif = txttarif.Text;
+			adres.Gorunurluk = true;
+			db.Adresler.Add(adres);
+			timer1.Start();
+			MessageBox.Show("Yeni Adres Kayıt Edildi");
+		}
+
+		void Listele()//Yalnızca Görünür olan Adresleri Gösterme
 		{
 			var Adres = db.Adresler
 						   .Where(r => r.Gorunurluk == true)
@@ -86,7 +96,7 @@ namespace Restoran_Otomasyon
 			gridAdres.DataSource = Adres;
 		}
 
-		private void timer1_Tick(object sender, EventArgs e)
+		private void timer1_Tick(object sender, EventArgs e)//Mesajlar ekrana geldikten belirli bir süre sonra kapatılmasını sağlar
 		{
 			timer1.Stop();
 			SendKeys.Send("{ESC}");
@@ -95,10 +105,10 @@ namespace Restoran_Otomasyon
 		private void AdresESG_Load(object sender, EventArgs e)
 		{
 			Listele();
-			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridAdres);
-			gridAdres.Columns["Id"].Visible = false;
+			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridAdres);//Gridi okunurluk için renklerdir
+			gridAdres.Columns["Id"].Visible = false;//Id sütununu sakla
 		}
-		private void grid1_CellClick(object sender, DataGridViewCellEventArgs e)
+		private void grid1_CellClick(object sender, DataGridViewCellEventArgs e)//Verileri ilgili alanlara yerleştir
 		{
 			hiddenAdresId.Text = gridAdres.CurrentRow.Cells["Id"].Value.ToString();
 			int id = Convert.ToInt32(hiddenAdresId.Text);
@@ -113,9 +123,8 @@ namespace Restoran_Otomasyon
 			txttarif.Text = x.Tarif;
 		}
 
-		private void SecBtn_Click(object sender, EventArgs e)
+		private void SecBtn_Click(object sender, EventArgs e)//Seçilen adres bilgisini ilgili formlara gönderme
 		{
-
 			int selectedAddressId = Convert.ToInt32(hiddenAdresId.Text);
 			var selectedAddress = db.Adresler.FirstOrDefault(a => a.Id == selectedAddressId);
 
@@ -144,12 +153,11 @@ namespace Restoran_Otomasyon
 						tedarikciForm.hiddenAdresID.Text = adresID;
 					}
 				}
-
 				this.Close();
 			}
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		private void button2_Click(object sender, EventArgs e)//Aderes görünürlüğünü kapatma(Adresi Silme)
 		{
 			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes)
@@ -160,10 +168,10 @@ namespace Restoran_Otomasyon
 					var x = db.Adresler.Find(id);
 					x.Gorunurluk = false;
 					db.SaveChanges();
-					timer1.Start();
+					timer1.Start();//mesajın otomatik kapanması için
 					MessageBox.Show("Kayıt Silindi");
 					Listele();
-					Yardimcilar.Temizle(groupAdres);
+					Yardimcilar.Temizle(groupAdres);//Yeni veri girişi için alanları temizle
 					hiddenAdresId.Text = "";
 				}
 			}

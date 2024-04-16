@@ -78,12 +78,13 @@ namespace Restoran_Otomasyon
 				Firma = o.Firma,
 				Eposta = o.Eposta,
 				Telefon = o.Telefon,
-				Adres=o.AdresBİlgisi,
+				Adres = o.AdresBİlgisi,
 			}).ToList();
 			gridTedarikci.DataSource = Tedarikciler;
 		}
 
-		private void button4_Click(object sender, EventArgs e)//Adresi Adres tablosu yerine doğrudan içerisinde tuttuğumuz için buna gerek kalmadı Visible ı kapalı
+		//Adresi Adres tablosu yerine doğrudan içerisinde tuttuğumuz için buna gerek kalmadı Visible ı kapalı
+		private void button4_Click(object sender, EventArgs e)
 		{
 			// Adres formunu aç
 			using (AdresESG adresForm = new AdresESG())
@@ -106,10 +107,9 @@ namespace Restoran_Otomasyon
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-
 			int tedId = Convert.ToInt32(hiddenTedarikciId.Text);
 			int kisiSayisi = db.StokGirdiler.Count(k => k.TedarikciId == tedId);
-			if(kisiSayisi == 0)
+			if (kisiSayisi == 0)
 			{
 				DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes)
@@ -117,7 +117,7 @@ namespace Restoran_Otomasyon
 					if (hiddenTedarikciId.Text != null)
 					{
 						int id = Convert.ToInt32(hiddenTedarikciId.Text);
-						var x = db.Personeller.Find(id);//Hangi tablodan silme işlemini yapacaksın ve neye göre sileceksin
+						var x = db.Tedarikciler.Find(id);
 						x.Gorunurluk = false;
 						db.SaveChanges();
 						MessageBox.Show("Kayıt Silindi");
@@ -132,7 +132,7 @@ namespace Restoran_Otomasyon
 				timer1.Start();
 				MessageBox.Show($"Silmek İstediğiniz Tedarikçiden Almış Olduğunuz {kisiSayisi} Adet Malzeme Var Önce Bunların Tedarikçilerini Değiştirmelisiniz ", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
-			
+
 		}
 
 		private void gridTedarikci_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -147,17 +147,20 @@ namespace Restoran_Otomasyon
 				txteposta.Text = row.Cells["Eposta"].Value.ToString();
 				txttelefon.Text = row.Cells["Telefon"].Value.ToString();
 				txtAdres.Text = row.Cells["Adres"].Value.ToString();
-				// Adres Id'sini al
-				//int adresID = Convert.ToInt32(row.Cells["AdresID"].Value);
 				int perId = Convert.ToInt32(hiddenTedarikciId.Text);
-				// Veritabanından seçilen adresin açık adresini al
-				//var selectedAddress = db.Adresler.FirstOrDefault(a => a.Id == adresID);
-				//if (selectedAddress != null)
-				//{
-				//	// Seçilen adresin açık adresini txtadres öğesine atayın
-				//	txtAdres.Text = selectedAddress.AcikAdres;
-				//}
-				//hiddenAdresID.Text = adresID.ToString();
+
+				//Adres bilgisi doğrudan form içerisinde kayıt edildiği için buna gerek kalmadı
+				/*Adres Id'sini al
+				int adresID = Convert.ToInt32(row.Cells["AdresID"].Value);
+				Veritabanından seçilen adresin açık adresini al
+				var selectedAddress = db.Adresler.FirstOrDefault(a => a.Id == adresID);
+				if (selectedAddress != null)
+				{
+					// Seçilen adresin açık adresini txtadres öğesine atayın
+					txtAdres.Text = selectedAddress.AcikAdres;
+				}
+				hiddenAdresID.Text = adresID.ToString();
+				*/
 			}
 		}
 	}

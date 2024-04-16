@@ -24,7 +24,7 @@ namespace Restoran_Otomasyon
 		string secilen;
 		private void button1_Click(object sender, EventArgs e)
 		{
-			if (comboBox1.SelectedIndex != -1)
+			if (comboBox1.SelectedIndex != -1)//Bir talep seçildiyse maili gönder
 			{
 				email = txtmail.Text;
 				SifreGonder(email);
@@ -45,6 +45,7 @@ namespace Restoran_Otomasyon
 		int eslesenKayit;
 		void SifreGonder(string mail)
 		{
+			secilen = comboBox1.Text;
 			//girilen maile kod gidecek ama kullanıcı kontorlü yok gelen talebe göre şifre değişecek
 			if (secilen == "")
 			{
@@ -52,12 +53,12 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
-				secilen = comboBox1.Text;
+				
 				// Yeni random şifre oluştur
 				 eslesenKayit= db.Kullanicilar.Count(k=>k.Ad ==secilen);
 				if(eslesenKayit > 0)
 				{
-					string yeniSifre = RandomSifreOlustur(8);
+					string yeniSifre = RandomSifreOlustur(8);//8 haneli random bir şifre oluştur
 
 					// Kullanıcının şifresini güncelle
 					SifreyiGuncelle(secilen, yeniSifre);
@@ -70,9 +71,9 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
-		// Yeni bir random şifre oluştur
-		public static string RandomSifreOlustur(int uzunluk)
-		{//ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+		// Yalnızca rakamkardan oluşan 8 haneli random bir şifre oluşturur
+		public static string RandomSifreOlustur(int uzunluk)//default 8 verdim
+		{
 			const string karakterler = "0123456789";
 			StringBuilder sb = new StringBuilder();
 			Random rnd = new Random();
@@ -83,8 +84,8 @@ namespace Restoran_Otomasyon
 			}
 			return sb.ToString();
 		}
-		// Kullanıcı şifresini güncelleme işlevi
-		public void SifreyiGuncelle(string secilen, string yeniSifre)
+
+		public void SifreyiGuncelle(string secilen, string yeniSifre)//seçilen kullanıcının şifresini rendom şifreyle değiştir
 		{
 			var x = db.Kullanicilar.FirstOrDefault(o => o.Ad == secilen);
 			if (x != null)

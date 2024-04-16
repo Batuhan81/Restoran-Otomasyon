@@ -22,7 +22,7 @@ namespace Restoran_Otomasyon
 		{ 
 			Context c=new Context();
 			VtBilgileri vt = new VtBilgileri();
-			if (Yardimcilar.HepsiDoluMu(groupBox1))
+			if (Yardimcilar.HepsiDoluMu(groupBox1))//veritabanı oluşturmak için gerekli tüm bilgiler girilimi kontrolü
 			{
 				// Kullanıcı tarafından girilen bağlantı bilgilerini al
 				vt.DatabaseAdi = DbAdi.Text;
@@ -49,7 +49,6 @@ namespace Restoran_Otomasyon
 					{
 						MessageBox.Show("Girdiğiniz isimde bir veritabanı zaten mevcut.");
 					}
-					
 				}
 				catch (Exception ex)
 				{
@@ -58,7 +57,7 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
-				MessageBox.Show("Tüm Bilgileri Girmeden Bir Veri Tabanı Oluşturamazsınız.");
+				MessageBox.Show("Tüm Bilgileri Girmeden Bir VeriTabanı Oluşturamazsınız.");
 			}
 		}
 	}

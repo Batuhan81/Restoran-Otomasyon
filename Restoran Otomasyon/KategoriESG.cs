@@ -24,21 +24,21 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (txtad.Text != "")
 			{
-				if (hiddenKategoriId.Text == "")
+				if (hiddenKategoriId.Text == "")//Kategori Ekle
 				{
 					kat.Ad = txtad.Text;
 					kat.Gorunurluk = true;
 					db.Kategoriler.Add(kat);
 					timer1.Start();
-					MessageBox.Show("Yeni Rol Kayıt Edildi");
+					MessageBox.Show("Yeni Kategori Kayıt Edildi");
 				}
-				else
+				else//Kategori Güncelle
 				{
 					id = Convert.ToInt32(hiddenKategoriId.Text);
-					var x = db.Roller.Find(id);
+					var x = db.Kategoriler.Find(id);
 					x.Ad = txtad.Text;
 					timer1.Start();
-					MessageBox.Show("Rol Güncellendi");
+					MessageBox.Show("Kategori Bilgisi Güncellendi");
 				}
 				db.SaveChanges();
 				Temizle();
@@ -46,11 +46,11 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
-				MessageBox.Show("Role Bir Ad Verdiğinizden Emin Olun", "Rol Eklenemiyor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageBox.Show("Kategoriye Bir Ad Verdiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
-		private void timer1_Tick(object sender, EventArgs e)
+		private void timer1_Tick(object sender, EventArgs e)//Mboxları otomatik kapatma
 		{
 			timer1.Stop();
 			SendKeys.Send("{ESC}");
@@ -59,8 +59,8 @@ namespace Restoran_Otomasyon.Paneller
 		private void KategoriESG_Load(object sender, EventArgs e)
 		{
 			Listele();
-			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridKategori);
-			gridKategori.Columns["Id"].Visible = false;
+			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridKategori);//grid renklendirme
+			gridKategori.Columns["Id"].Visible = false;//Id sütununu sakla
 		}
 		void Temizle()
 		{
@@ -84,10 +84,8 @@ namespace Restoran_Otomasyon.Paneller
 		private void button2_Click(object sender, EventArgs e)
 		{
 			int kategoriId = Convert.ToInt32(hiddenKategoriId.Text);
-			int Urunler = db.Urunler.Count(k => k.KategorId == kategoriId);
-
-
-			if (Urunler == 0)
+			int Urunler = db.Urunler.Count(k => k.KategorId == kategoriId);//bu kategoriye sahip ürün sayısı
+			if (Urunler == 0)//kategoriye sahip ürün yoksa sil var sa ürün sayısını belirterek silme işlemini engelle
 			{
 				DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes)

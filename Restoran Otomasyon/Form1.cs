@@ -18,30 +18,24 @@ namespace Restoran_Otomasyon
 			InitializeComponent();
 		}
 
-		private void timer1_Tick(object sender, EventArgs e)
+		private void timer1_Tick(object sender, EventArgs e)//timerın her süresi dolduğunda metnin başındaki harfi sonuna ekleyecek
 		{
 			label1.Text = label1.Text.Substring(1) + label1.Text.Substring(0, 1);
 		}
 
-		private void timer2_Tick_1(object sender, EventArgs e)
+		private void timer2_Tick_1(object sender, EventArgs e)//Kayar yazı timer2 boyunca haraket edecek süre dolunca giriş ekranı açılacak
 		{
-
 			timer1.Stop();
 			timer2.Stop();
 			this.Hide();
 			Giris git = new Giris();
 			git.ShowDialog();
 		}
-
-		private void label1_Click(object sender, EventArgs e)
-		{
-
-		}
 		Context db = new Context();
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			if (!db.Database.Exists())
+			if (!db.Database.Exists())//Projenin bağlı olduğu vt var mı diye kontrol ediyorum yoksa oluşturma Sayfasına yönlendiriyorum
 			{
 				timer1.Stop();
 				timer2.Stop();

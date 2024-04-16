@@ -30,44 +30,18 @@ namespace Restoran_Otomasyon.Paneller
 		private void button1_Click(object sender, EventArgs e)
 		{
 
-			if (Yardimcilar.HepsiDoluMu(groupGirdi))
+			if (Yardimcilar.HepsiDoluMu(groupGirdi))//Tüm bilgiler dolu mu diye kontrol
 			{
-				malzemeId = (int)comboMalzeme.SelectedValue;
+				malzemeId = (int)comboMalzeme.SelectedValue;//Comboboxtan seçilen malzemenin Idsini alma
 				stokID = Convert.ToInt32(hiddenStokId.Text);
-
 				alisMiktari = alinanMikFormatsız;
 				var stok = db.Stoklar.Find(stokID);
 
 				if (hiddensStokGirdiId.Text == "")
 				{
-					girdi.Tarih = DateTime.Now;
-					girdi.TedarikciId = Convert.ToInt32(hiddenTedarikciId.Text);
-					girdi.AlısFiyati = fiyatformatsiz;
-					girdi.MalzemeId = malzemeId;
-					var stokKaydi = db.Stoklar.FirstOrDefault(s => s.Malzeme.Id == malzemeId);
-					int selectedMalzemeId = (int)comboMalzeme.SelectedValue;
-					Olcu = db.Malzemeler.FirstOrDefault(o => o.Id == selectedMalzemeId).Tur;
-
-					if (Olcu != "Adet")
-					{
-						stok.Miktar = ((stok.Miktar / 1000) + alinanMikFormatsız) * 1000;
-						islemSonu = stok.Miktar;
-
-						girdi.Miktar = alisMiktari * 1000;
-					}
-					else
-					{
-						stok.Miktar = ((stok.Miktar) + alinanMikFormatsız);
-						islemSonu = stok.Miktar;
-						girdi.Miktar = alisMiktari;
-					}
-					girdi.SonStokMiktari = islemSonu;
-					db.StokGirdiler.Add(girdi);
-					db.SaveChanges();
-					timer1.Start();
-					MessageBox.Show("Yeni Stok Girdisi Kayıt Edildi");
+					stokgirdisiEkle(stok);
 				}
-				else// Eğer varolan bir stok girdisi güncelleniyorsa
+				else// Eğer varolan bir stok girdisi güncelleniyorsa(Burada bir sorun var geri Dönülecek)
 				{
 					// Malzeme bazında en son eklenen stok girdisini bul
 					var sonStokGirdisi = db.StokGirdiler
@@ -115,15 +89,15 @@ namespace Restoran_Otomasyon.Paneller
 								ilgiliStok.Miktar = alisMiktari;
 								sonStokGirdisi.Miktar += alisMiktari;
 							}
-							db.SaveChanges(); // Değişiklikleri veritabanına kaydet
+							db.SaveChanges();
 
 							// Stok girdisi ve diğer özellikleri güncelle
 							sonStokGirdisi.Tarih = DateTime.Now;
 							sonStokGirdisi.TedarikciId = Convert.ToInt32(hiddenTedarikciId.Text);
 							sonStokGirdisi.AlısFiyati = fiyatformatsiz;
 							sonStokGirdisi.SonStokMiktari = ilgiliStok.Miktar;
-							db.SaveChanges(); // Değişiklikleri veritabanına kaydet
 
+							db.SaveChanges();
 							timer1.Start();
 							MessageBox.Show("Stok Girdi Bilgisi Güncellendi");
 						}
@@ -153,6 +127,36 @@ namespace Restoran_Otomasyon.Paneller
 				timer1.Start();
 				MessageBox.Show("Girdiye Ait tüm Alanları Doldurduğunuza Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void stokgirdisiEkle(Stok stok)
+		{
+			girdi.Tarih = DateTime.Now;
+			girdi.TedarikciId = Convert.ToInt32(hiddenTedarikciId.Text);
+			girdi.AlısFiyati = fiyatformatsiz;
+			girdi.MalzemeId = malzemeId;
+			var stokKaydi = db.Stoklar.FirstOrDefault(s => s.Malzeme.Id == malzemeId);
+			int selectedMalzemeId = (int)comboMalzeme.SelectedValue;
+			Olcu = db.Malzemeler.FirstOrDefault(o => o.Id == selectedMalzemeId).Tur;
+
+			if (Olcu != "Adet")//Olçü birimi adet değilse gr veya l için 1000 ile çarpıyoruz
+			{
+				stok.Miktar = ((stok.Miktar / 1000) + alinanMikFormatsız) * 1000;
+				islemSonu = stok.Miktar;
+
+				girdi.Miktar = alisMiktari * 1000;
+			}
+			else
+			{
+				stok.Miktar = ((stok.Miktar) + alinanMikFormatsız);
+				islemSonu = stok.Miktar;
+				girdi.Miktar = alisMiktari;
+			}
+			girdi.SonStokMiktari = islemSonu;
+			db.StokGirdiler.Add(girdi);
+			db.SaveChanges();
+			timer1.Start();
+			MessageBox.Show("Yeni Stok Girdisi Kayıt Edildi");
 		}
 
 		void Girdilİstesi()
@@ -236,9 +240,7 @@ namespace Restoran_Otomasyon.Paneller
 				stokID = stokKaydi.Id;
 				hiddenStokId.Text = stokID.ToString();
 			}
-
 			Olcu = db.Malzemeler.FirstOrDefault(o => o.Id == selectedMalzemeId).Tur;//Seçilen malzemenin IDsinden Olcu türünü al
-
 		}
 		decimal guncellemedenAlinan;
 		//decimal formatsizİslemSonu;
@@ -251,18 +253,21 @@ namespace Restoran_Otomasyon.Paneller
 				txtfirma.Text = row.Cells["TedarikciAdi"].Value.ToString();
 				comboMalzeme.Text = row.Cells["MalzemeAdi"].Value.ToString();
 				txtAlisF.Text = row.Cells["AlisFiyati"].Value.ToString();
-				int tedarikciId = Convert.ToInt32(row.Cells["TedarikciId"].Value.ToString());
 				hiddenMalzemeId.Text = row.Cells["MalzemeId"].Value.ToString();
 				malzemeId = Convert.ToInt32(hiddenMalzemeId.Text);
 
+				int tedarikciId = Convert.ToInt32(row.Cells["TedarikciId"].Value.ToString());
 				hiddenTedarikciId.Text = tedarikciId.ToString();
+
 				txtfirma.Text = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikciId).Firma;
 				txtTedarikci.Text = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikciId).AdSoyad;
+
 				Olcu = row.Cells["MalzemeTur"].Value.ToString();
 				//string islemsonu = gridStokGirdi.CurrentRow.Cells["İşlemSonuStok"].Value.ToString();
 				//formatsizİslemSonu = Convert.ToDecimal(islemsonu);
+
 				string girdi = row.Cells["GirdiMiktar"].Value.ToString();
-				if (Olcu != "Adet")
+				if (Olcu != "Adet")//Olçü Adet değilse Kg cinsine çevir ve öyle göster
 				{
 					alinanMikFormatsız = Convert.ToDecimal(girdi) / 1000;
 				}
@@ -270,9 +275,8 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					alinanMikFormatsız = Convert.ToDecimal(girdi);
 				}
+
 				txtalinanMik.Text = Yardimcilar.BirimFormatı(alinanMikFormatsız, Olcu);
-
-
 				guncellemedenAlinan = Convert.ToDecimal(alinanMikFormatsız);
 
 				var stokKaydi = db.Stoklar.FirstOrDefault(s => s.Malzeme.Id == malzemeId);
@@ -285,7 +289,11 @@ namespace Restoran_Otomasyon.Paneller
 				}
 			}
 		}
+
+		//Textboxları Formatlama
 		decimal alinanMikFormatsız;
+		decimal fiyatformatsiz;
+
 		private void txtalinanMik_Leave(object sender, EventArgs e)
 		{
 			if (txtalinanMik.Text != "")
@@ -294,7 +302,6 @@ namespace Restoran_Otomasyon.Paneller
 				txtalinanMik.Text = Yardimcilar.BirimFormatı(alinanMikFormatsız, Olcu);
 			}
 		}
-		decimal fiyatformatsiz;
 		private void txtAlisF_Leave(object sender, EventArgs e)
 		{
 			if (txtalinanMik.Text != "")
@@ -304,7 +311,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 
-		private void gridStokGirdi_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		private void gridStokGirdi_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//Datagrid üzerindeli sütunları Formatlama
 		{
 			Yardimcilar.GridFormat(gridStokGirdi, "AlisFiyati", e);
 			Yardimcilar.gridFormatStokMiktari(gridStokGirdi, "GirdiMiktar");

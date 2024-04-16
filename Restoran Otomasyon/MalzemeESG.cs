@@ -20,9 +20,8 @@ namespace Restoran_Otomasyon.Paneller
 		}
 		Context db = new Context();
 		Stok stok = new Stok();
-		private void TedarikciDoldur()
+		private void TedarikciDoldur()//Combobox üzerinde Tedarikçi firma adı yer alacak ama seçim işlemi yapıldığında değer olarak Tedarikçi Idsi olacak
 		{
-			// Profesörleri veritabanından al ve combo box'a doldur
 			var tedarikciFirma = db.Tedarikciler.ToList();
 			comboTedarik.DisplayMember = "Firma";
 			comboTedarik.ValueMember = "Id";
@@ -32,60 +31,15 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			Malzeme mal = new Malzeme();
 
-			if (Yardimcilar.HepsiDoluMu(groupMalzeme))
+			if (Yardimcilar.HepsiDoluMu(groupMalzeme))//gerekli Tüm bilgiler Dolumu diye kontrol
 			{
 				if (hiddenMalzemeId.Text == "")
 				{
-					mal.Ad = txtad.Text;
-					mal.Tur = olcu;
-					mal.Gorunurluk = true;
-					mal.Fiyat = fiyatformatsiz;
-					db.Malzemeler.Add(mal);
-					db.SaveChanges();
-					int maxMalId = db.Malzemeler.Max(m => m.Id);
-					stok.MalzemeId = maxMalId;
-					stok.Gorunurluk = true;
-					stok.Miktar = 0;
-					if (olcu != "Adet")
-					{
-						stok.MinStok = formatsizMin * 1000;
-						stok.MaxStok = formatsizMax * 1000;
-					}
-					else
-					{
-						stok.MinStok = formatsizMin;
-						stok.MaxStok = formatsizMax;
-					}
-
-					stok.TedarikciId = (int)comboTedarik.SelectedValue;
-
-					db.Stoklar.Add(stok);
-					timer1.Start();
-					MessageBox.Show("Yeni Malzeme Kayıt Edildi");
+					MalzemeEkle(mal);
 				}
 				else
 				{
-					int id = Convert.ToInt32(hiddenMalzemeId.Text);
-					var x = db.Malzemeler.Find(id);
-					x.Ad = txtad.Text;
-					x.Tur = comboOlcu.Text;
-					x.Fiyat = fiyatformatsiz;
-					int stokId = Convert.ToInt32(hiddenStokId.Text);
-					var t = db.Stoklar.Find(stokId);
-					t.Gorunurluk = true;
-					if (olcu != "Adet")//Ürün Türü Adet Değilse Gr ve Ml dönüşümü yap Adetse doğrudan yaz
-					{
-						t.MinStok = formatsizMin * 1000;
-						t.MaxStok = formatsizMax * 1000;
-					}
-					else
-					{
-						t.MinStok = formatsizMin;
-						t.MaxStok = formatsizMax;
-					}
-					t.TedarikciId = (int)comboTedarik.SelectedValue;
-					timer1.Start();
-					MessageBox.Show("Malzeme Bilgisi Güncellendi");
+					MalzemeGuncelle();
 				}
 				db.SaveChanges();
 				Yardimcilar.Temizle(groupMalzeme);
@@ -101,12 +55,68 @@ namespace Restoran_Otomasyon.Paneller
 				MessageBox.Show("Malzemeye Ait tüm Alanları Doldurduğunuza Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
-		void MalzemeList()
+
+		private void MalzemeGuncelle()
+		{
+			int id = Convert.ToInt32(hiddenMalzemeId.Text);
+			var x = db.Malzemeler.Find(id);
+			x.Ad = txtad.Text;
+			x.Tur = comboOlcu.Text;
+			x.Fiyat = fiyatformatsiz;
+			int stokId = Convert.ToInt32(hiddenStokId.Text);
+			var t = db.Stoklar.Find(stokId);
+			t.Gorunurluk = true;
+			if (olcu != "Adet")//Ürün Türü Adet Değilse Gr ve Ml dönüşümü yap Adetse doğrudan yaz
+			{
+				t.MinStok = formatsizMin * 1000;
+				t.MaxStok = formatsizMax * 1000;
+			}
+			else
+			{
+				t.MinStok = formatsizMin;
+				t.MaxStok = formatsizMax;
+			}
+			t.TedarikciId = (int)comboTedarik.SelectedValue;
+			timer1.Start();
+			MessageBox.Show("Malzeme Bilgisi Güncellendi");
+		}
+
+		private void MalzemeEkle(Malzeme mal)
+		{
+			mal.Ad = txtad.Text;
+			mal.Tur = olcu;
+			mal.Gorunurluk = true;
+			mal.Fiyat = fiyatformatsiz;
+			db.Malzemeler.Add(mal);
+			db.SaveChanges();
+			int maxMalId = db.Malzemeler.Max(m => m.Id);
+			stok.MalzemeId = maxMalId;
+			stok.Gorunurluk = true;
+			stok.Miktar = 0;
+			if (olcu != "Adet")
+			{
+				stok.MinStok = formatsizMin * 1000;
+				stok.MaxStok = formatsizMax * 1000;
+			}
+			else
+			{
+				stok.MinStok = formatsizMin;
+				stok.MaxStok = formatsizMax;
+			}
+
+			stok.TedarikciId = (int)comboTedarik.SelectedValue;
+
+			db.Stoklar.Add(stok);
+			timer1.Start();
+			MessageBox.Show("Yeni Malzeme Kayıt Edildi");
+		}
+
+		void MalzemeList()//Malzemeleri Datagrid üzerinde listeleme
 		{
 			var malzemeStokBilgileri = from malzeme in db.Malzemeler
 									   join stok in db.Stoklar on malzeme.Id equals stok.MalzemeId
 									   join tedarikci in db.Tedarikciler on stok.TedarikciId equals tedarikci.Id
-									   where malzeme.Gorunurluk == true // İsteğe bağlı: Sadece görünür malzemeleri al
+									   where malzeme.Gorunurluk == true //Yalnızca Görünür olan malzemeleri listeler
 									   select new
 									   {
 										   MalzemeId = malzeme.Id,
@@ -125,44 +135,46 @@ namespace Restoran_Otomasyon.Paneller
 
 
 			gridMalzeme.DataSource = malzemeStokBilgileri.ToList();
-			// DataGridView'da TedarikciId sütununu gizli hale getiriyoruz
+			// DataGridView'da Id sütunlarını gizli hale getiriyorum
 			gridMalzeme.Columns["TedarikciId"].Visible = false;
 			gridMalzeme.Columns["StokId"].Visible = false;
+			gridMalzeme.Columns["MalzemeId"].Visible = false;
 		}
 
 		private void MalzemeESG_Load(object sender, EventArgs e)
 		{
 			MalzemeList();
 			TedarikciDoldur();
-			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridMalzeme);
-			gridMalzeme.Columns["MalzemeId"].Visible = false;
-			
+			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridMalzeme);//Datagridde veriler daha rahat okunsun diye tek çift sütunlara farklı renk verme
 		}
 
 		private void gridMalzeme_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.RowIndex >= 0)
+			if (e.RowIndex >= 0)//Grid üzerine tıklanınca verile ilgili alanlara fortmatlanarak getirliyor
 			{
 				DataGridViewRow row = gridMalzeme.Rows[e.RowIndex];
 				hiddenMalzemeId.Text = row.Cells["MalzemeId"].Value.ToString();
 				txtad.Text = row.Cells["MalzemeAd"].Value.ToString();
-				comboOlcu.Text = row.Cells["MalzemeTur"].Value.ToString();
-				olcu = comboOlcu.Text;
 				hiddenTedarikciId.Text = row.Cells["TedarikciId"].Value.ToString();
 				hiddenStokId.Text = row.Cells["StokId"].Value.ToString();
+
 				int tedarikID = Convert.ToInt32(hiddenTedarikciId.Text);
 				comboTedarik.Text = db.Tedarikciler.FirstOrDefault(o => o.Id == tedarikID).Firma;
 
+				comboOlcu.Text = row.Cells["MalzemeTur"].Value.ToString();
+				olcu = comboOlcu.Text;
 
+				//fiyatı formatlı olarak gösterme
 				string fiyat = row.Cells["MalzemeFiyat"].Value.ToString();
 				fiyatformatsiz = Decimal.Parse(fiyat);
 				txtfiyat.Text = Yardimcilar.FormatliDeger(fiyat);
 
+				//Stok bilgilerini Formatlayarak gösterme
 				string stok = row.Cells["StokMiktar"].Value.ToString();
 				string minstok = row.Cells["StokMin"].Value.ToString();
 				string maxstok = row.Cells["StokMax"].Value.ToString();
 
-				if (olcu != "Adet")
+				if (olcu != "Adet")//Ölçüsü adet değilse kg ve L cinsine çevirmek için 1000 e böldüm
 				{
 					formatsizStok = Convert.ToDecimal(stok) / 1000;
 					formatsizMin = Convert.ToDecimal(minstok) / 1000;
@@ -177,11 +189,10 @@ namespace Restoran_Otomasyon.Paneller
 				txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
 				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
 				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
-
 			}
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		private void button2_Click(object sender, EventArgs e)//Seçilen malzemenin görünürlüğünü kapatıyor(siliyor)
 		{
 			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes)
@@ -201,34 +212,14 @@ namespace Restoran_Otomasyon.Paneller
 			MalzemeList();
 		}
 
-		private void gridMalzeme_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		private void gridMalzeme_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//Grid üzerindeki sütunların formatlı görünmesini sağlıyor
 		{
 			Yardimcilar.GridFormat(gridMalzeme, "MalzemeFiyat", e);
 			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMiktar");
 			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMin");
 			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMax");
 		}
-		decimal fiyatformatsiz;
-		private void txtfiyat_Leave(object sender, EventArgs e)
-		{
-			if (txtfiyat.Text != "")
-			{
-				fiyatformatsiz = Decimal.Parse(Yardimcilar.FormatsizDeger(txtfiyat.Text));
-				txtfiyat.Text = Yardimcilar.FormatliDeger(txtfiyat.Text);
-			}
-		}
-		decimal formatsizMin;
-		decimal formatsizMax;
-		decimal formatsizStok;
-		private void txtmin_Leave(object sender, EventArgs e)
-		{
-			if (txtmin.Text != "")
-			{
-				formatsizMin = Yardimcilar.TemizleVeDondur(txtmin, olcu);
-				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
-			}
-		}
-		string olcu;
+		//Seçilen ölçü birimini bir değişkene atıyorum bu sayede alanları ilgili türe göre formatlayabiliyorum
 		private void comboOlcu_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (comboOlcu.SelectedIndex == 0)
@@ -249,6 +240,32 @@ namespace Restoran_Otomasyon.Paneller
 				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
 			}
 		}
+		decimal fiyatformatsiz;
+		decimal formatsizMin;
+		decimal formatsizMax;
+		decimal formatsizStok;
+		string olcu;
+
+		//Texboxlaradan ayrıldığında ön planla formatlı görünmelerini sağlıyorum ama arka planda düz veri olarak tutuyorum
+		private void txtfiyat_Leave(object sender, EventArgs e)
+		{
+			if (txtfiyat.Text != "")
+			{
+				fiyatformatsiz = Decimal.Parse(Yardimcilar.FormatsizDeger(txtfiyat.Text));
+				txtfiyat.Text = Yardimcilar.FormatliDeger(txtfiyat.Text);
+			}
+		}
+		
+		private void txtmin_Leave(object sender, EventArgs e)
+		{
+			if (txtmin.Text != "")
+			{
+				formatsizMin = Yardimcilar.TemizleVeDondur(txtmin, olcu);
+				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
+			}
+		}
+
+		
 
 		private void txtmax_Leave(object sender, EventArgs e)
 		{
@@ -268,7 +285,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 
-		private void StokGir_Click(object sender, EventArgs e)
+		private void StokGir_Click(object sender, EventArgs e)//Stokgirdilerinin yapılacağı forma yönlendirme
 		{
 			StokGirdiESG git = new StokGirdiESG();
 			git.Show();

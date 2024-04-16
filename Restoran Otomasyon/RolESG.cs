@@ -25,7 +25,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (txtad.Text != "")
 			{
-				if (hiddenRolId.Text == "")
+				if (hiddenRolId.Text == "")//Rol Ekle
 				{
 					rol.Ad = txtad.Text;
 					rol.Gorunurluk = true;
@@ -34,7 +34,7 @@ namespace Restoran_Otomasyon.Paneller
 					timer1.Start();
 					MessageBox.Show("Yeni Rol Kayıt Edildi");
 				}
-				else
+				else//Rol Güncelle
 				{
 					id = Convert.ToInt32(hiddenRolId.Text);
 					var x = db.Roller.Find(id);
@@ -88,10 +88,10 @@ namespace Restoran_Otomasyon.Paneller
 		private void Sil_Click(object sender, EventArgs e)
 		{
 			int rolId = Convert.ToInt32(hiddenRolId.Text);
-			int kisiSayisi = db.Personeller.Count(k => k.RolId == rolId);
+			int kisiSayisi = db.Personeller.Count(k => k.RolId == rolId);//Role sahip kullanıcı sayısı
 
 			
-			if (kisiSayisi == 0)
+			if (kisiSayisi == 0)//Rolü kullanan yoksa sil varsa engelle
 			{
 				DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (result == DialogResult.Yes)

@@ -19,14 +19,14 @@ namespace Restoran_Otomasyon
 			InitializeComponent();
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void button1_Click(object sender, EventArgs e)//Bilgileri Alıp metoda yönlendir
 		{
 			string Ad=txtAd.Text;
 			string Sifre=txtsifre.Text;
 			GirisYap(Ad, Sifre);
 		}
 		Context db = new Context();
-		public void GirisYap(string Ad,string Sifre)
+		public void GirisYap(string Ad,string Sifre)//gelen ad ve şifre bilgisine göre kullanıyı ilgili panele yönlendir
 		{
 			var kullanici = db.Kullanicilar.FirstOrDefault(o => o.Ad == Ad && o.Sifre == Sifre);
 			if (kullanici != null)
@@ -34,21 +34,23 @@ namespace Restoran_Otomasyon
 				if (kullanici.Ad == "Kasa")
 				{
 					//kasa paneli
+					this.Close();
 				}
 				else if(kullanici.Ad == "Admin")
 				{
 					Admin_Paneli git=new Admin_Paneli();
 					git.Show();
+					this.Close();
 				}
 				else if (kullanici.Ad == "Mutfak")
 				{
 					//mutfak Paneli
+					this.Close();
 				}
 				else
 				{
 					MessageBox.Show("Kullanıcı Bulunamadı Lütfen Bilgileri Kontrol Ediniz");
 				}
-				this.Close();
 			}
 			else
 			{
@@ -57,6 +59,7 @@ namespace Restoran_Otomasyon
 		}
 
 		Kullanici k = new Kullanici();
+		//Veritabanı oluşturulduktan sonra bir kullanıcıyı otomatik olarak ekliyorum kişi projeye ilk bu kişiyle girecek ve kalan işlemleri yapabilecek
 		private void Giris_Load(object sender, EventArgs e)
 		{
 			if (!db.Kullanicilar.Any())
@@ -73,7 +76,7 @@ namespace Restoran_Otomasyon
 			txtAd.Focus();
 		}
 
-		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)//şifre işlemleri için ilgili sayfaya yönlendirme
 		{
 			SifremiUnuttum git=new SifremiUnuttum();
 			git.Show();
