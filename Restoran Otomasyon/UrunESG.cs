@@ -22,18 +22,7 @@ namespace Restoran_Otomasyon.Paneller
 		Context db = new Context();
 		Malzeme mal = new Malzeme();
 		Urun urn = new Urun();
-		private void button4_Click(object sender, EventArgs e)
-		{
-			if (MalzemePaneli.Visible != true)
-			{
-				MalzemePaneli.Visible = true;
-				MalzemeListe();
-			}
-			else
-			{
-				MalzemePaneli.Visible = false;
-			}
-		}
+		
 		void MalzemeListe()
 		{
 			var malzemeler = db.Malzemeler
@@ -284,7 +273,7 @@ namespace Restoran_Otomasyon.Paneller
 									// Gridde bulunmayan malzemelerin görünürlüğünü kapat
 									vtMalzeme.Gorunurluk = false;
 								}
-								MalzemePaneli.Visible = false;
+								MalzemeSecPaneli.Visible = false;
 							}
 							Yardimcilar.Temizle(groupUrun);
 							db.SaveChanges();
@@ -369,15 +358,15 @@ namespace Restoran_Otomasyon.Paneller
 			gridUrun.Columns["Fotoğraf"].Visible = false;
 			gridUrun.Columns["Id"].Visible = true;
 		}
-		void kategoriler()
+		public void kategoriler()
 		{
-			var kategoriler = db.Kategoriler.Where(o => o.Gorunurluk == true).Select(o => new
+			var kategoriler = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Ürün").Select(o => new
 			{
 				Id = o.Id,
 				Ad = o.Ad,
 			}).ToList();
 			comboKategori.DataSource = kategoriler;
-			comboKategori.DisplayMember = "Ad"; // ComboBox'ta görünecek metin profesör adı olacak
+			comboKategori.DisplayMember = "Ad";
 			comboKategori.ValueMember = "Id";
 		}
 		private bool isGridLoading = false;
@@ -587,32 +576,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 
-		bool gosterildi = false;
-		private void Checkİndirim_CheckedChanged(object sender, EventArgs e)
-		{
-			if (gosterildi == false)
-			{
-				if (hiddenUrunId.Text != "")
-				{
-					if (Checkİndirim.Checked == true)
-					{
-						panelİndirim.Visible = true;
-					}
-					else
-					{
-						panelİndirim.Visible = false;
-					}
-				}
-				else
-				{
-					timer1.Start();
-					MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					gosterildi = true;
-					Checkİndirim.Checked = false;
-				}
-			}
-			gosterildi = false;
-		}
+		
 
 		private void button6_Click(object sender, EventArgs e)
 		{
@@ -705,6 +669,76 @@ namespace Restoran_Otomasyon.Paneller
 						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
 					}
 				}
+			}
+		}
+
+		private void button7_Click(object sender, EventArgs e)
+		{
+			if (MalzemeSecPaneli.Visible != true)
+			{
+				MalzemeSecPaneli.Visible = true;
+                foreach (Control item in MalzemeSecPaneli.Controls)
+                {
+					item.Visible = false;
+                }
+                // Form1'i açmak için
+                Yardimcilar.OpenForm(new KategoriESG(), MalzemeSecPaneli);
+				comboKategori.Text = "";
+			}
+			else
+			{
+				MalzemeSecPaneli.Visible = false;
+				foreach (Control item in MalzemeSecPaneli.Controls)
+				{
+					item.Visible = false;
+				}
+			}
+		}
+		bool gosterildi = false;
+		private void Checkİndirim_CheckedChanged(object sender, EventArgs e)
+		{
+			if (gosterildi == false)
+			{
+				if (hiddenUrunId.Text != "")
+				{
+					if (Checkİndirim.Checked == true)
+					{
+						MalzemeSecPaneli.Visible = true;
+						foreach (Control item in MalzemeSecPaneli.Controls)
+						{
+							if (!(item is Panel))
+							{
+								item.Visible = false;
+							}
+						}
+						panelİndirim.Visible = true;
+					}
+					else
+					{
+						panelİndirim.Visible = false;
+						MalzemeSecPaneli.Visible = false;
+					}
+				}
+				else
+				{
+					timer1.Start();
+					MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					gosterildi = true;
+					Checkİndirim.Checked = false;
+				}
+			}
+			gosterildi = false;
+		}
+		private void button4_Click(object sender, EventArgs e)
+		{
+			if (MalzemeSecPaneli.Visible != true)
+			{
+				MalzemeSecPaneli.Visible = true;
+				MalzemeListe();
+			}
+			else
+			{
+				MalzemeSecPaneli.Visible = false;
 			}
 		}
 	}

@@ -35,7 +35,6 @@
 			this.txtmail = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
@@ -45,7 +44,7 @@
 			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.button1.ImageKey = "Gönder.png";
 			this.button1.ImageList = this.ımageList1;
-			this.button1.Location = new System.Drawing.Point(38, 101);
+			this.button1.Location = new System.Drawing.Point(36, 132);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(193, 70);
 			this.button1.TabIndex = 3;
@@ -62,16 +61,16 @@
 			// 
 			// txtmail
 			// 
-			this.txtmail.Location = new System.Drawing.Point(105, 14);
+			this.txtmail.Location = new System.Drawing.Point(12, 47);
 			this.txtmail.Name = "txtmail";
-			this.txtmail.Size = new System.Drawing.Size(149, 22);
+			this.txtmail.Size = new System.Drawing.Size(243, 22);
 			this.txtmail.TabIndex = 1;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(9, 14);
+			this.label1.Location = new System.Drawing.Point(94, 9);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(74, 25);
 			this.label1.TabIndex = 7;
@@ -80,10 +79,7 @@
 			// timer1
 			// 
 			this.timer1.Interval = 2000;
-			// 
-			// timer2
-			// 
-			this.timer2.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// comboBox1
 			// 
@@ -92,7 +88,7 @@
             "Kasa",
             "Mutfak",
             "Admin"});
-			this.comboBox1.Location = new System.Drawing.Point(38, 69);
+			this.comboBox1.Location = new System.Drawing.Point(36, 100);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(193, 24);
 			this.comboBox1.TabIndex = 2;
@@ -101,7 +97,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(66, 41);
+			this.label2.Location = new System.Drawing.Point(64, 72);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(128, 25);
 			this.label2.TabIndex = 11;
@@ -112,7 +108,7 @@
 			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(267, 183);
+			this.ClientSize = new System.Drawing.Size(267, 214);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.button1);
@@ -134,7 +130,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.Timer timer1;
-		private System.Windows.Forms.Timer timer2;
 		private System.Windows.Forms.ComboBox comboBox1;
 		private System.Windows.Forms.Label label2;
 	}

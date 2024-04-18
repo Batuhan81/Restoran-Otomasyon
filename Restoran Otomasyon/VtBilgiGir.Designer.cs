@@ -37,13 +37,13 @@
 			this.label5 = new System.Windows.Forms.Label();
 			this.svAdi = new System.Windows.Forms.TextBox();
 			this.VtSifre = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.label4 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.DbAdi = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.baglantiDizesi = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -117,6 +117,19 @@
 			this.VtSifre.TabIndex = 5;
 			this.VtSifre.Text = "123456789";
 			// 
+			// button1
+			// 
+			this.button1.ImageKey = "Kaydet.png";
+			this.button1.ImageList = this.ımageList1;
+			this.button1.Location = new System.Drawing.Point(108, 348);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(221, 81);
+			this.button1.TabIndex = 6;
+			this.button1.Text = "Kaydet";
+			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
 			// ımageList1
 			// 
 			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
@@ -166,21 +179,9 @@
 			this.baglantiDizesi.Size = new System.Drawing.Size(0, 22);
 			this.baglantiDizesi.TabIndex = 16;
 			// 
-			// button1
-			// 
-			this.button1.ImageKey = "Kaydet.png";
-			this.button1.ImageList = this.ımageList1;
-			this.button1.Location = new System.Drawing.Point(108, 348);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(221, 81);
-			this.button1.TabIndex = 6;
-			this.button1.Text = "Kaydet";
-			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
 			// VtBilgiGir
 			// 
+			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(492, 444);

@@ -117,7 +117,7 @@
 			this.txtAdres.Location = new System.Drawing.Point(8, 280);
 			this.txtAdres.Name = "txtAdres";
 			this.txtAdres.Size = new System.Drawing.Size(377, 88);
-			this.txtAdres.TabIndex = 36;
+			this.txtAdres.TabIndex = 5;
 			this.txtAdres.Text = "";
 			// 
 			// button2
@@ -154,7 +154,7 @@
 			this.txtfirma.Margin = new System.Windows.Forms.Padding(4);
 			this.txtfirma.Name = "txtfirma";
 			this.txtfirma.Size = new System.Drawing.Size(175, 27);
-			this.txtfirma.TabIndex = 2;
+			this.txtfirma.TabIndex = 1;
 			// 
 			// label9
 			// 
@@ -173,7 +173,7 @@
 			this.txtad.Margin = new System.Windows.Forms.Padding(4);
 			this.txtad.Name = "txtad";
 			this.txtad.Size = new System.Drawing.Size(175, 27);
-			this.txtad.TabIndex = 1;
+			this.txtad.TabIndex = 2;
 			// 
 			// label4
 			// 

@@ -14,11 +14,14 @@ namespace Restoran_Otomasyon.Paneller
 {
 	public partial class CalisanESG : Form
 	{
+	
 		public CalisanESG()
 		{
 			InitializeComponent();
+			// RolEklendi olayına abone ol
+		
 		}
-
+		
 		private void button4_Click(object sender, EventArgs e)//Buna gerek kalmadı çünkü adres bilgisini doğrudan çalışsan içerisinde kayıt edeceğiz (yapmıştım silmek istemedim erişilebilir bir buton değil)
 		{
 			// Adres formunu aç
@@ -35,6 +38,7 @@ namespace Restoran_Otomasyon.Paneller
 		Personel p = new Personel();
 		Context db = new Context();
 		string fotouzanti;
+	
 
 		private void button1_Click(object sender, EventArgs e)
 		{
@@ -135,12 +139,13 @@ namespace Restoran_Otomasyon.Paneller
 			MessageBox.Show("Yeni Personel Kayıt Edildi");
 		}
 
-		private void RolleriDoldur()//Comboboxa Vtdeki Rolleri yükleme
+		public void RolleriDoldur()//Comboboxa Vtdeki Rolleri yükleme
 		{
-			var Roller = db.Roller.ToList();
+			var Roller = db.Roller.Where(r => r.Gorunurluk == true).ToList();
 			ComboRol.DisplayMember = "Ad";
 			ComboRol.ValueMember = "Id";
 			ComboRol.DataSource = Roller;
+
 		}
 
 		void PersonelList()
@@ -170,7 +175,7 @@ namespace Restoran_Otomasyon.Paneller
 			RolleriDoldur();
 			PersonelList();
 			//işe başlama tarihi günün tarihi olarak geliyor
-		    gününT = DateTime.Now.ToString("dd/MM/yyyy");
+			gününT = DateTime.Now.ToString("dd/MM/yyyy");
 			txtbaslamaT.Text = gününT;
 
 			//gridPersonel.Columns["AdresID"].Visible = false;
@@ -291,6 +296,22 @@ namespace Restoran_Otomasyon.Paneller
 		private void uzanti_TextChanged(object sender, EventArgs e)
 		{
 			fotouzanti = uzanti.Text;
+		}
+
+		private void button5_Click(object sender, EventArgs e)
+		{
+			if(RolPaneli.Visible != true)
+			{
+				RolPaneli.Visible = true;
+				// Form1'i açmak için
+				Yardimcilar.OpenForm(new RolESG(),RolPaneli);
+				ComboRol.Text = "";
+			}
+			else
+			{
+				RolPaneli.Visible = false;
+			}
+			//RolleriDoldur();anlık olarak iletiyorum
 		}
 	}
 }

@@ -28,6 +28,7 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					kat.Ad = txtad.Text;
 					kat.Gorunurluk = true;
+					kat.Tur = comboTur.Text;
 					db.Kategoriler.Add(kat);
 					timer1.Start();
 					MessageBox.Show("Yeni Kategori Kayıt Edildi");
@@ -37,12 +38,19 @@ namespace Restoran_Otomasyon.Paneller
 					id = Convert.ToInt32(hiddenKategoriId.Text);
 					var x = db.Kategoriler.Find(id);
 					x.Ad = txtad.Text;
+					x.Tur = comboTur.Text;
 					timer1.Start();
 					MessageBox.Show("Kategori Bilgisi Güncellendi");
 				}
 				db.SaveChanges();
 				Temizle();
 				Listele();
+				// Rol ekledikten sonra ComboRol'ü güncelle
+				UrunESG calisanForm = Application.OpenForms.OfType<UrunESG>().FirstOrDefault();
+				if (calisanForm != null)
+				{
+					calisanForm.kategoriler();
+				}
 			}
 			else
 			{
@@ -76,6 +84,7 @@ namespace Restoran_Otomasyon.Paneller
 						   {
 							   Id = kategori.Id,
 							   Ad = kategori.Ad,
+							   Tür=kategori.Tur,
 						   })
 						   .ToList();
 			gridKategori.DataSource = kategoriler;
@@ -114,6 +123,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			hiddenKategoriId.Text = gridKategori.CurrentRow.Cells["Id"].Value.ToString();
 			txtad.Text = gridKategori.CurrentRow.Cells["Ad"].Value.ToString();
+			comboTur.Text = gridKategori.CurrentRow.Cells["Tür"].Value.ToString();
 		}
 	}
 }

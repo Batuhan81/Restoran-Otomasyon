@@ -20,9 +20,10 @@ namespace Restoran_Otomasyon.Paneller
 		}
 		Context db = new Context();
 		Stok stok = new Stok();
-		private void TedarikciDoldur()//Combobox üzerinde Tedarikçi firma adı yer alacak ama seçim işlemi yapıldığında değer olarak Tedarikçi Idsi olacak
+		public void TedarikciDoldur()//Combobox üzerinde Tedarikçi firma adı yer alacak ama seçim işlemi yapıldığında değer olarak Tedarikçi Idsi olacak
 		{
-			var tedarikciFirma = db.Tedarikciler.ToList();
+			comboTedarik.DataSource =null;
+			var tedarikciFirma = db.Tedarikciler.Where(o=>o.Gorunurluk==true).ToList();
 			comboTedarik.DisplayMember = "Firma";
 			comboTedarik.ValueMember = "Id";
 			comboTedarik.DataSource = tedarikciFirma;
@@ -290,6 +291,21 @@ namespace Restoran_Otomasyon.Paneller
 			StokGirdiESG git = new StokGirdiESG();
 			git.Show();
 			this.Close();
+		}
+
+		private void button5_Click(object sender, EventArgs e)
+		{
+			if (TedarikciPaneli.Visible != true)
+			{
+				TedarikciPaneli.Visible = true;
+				// Form1'i açmak için
+				Yardimcilar.OpenForm(new TedarikciESG(), TedarikciPaneli);
+				comboTedarik.Text = "";
+			}
+			else
+			{
+				TedarikciPaneli.Visible = false;
+			}
 		}
 	}
 }

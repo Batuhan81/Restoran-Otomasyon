@@ -35,6 +35,7 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UrunESG));
 			this.hiddenStokId = new System.Windows.Forms.TextBox();
 			this.hiddenUrunId = new System.Windows.Forms.TextBox();
 			this.hiddenMalzemeId = new System.Windows.Forms.TextBox();
@@ -63,7 +64,7 @@
 			this.txtindirimTarihi = new System.Windows.Forms.MaskedTextBox();
 			this.gridUrun = new System.Windows.Forms.DataGridView();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.MalzemePaneli = new System.Windows.Forms.Panel();
+			this.MalzemeSecPaneli = new System.Windows.Forms.Panel();
 			this.gridSecilenMalzemeler = new System.Windows.Forms.DataGridView();
 			this.label12 = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
@@ -76,12 +77,17 @@
 			this.button6 = new System.Windows.Forms.Button();
 			this.button5 = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
+			this.MalzemeEklePanel = new System.Windows.Forms.Panel();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.button7 = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.groupUrun.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridUrun)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			this.MalzemePaneli.SuspendLayout();
+			this.MalzemeSecPaneli.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridSecilenMalzemeler)).BeginInit();
 			this.panelİndirim.SuspendLayout();
+			this.MalzemeEklePanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// hiddenStokId
@@ -113,6 +119,7 @@
 			// 
 			// groupUrun
 			// 
+			this.groupUrun.Controls.Add(this.button7);
 			this.groupUrun.Controls.Add(this.Checkİndirim);
 			this.groupUrun.Controls.Add(this.txtfiyat);
 			this.groupUrun.Controls.Add(this.button3);
@@ -143,20 +150,20 @@
 			// Checkİndirim
 			// 
 			this.Checkİndirim.AutoSize = true;
-			this.Checkİndirim.Location = new System.Drawing.Point(208, 414);
+			this.Checkİndirim.Location = new System.Drawing.Point(181, 414);
 			this.Checkİndirim.Name = "Checkİndirim";
 			this.Checkİndirim.Size = new System.Drawing.Size(122, 22);
-			this.Checkİndirim.TabIndex = 67;
+			this.Checkİndirim.TabIndex = 11;
 			this.Checkİndirim.Text = "İndirim Uygula";
 			this.Checkİndirim.UseVisualStyleBackColor = true;
 			this.Checkİndirim.CheckedChanged += new System.EventHandler(this.Checkİndirim_CheckedChanged);
 			// 
 			// txtfiyat
 			// 
-			this.txtfiyat.Location = new System.Drawing.Point(188, 339);
+			this.txtfiyat.Location = new System.Drawing.Point(161, 339);
 			this.txtfiyat.Name = "txtfiyat";
 			this.txtfiyat.Size = new System.Drawing.Size(175, 24);
-			this.txtfiyat.TabIndex = 66;
+			this.txtfiyat.TabIndex = 4;
 			this.txtfiyat.Leave += new System.EventHandler(this.txtfiyat_Leave_1);
 			// 
 			// button3
@@ -165,7 +172,7 @@
 			this.button3.Margin = new System.Windows.Forms.Padding(4);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(177, 66);
-			this.button3.TabIndex = 64;
+			this.button3.TabIndex = 7;
 			this.button3.Text = "Ürün Resim";
 			this.button3.UseVisualStyleBackColor = true;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -176,23 +183,23 @@
 			this.button4.Margin = new System.Windows.Forms.Padding(4);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(177, 66);
-			this.button4.TabIndex = 63;
+			this.button4.TabIndex = 9;
 			this.button4.Text = "Malzeme Seç";
 			this.button4.UseVisualStyleBackColor = true;
 			this.button4.Click += new System.EventHandler(this.button4_Click);
 			// 
 			// txtdetay
 			// 
-			this.txtdetay.Location = new System.Drawing.Point(188, 587);
+			this.txtdetay.Location = new System.Drawing.Point(161, 587);
 			this.txtdetay.Name = "txtdetay";
 			this.txtdetay.Size = new System.Drawing.Size(175, 24);
-			this.txtdetay.TabIndex = 56;
+			this.txtdetay.TabIndex = 6;
 			// 
 			// label8
 			// 
 			this.label8.AutoSize = true;
 			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label8.Location = new System.Drawing.Point(112, 591);
+			this.label8.Location = new System.Drawing.Point(85, 591);
 			this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(52, 16);
@@ -213,16 +220,16 @@
 			// comboKategori
 			// 
 			this.comboKategori.FormattingEnabled = true;
-			this.comboKategori.Location = new System.Drawing.Point(188, 501);
+			this.comboKategori.Location = new System.Drawing.Point(161, 501);
 			this.comboKategori.Name = "comboKategori";
 			this.comboKategori.Size = new System.Drawing.Size(175, 26);
-			this.comboKategori.TabIndex = 52;
+			this.comboKategori.TabIndex = 5;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(95, 506);
+			this.label2.Location = new System.Drawing.Point(68, 506);
 			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(69, 16);
@@ -231,27 +238,27 @@
 			// 
 			// Aktiflik
 			// 
-			this.Aktiflik.Location = new System.Drawing.Point(177, 24);
+			this.Aktiflik.Location = new System.Drawing.Point(150, 24);
 			this.Aktiflik.Name = "Aktiflik";
 			this.Aktiflik.Size = new System.Drawing.Size(61, 22);
-			this.Aktiflik.TabIndex = 0;
+			this.Aktiflik.TabIndex = 1;
 			this.Aktiflik.TabStop = true;
 			this.Aktiflik.Text = "Aktif ";
 			this.Aktiflik.UseVisualStyleBackColor = true;
 			// 
 			// txtaciklama
 			// 
-			this.txtaciklama.Location = new System.Drawing.Point(188, 157);
+			this.txtaciklama.Location = new System.Drawing.Point(161, 157);
 			this.txtaciklama.Name = "txtaciklama";
 			this.txtaciklama.Size = new System.Drawing.Size(175, 118);
-			this.txtaciklama.TabIndex = 49;
+			this.txtaciklama.TabIndex = 3;
 			this.txtaciklama.Text = "";
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label4.Location = new System.Drawing.Point(89, 208);
+			this.label4.Location = new System.Drawing.Point(62, 208);
 			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(75, 16);
@@ -275,7 +282,7 @@
 			this.button2.Margin = new System.Windows.Forms.Padding(4);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(177, 66);
-			this.button2.TabIndex = 7;
+			this.button2.TabIndex = 8;
 			this.button2.Text = "Sil";
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -286,24 +293,24 @@
 			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(177, 66);
-			this.button1.TabIndex = 6;
+			this.button1.TabIndex = 10;
 			this.button1.Text = "Kaydet";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// txtad
 			// 
-			this.txtad.Location = new System.Drawing.Point(188, 73);
+			this.txtad.Location = new System.Drawing.Point(161, 73);
 			this.txtad.Margin = new System.Windows.Forms.Padding(4);
 			this.txtad.Name = "txtad";
 			this.txtad.Size = new System.Drawing.Size(175, 24);
-			this.txtad.TabIndex = 1;
+			this.txtad.TabIndex = 2;
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label5.Location = new System.Drawing.Point(112, 339);
+			this.label5.Location = new System.Drawing.Point(85, 339);
 			this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(45, 16);
@@ -314,7 +321,7 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(134, 77);
+			this.label1.Location = new System.Drawing.Point(107, 77);
 			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(30, 16);
@@ -406,24 +413,25 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.pictureBox1.Location = new System.Drawing.Point(1187, 444);
+			this.pictureBox1.Location = new System.Drawing.Point(1246, 404);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(350, 350);
 			this.pictureBox1.TabIndex = 55;
 			this.pictureBox1.TabStop = false;
 			this.pictureBox1.Visible = false;
 			// 
-			// MalzemePaneli
+			// MalzemeSecPaneli
 			// 
-			this.MalzemePaneli.Controls.Add(this.gridSecilenMalzemeler);
-			this.MalzemePaneli.Controls.Add(this.label12);
-			this.MalzemePaneli.Controls.Add(this.label11);
-			this.MalzemePaneli.Controls.Add(this.checkedListMalzeme);
-			this.MalzemePaneli.Location = new System.Drawing.Point(434, 7);
-			this.MalzemePaneli.Name = "MalzemePaneli";
-			this.MalzemePaneli.Size = new System.Drawing.Size(747, 433);
-			this.MalzemePaneli.TabIndex = 56;
-			this.MalzemePaneli.Visible = false;
+			this.MalzemeSecPaneli.Controls.Add(this.panelİndirim);
+			this.MalzemeSecPaneli.Controls.Add(this.gridSecilenMalzemeler);
+			this.MalzemeSecPaneli.Controls.Add(this.label12);
+			this.MalzemeSecPaneli.Controls.Add(this.label11);
+			this.MalzemeSecPaneli.Controls.Add(this.checkedListMalzeme);
+			this.MalzemeSecPaneli.Location = new System.Drawing.Point(434, 13);
+			this.MalzemeSecPaneli.Name = "MalzemeSecPaneli";
+			this.MalzemeSecPaneli.Size = new System.Drawing.Size(732, 416);
+			this.MalzemeSecPaneli.TabIndex = 56;
+			this.MalzemeSecPaneli.Visible = false;
 			// 
 			// gridSecilenMalzemeler
 			// 
@@ -445,7 +453,7 @@
 			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.gridSecilenMalzemeler.DefaultCellStyle = dataGridViewCellStyle5;
-			this.gridSecilenMalzemeler.Location = new System.Drawing.Point(247, 38);
+			this.gridSecilenMalzemeler.Location = new System.Drawing.Point(233, 27);
 			this.gridSecilenMalzemeler.Margin = new System.Windows.Forms.Padding(4);
 			this.gridSecilenMalzemeler.Name = "gridSecilenMalzemeler";
 			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -468,7 +476,7 @@
 			// 
 			this.label12.AutoSize = true;
 			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label12.Location = new System.Drawing.Point(390, 18);
+			this.label12.Location = new System.Drawing.Point(376, 7);
 			this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(143, 16);
@@ -479,7 +487,7 @@
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label11.Location = new System.Drawing.Point(59, 18);
+			this.label11.Location = new System.Drawing.Point(45, 7);
 			this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(87, 16);
@@ -489,7 +497,7 @@
 			// checkedListMalzeme
 			// 
 			this.checkedListMalzeme.FormattingEnabled = true;
-			this.checkedListMalzeme.Location = new System.Drawing.Point(23, 37);
+			this.checkedListMalzeme.Location = new System.Drawing.Point(9, 26);
 			this.checkedListMalzeme.Name = "checkedListMalzeme";
 			this.checkedListMalzeme.Size = new System.Drawing.Size(200, 384);
 			this.checkedListMalzeme.TabIndex = 0;
@@ -512,7 +520,7 @@
 			this.panelİndirim.Controls.Add(this.label7);
 			this.panelİndirim.Controls.Add(this.label9);
 			this.panelİndirim.Controls.Add(this.label10);
-			this.panelİndirim.Location = new System.Drawing.Point(444, 446);
+			this.panelİndirim.Location = new System.Drawing.Point(122, 67);
 			this.panelİndirim.Name = "panelİndirim";
 			this.panelİndirim.Size = new System.Drawing.Size(471, 297);
 			this.panelİndirim.TabIndex = 68;
@@ -577,13 +585,53 @@
 			this.label6.TabIndex = 63;
 			this.label6.Text = "İsterseniz El ile İsterseniz %\'lik olarak indirim Uygulayabilirsiniz";
 			// 
+			// MalzemeEklePanel
+			// 
+			this.MalzemeEklePanel.Controls.Add(this.panel1);
+			this.MalzemeEklePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.MalzemeEklePanel.Location = new System.Drawing.Point(443, 435);
+			this.MalzemeEklePanel.Name = "MalzemeEklePanel";
+			this.MalzemeEklePanel.Size = new System.Drawing.Size(723, 530);
+			this.MalzemeEklePanel.TabIndex = 57;
+			this.MalzemeEklePanel.Visible = false;
+			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Ekle2.png");
+			// 
+			// button7
+			// 
+			this.button7.BackColor = System.Drawing.SystemColors.Control;
+			this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button7.ImageKey = "Ekle2.png";
+			this.button7.ImageList = this.ımageList1;
+			this.button7.Location = new System.Drawing.Point(343, 501);
+			this.button7.Margin = new System.Windows.Forms.Padding(4);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(33, 28);
+			this.button7.TabIndex = 58;
+			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.button7_Click);
+			// 
+			// panel1
+			// 
+			this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.panel1.Location = new System.Drawing.Point(8, 8);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(723, 530);
+			this.panel1.TabIndex = 58;
+			this.panel1.Visible = false;
+			// 
 			// UrunESG
 			// 
+			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1608, 808);
-			this.Controls.Add(this.panelİndirim);
-			this.Controls.Add(this.MalzemePaneli);
+			this.Controls.Add(this.MalzemeEklePanel);
+			this.Controls.Add(this.MalzemeSecPaneli);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.hiddenStokId);
 			this.Controls.Add(this.hiddenUrunId);
@@ -601,11 +649,12 @@
 			this.groupUrun.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridUrun)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			this.MalzemePaneli.ResumeLayout(false);
-			this.MalzemePaneli.PerformLayout();
+			this.MalzemeSecPaneli.ResumeLayout(false);
+			this.MalzemeSecPaneli.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridSecilenMalzemeler)).EndInit();
 			this.panelİndirim.ResumeLayout(false);
 			this.panelİndirim.PerformLayout();
+			this.MalzemeEklePanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -639,7 +688,7 @@
 		private System.Windows.Forms.MaskedTextBox txtindirimTarihi;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
-		private System.Windows.Forms.Panel MalzemePaneli;
+		private System.Windows.Forms.Panel MalzemeSecPaneli;
 		private System.Windows.Forms.CheckedListBox checkedListMalzeme;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label11;
@@ -654,5 +703,9 @@
 		private System.Windows.Forms.TextBox txtyuzde;
 		private System.Windows.Forms.CheckBox Checkİndirim;
 		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Panel MalzemeEklePanel;
+		private System.Windows.Forms.Button button7;
+		private System.Windows.Forms.ImageList ımageList1;
+		private System.Windows.Forms.Panel panel1;
 	}
 }

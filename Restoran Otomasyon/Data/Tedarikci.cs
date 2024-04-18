@@ -16,10 +16,10 @@ namespace Restoran_Otomasyon.Data
 		public string Eposta { get; set; }
 
         public string AdresBİlgisi { get; set; }
+
         public bool Gorunurluk { get; set; }
 
         public DateTime KayitTarihi{ get; set; }
-
 
 		public ICollection<StokGirdi> Stokgirdilers { get; set; } = new List<StokGirdi>();
 

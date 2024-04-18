@@ -24,6 +24,7 @@ namespace Restoran_Otomasyon.Data
 		public bool Gorunurluk { get; set; }
 
 		public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
+		public ICollection<MasaOzellik> MasaOzellikler { get; set; } = new List<MasaOzellik>();
 
 		public Personel Personel { get; set; }
 	}

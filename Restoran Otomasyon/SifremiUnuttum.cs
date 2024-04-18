@@ -105,7 +105,7 @@ namespace Restoran_Otomasyon
 			string gonderenEposta = "OrtakProje2@outlook.com";
 			string gonderenSifre = "Bthn185Prj";
 			string konu = "Yeni Şifre";
-			string icerik = "Yeni şifreniz: " + yeniSifre;
+			string icerik = $"Yeni şifreniz:({talep}) " + yeniSifre;
 
 			SmtpClient smtp = new SmtpClient();
 			smtp.Port = 587;
@@ -120,6 +120,12 @@ namespace Restoran_Otomasyon
 			mail.IsBodyHtml = true;
 			mail.Body = icerik;
 			smtp.Send(mail);
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			timer1.Stop();
+			SendKeys.Send("ESC");
 		}
 	}
 }

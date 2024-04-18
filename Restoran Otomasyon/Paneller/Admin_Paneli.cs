@@ -17,50 +17,45 @@ namespace Restoran_Otomasyon.Paneller
 			InitializeComponent();
 		}
 
-		private void çalışanEkleSilGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CalisanCRUD_Click(object sender, EventArgs e)
 		{
 			CalisanESG git = new CalisanESG();
 			git.Show();
 		}
 
-		private void çalışanRolEkleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CalisanRol_Click(object sender, EventArgs e)
 		{
-			RolESG git=new RolESG();
+			RolESG git = new RolESG();
 			git.Show();
 		}
 
-		private void toolStripMenuItem1_Click(object sender, EventArgs e)
+		private void TedarikciCRUD_Click(object sender, EventArgs e)
 		{
-
-		}
-
-		private void tedarikçiEkleSilGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			TedarikciESG git=new TedarikciESG();
+			TedarikciESG git = new TedarikciESG();
 			git.Show();
 		}
 
-		private void stokGirdisiEkleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void MalzemeCRUD_Click(object sender, EventArgs e)
 		{
-			StokGirdiESG git=new StokGirdiESG();
+			MalzemeESG git = new MalzemeESG();
 			git.Show();
 		}
 
-		private void malzemeEkleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void StokGİrdiCRUD_Click(object sender, EventArgs e)
 		{
-			MalzemeESG git=new MalzemeESG();
+			StokGirdiESG git = new StokGirdiESG();
 			git.Show();
 		}
 
-		private void kategoriEkleToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			KategoriESG git=new KategoriESG();	
-			git.Show();
-		}
-
-		private void ürünOluşturToolStripMenuItem_Click(object sender, EventArgs e)
+		private void UrunCRUD_Click(object sender, EventArgs e)
 		{
 			UrunESG git = new UrunESG();
+			git.Show();
+		}
+
+		private void KategoriCRUD_Click(object sender, EventArgs e)
+		{
+			KategoriESG git = new KategoriESG();
 			git.Show();
 		}
 	}

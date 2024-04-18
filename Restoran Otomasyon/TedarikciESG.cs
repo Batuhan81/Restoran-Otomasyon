@@ -1,4 +1,5 @@
 ﻿using Restoran_Otomasyon.Data;
+using Restoran_Otomasyon.Paneller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,6 +57,12 @@ namespace Restoran_Otomasyon
 					db.SaveChanges();
 					TedarikciList();
 					Yardimcilar.Temizle(groupTedarikci);
+					// Rol ekledikten sonra ComboRol'ü güncelle
+					MalzemeESG calisanForm = Application.OpenForms.OfType<MalzemeESG>().FirstOrDefault();
+					if (calisanForm != null)
+					{
+						calisanForm.TedarikciDoldur();
+					}
 				}
 				else
 				{

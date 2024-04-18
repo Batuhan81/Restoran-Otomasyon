@@ -29,9 +29,10 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					rol.Ad = txtad.Text;
 					rol.Gorunurluk = true;
-					rol.KayitT=DateTime.Today;
+					rol.KayitT = DateTime.Today;
 					db.Roller.Add(rol);
 					timer1.Start();
+
 					MessageBox.Show("Yeni Rol Kayıt Edildi");
 				}
 				else//Rol Güncelle
@@ -45,10 +46,16 @@ namespace Restoran_Otomasyon.Paneller
 				db.SaveChanges();
 				Temizle();
 				Listele();
+				// Rol ekledikten sonra ComboRol'ü güncelle
+				CalisanESG calisanForm = Application.OpenForms.OfType<CalisanESG>().FirstOrDefault();
+				if (calisanForm != null)
+				{
+					calisanForm.RolleriDoldur();
+				}
 			}
 			else
 			{
-				MessageBox.Show("Role Bir Ad Verdiğinizden Emin Olun","Rol Eklenemiyor",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+				MessageBox.Show("Role Bir Ad Verdiğinizden Emin Olun", "Rol Eklenemiyor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -73,7 +80,7 @@ namespace Restoran_Otomasyon.Paneller
 						   {
 							   Id = rol.Id,
 							   Ad = rol.Ad,
-							   Kayıt_Tarihi=rol.KayitT
+							   Kayıt_Tarihi = rol.KayitT
 						   })
 						   .ToList();
 			grid1.DataSource = roller;
@@ -90,7 +97,7 @@ namespace Restoran_Otomasyon.Paneller
 			int rolId = Convert.ToInt32(hiddenRolId.Text);
 			int kisiSayisi = db.Personeller.Count(k => k.RolId == rolId);//Role sahip kullanıcı sayısı
 
-			
+
 			if (kisiSayisi == 0)//Rolü kullanan yoksa sil varsa engelle
 			{
 				DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -111,10 +118,10 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
-				timer1.Start ();
-				MessageBox.Show($"Silmek İstediğiniz Role Sahip {kisiSayisi}  Kişi Var","İşlem Gerçekleştirilemez",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+				timer1.Start();
+				MessageBox.Show($"Silmek İstediğiniz Role Sahip {kisiSayisi}  Kişi Var", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
-			
+
 		}
 
 		private void grid1_CellClick(object sender, DataGridViewCellEventArgs e)

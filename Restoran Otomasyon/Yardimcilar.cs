@@ -44,6 +44,24 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
+		public static void OpenForm(Form form,Panel panel)
+		{
+			// Panel içinde mevcut herhangi bir formu kaldır
+			panel.Controls.Clear();
+
+			// Form'u panelin boyutuna göre ayarla
+			form.TopLevel = false;
+			form.FormBorderStyle = FormBorderStyle.None;
+			form.Dock = DockStyle.Fill;
+			form.Resize += (sender, e) =>
+			{
+				panel.Size = form.Size;
+			};
+
+			// Panel içine yeni formu ekleyin
+			panel.Controls.Add(form);
+			form.Show();
+		}
 
 		public static string FormatliDeger(string deger)//Veriyi 100 =>100.00₺ ye çevirir
 		{
