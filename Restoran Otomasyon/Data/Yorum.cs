@@ -21,7 +21,7 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Gorunurluk { get; set; }
 
-		public bool Onay {  get; set; }	
+		public int Durum { get; set; }  //1 onaylanmamış 2 onaylanmış 3 kullanıcı silmiş 4 admin silmiş
 
 		public Musteri Musteri { get; set; }
 

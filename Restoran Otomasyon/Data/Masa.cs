@@ -13,8 +13,9 @@ namespace Restoran_Otomasyon.Data
 
 		public int Kapasite { get; set; }
 
+        public  int KategoriId { get; set; }
 
-		public decimal Tutar { get; set; }
+        public decimal Tutar { get; set; }
 
 		public decimal OdenenTutar { get; set; }
 

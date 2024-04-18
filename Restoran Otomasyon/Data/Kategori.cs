@@ -8,6 +8,7 @@ namespace Restoran_Otomasyon.Data
 		public int Id { get; set; }
 
 		public string Ad { get; set; }
+		public string Tur { get; set; }
 
 		public bool Gorunurluk { get; set; }
 	}

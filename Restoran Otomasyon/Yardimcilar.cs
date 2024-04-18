@@ -159,7 +159,6 @@ namespace Restoran_Otomasyon
 			return deger;
 		}
 
-
 		public static string FormatsizDeger(string deger)
 		{
 			// Eğer kullanıcı sadece ₺ işaretini girdiyse, sadece nokta kaldıysa veya aradaki bir noktayı sildiyse, bunları temizleyerek döndür
