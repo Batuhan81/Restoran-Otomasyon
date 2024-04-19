@@ -63,14 +63,6 @@ namespace Restoran_Otomasyon
 			form.Show();
 		}
 
-		public static void CloseForm(Form form)
-		{
-			if (form != null)
-			{
-				form.Close();
-			}
-		}
-
 		public static string FormatliDeger(string deger)//Veriyi 100 =>100.00₺ ye çevirir
 		{
 			if (string.IsNullOrWhiteSpace(deger))
@@ -97,7 +89,6 @@ namespace Restoran_Otomasyon
 				{
 					var row = dataGridView.Rows[args.RowIndex];
 					var turValue = row.Cells["MalzemeTur"].Value?.ToString(); // Malzeme türünü al
-
 					if (!string.IsNullOrEmpty(turValue))
 					{
 						decimal deger;
@@ -117,7 +108,6 @@ namespace Restoran_Otomasyon
 									break;
 								case "Adet":
 									birim = "Adet";
-
 									break;
 								default:
 									birim = "";
@@ -169,7 +159,7 @@ namespace Restoran_Otomasyon
 		public static decimal TemizleVeDondur(TextBox textBox, string birim)
 		{
 			string text = textBox.Text.Trim(); // Textbox'tan değeri alırken baştaki ve sondaki boşlukları temizle
-			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't', '₺'); // Textbox'tan birim ifadesini temizle
+			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't', '₺','%'); // Textbox'tan birim ifadesini temizle
 
 			// Temizlenmiş değeri uygun formata dönüştür ve decimal türüne dönüştür
 			decimal deger;
@@ -213,14 +203,29 @@ namespace Restoran_Otomasyon
 				// Belirtilen sütun adında ise
 				if (dataGridView.Columns[e.ColumnIndex].Name == columnName)
 				{
-					e.Value = ((decimal)e.Value).ToString("N2") + "₺"; // "N2" formatı ile iki basamaklı virgülden sonraki sayıları gösteriyoruz
-					e.FormattingApplied = true;
+					if (e.Value != "Yok")
+					{
+						if (columnName == "Yüzde")
+						{
+							if (e.Value != null && e.Value.GetType() == typeof(int))
+							{
+								int yuzdeDegeri = (int)e.Value;
+								string yuzdeMetni = "%" + yuzdeDegeri.ToString("N0").Replace(",", "."); // "N2" formatı ile iki basamaklı virgülden sonraki sayıları gösteriyoruz
+
+								// DataGridView hücresine biçimlendirilmiş değeri ata
+								e.Value = yuzdeMetni;
+								e.FormattingApplied = true;
+							}
+						}
+						else
+						{
+							e.Value = ((decimal)e.Value).ToString("N2") + "₺"; // "N2" formatı ile iki basamaklı virgülden sonraki sayıları gösteriyoruz
+							e.FormattingApplied = true;
+						}
+					}
+
 				}
-			}//Kullanışı
-			 //private void urunGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-			 //{
-			 //	FormatCurrencyColumn(urunGrid, "Satış_Fiyatı", e);
-			 //}
+			}
 		}
 
 		public class ResimBoyutlandir

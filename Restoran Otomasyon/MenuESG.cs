@@ -77,6 +77,11 @@ namespace Restoran_Otomasyon.Paneller
 				Checkİndirim.Checked = false;
 				MenuList();
 			}
+			else
+			{
+				timer1.Start();
+				MessageBox.Show("Kayıt Eklenirken İndirim Uygulanacaktır", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
 		}
 		public void menukategoriler()
 		{
@@ -422,6 +427,9 @@ namespace Restoran_Otomasyon.Paneller
 				row.Cells["Azalt"] = azaltButtonCell;
 			}
 			panelİndirim.Visible = false;
+			// Malzeme ID'sini saklamak için gizli bir sütun ekle
+			gridSecilenUrunler.Columns["MalzemeID"].Visible = false;
+			gridMenu.Columns["Id"].Visible = false;
 		}
 		private void btnresim_Click(object sender, EventArgs e)
 		{
@@ -508,12 +516,16 @@ namespace Restoran_Otomasyon.Paneller
 				txtdetay.Text = row.Cells["Detay"].Value.ToString();
 				uzanti.Text = row.Cells["Fotoğraf"].Value.ToString();
 				Aktiflik.Checked = row.Cells["Aktiflik"].Value.ToString() == "Aktif" ? true : false;
-				txtindirimli.Text = row.Cells["İndirimliFiyat"].Value.ToString();
 				txtyuzde.Text = row.Cells["Yüzde"].Value.ToString();
 				comboKategori.Text = row.Cells["Kategori"].Value.ToString();
 				DateTime indirimTarihi = Convert.ToDateTime(row.Cells["İndirimTarihi"].Value.ToString());
 
-				txtfiyat.Text = row.Cells["Fiyat"].Value.ToString();
+				formatsizFiyat=Convert.ToDecimal( row.Cells["Fiyat"].Value.ToString());
+				txtfiyat.Text = Yardimcilar.FormatliDeger(formatsizFiyat.ToString());
+
+				indirimliFiyat= Convert.ToDecimal(row.Cells["İndirimliFiyat"].Value.ToString());
+				txtindirimli.Text = Yardimcilar.FormatliDeger(indirimliFiyat.ToString());
+
 				formatsizFiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
 				if (indirimTarihi == DateTime.MinValue)
 				{
@@ -594,6 +606,7 @@ namespace Restoran_Otomasyon.Paneller
 						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
 					}
 				}
+				Yardimcilar.GridFormat(gridMenu, "Yüzde", e);
 			}
 			else if (e.Value != null && e.ColumnIndex == gridMenu.Columns["İndirimliFiyat"].Index) // İndirimliFiyat sütununun indeksi
 			{
@@ -606,6 +619,7 @@ namespace Restoran_Otomasyon.Paneller
 						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
 					}
 				}
+				Yardimcilar.GridFormat(gridMenu, "İndirimliFiyat", e);
 			}
 			else if (e.Value != null && e.ColumnIndex == gridMenu.Columns["İndirimTarihi"].Index) // İndirimTarihi sütununun indeksi
 			{
@@ -619,6 +633,7 @@ namespace Restoran_Otomasyon.Paneller
 					}
 				}
 			}
+			Yardimcilar.GridFormat(gridMenu, "Fiyat", e);
 		}
 
 		private void txtfiyat_Leave(object sender, EventArgs e)
@@ -639,8 +654,8 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (gosterildi == false)
 			{
-				if (hiddenMenuId.Text != "")
-				{
+				//if (hiddenMenuId.Text != "")
+				//{
 					if (Checkİndirim.Checked == true)
 					{
 						panelİndirim.Visible = true;
@@ -657,14 +672,14 @@ namespace Restoran_Otomasyon.Paneller
 					{
 						panelİndirim.Visible = false;
 					}
-				}
-				else
-				{
-					timer1.Start();
-					MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					gosterildi = true;
-					Checkİndirim.Checked = false;
-				}
+				//}
+				//else
+				//{
+				//	timer1.Start();
+				//	MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	gosterildi = true;
+				//	Checkİndirim.Checked = false;
+				//}
 			}
 			gosterildi = false;
 		}
@@ -696,8 +711,7 @@ namespace Restoran_Otomasyon.Paneller
 					newRow.Cells[2].Value = 1; // Başlangıçta miktarı 1 olarak ayarla
 					newRow.Cells[3].Value = "+";
 					newRow.Cells[4].Value = "-";
-					// Malzeme ID'sini saklamak için gizli bir sütun ekle
-					gridSecilenUrunler.Columns["MalzemeID"].Visible = false;
+					
 					gridSecilenUrunler.Rows.Add(newRow);
 					txtdetay.Text += secilenurunAdi + ",";
 				}

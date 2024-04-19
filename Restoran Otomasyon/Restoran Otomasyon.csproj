@@ -201,6 +201,7 @@
     <Compile Include="Data\SiparisMenu.cs" />
     <Compile Include="Data\SiparisUrun.cs" />
     <Compile Include="Data\Stok.cs" />
+    <Compile Include="Data\StokCikti.cs" />
     <Compile Include="Data\StokGirdi.cs" />
     <Compile Include="Data\Tedarikci.cs" />
     <Compile Include="Data\Teslimat.cs" />
@@ -233,6 +234,12 @@
     </Compile>
     <Compile Include="MenuESG.Designer.cs">
       <DependentUpon>MenuESG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StokSayim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StokSayim.Designer.cs">
+      <DependentUpon>StokSayim.cs</DependentUpon>
     </Compile>
     <Compile Include="UrunESG.cs">
       <SubType>Form</SubType>
@@ -315,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuESG.resx">
       <DependentUpon>MenuESG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StokSayim.resx">
+      <DependentUpon>StokSayim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UrunESG.resx">
       <DependentUpon>UrunESG.cs</DependentUpon>

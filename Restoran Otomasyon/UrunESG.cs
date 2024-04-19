@@ -125,6 +125,11 @@ namespace Restoran_Otomasyon.Paneller
 				Checkİndirim.Checked = false;
 				Urunlist();
 			}
+			else
+			{
+				timer1.Start();
+				MessageBox.Show("Kayıt Eklenirken İndirim Uygulanacaktır", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
 		}
 		#endregion
 
@@ -158,7 +163,6 @@ namespace Restoran_Otomasyon.Paneller
 					newRow.Cells[3].Value = "+";
 					newRow.Cells[4].Value = "-";
 					// Malzeme ID'sini saklamak için gizli bir sütun ekle
-					gridSecilenMalzemeler.Columns["MalzemeID"].Visible = false;
 					gridSecilenMalzemeler.Rows.Add(newRow);
 					txtdetay.Text += secilenMalzemeAdi + ",";
 				}
@@ -230,6 +234,8 @@ namespace Restoran_Otomasyon.Paneller
 				row.Cells["Azalt"] = azaltButtonCell;
 			}
 			panelİndirim.Visible = false;
+			gridSecilenMalzemeler.Columns["MalzemeID"].Visible = false;
+			gridUrun.Columns["Id"].Visible = false;
 		}
 
 		private void gridUrun_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -243,12 +249,14 @@ namespace Restoran_Otomasyon.Paneller
 				txtdetay.Text = row.Cells["Detay"].Value.ToString();
 				uzanti.Text = row.Cells["Fotoğraf"].Value.ToString();
 				Aktiflik.Checked = row.Cells["Aktiflik"].Value.ToString() == "Aktif" ? true : false;
-				txtindirimli.Text = row.Cells["İndirimliFiyat"].Value.ToString();
+				indirimliFiyat = Convert.ToDecimal(row.Cells["İndirimliFiyat"].Value.ToString());
+				txtindirimli.Text = Yardimcilar.FormatliDeger(indirimliFiyat.ToString());
 				txtyuzde.Text = row.Cells["Yüzde"].Value.ToString();
 				comboKategori.Text = row.Cells["Kategori"].Value.ToString();
 				DateTime indirimTarihi = Convert.ToDateTime(row.Cells["İndirimTarihi"].Value.ToString());
 
-				txtfiyat.Text = row.Cells["Fiyat"].Value.ToString();
+				formatsizFiyat = Convert.ToDecimal(row.Cells["Fiyat"].Value.ToString());
+				txtfiyat.Text = Yardimcilar.FormatliDeger(formatsizFiyat.ToString());
 				formatsizFiyat = TemizleVeDondur(txtfiyat, "");
 				if (indirimTarihi == DateTime.MinValue)
 				{
@@ -355,6 +363,7 @@ namespace Restoran_Otomasyon.Paneller
 						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
 					}
 				}
+				Yardimcilar.GridFormat(gridUrun, "Yüzde", e);
 			}
 			else if (e.Value != null && e.ColumnIndex == gridUrun.Columns["İndirimliFiyat"].Index) // İndirimliFiyat sütununun indeksi
 			{
@@ -367,6 +376,7 @@ namespace Restoran_Otomasyon.Paneller
 						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
 					}
 				}
+				Yardimcilar.GridFormat(gridUrun, "İndirimliFiyat", e);
 			}
 			else if (e.Value != null && e.ColumnIndex == gridUrun.Columns["İndirimTarihi"].Index) // İndirimTarihi sütununun indeksi
 			{
@@ -380,31 +390,32 @@ namespace Restoran_Otomasyon.Paneller
 					}
 				}
 			}
+			Yardimcilar.GridFormat(gridUrun, "Fiyat", e);
 		}
 
 		private void Checkİndirim_CheckedChanged(object sender, EventArgs e)
 		{
 			if (gosterildi == false)
 			{
-				if (hiddenUrunId.Text != "")
+				//if (hiddenUrunId.Text != "")
+				//{
+				if (Checkİndirim.Checked == true)
 				{
-					if (Checkİndirim.Checked == true)
-					{
-						panelİndirim.Visible = true;
-						panelİndirim.Visible = true;
-					}
-					else
-					{
-						panelİndirim.Visible = false;
-					}
+					panelİndirim.Visible = true;
+					panelİndirim.Visible = true;
 				}
 				else
 				{
-					timer1.Start();
-					MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					gosterildi = true;
-					Checkİndirim.Checked = false;
+					panelİndirim.Visible = false;
 				}
+				//}
+				//else
+				//{
+				//	timer1.Start();
+				//	MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	gosterildi = true;
+				//	Checkİndirim.Checked = false;
+				//}
 			}
 			gosterildi = false;
 		}
@@ -467,7 +478,7 @@ namespace Restoran_Otomasyon.Paneller
 				pictureBox1.Image = resizedImage;
 			}
 		}
-		
+
 		private void button1_Click(object sender, EventArgs e)
 		{
 			if (Yardimcilar.HepsiDoluMu(groupUrun))
@@ -510,7 +521,6 @@ namespace Restoran_Otomasyon.Paneller
 								else
 								{
 									urn.IndirimTarihi = DateTime.Parse(txtindirimTarihi.Text);
-
 								}
 								urn.IndirimliFiyat = indirimliFiyat;
 								if (txtyuzde.Text == "")
@@ -587,6 +597,7 @@ namespace Restoran_Otomasyon.Paneller
 								x.KategorId = (int)comboKategori.SelectedValue;
 								timer1.Start();
 								MessageBox.Show("Ürün Güncellendi");
+
 								// Gridde olmayan malzeme ID'leri için HashSet oluşturun
 								HashSet<int> gridMalzemeIDs = new HashSet<int>();
 
@@ -645,7 +656,7 @@ namespace Restoran_Otomasyon.Paneller
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;
-							MalzemeSecPaneli.Visible=false;
+							MalzemeSecPaneli.Visible = false;
 						}
 						else
 						{
@@ -674,28 +685,37 @@ namespace Restoran_Otomasyon.Paneller
 		private void button2_Click(object sender, EventArgs e)//Sil butonu
 		{
 			int UrunId = Convert.ToInt32(hiddenUrunId.Text);
-			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes)
+			int Menusayisi = db.MenuUrunler.Count(k => k.UrunId == UrunId);//Role sahip kullanıcı sayısı
+			if (Menusayisi == 0)
 			{
-				if (hiddenUrunId.Text != "")//Ürünün görünürlüğünün kapattım
+				DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (result == DialogResult.Yes)
 				{
-					int id = Convert.ToInt32(hiddenUrunId.Text);
-					var urun = db.Urunler.Find(id);
-					urun.Gorunurluk = false;
-					db.SaveChanges();
-					timer1.Start();
-					MessageBox.Show("Kayıt Silindi");
-					Yardimcilar.Temizle(groupUrun);
-					// Ürüne ait malzemeleri bul
-					var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == UrunId).ToList();
-
-					// Her bir malzemenin görünürlüğünü kapat
-					foreach (var urunMalzeme in urunMalzemeler)
+					if (hiddenUrunId.Text != "")//Ürünün görünürlüğünün kapattım
 					{
-						urunMalzeme.Gorunurluk = false;
+						int id = Convert.ToInt32(hiddenUrunId.Text);
+						var urun = db.Urunler.Find(id);
+						urun.Gorunurluk = false;
+						db.SaveChanges();
+						timer1.Start();
+						MessageBox.Show("Kayıt Silindi");
+						Yardimcilar.Temizle(groupUrun);
+						// Ürüne ait malzemeleri bul
+						var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == UrunId).ToList();
+
+						// Her bir malzemenin görünürlüğünü kapat
+						foreach (var urunMalzeme in urunMalzemeler)
+						{
+							urunMalzeme.Gorunurluk = false;
+						}
+						Urunlist();
 					}
-					Urunlist();
 				}
+			}
+			else
+			{
+				timer1.Start();
+				MessageBox.Show($"Silmek İstediğiniz Ürünü  {Menusayisi} Adet Menü Kullanıyor", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 		private void button4_Click(object sender, EventArgs e)
@@ -737,7 +757,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			İndirimUygula();
 		}
-		
+
 		private void button7_Click(object sender, EventArgs e)
 		{
 			if (PanelKategori.Visible != true)

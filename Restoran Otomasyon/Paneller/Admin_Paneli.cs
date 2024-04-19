@@ -64,5 +64,11 @@ namespace Restoran_Otomasyon.Paneller
 			MenuESG git=new MenuESG();
 			git.Show();
 		}
+
+		private void stokSayımToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			StokSayim git= new StokSayim();
+			git.Show();
+		}
 	}
 }

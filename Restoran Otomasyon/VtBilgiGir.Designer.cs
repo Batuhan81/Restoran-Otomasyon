@@ -187,6 +187,7 @@
 			this.ClientSize = new System.Drawing.Size(492, 444);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.baglantiDizesi);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "VtBilgiGir";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
