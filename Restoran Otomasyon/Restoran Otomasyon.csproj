@@ -228,6 +228,12 @@
     <Compile Include="KategoriESG.Designer.cs">
       <DependentUpon>KategoriESG.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuESG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuESG.Designer.cs">
+      <DependentUpon>MenuESG.cs</DependentUpon>
+    </Compile>
     <Compile Include="UrunESG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KategoriESG.resx">
       <DependentUpon>KategoriESG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuESG.resx">
+      <DependentUpon>MenuESG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UrunESG.resx">
       <DependentUpon>UrunESG.cs</DependentUpon>

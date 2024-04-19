@@ -92,7 +92,8 @@
 			this.comboTur.FormattingEnabled = true;
 			this.comboTur.Items.AddRange(new object[] {
             "Masa",
-            "Ürün"});
+            "Ürün",
+            "Menü"});
 			this.comboTur.Location = new System.Drawing.Point(163, 72);
 			this.comboTur.Name = "comboTur";
 			this.comboTur.Size = new System.Drawing.Size(175, 24);

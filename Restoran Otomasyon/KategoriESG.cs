@@ -51,6 +51,11 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					calisanForm.kategoriler();
 				}
+				MenuESG calisanForm2 = Application.OpenForms.OfType<MenuESG>().FirstOrDefault();
+				if (calisanForm2 != null)
+				{
+					calisanForm2.menukategoriler();
+				}
 			}
 			else
 			{

@@ -53,9 +53,15 @@ namespace Restoran_Otomasyon.Paneller
 			git.Show();
 		}
 
-		private void KategoriCRUD_Click(object sender, EventArgs e)
+		private void kategoriEkleSilGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			KategoriESG git = new KategoriESG();
+			git.Show();
+		}
+
+		private void menüEkleSilGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MenuESG git=new MenuESG();
 			git.Show();
 		}
 	}

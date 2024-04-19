@@ -19,9 +19,42 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			InitializeComponent();
 		}
+		#region Global Degiskenler
+		decimal indirimliFiyat;
+		bool gosterildi = false;
+		private KategoriESG kategoriESGForm;
+		decimal formatsizFiyat;
+		decimal indirimliFiyatformatsiz;
 		Context db = new Context();
 		Malzeme mal = new Malzeme();
 		Urun urn = new Urun();
+		UrunMalzeme Umalzeme = new UrunMalzeme();
+		int id;
+		private bool isGridLoading = false;
+		#endregion
+
+
+
+		#region Metodlar
+		private void YuzdeHesabi()
+		{
+			formatsizFiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
+			if (txtyuzde.Text != "")
+			{
+				int yuzdeMiktari = Convert.ToInt32(txtyuzde.Text);
+				if (yuzdeMiktari <= 100)
+				{
+					indirimliFiyat = formatsizFiyat - (formatsizFiyat / 100 * yuzdeMiktari);
+					txtindirimli.Text = indirimliFiyat.ToString();
+					txtindirimli.Text = Yardimcilar.FormatliDeger(txtindirimli.Text);
+				}
+				else
+				{
+					timer1.Start();
+					MessageBox.Show("İndirim Yüzdesi Olarak En Fazla %100 Verebilirsiniz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+		}
 
 		void MalzemeListe()
 		{
@@ -29,10 +62,73 @@ namespace Restoran_Otomasyon.Paneller
 								.Where(m => m.Gorunurluk == true)
 								.Select(m => m.Ad) // Sadece malzeme adını seç
 								.ToList();
-
 			checkedListMalzeme.DataSource = malzemeler;
 		}
+		void Urunlist()
+		{
+			var Urunler = db.Urunler.Where(o => o.Gorunurluk == true).Select(o => new
+			{
+				Id = o.Id,
+				Ad = o.Ad,
+				Aciklama = o.Aciklama,
+				Detay = o.Detay,
+				Fiyat = o.Fiyat,
+				Fotoğraf = o.Fotograf,
+				Aktiflik = o.Akitf ? "Aktif" : "Pasif",
+				İndirimliFiyat = o.IndirimliFiyat,
+				İndirimTarihi = o.IndirimTarihi,
+				Yüzde = o.IndirimYuzdesi,
+				Kategori = db.Kategoriler.FirstOrDefault(x => x.Id == o.KategorId).Ad,
+			}).ToList();
 
+			gridUrun.DataSource = Urunler;
+			gridUrun.Columns["Fotoğraf"].Visible = false;
+			gridUrun.Columns["Id"].Visible = true;
+		}
+
+		public void kategoriler()
+		{
+			comboKategori.DataSource = null;
+			var kategoriler = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Ürün").Select(o => new
+			{
+				Id = o.Id,
+				Ad = o.Ad,
+			}).ToList();
+			comboKategori.DataSource = kategoriler;
+			comboKategori.DisplayMember = "Ad";
+			comboKategori.ValueMember = "Id";
+		}
+
+		private void İndirimUygula()
+		{
+			if (txtyuzde.Text == 0.ToString())
+			{
+				indirimliFiyat = Yardimcilar.TemizleVeDondur(txtindirimli, "");
+			}
+			if (hiddenUrunId.Text != "")
+			{
+				int id = Convert.ToInt32(hiddenUrunId.Text);
+				var urun = db.Urunler.Find(id);
+				urun.Fiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
+				urun.IndirimliFiyat = indirimliFiyat;
+				if (txtindirimTarihi.Text == "  .  .")
+				{
+					urun.IndirimTarihi = DateTime.MinValue;
+				}
+				else
+				{
+					urun.IndirimTarihi = Convert.ToDateTime(txtindirimTarihi.Text);
+				}
+				urun.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
+				db.SaveChanges();
+				MessageBox.Show("İndirim Uygulandı");
+				Checkİndirim.Checked = false;
+				Urunlist();
+			}
+		}
+		#endregion
+
+		#region Eventler
 		private void checkedListMalzeme_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
 			if (!isGridLoading) // Grid yüklenirken işlem yapmayı engelle
@@ -103,8 +199,275 @@ namespace Restoran_Otomasyon.Paneller
 					gridSecilenMalzemeler.Rows[e.RowIndex].Cells["Miktar"].Value = currentMiktar - 1;
 			}
 		}
-		UrunMalzeme Umalzeme = new UrunMalzeme();
-		int id;
+
+		private void UrunESG_Load(object sender, EventArgs e)
+		{
+			kategoriler();
+			Urunlist();
+			Yardimcilar.GridRenklendir(gridUrun);
+			Yardimcilar.GridRenklendir(gridSecilenMalzemeler);
+
+			if (gridSecilenMalzemeler.Columns.Count == 0)
+			{
+				gridSecilenMalzemeler.Columns.Add("MalzemeAdi", "Malzeme Adı");
+				gridSecilenMalzemeler.Columns.Add("MalzemeID", "Malzeme ID");
+				gridSecilenMalzemeler.Columns.Add("Miktar", "Miktar");
+				gridSecilenMalzemeler.Columns.Add("Arttir", "Arttır");
+				gridSecilenMalzemeler.Columns.Add("Azalt", "Azalt");
+			}
+
+			// Arttırma ve azaltma butonları için sütunları ekledikten sonra, her satıra butonları eklememiz gerekiyor
+			foreach (DataGridViewRow row in gridSecilenMalzemeler.Rows)
+			{
+				// Arttırma butonu
+				DataGridViewButtonCell arttirButtonCell = new DataGridViewButtonCell();
+				arttirButtonCell.Value = "+";
+				row.Cells["Arttir"] = arttirButtonCell;
+
+				// Azaltma butonu
+				DataGridViewButtonCell azaltButtonCell = new DataGridViewButtonCell();
+				azaltButtonCell.Value = "-";
+				row.Cells["Azalt"] = azaltButtonCell;
+			}
+			panelİndirim.Visible = false;
+		}
+
+		private void gridUrun_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex >= 0)
+			{
+				DataGridViewRow row = gridUrun.Rows[e.RowIndex];
+				// TextBox'lara ürün bilgilerini doldur
+				txtad.Text = row.Cells["Ad"].Value.ToString();
+				txtaciklama.Text = row.Cells["Aciklama"].Value.ToString();
+				txtdetay.Text = row.Cells["Detay"].Value.ToString();
+				uzanti.Text = row.Cells["Fotoğraf"].Value.ToString();
+				Aktiflik.Checked = row.Cells["Aktiflik"].Value.ToString() == "Aktif" ? true : false;
+				txtindirimli.Text = row.Cells["İndirimliFiyat"].Value.ToString();
+				txtyuzde.Text = row.Cells["Yüzde"].Value.ToString();
+				comboKategori.Text = row.Cells["Kategori"].Value.ToString();
+				DateTime indirimTarihi = Convert.ToDateTime(row.Cells["İndirimTarihi"].Value.ToString());
+
+				txtfiyat.Text = row.Cells["Fiyat"].Value.ToString();
+				formatsizFiyat = TemizleVeDondur(txtfiyat, "");
+				if (indirimTarihi == DateTime.MinValue)
+				{
+					txtindirimTarihi.Text = "";
+				}
+				else
+				{
+					txtindirimTarihi.Text = indirimTarihi.ToString();
+				}
+
+				// Ürün ID'sini sakla (Güncelleme işlemi için kullanılacak)
+				int urunId = Convert.ToInt32(row.Cells["Id"].Value.ToString());
+				hiddenUrunId.Text = urunId.ToString();
+				isGridLoading = true;
+				// Eğer resim yolu boş değilse, resmi boyutlandır
+				if (!string.IsNullOrEmpty(uzanti.Text))
+				{
+					// Seçilen resmin yolunu kullanarak boyutlandır ve PictureBox'ta göster
+					Image resizedImage = Yardimcilar.ResimBoyutlandir.DosyaYoluIleBoyutlandir(uzanti.Text, pictureBox1.Width, pictureBox1.Height);
+					pictureBox1.Image = resizedImage;
+					pictureBox1.Visible = true;
+				}
+				else
+				{
+					// Resim yolu boşsa, PictureBox'ı temizle
+					pictureBox1.Image = null;
+				}
+				// Ürün ID'sine göre ilişkili malzemeleri getir
+				var urunMalzemeler = db.urunMalzemeler.Where(o => o.UrunId == urunId && o.Gorunurluk == true).ToList();
+
+				// Mevcut satırları temizle
+				gridSecilenMalzemeler.Rows.Clear();
+				MalzemeListe();
+
+				// Her bir ilişkili malzeme için işlem yap
+				foreach (var urunMalzeme in urunMalzemeler)
+				{
+					// Malzeme özelliği null değilse, Ad özelliğine güvenle erişebiliriz
+					string malzemeAdi = db.Malzemeler.FirstOrDefault(o => o.Id == urunMalzeme.MalzemeId && o.Gorunurluk == true)?.Ad;
+
+					// Sadece görünür olan malzemelerin işlenmesi
+					if (!string.IsNullOrEmpty(malzemeAdi))
+					{
+						int rowIndex = gridSecilenMalzemeler.Rows.Add(malzemeAdi, urunMalzeme.MalzemeId, urunMalzeme.Miktar, "+", "-");
+
+						// Buraya +- eksi butonlarını oluşturacak ve işlevlerinin itemcheck metodundaki yerine getirecek bir şey ekle
+
+						int index = -1;
+						for (int i = 0; i < checkedListMalzeme.Items.Count; i++)
+						{
+							// Eğer malzeme ID'si checkedListMalzeme içinde bulunuyorsa, dizinini al
+							if (checkedListMalzeme.Items[i].ToString() == malzemeAdi)
+							{
+								index = i;
+								break;
+							}
+						}
+
+						// Eğer malzeme ID'si checkedListMalzeme içinde bulunuyorsa, işaretle
+						if (index != -1)
+						{
+							checkedListMalzeme.SetItemChecked(index, true);
+						}
+					}
+				}
+			}
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			timer1.Stop();
+			SendKeys.Send("{ESC}");
+		}
+
+		private void gridSecilenMalzemeler_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex >= 0 && e.ColumnIndex == gridSecilenMalzemeler.Columns["Miktar"].Index)
+			{
+				DataGridViewTextBoxCell cell = gridSecilenMalzemeler.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewTextBoxCell;
+
+				if (!gridSecilenMalzemeler.IsCurrentCellInEditMode)
+				{
+					gridSecilenMalzemeler.BeginEdit(true);
+				}
+			}
+			isGridLoading = false;
+		}
+
+		private void txtindirimli_Click(object sender, EventArgs e)
+		{
+			txtyuzde.Text = 0.ToString();
+		}
+
+		private void gridUrun_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+			if (e.Value != null && e.ColumnIndex == gridUrun.Columns["Yüzde"].Index) // İndirimliFiyat sütununun indeksi
+			{
+				decimal Yuzde;
+				if (decimal.TryParse(e.Value.ToString(), out Yuzde)) // İndirimli fiyat değerini decimal'e dönüştür
+				{
+					if (Yuzde == 0)
+					{
+						e.Value = "Yok"; // Eğer indirimli fiyat 0 ise "Yok" olarak ayarla
+						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
+					}
+				}
+			}
+			else if (e.Value != null && e.ColumnIndex == gridUrun.Columns["İndirimliFiyat"].Index) // İndirimliFiyat sütununun indeksi
+			{
+				decimal indirimliFiyat;
+				if (decimal.TryParse(e.Value.ToString(), out indirimliFiyat)) // İndirimli fiyat değerini decimal'e dönüştür
+				{
+					if (indirimliFiyat == 0)
+					{
+						e.Value = "Yok"; // Eğer indirimli fiyat 0 ise "Yok" olarak ayarla
+						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
+					}
+				}
+			}
+			else if (e.Value != null && e.ColumnIndex == gridUrun.Columns["İndirimTarihi"].Index) // İndirimTarihi sütununun indeksi
+			{
+				DateTime indirimTarihi;
+				if (DateTime.TryParse(e.Value.ToString(), out indirimTarihi)) // İndirim tarihi değerini DateTime'a dönüştür
+				{
+					if (indirimTarihi == DateTime.MinValue)
+					{
+						e.Value = "Yok"; // Eğer indirim tarihi min date ise "Yok" olarak ayarla
+						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
+					}
+				}
+			}
+		}
+
+		private void Checkİndirim_CheckedChanged(object sender, EventArgs e)
+		{
+			if (gosterildi == false)
+			{
+				if (hiddenUrunId.Text != "")
+				{
+					if (Checkİndirim.Checked == true)
+					{
+						panelİndirim.Visible = true;
+						panelİndirim.Visible = true;
+					}
+					else
+					{
+						panelİndirim.Visible = false;
+					}
+				}
+				else
+				{
+					timer1.Start();
+					MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					gosterildi = true;
+					Checkİndirim.Checked = false;
+				}
+			}
+			gosterildi = false;
+		}
+
+		private void txtfiyat_Leave_1(object sender, EventArgs e)
+		{
+			decimal guncelfiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
+			if (formatsizFiyat != guncelfiyat)
+			{
+				YuzdeHesabi();
+				İndirimUygula();
+			}
+			if (txtfiyat.Text != "")
+			{
+				formatsizFiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
+				txtfiyat.Text = Yardimcilar.FormatliDeger(txtfiyat.Text);
+			}
+		}
+
+		private void txtindirimli_Leave_1(object sender, EventArgs e)
+		{
+			decimal fiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
+			decimal indirim = Yardimcilar.TemizleVeDondur(txtindirimli, "");
+			if (fiyat > indirim)
+			{
+				if (txtindirimli.Text != "")
+				{
+					indirimliFiyatformatsiz = Yardimcilar.TemizleVeDondur(txtindirimli, "");
+					txtindirimli.Text = Yardimcilar.FormatliDeger(txtindirimli.Text);
+				}
+			}
+			else
+			{
+				MessageBox.Show("Girmeye Çalıştığınız Değer Ürünün Kendi Fiyatından Yüksek", "İşlem Yapılamaz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				txtindirimli.Text = "";
+			}
+
+		}
+
+		private void txtyuzde_Leave(object sender, EventArgs e)
+		{
+			YuzdeHesabi();
+		}
+		#endregion
+
+		#region Butonlar
+		private void button3_Click(object sender, EventArgs e)
+		{
+			// Resim seçme işlemi için Yardimcilar.ResimBoyutlandir.DosyaSec metodunu kullan
+			Image selectedImage = Yardimcilar.ResimBoyutlandir.DosyaSec(pictureBox1, uzanti);
+
+			// Seçilen resim varsa, boyutlandır ve PictureBox'ta göster
+			if (selectedImage != null)
+			{
+				// Seçilen fotoğrafın dosya yolunu uzanti Label'ına kaydet
+				string imagePath = uzanti.Text;
+
+				// Resmi boyutlandır
+				Image resizedImage = Yardimcilar.ResimBoyutlandir.Boyutlandir(selectedImage, pictureBox1.Width, pictureBox1.Height);
+				pictureBox1.Image = resizedImage;
+			}
+		}
+		
 		private void button1_Click(object sender, EventArgs e)
 		{
 			if (Yardimcilar.HepsiDoluMu(groupUrun))
@@ -194,11 +557,11 @@ namespace Restoran_Otomasyon.Paneller
 								x.Aciklama = txtaciklama.Text;
 								if (txtdetay.Text.EndsWith(","))
 								{
-									urn.Detay = txtdetay.Text.Remove(txtdetay.Text.Length - 1);
+									x.Detay = txtdetay.Text.Remove(txtdetay.Text.Length - 1);
 								}
 								else
 								{
-									urn.Detay = txtdetay.Text;
+									x.Detay = txtdetay.Text;
 								}
 
 								x.Fiyat = formatsizFiyat;
@@ -282,6 +645,7 @@ namespace Restoran_Otomasyon.Paneller
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;
+							MalzemeSecPaneli.Visible=false;
 						}
 						else
 						{
@@ -307,202 +671,9 @@ namespace Restoran_Otomasyon.Paneller
 				MessageBox.Show("Ürüne Ait tüm Alanları Doldurduğunuza Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
-
-		private void UrunESG_Load(object sender, EventArgs e)
-		{
-			kategoriler();
-			Urunlist();
-			Yardimcilar.GridRenklendir(gridUrun);
-			Yardimcilar.GridRenklendir(gridSecilenMalzemeler);
-
-			if (gridSecilenMalzemeler.Columns.Count == 0)
-			{
-				gridSecilenMalzemeler.Columns.Add("MalzemeAdi", "Malzeme Adı");
-				gridSecilenMalzemeler.Columns.Add("MalzemeID", "Malzeme ID");
-				gridSecilenMalzemeler.Columns.Add("Miktar", "Miktar");
-				gridSecilenMalzemeler.Columns.Add("Arttir", "Arttır");
-				gridSecilenMalzemeler.Columns.Add("Azalt", "Azalt");
-			}
-
-			// Arttırma ve azaltma butonları için sütunları ekledikten sonra, her satıra butonları eklememiz gerekiyor
-			foreach (DataGridViewRow row in gridSecilenMalzemeler.Rows)
-			{
-				// Arttırma butonu
-				DataGridViewButtonCell arttirButtonCell = new DataGridViewButtonCell();
-				arttirButtonCell.Value = "+";
-				row.Cells["Arttir"] = arttirButtonCell;
-
-				// Azaltma butonu
-				DataGridViewButtonCell azaltButtonCell = new DataGridViewButtonCell();
-				azaltButtonCell.Value = "-";
-				row.Cells["Azalt"] = azaltButtonCell;
-			}
-			panelİndirim.Visible = false;
-		}
-		void Urunlist()
-		{
-			var Urunler = db.Urunler.Where(o => o.Gorunurluk == true).Select(o => new
-			{
-				Id = o.Id,
-				Ad = o.Ad,
-				Aciklama = o.Aciklama,
-				Detay = o.Detay,
-				Fiyat = o.Fiyat,
-				Fotoğraf = o.Fotograf,
-				Aktiflik = o.Akitf ? "Aktif" : "Pasif",
-				İndirimliFiyat = o.IndirimliFiyat,
-				İndirimTarihi = o.IndirimTarihi,
-				Yüzde = o.IndirimYuzdesi,
-				Kategori = db.Kategoriler.FirstOrDefault(x => x.Id == o.KategorId).Ad,
-			}).ToList();
-
-			gridUrun.DataSource = Urunler;
-			gridUrun.Columns["Fotoğraf"].Visible = false;
-			gridUrun.Columns["Id"].Visible = true;
-		}
-		public void kategoriler()
-		{
-			var kategoriler = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Ürün").Select(o => new
-			{
-				Id = o.Id,
-				Ad = o.Ad,
-			}).ToList();
-			comboKategori.DataSource = kategoriler;
-			comboKategori.DisplayMember = "Ad";
-			comboKategori.ValueMember = "Id";
-		}
-		private bool isGridLoading = false;
-		private void gridUrun_CellClick(object sender, DataGridViewCellEventArgs e)
-		{
-			if (e.RowIndex >= 0)
-			{
-				DataGridViewRow row = gridUrun.Rows[e.RowIndex];
-				// TextBox'lara ürün bilgilerini doldur
-				txtad.Text = row.Cells["Ad"].Value.ToString();
-				txtaciklama.Text = row.Cells["Aciklama"].Value.ToString();
-				txtdetay.Text = row.Cells["Detay"].Value.ToString();
-				uzanti.Text = row.Cells["Fotoğraf"].Value.ToString();
-				Aktiflik.Checked = row.Cells["Aktiflik"].Value.ToString() == "Aktif" ? true : false;
-				txtindirimli.Text = row.Cells["İndirimliFiyat"].Value.ToString();
-				txtyuzde.Text = row.Cells["Yüzde"].Value.ToString();
-				comboKategori.Text = row.Cells["Kategori"].Value.ToString();
-				DateTime indirimTarihi = Convert.ToDateTime(row.Cells["İndirimTarihi"].Value.ToString());
-
-				txtfiyat.Text = row.Cells["Fiyat"].Value.ToString();
-				formatsizFiyat = TemizleVeDondur(txtfiyat, "");
-				if (indirimTarihi == DateTime.MinValue)
-				{
-					txtindirimTarihi.Text = "";
-				}
-				else
-				{
-					txtindirimTarihi.Text = indirimTarihi.ToString();
-				}
-
-				// Ürün ID'sini sakla (Güncelleme işlemi için kullanılacak)
-				int urunId = Convert.ToInt32(row.Cells["Id"].Value.ToString());
-				hiddenUrunId.Text = urunId.ToString();
-				isGridLoading = true;
-				// Eğer resim yolu boş değilse, resmi boyutlandır
-				if (!string.IsNullOrEmpty(uzanti.Text))
-				{
-					// Seçilen resmin yolunu kullanarak boyutlandır ve PictureBox'ta göster
-					Image resizedImage = Yardimcilar.ResimBoyutlandir.DosyaYoluIleBoyutlandir(uzanti.Text, pictureBox1.Width, pictureBox1.Height);
-					pictureBox1.Image = resizedImage;
-					pictureBox1.Visible = true;
-				}
-				else
-				{
-					// Resim yolu boşsa, PictureBox'ı temizle
-					pictureBox1.Image = null;
-				}
-				// Ürün ID'sine göre ilişkili malzemeleri getir
-				var urunMalzemeler = db.urunMalzemeler.Where(o => o.UrunId == urunId && o.Gorunurluk == true).ToList();
-
-				// Mevcut satırları temizle
-				gridSecilenMalzemeler.Rows.Clear();
-				MalzemeListe();
-
-				// Her bir ilişkili malzeme için işlem yap
-				foreach (var urunMalzeme in urunMalzemeler)
-				{
-					// Malzeme özelliği null değilse, Ad özelliğine güvenle erişebiliriz
-					string malzemeAdi = db.Malzemeler.FirstOrDefault(o => o.Id == urunMalzeme.MalzemeId &&o.Gorunurluk==true)?.Ad;
-
-					// Sadece görünür olan malzemelerin işlenmesi
-					if (!string.IsNullOrEmpty(malzemeAdi))
-					{
-						int rowIndex = gridSecilenMalzemeler.Rows.Add(malzemeAdi, urunMalzeme.MalzemeId, urunMalzeme.Miktar,"+","-");
-
-						// Buraya +- eksi butonlarını oluşturacak ve işlevlerinin itemcheck metodundaki yerine getirecek bir şey ekle
-
-						int index = -1;
-						for (int i = 0; i < checkedListMalzeme.Items.Count; i++)
-						{
-							// Eğer malzeme ID'si checkedListMalzeme içinde bulunuyorsa, dizinini al
-							if (checkedListMalzeme.Items[i].ToString() == malzemeAdi)
-							{
-								index = i;
-								break;
-							}
-						}
-
-						// Eğer malzeme ID'si checkedListMalzeme içinde bulunuyorsa, işaretle
-						if (index != -1)
-						{
-							checkedListMalzeme.SetItemChecked(index, true);
-						}
-					}
-				}
-
-			}
-		}
-
-		private void timer1_Tick(object sender, EventArgs e)
-		{
-			timer1.Stop();
-			SendKeys.Send("{ESC}");
-		}
-
-		private void gridSecilenMalzemeler_CellClick(object sender, DataGridViewCellEventArgs e)
-		{
-			if (e.RowIndex >= 0 && e.ColumnIndex == gridSecilenMalzemeler.Columns["Miktar"].Index)
-			{
-				DataGridViewTextBoxCell cell = gridSecilenMalzemeler.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewTextBoxCell;
-
-				if (!gridSecilenMalzemeler.IsCurrentCellInEditMode)
-				{
-					gridSecilenMalzemeler.BeginEdit(true);
-				}
-			}
-			isGridLoading = false;
-		}
-
-		private void button3_Click(object sender, EventArgs e)
-		{
-			// Resim seçme işlemi için Yardimcilar.ResimBoyutlandir.DosyaSec metodunu kullan
-			Image selectedImage = Yardimcilar.ResimBoyutlandir.DosyaSec(pictureBox1, uzanti);
-
-			// Seçilen resim varsa, boyutlandır ve PictureBox'ta göster
-			if (selectedImage != null)
-			{
-				// Seçilen fotoğrafın dosya yolunu uzanti Label'ına kaydet
-				string imagePath = uzanti.Text;
-
-				// Resmi boyutlandır
-				Image resizedImage = Yardimcilar.ResimBoyutlandir.Boyutlandir(selectedImage, pictureBox1.Width, pictureBox1.Height);
-				pictureBox1.Image = resizedImage;
-			}
-		}
-
 		private void button2_Click(object sender, EventArgs e)//Sil butonu
 		{
 			int UrunId = Convert.ToInt32(hiddenUrunId.Text);
-			//int Urunler = db.Urunler.Count(k => k.KategorId == UrunId);//Bu kısım menüler bu ürünü kullanıyorsa olarak güncellenecek
-
-
-			//if (Urunler == 0)
-			//{
 			DialogResult result = MessageBox.Show("Kaydı Silmek İstediğinize Emin Misiniz ?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes)
 			{
@@ -526,109 +697,18 @@ namespace Restoran_Otomasyon.Paneller
 					Urunlist();
 				}
 			}
-			//}
-			//else
-			//{
-			//	timer1.Start();
-			//	MessageBox.Show($"Silmek İstediğiniz Kategoriye  Ait {Urunler}  Adet Ürün Var", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			//}
 		}
-
-
-		decimal formatsizFiyat;
-		decimal indirimliFiyatformatsiz;
-
-		private void txtfiyat_Leave_1(object sender, EventArgs e)
+		private void button4_Click(object sender, EventArgs e)
 		{
-			decimal guncelfiyat= Yardimcilar.TemizleVeDondur(txtfiyat, "");
-			if (formatsizFiyat!= guncelfiyat)
+			if (MalzemeSecPaneli.Visible != true)
 			{
-				YuzdeHesabi();
-				İndirimUygula();
-			}
-			if (txtfiyat.Text != "")
-			{
-				formatsizFiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
-				txtfiyat.Text = Yardimcilar.FormatliDeger(txtfiyat.Text);
-			}
-		}
+				MalzemeSecPaneli.Visible = true;
 
-		private void txtindirimli_Leave_1(object sender, EventArgs e)
-		{
-			decimal fiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
-			decimal indirim = Yardimcilar.TemizleVeDondur(txtindirimli, "");
-			if (fiyat > indirim)
-			{
-				if (txtindirimli.Text != "")
-				{
-					indirimliFiyatformatsiz = Yardimcilar.TemizleVeDondur(txtindirimli, "");
-					txtindirimli.Text = Yardimcilar.FormatliDeger(txtindirimli.Text);
-				}
+				MalzemeListe();
 			}
 			else
 			{
-				MessageBox.Show("Girmeye Çalıştığınız Değer Ürünün Kendi Fiyatından Yüksek", "İşlem Yapılamaz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				txtindirimli.Text = "";
-			}
-
-		}
-		decimal indirimliFiyat;
-		private void txtyuzde_Leave(object sender, EventArgs e)
-		{
-			YuzdeHesabi();
-		}
-
-		private void YuzdeHesabi()
-		{
-			formatsizFiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
-			if (txtyuzde.Text != "")
-			{
-				int yuzdeMiktari = Convert.ToInt32(txtyuzde.Text);
-				if (yuzdeMiktari <= 100)
-				{
-					indirimliFiyat = formatsizFiyat - (formatsizFiyat / 100 * yuzdeMiktari);
-					txtindirimli.Text = indirimliFiyat.ToString();
-					txtindirimli.Text = Yardimcilar.FormatliDeger(txtindirimli.Text);
-				}
-				else
-				{
-					timer1.Start();
-					MessageBox.Show("İndirim Yüzdesi Olarak En Fazla %100 Verebilirsiniz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-			}
-		}
-
-
-		private void button6_Click(object sender, EventArgs e)
-		{
-			İndirimUygula();
-		}
-
-		private void İndirimUygula()
-		{
-			if (txtyuzde.Text == 0.ToString())
-			{
-				indirimliFiyat = Yardimcilar.TemizleVeDondur(txtindirimli, "");
-			}
-			if (hiddenUrunId.Text != "")
-			{
-				int id = Convert.ToInt32(hiddenUrunId.Text);
-				var urun = db.Urunler.Find(id);
-				urun.Fiyat= Yardimcilar.TemizleVeDondur(txtfiyat, "");
-				urun.IndirimliFiyat = indirimliFiyat;
-				if (txtindirimTarihi.Text == "  .  .")
-				{
-					urun.IndirimTarihi = DateTime.MinValue;
-				}
-				else
-				{
-					urun.IndirimTarihi = Convert.ToDateTime(txtindirimTarihi.Text);
-				}
-				urun.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
-				db.SaveChanges();
-				MessageBox.Show("İndirim Uygulandı");
-				Checkİndirim.Checked = false;
-				Urunlist();
+				MalzemeSecPaneli.Visible = false;
 			}
 		}
 
@@ -653,54 +733,11 @@ namespace Restoran_Otomasyon.Paneller
 				Urunlist();
 			}
 		}
-
-		private void txtindirimli_Click(object sender, EventArgs e)
+		private void button6_Click(object sender, EventArgs e)
 		{
-			txtyuzde.Text = 0.ToString();
+			İndirimUygula();
 		}
-
-		private void gridUrun_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-		{
-			if (e.Value != null && e.ColumnIndex == gridUrun.Columns["Yüzde"].Index) // İndirimliFiyat sütununun indeksi
-			{
-				decimal Yuzde;
-				if (decimal.TryParse(e.Value.ToString(), out Yuzde)) // İndirimli fiyat değerini decimal'e dönüştür
-				{
-					if (Yuzde == 0)
-					{
-						e.Value = "Yok"; // Eğer indirimli fiyat 0 ise "Yok" olarak ayarla
-						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
-					}
-				}
-			}
-			else if (e.Value != null && e.ColumnIndex == gridUrun.Columns["İndirimliFiyat"].Index) // İndirimliFiyat sütununun indeksi
-			{
-				decimal indirimliFiyat;
-				if (decimal.TryParse(e.Value.ToString(), out indirimliFiyat)) // İndirimli fiyat değerini decimal'e dönüştür
-				{
-					if (indirimliFiyat == 0)
-					{
-						e.Value = "Yok"; // Eğer indirimli fiyat 0 ise "Yok" olarak ayarla
-						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
-					}
-				}
-			}
-			else if (e.Value != null && e.ColumnIndex == gridUrun.Columns["İndirimTarihi"].Index) // İndirimTarihi sütununun indeksi
-			{
-				DateTime indirimTarihi;
-				if (DateTime.TryParse(e.Value.ToString(), out indirimTarihi)) // İndirim tarihi değerini DateTime'a dönüştür
-				{
-					if (indirimTarihi == DateTime.MinValue)
-					{
-						e.Value = "Yok"; // Eğer indirim tarihi min date ise "Yok" olarak ayarla
-						e.FormattingApplied = true; // Formatlama uygulandı olarak işaretle
-					}
-				}
-			}
-		}
-
-		private KategoriESG kategoriESGForm;
-
+		
 		private void button7_Click(object sender, EventArgs e)
 		{
 			if (PanelKategori.Visible != true)
@@ -729,52 +766,6 @@ namespace Restoran_Otomasyon.Paneller
 				}
 			}
 		}
-		bool gosterildi = false;
-		private void Checkİndirim_CheckedChanged(object sender, EventArgs e)
-		{
-			if (gosterildi == false)
-			{
-				if (hiddenUrunId.Text != "")
-				{
-					if (Checkİndirim.Checked == true)
-					{
-						panelİndirim.Visible = true;
-						//foreach (Control item in MalzemeSecPaneli.Controls)//tek panelde 2 farklı alan açıyordum boyut farkından dolayı kaldırdım
-						//{
-						//	if (!(item is Panel))
-						//	{
-						//		item.Visible = false;
-						//	}
-						//}
-						panelİndirim.Visible = true;
-					}
-					else
-					{
-						panelİndirim.Visible = false;
-					}
-				}
-				else
-				{
-					timer1.Start();
-					MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					gosterildi = true;
-					Checkİndirim.Checked = false;
-				}
-			}
-			gosterildi = false;
-		}
-		private void button4_Click(object sender, EventArgs e)
-		{
-			if (MalzemeSecPaneli.Visible != true)
-			{
-				MalzemeSecPaneli.Visible = true;
-               
-                MalzemeListe();
-			}
-			else
-			{
-				MalzemeSecPaneli.Visible = false;
-			}
-		}
+		#endregion
 	}
 }
