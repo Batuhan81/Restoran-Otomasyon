@@ -16,7 +16,6 @@ namespace Restoran_Otomasyon.Data
 		public DbSet<Kasa> Kasalar { get; set; }
 		public DbSet<Kategori> Kategoriler{ get; set; }
 		public DbSet<Malzeme> Malzemeler { get; set; }
-		public DbSet<MalzemeGirdi> MalzemeGirdiler{ get; set; }
 		public DbSet<Masa> Masalar{ get; set; }
 		public DbSet<MasaOzellik> MasaOzellikler { get; set; }
 		public DbSet<MasaRezervasyon> MasaRezervasyonlar { get; set; }

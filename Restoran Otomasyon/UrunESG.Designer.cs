@@ -29,17 +29,19 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UrunESG));
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.hiddenStokId = new System.Windows.Forms.TextBox();
 			this.hiddenUrunId = new System.Windows.Forms.TextBox();
 			this.hiddenMalzemeId = new System.Windows.Forms.TextBox();
 			this.groupUrun = new System.Windows.Forms.GroupBox();
+			this.button7 = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.Checkİndirim = new System.Windows.Forms.CheckBox();
 			this.txtfiyat = new System.Windows.Forms.TextBox();
 			this.button3 = new System.Windows.Forms.Button();
@@ -58,10 +60,6 @@
 			this.txtad = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label10 = new System.Windows.Forms.Label();
-			this.label9 = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
-			this.txtindirimTarihi = new System.Windows.Forms.MaskedTextBox();
 			this.gridUrun = new System.Windows.Forms.DataGridView();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.MalzemeSecPaneli = new System.Windows.Forms.Panel();
@@ -70,24 +68,23 @@
 			this.label11 = new System.Windows.Forms.Label();
 			this.checkedListMalzeme = new System.Windows.Forms.CheckedListBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.PanelKategori = new System.Windows.Forms.Panel();
 			this.panelİndirim = new System.Windows.Forms.Panel();
-			this.label13 = new System.Windows.Forms.Label();
-			this.txtyuzde = new System.Windows.Forms.TextBox();
-			this.txtindirimli = new System.Windows.Forms.TextBox();
-			this.button6 = new System.Windows.Forms.Button();
+			this.label10 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.txtindirimTarihi = new System.Windows.Forms.MaskedTextBox();
 			this.button5 = new System.Windows.Forms.Button();
-			this.label6 = new System.Windows.Forms.Label();
-			this.MalzemeEklePanel = new System.Windows.Forms.Panel();
-			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.button7 = new System.Windows.Forms.Button();
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.button6 = new System.Windows.Forms.Button();
+			this.txtindirimli = new System.Windows.Forms.TextBox();
+			this.txtyuzde = new System.Windows.Forms.TextBox();
+			this.label13 = new System.Windows.Forms.Label();
 			this.groupUrun.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridUrun)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.MalzemeSecPaneli.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridSecilenMalzemeler)).BeginInit();
 			this.panelİndirim.SuspendLayout();
-			this.MalzemeEklePanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// hiddenStokId
@@ -146,6 +143,26 @@
 			this.groupUrun.TabIndex = 47;
 			this.groupUrun.TabStop = false;
 			this.groupUrun.Text = "Malzeme Bilgileri";
+			// 
+			// button7
+			// 
+			this.button7.BackColor = System.Drawing.SystemColors.Control;
+			this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button7.ImageKey = "Ekle2.png";
+			this.button7.ImageList = this.ımageList1;
+			this.button7.Location = new System.Drawing.Point(343, 501);
+			this.button7.Margin = new System.Windows.Forms.Padding(4);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(33, 28);
+			this.button7.TabIndex = 58;
+			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.button7_Click);
+			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Ekle2.png");
 			// 
 			// Checkİndirim
 			// 
@@ -328,80 +345,37 @@
 			this.label1.TabIndex = 19;
 			this.label1.Text = "Ad:";
 			// 
-			// label10
-			// 
-			this.label10.AutoSize = true;
-			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label10.Location = new System.Drawing.Point(73, 99);
-			this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(124, 16);
-			this.label10.TabIndex = 62;
-			this.label10.Text = "İndirimli Yüzdesi:";
-			// 
-			// label9
-			// 
-			this.label9.AutoSize = true;
-			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label9.Location = new System.Drawing.Point(94, 43);
-			this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(103, 16);
-			this.label9.TabIndex = 60;
-			this.label9.Text = "İndirimli Fiyat:";
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label7.Location = new System.Drawing.Point(21, 159);
-			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(176, 16);
-			this.label7.TabIndex = 58;
-			this.label7.Text = "İndirim Gerçerlilik Tarihi:";
-			// 
-			// txtindirimTarihi
-			// 
-			this.txtindirimTarihi.Location = new System.Drawing.Point(219, 155);
-			this.txtindirimTarihi.Mask = "00/00/0000";
-			this.txtindirimTarihi.Name = "txtindirimTarihi";
-			this.txtindirimTarihi.Size = new System.Drawing.Size(175, 24);
-			this.txtindirimTarihi.TabIndex = 57;
-			this.txtindirimTarihi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.txtindirimTarihi.ValidatingType = typeof(System.DateTime);
-			// 
 			// gridUrun
 			// 
 			this.gridUrun.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridUrun.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridUrun.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
 			this.gridUrun.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridUrun.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridUrun.DefaultCellStyle = dataGridViewCellStyle14;
 			this.gridUrun.Location = new System.Drawing.Point(434, 7);
 			this.gridUrun.Margin = new System.Windows.Forms.Padding(4);
 			this.gridUrun.Name = "gridUrun";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridUrun.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridUrun.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
 			this.gridUrun.RowHeadersWidth = 51;
 			this.gridUrun.RowTemplate.Height = 24;
 			this.gridUrun.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -413,7 +387,7 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.pictureBox1.Location = new System.Drawing.Point(1246, 404);
+			this.pictureBox1.Location = new System.Drawing.Point(1175, 420);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(350, 350);
 			this.pictureBox1.TabIndex = 55;
@@ -422,12 +396,11 @@
 			// 
 			// MalzemeSecPaneli
 			// 
-			this.MalzemeSecPaneli.Controls.Add(this.panelİndirim);
 			this.MalzemeSecPaneli.Controls.Add(this.gridSecilenMalzemeler);
 			this.MalzemeSecPaneli.Controls.Add(this.label12);
 			this.MalzemeSecPaneli.Controls.Add(this.label11);
 			this.MalzemeSecPaneli.Controls.Add(this.checkedListMalzeme);
-			this.MalzemeSecPaneli.Location = new System.Drawing.Point(434, 13);
+			this.MalzemeSecPaneli.Location = new System.Drawing.Point(437, 379);
 			this.MalzemeSecPaneli.Name = "MalzemeSecPaneli";
 			this.MalzemeSecPaneli.Size = new System.Drawing.Size(732, 416);
 			this.MalzemeSecPaneli.TabIndex = 56;
@@ -436,34 +409,34 @@
 			// gridSecilenMalzemeler
 			// 
 			this.gridSecilenMalzemeler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridSecilenMalzemeler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridSecilenMalzemeler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
 			this.gridSecilenMalzemeler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridSecilenMalzemeler.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridSecilenMalzemeler.DefaultCellStyle = dataGridViewCellStyle17;
 			this.gridSecilenMalzemeler.Location = new System.Drawing.Point(233, 27);
 			this.gridSecilenMalzemeler.Margin = new System.Windows.Forms.Padding(4);
 			this.gridSecilenMalzemeler.Name = "gridSecilenMalzemeler";
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridSecilenMalzemeler.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridSecilenMalzemeler.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
 			this.gridSecilenMalzemeler.RowHeadersWidth = 51;
 			this.gridSecilenMalzemeler.RowTemplate.Height = 24;
 			this.gridSecilenMalzemeler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -497,7 +470,7 @@
 			// checkedListMalzeme
 			// 
 			this.checkedListMalzeme.FormattingEnabled = true;
-			this.checkedListMalzeme.Location = new System.Drawing.Point(9, 26);
+			this.checkedListMalzeme.Location = new System.Drawing.Point(9, 24);
 			this.checkedListMalzeme.Name = "checkedListMalzeme";
 			this.checkedListMalzeme.Size = new System.Drawing.Size(200, 384);
 			this.checkedListMalzeme.TabIndex = 0;
@@ -508,6 +481,15 @@
 			this.timer1.Interval = 2000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
+			// PanelKategori
+			// 
+			this.PanelKategori.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.PanelKategori.Location = new System.Drawing.Point(437, 160);
+			this.PanelKategori.Name = "PanelKategori";
+			this.PanelKategori.Size = new System.Drawing.Size(598, 212);
+			this.PanelKategori.TabIndex = 57;
+			this.PanelKategori.Visible = false;
+			// 
 			// panelİndirim
 			// 
 			this.panelİndirim.Controls.Add(this.label13);
@@ -515,58 +497,62 @@
 			this.panelİndirim.Controls.Add(this.txtindirimli);
 			this.panelİndirim.Controls.Add(this.button6);
 			this.panelİndirim.Controls.Add(this.button5);
-			this.panelİndirim.Controls.Add(this.label6);
 			this.panelİndirim.Controls.Add(this.txtindirimTarihi);
 			this.panelİndirim.Controls.Add(this.label7);
 			this.panelİndirim.Controls.Add(this.label9);
 			this.panelİndirim.Controls.Add(this.label10);
-			this.panelİndirim.Location = new System.Drawing.Point(122, 67);
+			this.panelİndirim.Location = new System.Drawing.Point(1041, 160);
 			this.panelİndirim.Name = "panelİndirim";
-			this.panelİndirim.Size = new System.Drawing.Size(471, 297);
+			this.panelİndirim.Size = new System.Drawing.Size(471, 212);
 			this.panelİndirim.TabIndex = 68;
 			this.panelİndirim.Visible = false;
 			// 
-			// label13
+			// label10
 			// 
-			this.label13.AutoSize = true;
-			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label13.Location = new System.Drawing.Point(222, 99);
-			this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(25, 20);
-			this.label13.TabIndex = 69;
-			this.label13.Text = "%";
+			this.label10.AutoSize = true;
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label10.Location = new System.Drawing.Point(65, 55);
+			this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(124, 16);
+			this.label10.TabIndex = 62;
+			this.label10.Text = "İndirimli Yüzdesi:";
 			// 
-			// txtyuzde
+			// label9
 			// 
-			this.txtyuzde.Location = new System.Drawing.Point(254, 97);
-			this.txtyuzde.Name = "txtyuzde";
-			this.txtyuzde.Size = new System.Drawing.Size(54, 24);
-			this.txtyuzde.TabIndex = 68;
-			this.txtyuzde.Leave += new System.EventHandler(this.txtyuzde_Leave);
+			this.label9.AutoSize = true;
+			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label9.Location = new System.Drawing.Point(86, 14);
+			this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(103, 16);
+			this.label9.TabIndex = 60;
+			this.label9.Text = "İndirimli Fiyat:";
 			// 
-			// txtindirimli
+			// label7
 			// 
-			this.txtindirimli.Location = new System.Drawing.Point(219, 43);
-			this.txtindirimli.Name = "txtindirimli";
-			this.txtindirimli.Size = new System.Drawing.Size(175, 24);
-			this.txtindirimli.TabIndex = 67;
-			this.txtindirimli.Click += new System.EventHandler(this.txtindirimli_Click);
-			this.txtindirimli.Leave += new System.EventHandler(this.txtindirimli_Leave_1);
+			this.label7.AutoSize = true;
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label7.Location = new System.Drawing.Point(13, 106);
+			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(176, 16);
+			this.label7.TabIndex = 58;
+			this.label7.Text = "İndirim Gerçerlilik Tarihi:";
 			// 
-			// button6
+			// txtindirimTarihi
 			// 
-			this.button6.Location = new System.Drawing.Point(64, 216);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(133, 62);
-			this.button6.TabIndex = 65;
-			this.button6.Text = "İndirimi Uygula";
-			this.button6.UseVisualStyleBackColor = true;
-			this.button6.Click += new System.EventHandler(this.button6_Click);
+			this.txtindirimTarihi.Location = new System.Drawing.Point(211, 102);
+			this.txtindirimTarihi.Mask = "00/00/0000";
+			this.txtindirimTarihi.Name = "txtindirimTarihi";
+			this.txtindirimTarihi.Size = new System.Drawing.Size(175, 24);
+			this.txtindirimTarihi.TabIndex = 57;
+			this.txtindirimTarihi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.txtindirimTarihi.ValidatingType = typeof(System.DateTime);
 			// 
 			// button5
 			// 
-			this.button5.Location = new System.Drawing.Point(249, 216);
+			this.button5.Location = new System.Drawing.Point(242, 141);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(133, 62);
 			this.button5.TabIndex = 64;
@@ -574,55 +560,43 @@
 			this.button5.UseVisualStyleBackColor = true;
 			this.button5.Click += new System.EventHandler(this.button5_Click);
 			// 
-			// label6
+			// button6
 			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label6.Location = new System.Drawing.Point(21, 9);
-			this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(444, 16);
-			this.label6.TabIndex = 63;
-			this.label6.Text = "İsterseniz El ile İsterseniz %\'lik olarak indirim Uygulayabilirsiniz";
+			this.button6.Location = new System.Drawing.Point(57, 141);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(133, 62);
+			this.button6.TabIndex = 65;
+			this.button6.Text = "İndirimi Uygula";
+			this.button6.UseVisualStyleBackColor = true;
+			this.button6.Click += new System.EventHandler(this.button6_Click);
 			// 
-			// MalzemeEklePanel
+			// txtindirimli
 			// 
-			this.MalzemeEklePanel.Controls.Add(this.panel1);
-			this.MalzemeEklePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.MalzemeEklePanel.Location = new System.Drawing.Point(443, 435);
-			this.MalzemeEklePanel.Name = "MalzemeEklePanel";
-			this.MalzemeEklePanel.Size = new System.Drawing.Size(723, 530);
-			this.MalzemeEklePanel.TabIndex = 57;
-			this.MalzemeEklePanel.Visible = false;
+			this.txtindirimli.Location = new System.Drawing.Point(211, 14);
+			this.txtindirimli.Name = "txtindirimli";
+			this.txtindirimli.Size = new System.Drawing.Size(175, 24);
+			this.txtindirimli.TabIndex = 67;
+			this.txtindirimli.Click += new System.EventHandler(this.txtindirimli_Click);
+			this.txtindirimli.Leave += new System.EventHandler(this.txtindirimli_Leave_1);
 			// 
-			// ımageList1
+			// txtyuzde
 			// 
-			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
-			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList1.Images.SetKeyName(0, "Ekle2.png");
+			this.txtyuzde.Location = new System.Drawing.Point(270, 50);
+			this.txtyuzde.Name = "txtyuzde";
+			this.txtyuzde.Size = new System.Drawing.Size(54, 24);
+			this.txtyuzde.TabIndex = 68;
+			this.txtyuzde.Leave += new System.EventHandler(this.txtyuzde_Leave);
 			// 
-			// button7
+			// label13
 			// 
-			this.button7.BackColor = System.Drawing.SystemColors.Control;
-			this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.button7.ImageKey = "Ekle2.png";
-			this.button7.ImageList = this.ımageList1;
-			this.button7.Location = new System.Drawing.Point(343, 501);
-			this.button7.Margin = new System.Windows.Forms.Padding(4);
-			this.button7.Name = "button7";
-			this.button7.Size = new System.Drawing.Size(33, 28);
-			this.button7.TabIndex = 58;
-			this.button7.UseVisualStyleBackColor = true;
-			this.button7.Click += new System.EventHandler(this.button7_Click);
-			// 
-			// panel1
-			// 
-			this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.panel1.Location = new System.Drawing.Point(8, 8);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(723, 530);
-			this.panel1.TabIndex = 58;
-			this.panel1.Visible = false;
+			this.label13.AutoSize = true;
+			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label13.Location = new System.Drawing.Point(238, 52);
+			this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(25, 20);
+			this.label13.TabIndex = 69;
+			this.label13.Text = "%";
 			// 
 			// UrunESG
 			// 
@@ -630,7 +604,8 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1608, 808);
-			this.Controls.Add(this.MalzemeEklePanel);
+			this.Controls.Add(this.panelİndirim);
+			this.Controls.Add(this.PanelKategori);
 			this.Controls.Add(this.MalzemeSecPaneli);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.hiddenStokId);
@@ -654,7 +629,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.gridSecilenMalzemeler)).EndInit();
 			this.panelİndirim.ResumeLayout(false);
 			this.panelİndirim.PerformLayout();
-			this.MalzemeEklePanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -682,10 +656,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.DataGridView gridUrun;
 		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.MaskedTextBox txtindirimTarihi;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Panel MalzemeSecPaneli;
@@ -694,18 +664,20 @@
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.DataGridView gridSecilenMalzemeler;
 		private System.Windows.Forms.Timer timer1;
-		private System.Windows.Forms.Panel panelİndirim;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Button button6;
-		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.TextBox txtfiyat;
-		private System.Windows.Forms.TextBox txtindirimli;
-		private System.Windows.Forms.TextBox txtyuzde;
 		private System.Windows.Forms.CheckBox Checkİndirim;
-		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.Panel MalzemeEklePanel;
+		private System.Windows.Forms.Panel PanelKategori;
 		private System.Windows.Forms.Button button7;
 		private System.Windows.Forms.ImageList ımageList1;
-		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Panel panelİndirim;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.TextBox txtyuzde;
+		private System.Windows.Forms.TextBox txtindirimli;
+		private System.Windows.Forms.Button button6;
+		private System.Windows.Forms.Button button5;
+		private System.Windows.Forms.MaskedTextBox txtindirimTarihi;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label10;
 	}
 }

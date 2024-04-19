@@ -185,7 +185,6 @@
     <Compile Include="Data\Kategori.cs" />
     <Compile Include="Data\Kullanici.cs" />
     <Compile Include="Data\Malzeme.cs" />
-    <Compile Include="Data\MalzemeGirdi.cs" />
     <Compile Include="Data\Masa.cs" />
     <Compile Include="Data\MasaOzellik.cs" />
     <Compile Include="Data\MasaRezervasyon.cs" />
