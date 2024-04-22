@@ -37,13 +37,16 @@
 			this.kategoriEkleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.kategoriEkleSilGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.stokİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.StokGİrdiCRUD = new System.Windows.Forms.ToolStripMenuItem();
 			this.MalzemeCRUD = new System.Windows.Forms.ToolStripMenuItem();
+			this.StokGİrdiCRUD = new System.Windows.Forms.ToolStripMenuItem();
+			this.stokSayımToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ürünİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.UrunCRUD = new System.Windows.Forms.ToolStripMenuItem();
 			this.menüİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menüEkleSilGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.stokSayımToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.masaİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.masaOluşturToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.masaÖzellikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -57,7 +60,8 @@
             this.kategoriEkleToolStripMenuItem,
             this.stokİşlemleriToolStripMenuItem,
             this.ürünİşlemleriToolStripMenuItem,
-            this.menüİşlemleriToolStripMenuItem});
+            this.menüİşlemleriToolStripMenuItem,
+            this.masaİşlemleriToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(1672, 31);
@@ -127,19 +131,26 @@
 			this.stokİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(165, 27);
 			this.stokİşlemleriToolStripMenuItem.Text = "Malzeme İşlemleri";
 			// 
-			// StokGİrdiCRUD
-			// 
-			this.StokGİrdiCRUD.Name = "StokGİrdiCRUD";
-			this.StokGİrdiCRUD.Size = new System.Drawing.Size(224, 28);
-			this.StokGİrdiCRUD.Text = "Stok Girdisi Ekle";
-			this.StokGİrdiCRUD.Click += new System.EventHandler(this.StokGİrdiCRUD_Click);
-			// 
 			// MalzemeCRUD
 			// 
 			this.MalzemeCRUD.Name = "MalzemeCRUD";
-			this.MalzemeCRUD.Size = new System.Drawing.Size(224, 28);
+			this.MalzemeCRUD.Size = new System.Drawing.Size(219, 28);
 			this.MalzemeCRUD.Text = "Malzeme Ekle";
 			this.MalzemeCRUD.Click += new System.EventHandler(this.MalzemeCRUD_Click);
+			// 
+			// StokGİrdiCRUD
+			// 
+			this.StokGİrdiCRUD.Name = "StokGİrdiCRUD";
+			this.StokGİrdiCRUD.Size = new System.Drawing.Size(219, 28);
+			this.StokGİrdiCRUD.Text = "Stok Girdisi Ekle";
+			this.StokGİrdiCRUD.Click += new System.EventHandler(this.StokGİrdiCRUD_Click);
+			// 
+			// stokSayımToolStripMenuItem
+			// 
+			this.stokSayımToolStripMenuItem.Name = "stokSayımToolStripMenuItem";
+			this.stokSayımToolStripMenuItem.Size = new System.Drawing.Size(219, 28);
+			this.stokSayımToolStripMenuItem.Text = "Stok Sayım";
+			this.stokSayımToolStripMenuItem.Click += new System.EventHandler(this.stokSayımToolStripMenuItem_Click);
 			// 
 			// ürünİşlemleriToolStripMenuItem
 			// 
@@ -171,12 +182,28 @@
 			this.menüEkleSilGüncelleToolStripMenuItem.Text = "Menü Ekle/Sil/Güncelle";
 			this.menüEkleSilGüncelleToolStripMenuItem.Click += new System.EventHandler(this.menüEkleSilGüncelleToolStripMenuItem_Click);
 			// 
-			// stokSayımToolStripMenuItem
+			// masaİşlemleriToolStripMenuItem
 			// 
-			this.stokSayımToolStripMenuItem.Name = "stokSayımToolStripMenuItem";
-			this.stokSayımToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-			this.stokSayımToolStripMenuItem.Text = "Stok Sayım";
-			this.stokSayımToolStripMenuItem.Click += new System.EventHandler(this.stokSayımToolStripMenuItem_Click);
+			this.masaİşlemleriToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.masaOluşturToolStripMenuItem,
+            this.masaÖzellikToolStripMenuItem});
+			this.masaİşlemleriToolStripMenuItem.Name = "masaİşlemleriToolStripMenuItem";
+			this.masaİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(136, 27);
+			this.masaİşlemleriToolStripMenuItem.Text = "Masa İşlemleri";
+			// 
+			// masaOluşturToolStripMenuItem
+			// 
+			this.masaOluşturToolStripMenuItem.Name = "masaOluşturToolStripMenuItem";
+			this.masaOluşturToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.masaOluşturToolStripMenuItem.Text = "Masa Oluştur";
+			this.masaOluşturToolStripMenuItem.Click += new System.EventHandler(this.masaOluşturToolStripMenuItem_Click);
+			// 
+			// masaÖzellikToolStripMenuItem
+			// 
+			this.masaÖzellikToolStripMenuItem.Name = "masaÖzellikToolStripMenuItem";
+			this.masaÖzellikToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.masaÖzellikToolStripMenuItem.Text = "Masa Özellik";
+			this.masaÖzellikToolStripMenuItem.Click += new System.EventHandler(this.masaÖzellikToolStripMenuItem_Click);
 			// 
 			// Admin_Paneli
 			// 
@@ -216,5 +243,8 @@
 		private System.Windows.Forms.ToolStripMenuItem kategoriEkleSilGüncelleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem menüEkleSilGüncelleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem stokSayımToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem masaİşlemleriToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem masaOluşturToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem masaÖzellikToolStripMenuItem;
 	}
 }

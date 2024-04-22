@@ -9,7 +9,7 @@ namespace Restoran_Otomasyon.Data
 	public class StokCikti
 	{
         public int Id { get; set; }
-		public string Ad { get; set; }
+		public string Neden { get; set; }
 		public decimal Miktar { get; set; }
 		public decimal SonStok { get; set; }
         public bool Gorunuluk { get; set; }

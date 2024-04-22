@@ -117,6 +117,11 @@
     <Reference Include="Pomelo.JsonObject, Version=2.2.1.0, Culture=neutral, PublicKeyToken=2cc498582444921b, processorArchitecture=MSIL">
       <HintPath>..\packages\Pomelo.JsonObject.2.2.1\lib\netstandard2.0\Pomelo.JsonObject.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.3.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.3\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -165,6 +170,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
     <Reference Include="ZstdSharp, Version=0.7.1.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
       <HintPath>..\packages\ZstdSharp.Port.0.7.1\lib\net461\ZstdSharp.dll</HintPath>
     </Reference>
@@ -175,6 +181,12 @@
     </Compile>
     <Compile Include="AdresESG.Designer.cs">
       <DependentUpon>AdresESG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BosMasa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BosMasa.Designer.cs">
+      <DependentUpon>BosMasa.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Adres.cs" />
     <Compile Include="Data\Bildirim.cs" />
@@ -211,6 +223,12 @@
     <Compile Include="Data\UrunMalzeme.cs" />
     <Compile Include="Data\VtBilgileri.cs" />
     <Compile Include="Data\Yorum.cs" />
+    <Compile Include="DoluMasa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DoluMasa.Designer.cs">
+      <DependentUpon>DoluMasa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +252,18 @@
     </Compile>
     <Compile Include="MenuESG.Designer.cs">
       <DependentUpon>MenuESG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MasaESG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasaESG.Designer.cs">
+      <DependentUpon>MasaESG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OzellikESG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OzellikESG.Designer.cs">
+      <DependentUpon>OzellikESG.cs</DependentUpon>
     </Compile>
     <Compile Include="StokSayim.cs">
       <SubType>Form</SubType>
@@ -302,6 +332,9 @@
     <EmbeddedResource Include="AdresESG.resx">
       <DependentUpon>AdresESG.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BosMasa.resx">
+      <DependentUpon>BosMasa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -322,6 +355,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuESG.resx">
       <DependentUpon>MenuESG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasaESG.resx">
+      <DependentUpon>MasaESG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OzellikESG.resx">
+      <DependentUpon>OzellikESG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StokSayim.resx">
       <DependentUpon>StokSayim.cs</DependentUpon>

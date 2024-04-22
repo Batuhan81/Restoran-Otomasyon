@@ -70,5 +70,17 @@ namespace Restoran_Otomasyon.Paneller
 			StokSayim git= new StokSayim();
 			git.Show();
 		}
+
+		private void masaOluşturToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MasaESG git=new MasaESG();
+			git.Show();
+		}
+
+		private void masaÖzellikToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OzellikESG git=new OzellikESG();
+			git.Show();
+		}
 	}
 }

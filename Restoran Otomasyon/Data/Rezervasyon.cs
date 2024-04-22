@@ -9,6 +9,9 @@ namespace Restoran_Otomasyon.Data
 
 		public DateTime Tarih { get; set; }
 
+		public DateTime BaslangicSaat { get; set; }
+		public DateTime BitisSaat { get; set; }
+
 		public int KisiSayisi { get; set; }
 
 		public string Talep { get; set; }

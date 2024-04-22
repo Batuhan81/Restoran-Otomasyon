@@ -15,13 +15,16 @@ namespace Restoran_Otomasyon.Data
 
         public  int KategoriId { get; set; }
 
+		public string Qr {  get; set; }
+
         public decimal Tutar { get; set; }
 
 		public decimal OdenenTutar { get; set; }
 
-		public int PersonelId { get; set; }
+		public int? PersonelId { get; set; }
 
 		public bool Gorunurluk { get; set; }
+		//Masa için Qr bilgisini tutacak alan
 
 		public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
 		public ICollection<MasaOzellik> MasaOzellikler { get; set; } = new List<MasaOzellik>();

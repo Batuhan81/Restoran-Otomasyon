@@ -55,6 +55,7 @@ namespace Restoran_Otomasyon.Paneller
 				timer1.Start();
 				MessageBox.Show("Malzemeye Ait tüm Alanları Doldurduğunuza Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+			TedarikciPaneli.Visible = false;
 		}
 
 		private void MalzemeGuncelle()

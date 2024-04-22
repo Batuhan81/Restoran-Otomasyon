@@ -11,6 +11,8 @@ namespace Restoran_Otomasyon.Data
 
 		public decimal AlısFiyati { get; set; }
 
+		public string Neden { get; set; }
+
 		//public bool Gorunuruluk { get; set; }
 
 		public DateTime Tarih { get; set; }
