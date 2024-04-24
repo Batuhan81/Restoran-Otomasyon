@@ -16,6 +16,7 @@ namespace Restoran_Otomasyon.Data
 
 		public string Talep { get; set; }
 
+		//Bunu int olarak ayarla
 		public bool Onay { get; set; }
 		public bool Gorunurluk { get; set; }
 

@@ -12,6 +12,7 @@ namespace Restoran_Otomasyon.Data
 		public int MenuId { get; set; }
 
 		public int SiparisId { get; set; }
+
 		public bool Gorunurluk { get; set; }
 
 		public Menu Menu { get; set; } 

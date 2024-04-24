@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Restoran_Otomasyon.Data
 {
-	public partial class Kampanya
+	public class Kampanya
 	{
-		public int Id { get; set; }
+        public int Id { get; set; }
 
-		public string Kod { get; set; }
+		public string Ad { get; set; }
+		public Decimal Indirim { get; set; }
 
-		public decimal Indirim { get; set; }
+		public int SartTutar {  get; set; }
 
-		public DateTime GecerlilikTarihi { get; set; }
+		public int SartSiparisSayisi { get; set; }
 
-		public bool Durum { get; set; }
+		public DateTime BaslangıcTarihi { get; set; }	
 
-		public int MusteriId { get; set; }
+		public DateTime BitisTarihi { get; set; }
+		
+		public bool Gorunuruk { get; set; }
 
-        public bool Gorunurluk { get; set; }
-
-        public Musteri Musteri { get; set; }
-	}
+		public ICollection<KampanyaMusteri>KampanyaMusteris { get; set; }
+    }
 }
-
-

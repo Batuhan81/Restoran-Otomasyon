@@ -15,6 +15,8 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Gorunurluk { get; set; }
 
+		public bool Secenek {  get; set; }
+
 		public Malzeme Malzeme { get; set; } 
 
 		public Urun Urun { get; set; } 

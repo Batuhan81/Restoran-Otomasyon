@@ -18,7 +18,6 @@ namespace Restoran_Otomasyon.Paneller
 			InitializeComponent();
 		}
 		Context db = new Context();
-		int secileninIDsi;
 		string tur;
 		decimal stokmik;
 		string formatlıStok;

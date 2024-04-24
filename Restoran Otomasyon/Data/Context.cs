@@ -12,7 +12,7 @@ namespace Restoran_Otomasyon.Data
 		public DbSet<Adres> Adresler { get; set; }
 		public DbSet<Bildirim> Bildirimler { get; set; }
 		public DbSet<Durum> Durumlar { get; set; }
-		public DbSet<Kampanya> Kampayalar { get; set; }
+		public DbSet<KampanyaMusteri> Kampayalar { get; set; }
 		public DbSet<Kasa> Kasalar { get; set; }
 		public DbSet<Kategori> Kategoriler{ get; set; }
 		public DbSet<Malzeme> Malzemeler { get; set; }
@@ -42,7 +42,8 @@ namespace Restoran_Otomasyon.Data
 		public DbSet<Yorum> Yorumlar { get; set; }
 		public DbSet<Kullanici> Kullanicilar { get; set; }
 		public DbSet<StokCikti> stokCiktilar { get; set; }
-
+		public DbSet<Odeme> Odemeler { get; set; }
+		public DbSet<Kampanya> Kampanyalar { get; set; }
 
 	}
 }

@@ -52,6 +52,8 @@ namespace Restoran_Otomasyon.Paneller
 		public void MasaOzellikler()
 		{
 			var Ozellik = db.Ozellikler.Where(o => o.Gorunurluk == true).Select(y => y.Ad).ToList();
+			MasaOzellik.DisplayMember = "Ad";
+			MasaOzellik.ValueMember = "Id";
 			MasaOzellik.DataSource = Ozellik;
 		}
 		#endregion
@@ -157,6 +159,23 @@ namespace Restoran_Otomasyon.Paneller
 				// Masa nesnesini veritabanına kaydet
 				db.Masalar.Add(masa);
 				db.SaveChanges();
+				// Masa özelliklerini kaydet
+				foreach (var ozellikAdiObj in MasaOzellik.SelectedItems)
+				{
+					if (ozellikAdiObj is string ozellikAdi)
+					{
+						var ozellik = db.Ozellikler.FirstOrDefault(o => o.Ad == ozellikAdi);
+						if (ozellik != null)
+						{
+							MasaOzellik masaOzellik = new MasaOzellik();
+							masaOzellik.MasaId = masa.Id;
+							masaOzellik.OzellikId = ozellik.Id;
+							masaOzellik.Gorunurluk = true; // Özellik başlangıçta görünür olarak ayarlanıyor
+							db.MasaOzellikler.Add(masaOzellik);
+						}
+					}
+				}
+				db.SaveChanges();
 
 				// İşlem tamamlandıktan sonra mesaj 
 				MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -167,13 +186,16 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				MessageBox.Show("Masayla ilgili tüm alanları doldurmalısınız!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
+			txtkod.Text = "";
+			txtkapasite.Text = "";
+			while (MasaOzellik.CheckedItems.Count > 0)
+			{
+				MasaOzellik.SetItemChecked(MasaOzellik.CheckedIndices[0], false);
+			}
 		}
-		void Yonlendir()
-		{
 
-		}
 		int secilenKategoriId;
-		void ButonlarıGetir(int secilenKategoriId)
+		public void ButonlarıGetir(int secilenKategoriId)
 		{
 			// MasaPanel'i alın
 			Panel masaPanel = this.Controls.Find("MasaPanel", true).FirstOrDefault() as Panel;
@@ -238,25 +260,30 @@ namespace Restoran_Otomasyon.Paneller
 						switch (masa.Durum)
 						{
 							case 1: // Boş
-								//Müşteri tanımlama formunu aç
-									BosMasa musteriForm = new BosMasa(masaId);
+									//Müşteri tanımlama formunu aç
+								BosMasa musteriForm = new BosMasa(masaId);
 								musteriForm.Show();
+								this.Close();
 								break;
 							case 2: // Dolu
-							   DoluMasa siparisForm = new DoluMasa(masaId); // Burada masa Id'sini göndermeniz gerekebilir
+								DoluMasa siparisForm = new DoluMasa(masaId);
 								siparisForm.Show();
+								this.Close();
 								break;
 							case 3: // Kirli
 								BosMasa kirlimasa = new BosMasa(masaId);
 								kirlimasa.Show();
+								this.Close();
 								break;
 							case 4: // Rezerve
 								DoluMasa rezervemasa = new DoluMasa(masaId); // Burada masa Id'sini göndermeniz gerekebilir
 								rezervemasa.Show();
+								this.Close();
 								break;
 							case 5: // Kapalı
 								BosMasa kapaliMasa = new BosMasa(masaId);
 								kapaliMasa.Show();
+								this.Close();
 								break;
 							default:
 								MessageBox.Show("Bilinmeyen masa durumu!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -285,7 +312,7 @@ namespace Restoran_Otomasyon.Paneller
 
 
 
-		private void TemizleMasaButonlari()
+		public void TemizleMasaButonlari()
 		{
 			// MasaPanel'i al
 			Panel masaPanel = this.Controls.Find("MasaPanel", true).FirstOrDefault() as Panel;

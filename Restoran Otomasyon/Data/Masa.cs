@@ -24,9 +24,9 @@ namespace Restoran_Otomasyon.Data
 		public int? PersonelId { get; set; }
 
 		public bool Gorunurluk { get; set; }
-		//Masa için Qr bilgisini tutacak alan
 
-		public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
+		////Buda silinecek
+		//public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
 		public ICollection<MasaOzellik> MasaOzellikler { get; set; } = new List<MasaOzellik>();
 
 		public Personel Personel { get; set; }

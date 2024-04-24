@@ -193,6 +193,7 @@
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\Durum.cs" />
     <Compile Include="Data\Kampanya.cs" />
+    <Compile Include="Data\KampanyaMusteri.cs" />
     <Compile Include="Data\Kasa.cs" />
     <Compile Include="Data\Kategori.cs" />
     <Compile Include="Data\Kullanici.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Data\MenuUrun.cs" />
     <Compile Include="Data\Musteri.cs" />
     <Compile Include="Data\Mutfak.cs" />
+    <Compile Include="Data\Odeme.cs" />
     <Compile Include="Data\Ozellik.cs" />
     <Compile Include="Data\Personel.cs" />
     <Compile Include="Data\Rezervasyon.cs" />
@@ -334,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BosMasa.resx">
       <DependentUpon>BosMasa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DoluMasa.resx">
+      <DependentUpon>DoluMasa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

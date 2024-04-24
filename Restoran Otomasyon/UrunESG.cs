@@ -657,6 +657,7 @@ namespace Restoran_Otomasyon.Paneller
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;
 							MalzemeSecPaneli.Visible = false;
+							gridSecilenMalzemeler.DataSource = null;
 						}
 						else
 						{

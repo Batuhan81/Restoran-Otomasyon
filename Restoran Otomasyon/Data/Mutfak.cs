@@ -9,6 +9,5 @@ namespace Restoran_Otomasyon.Data
 
 		public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 
-		public ICollection<Siparis> Siparislers { get; set; } = new List<Siparis>();
 	}
 }

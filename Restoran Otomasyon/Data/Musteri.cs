@@ -19,7 +19,10 @@ namespace Restoran_Otomasyon.Data
 
 		public DateTime Dogumtarihi { get; set; }
 
-		public int MasaId { get; set; }
+		//Bunlar çıkarılacak
+		//public int MasaId { get; set; }
+		//public Masa Masa { get; set; }
+
 
 
 		public bool Gorunurluk { get; set; }
@@ -27,10 +30,9 @@ namespace Restoran_Otomasyon.Data
 
 		public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 
-		public ICollection<Kampanya> Kampanyalars { get; set; } = new List<Kampanya>();
+		public ICollection<KampanyaMusteri> Kampanyalars { get; set; } = new List<KampanyaMusteri>();
 		public ICollection<Adres> Adresler { get; set; } = new List<Adres>();
 
-		public Masa Masa { get; set; }
 
 		public ICollection<TeslimatAdres> Teslimatadreslers { get; set; } = new List<TeslimatAdres>();
 

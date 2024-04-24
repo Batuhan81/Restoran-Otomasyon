@@ -11,6 +11,8 @@ namespace Restoran_Otomasyon.Data
 
 		public int SiparisId { get; set; }
 
+		public int? MusteriId { get; set; }
+
 		public bool Gorunurluk { get; set; }
 
 		public Masa Masa { get; set; }
