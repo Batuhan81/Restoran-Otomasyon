@@ -1,7 +1,12 @@
-﻿using System;
+﻿using QRCoder;
+using Restoran_Otomasyon.Data;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Net.Mail;
 using System.Windows.Forms;
 
@@ -9,6 +14,75 @@ namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
+		public static string KareKodOlustur(string masakodu)
+		{
+			// QR kodunu oluştur
+			QRCodeGenerator qrGenerator = new QRCodeGenerator();
+			QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://www.google.com/" + masakodu, QRCodeGenerator.ECCLevel.Q);
+			QRCode qrCode = new QRCode(qrCodeData);
+			Bitmap qrCodeImage = qrCode.GetGraphic(20); // 20: piksel başına ölçek faktörü
+
+			// Uygulamanın çalıştığı dizini bul
+			string uygulamaDizini = AppDomain.CurrentDomain.BaseDirectory;
+
+			// Kayıt edilecek klasörün adını ve yolu belirle
+			string klasorAdi = "QrKodlar";
+			string klasorYolu = Path.Combine(uygulamaDizini, klasorAdi);
+
+			// Eğer klasör yoksa oluştur
+			if (!Directory.Exists(klasorYolu))
+			{
+				Directory.CreateDirectory(klasorYolu);
+			}
+			// Dosya adını belirle
+			string dosyaAdi = $"{masakodu}_QR.png";
+			string dosyaYolu = Path.Combine(klasorYolu, dosyaAdi);
+
+			// QR kodunu dosyaya kaydet
+			qrCodeImage.Save(dosyaYolu, ImageFormat.Png);
+
+			// Dosya yolunu geri döndür
+			return dosyaYolu;
+		}
+
+		public static void MasaBilgileri(int masaId, TextBox txtMasaAdi, TextBox txtDurum, TextBox txtKapasite, TextBox txtTutar, TextBox txtOdenen, TextBox txtPersonel, TextBox txtKategori, Context db)
+		{
+			var x = db.Masalar.Find(masaId);
+			// x.Durum'a göre durumu belirleyin
+			txtMasaAdi.Text = x.Kod;
+			string durumMetni = "";
+			switch (x.Durum)
+			{
+				case 1:
+					durumMetni = "Boş";
+					break;
+				case 2:
+					durumMetni = "Dolu";
+					break;
+				case 3:
+					durumMetni = "Kirli";
+					break;
+				case 4:
+					durumMetni = "Rezerve";
+					break;
+				case 5:
+					durumMetni = "Kapalı";
+					break;
+				default:
+					durumMetni = "Bilinmeyen Durum";
+					break;
+			}
+
+			// Text kutusuna durum metnini ata
+			txtDurum.Text = durumMetni;
+			txtKapasite.Text = x.Kapasite.ToString();
+			txtTutar.Text = Yardimcilar.FormatliDeger(x.Tutar.ToString());
+			txtOdenen.Text = Yardimcilar.FormatliDeger(x.OdenenTutar.ToString());
+			var personel = db.Personeller.FirstOrDefault(o => o.Id == x.Id);
+			string adSoyad = personel != null ? $"{personel.Ad} {personel.Soyad}" : "";
+			txtPersonel.Text = adSoyad;
+			txtKategori.Text = db.Kategoriler.FirstOrDefault(o => o.Id == x.KategoriId).Ad;
+		}
 		public static void GridRenklendir(DataGridView grid)
 		{
 			grid.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
@@ -117,9 +191,7 @@ namespace Restoran_Otomasyon
 							string formatliDeger = BirimFormatı(deger, birim);
 							args.Value = formatliDeger;
 
-
 							args.FormattingApplied = true;
-
 						}
 					}
 				}
@@ -160,6 +232,7 @@ namespace Restoran_Otomasyon
 		{
 			string text = textBox.Text.Trim(); // Textbox'tan değeri alırken baştaki ve sondaki boşlukları temizle
 			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't', '₺','%'); // Textbox'tan birim ifadesini temizle
+			text = text.TrimStart('₺');
 
 			// Temizlenmiş değeri uygun formata dönüştür ve decimal türüne dönüştür
 			decimal deger;

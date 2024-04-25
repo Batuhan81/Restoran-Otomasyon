@@ -10,6 +10,7 @@ namespace Restoran_Otomasyon.Data
 		public int RezervasyonId { get; set; }
 
 		public int MasaId { get; set; }
+
 		public bool Gorunurluk { get; set; }
 
 		public Masa Masa { get; set; }

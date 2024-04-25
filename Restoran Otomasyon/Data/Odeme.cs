@@ -17,5 +17,7 @@ namespace Restoran_Otomasyon.Data
 		public int SiparisID { get; set; }
 
 		public Siparis siparis { get; set; }
+
+		public DateTime OdemeTarih { get; set; }
 	}
 }

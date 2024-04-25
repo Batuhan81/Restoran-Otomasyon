@@ -20,13 +20,29 @@ namespace Restoran_Otomasyon.Paneller
 		public MasaESG()
 		{
 			InitializeComponent();
+			InitializeEvents();
+		}
+		private void InitializeEvents()
+		{
+			if (masabilgisiGuncelle != null)
+			{
+				masabilgisiGuncelle.FormClosedEvent += UpdateMainForm; // MasaBilgiGuncelle formunun olayını dinle
+			}
+		}
+
+		private void UpdateMainForm(object sender, EventArgs e)
+		{
+			MasaButonlariniGuncelle(); // Ana formdaki buton renklerini güncelle
 		}
 		#region Global Değişkenler
+		ContextMenuStrip contextMenuStrip1 = new ContextMenuStrip();
+
 		private KategoriESG kategoriESGForm;
 		private OzellikESG OzellikEsgForm;
+		private MasaBilgiGuncelle masabilgisiGuncelle;
 		MasaOzellik ozellik = new MasaOzellik();
+		int masaId;
 		Context db = new Context();
-		Masa masa = new Masa();
 		#endregion
 
 		#region Metodlar
@@ -60,14 +76,24 @@ namespace Restoran_Otomasyon.Paneller
 		#region Butonlar
 		private void MasaEkle_Click(object sender, EventArgs e)
 		{
-			if (MasaEklePanel.Visible != true)
+			int katsayisi = db.Kategoriler.Count(o => o.Tur == "Masa");
+			if (katsayisi != 0)
 			{
-				MasaEklePanel.Visible = true;
-				MasaOzellikler();
+				if (MasaEklePanel.Visible != true)
+				{
+					MasaEklePanel.Visible = true;
+					MasaOzellikler();
+				}
+				else
+				{
+					MasaEklePanel.Visible = false;
+					MasaOzellikPanel.Visible = false;
+				}
 			}
 			else
 			{
-				MasaEklePanel.Visible = false;
+				MessageBox.Show("Masa Eklemeden Önce Bir Kat Eklenmelidir!");
+				KatEklePanel();
 			}
 		}
 
@@ -85,6 +111,11 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 		private void btnKatEkle_Click(object sender, EventArgs e)
+		{
+			KatEklePanel();
+		}
+
+		private void KatEklePanel()
 		{
 			if (PanelKategori.Visible != true)
 			{
@@ -108,14 +139,49 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				comboKat.SelectedIndex = 0; // Eğer eleman varsa, ilk elemanı seç
 			}
+			// ContextMenuStrip'i oluşturun
+
+			// "Masa Güncelle" öğesini ekle
+			ToolStripMenuItem menuItemMasaGuncelle = new ToolStripMenuItem("Masa Güncelle");
+			menuItemMasaGuncelle.Click += MenuItemMasaGuncelle_Click;
+			contextMenuStrip1.Items.Add(menuItemMasaGuncelle);
+
+			// "Randevular" öğesini ekle
+			ToolStripMenuItem menuItemRandevular = new ToolStripMenuItem("Randevular");
+			menuItemRandevular.Click += MenuItemRandevular_Click;
+			contextMenuStrip1.Items.Add(menuItemRandevular);
+			TemizleMasaButonlari();
 			ButonlarıGetir(secilenKategoriId);
+
+		}
+
+		// "Masa Güncelle" öğesine tıklama olayı
+		private void MenuItemMasaGuncelle_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem item = (ToolStripMenuItem)sender;
+			ContextMenuStrip menu = (ContextMenuStrip)item.Owner;
+			Control sourceControl = menu.SourceControl;
+
+			// Sağ tıklanan butonun adından masa ID'sini çıkarın
+			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
+
+			// Masa bilgi güncelleme formunu açın
+			MasaBilgiGuncelle git = new MasaBilgiGuncelle(masaId);
+			git.Show();
+		}
+
+		// "Randevular" öğesine tıklama olayı
+		private void MenuItemRandevular_Click(object sender, EventArgs e)
+		{
+			// Randevular formunu açmak için gerekli işlemleri burada gerçekleştirin
 		}
 
 
-		#endregion
 
+		#endregion
 		private void MasaKaydet_Click(object sender, EventArgs e)
 		{
+			Masa masa = new Masa();
 			if (txtkapasite.Text != "" && txtkod.Text != "")
 			{
 				string masakodu = txtkod.Text;
@@ -126,32 +192,7 @@ namespace Restoran_Otomasyon.Paneller
 				secilenKategoriId = (int)comboKat.SelectedValue;
 				masa.KategoriId = secilenKategoriId;
 				masa.Durum = 1;
-
-				// QR kodunu oluştur
-				QRCodeGenerator qrGenerator = new QRCodeGenerator();
-				QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://www.google.com/" + masakodu, QRCodeGenerator.ECCLevel.Q);
-				QRCode qrCode = new QRCode(qrCodeData);
-				Bitmap qrCodeImage = qrCode.GetGraphic(20); // 20: piksel başına ölçek faktörü
-
-				// Uygulamanın çalıştığı dizini bul
-				string uygulamaDizini = AppDomain.CurrentDomain.BaseDirectory;
-
-				// Kayıt edilecek klasörün adını ve yolu belirle
-				string klasorAdi = "QrKodlar";
-				string klasorYolu = Path.Combine(uygulamaDizini, klasorAdi);
-
-				// Eğer klasör yoksa oluştur
-				if (!Directory.Exists(klasorYolu))
-				{
-					Directory.CreateDirectory(klasorYolu);
-				}
-				// Dosya adını belirle
-				string dosyaAdi = $"{masa.Kod}_QR.png";
-				string dosyaYolu = Path.Combine(klasorYolu, dosyaAdi);
-
-				// QR kodunu dosyaya kaydet
-				qrCodeImage.Save(dosyaYolu, ImageFormat.Png);
-
+				string dosyaYolu = Yardimcilar.KareKodOlustur(masakodu);
 
 				// Masa kaydına QR kodunun dosya yolunu ekleyerek veritabanına kaydet
 				masa.Qr = dosyaYolu;
@@ -177,7 +218,6 @@ namespace Restoran_Otomasyon.Paneller
 				}
 				db.SaveChanges();
 
-				// İşlem tamamlandıktan sonra mesaj 
 				MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 				ButonlarıGetir(secilenKategoriId);
@@ -195,8 +235,9 @@ namespace Restoran_Otomasyon.Paneller
 		}
 
 		int secilenKategoriId;
-		public void ButonlarıGetir(int secilenKategoriId)
+		public  void ButonlarıGetir(int secilenKategoriId)
 		{
+			db.SaveChanges();
 			// MasaPanel'i alın
 			Panel masaPanel = this.Controls.Find("MasaPanel", true).FirstOrDefault() as Panel;
 
@@ -206,8 +247,13 @@ namespace Restoran_Otomasyon.Paneller
 				return;
 			}
 
+			// db nesnesini temizleyin veya yeniden oluşturun
+			db.Dispose();
+			db = new Context();
+
 			// Veritabanından seçilen kategoriye ait tüm masaları alın
 			var tumMasalar = db.Masalar.Where(m => m.Gorunurluk == true && m.KategoriId == secilenKategoriId).ToList();
+
 			if (tumMasalar.Count != 0)
 			{
 				foreach (var masa in tumMasalar)
@@ -216,6 +262,27 @@ namespace Restoran_Otomasyon.Paneller
 					Button mevcutButon = masaPanel.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "masaButton" + masa.Id);
 					if (mevcutButon != null)
 					{
+						switch (masa.Durum)
+						{
+							case 1: // Boş
+								mevcutButon.BackColor = Color.Green;
+								break;
+							case 2: // Dolu
+								mevcutButon.BackColor = Color.Red;
+								break;
+							case 3: // Kirli
+								mevcutButon.BackColor = Color.Brown;
+								break;
+							case 4: // Rezerve
+								mevcutButon.BackColor = Color.Yellow;
+								break;
+							case 5: // Kapalı
+								mevcutButon.BackColor = Color.Gray;
+								break;
+							default:
+								mevcutButon.BackColor = Color.White; // Varsayılan renk
+								break;
+						}
 						continue;
 					}
 
@@ -225,8 +292,11 @@ namespace Restoran_Otomasyon.Paneller
 					masaButton.Name = "masaButton" + masa.Id; // Butonun adı masa Id'si olacak
 					masaButton.Location = new Point(10, 10); // Örneğin, butonun panel içerisindeki konumu
 					masaButton.Size = new Size(150, 100); // Butonun boyutu
+														  // Butonları oluşturduğunuz döngü içinde
+					masaButton.ContextMenuStrip = contextMenuStrip1;
 
 					// Butonun durumuna göre uygun rengi belirle
+
 					switch (masa.Durum)
 					{
 						case 1: // Boş
@@ -252,6 +322,7 @@ namespace Restoran_Otomasyon.Paneller
 					// Butona tıklama olayını ayarlayın
 					masaButton.Click += (sender, e) =>//Test amacıyla burada görünüyor qr
 					{
+						contextMenuStrip1.Show(Cursor.Position);
 						// Tıklanan masa butonuna ait olan masa nesnesini al
 						Masa tıklananMasa = masa;
 
@@ -263,35 +334,31 @@ namespace Restoran_Otomasyon.Paneller
 									//Müşteri tanımlama formunu aç
 								BosMasa musteriForm = new BosMasa(masaId);
 								musteriForm.Show();
-								this.Close();
 								break;
 							case 2: // Dolu
 								DoluMasa siparisForm = new DoluMasa(masaId);
 								siparisForm.Show();
-								this.Close();
 								break;
 							case 3: // Kirli
 								BosMasa kirlimasa = new BosMasa(masaId);
 								kirlimasa.Show();
-								this.Close();
 								break;
 							case 4: // Rezerve
 								DoluMasa rezervemasa = new DoluMasa(masaId); // Burada masa Id'sini göndermeniz gerekebilir
 								rezervemasa.Show();
-								this.Close();
 								break;
 							case 5: // Kapalı
 								BosMasa kapaliMasa = new BosMasa(masaId);
 								kapaliMasa.Show();
-								this.Close();
 								break;
 							default:
 								MessageBox.Show("Bilinmeyen masa durumu!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 								break;
 						}
-						Image resizedImage = Yardimcilar.ResimBoyutlandir.DosyaYoluIleBoyutlandir(masa.Qr, pictureBox1.Width, pictureBox1.Height);
-						pictureBox1.Image = resizedImage;
-						pictureBox1.Visible = true;
+						//Masanın Qrını gösterme
+						//Image resizedImage = Yardimcilar.ResimBoyutlandir.DosyaYoluIleBoyutlandir(masa.Qr, pictureBox1.Width, pictureBox1.Height);
+						//pictureBox1.Image = resizedImage;
+						//pictureBox1.Visible = true;
 					};
 					masaPanel.Controls.Add(masaButton);
 				}
@@ -302,14 +369,19 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			// Seçilen kategorinin sadece ID değerini al
 			secilenKategoriId = (int)comboKat.SelectedValue;
-
 			// Butonları temizle
 			TemizleMasaButonlari();
-
 			// Butonları seçilen kategoriye göre yeniden oluştur
 			ButonlarıGetir(secilenKategoriId);
 		}
 
+		public void MasaButonlariniGuncelle()
+		{
+			var kat = db.Kategoriler.FirstOrDefault(o => o.Tur == "Masa");
+			int secilenKategoriId = kat.Id;
+			TemizleMasaButonlari(); // Mevcut butonları temizle
+			ButonlarıGetir(secilenKategoriId);
+		}
 
 
 		public void TemizleMasaButonlari()

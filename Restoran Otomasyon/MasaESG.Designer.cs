@@ -35,22 +35,22 @@
 			this.comboKat = new System.Windows.Forms.ComboBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.MasaPanel = new System.Windows.Forms.FlowLayoutPanel();
-			this.PanelKategori = new System.Windows.Forms.Panel();
 			this.MasaEklePanel = new System.Windows.Forms.Panel();
+			this.MasaKaydet = new System.Windows.Forms.Button();
+			this.button7 = new System.Windows.Forms.Button();
+			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
+			this.MasaOzellik = new System.Windows.Forms.CheckedListBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
 			this.txtkod = new System.Windows.Forms.TextBox();
 			this.txtkapasite = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.MasaOzellik = new System.Windows.Forms.CheckedListBox();
-			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
+			this.PanelKategori = new System.Windows.Forms.Panel();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.MasaOzellikPanel = new System.Windows.Forms.Panel();
-			this.button7 = new System.Windows.Forms.Button();
 			this.btnKatSil = new System.Windows.Forms.Button();
 			this.btnKatEkle = new System.Windows.Forms.Button();
 			this.MasaEkle = new System.Windows.Forms.Button();
-			this.MasaKaydet = new System.Windows.Forms.Button();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.MasaPanel.SuspendLayout();
 			this.MasaEklePanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -104,14 +104,6 @@
 			this.MasaPanel.Size = new System.Drawing.Size(1142, 781);
 			this.MasaPanel.TabIndex = 30;
 			// 
-			// PanelKategori
-			// 
-			this.PanelKategori.Location = new System.Drawing.Point(390, 3);
-			this.PanelKategori.Name = "PanelKategori";
-			this.PanelKategori.Size = new System.Drawing.Size(373, 376);
-			this.PanelKategori.TabIndex = 0;
-			this.PanelKategori.Visible = false;
-			// 
 			// MasaEklePanel
 			// 
 			this.MasaEklePanel.Controls.Add(this.MasaKaydet);
@@ -128,6 +120,45 @@
 			this.MasaEklePanel.TabIndex = 1;
 			this.MasaEklePanel.Visible = false;
 			// 
+			// MasaKaydet
+			// 
+			this.MasaKaydet.Location = new System.Drawing.Point(107, 371);
+			this.MasaKaydet.Name = "MasaKaydet";
+			this.MasaKaydet.Size = new System.Drawing.Size(174, 69);
+			this.MasaKaydet.TabIndex = 60;
+			this.MasaKaydet.Text = "Kaydet";
+			this.MasaKaydet.UseVisualStyleBackColor = true;
+			this.MasaKaydet.Click += new System.EventHandler(this.MasaKaydet_Click);
+			// 
+			// button7
+			// 
+			this.button7.BackColor = System.Drawing.SystemColors.Control;
+			this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button7.ImageKey = "Ekle2.png";
+			this.button7.ImageList = this.ımageList2;
+			this.button7.Location = new System.Drawing.Point(230, 88);
+			this.button7.Margin = new System.Windows.Forms.Padding(4);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(33, 28);
+			this.button7.TabIndex = 59;
+			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.button7_Click);
+			// 
+			// ımageList2
+			// 
+			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
+			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
+			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
+			// 
+			// MasaOzellik
+			// 
+			this.MasaOzellik.FormattingEnabled = true;
+			this.MasaOzellik.Location = new System.Drawing.Point(16, 123);
+			this.MasaOzellik.Name = "MasaOzellik";
+			this.MasaOzellik.Size = new System.Drawing.Size(345, 232);
+			this.MasaOzellik.TabIndex = 5;
+			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
@@ -136,6 +167,15 @@
 			this.label1.Size = new System.Drawing.Size(88, 18);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Masa Kodu:";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(125, 93);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(98, 18);
+			this.label4.TabIndex = 4;
+			this.label4.Text = "Masa Özellik:";
 			// 
 			// txtkod
 			// 
@@ -160,29 +200,22 @@
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Masa Kapasite:";
 			// 
-			// label4
+			// PanelKategori
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(125, 93);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(98, 18);
-			this.label4.TabIndex = 4;
-			this.label4.Text = "Masa Özellik:";
+			this.PanelKategori.Location = new System.Drawing.Point(390, 3);
+			this.PanelKategori.Name = "PanelKategori";
+			this.PanelKategori.Size = new System.Drawing.Size(373, 376);
+			this.PanelKategori.TabIndex = 0;
+			this.PanelKategori.Visible = false;
 			// 
-			// MasaOzellik
+			// pictureBox1
 			// 
-			this.MasaOzellik.FormattingEnabled = true;
-			this.MasaOzellik.Location = new System.Drawing.Point(16, 123);
-			this.MasaOzellik.Name = "MasaOzellik";
-			this.MasaOzellik.Size = new System.Drawing.Size(345, 232);
-			this.MasaOzellik.TabIndex = 5;
-			// 
-			// ımageList2
-			// 
-			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
-			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
-			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
+			this.pictureBox1.Location = new System.Drawing.Point(769, 3);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(345, 323);
+			this.pictureBox1.TabIndex = 2;
+			this.pictureBox1.TabStop = false;
+			this.pictureBox1.Visible = false;
 			// 
 			// MasaOzellikPanel
 			// 
@@ -191,20 +224,6 @@
 			this.MasaOzellikPanel.Size = new System.Drawing.Size(368, 387);
 			this.MasaOzellikPanel.TabIndex = 2;
 			this.MasaOzellikPanel.Visible = false;
-			// 
-			// button7
-			// 
-			this.button7.BackColor = System.Drawing.SystemColors.Control;
-			this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.button7.ImageKey = "Ekle2.png";
-			this.button7.ImageList = this.ımageList2;
-			this.button7.Location = new System.Drawing.Point(230, 88);
-			this.button7.Margin = new System.Windows.Forms.Padding(4);
-			this.button7.Name = "button7";
-			this.button7.Size = new System.Drawing.Size(33, 28);
-			this.button7.TabIndex = 59;
-			this.button7.UseVisualStyleBackColor = true;
-			this.button7.Click += new System.EventHandler(this.button7_Click);
 			// 
 			// btnKatSil
 			// 
@@ -253,25 +272,6 @@
 			this.MasaEkle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.MasaEkle.UseVisualStyleBackColor = true;
 			this.MasaEkle.Click += new System.EventHandler(this.MasaEkle_Click);
-			// 
-			// MasaKaydet
-			// 
-			this.MasaKaydet.Location = new System.Drawing.Point(107, 371);
-			this.MasaKaydet.Name = "MasaKaydet";
-			this.MasaKaydet.Size = new System.Drawing.Size(174, 69);
-			this.MasaKaydet.TabIndex = 60;
-			this.MasaKaydet.Text = "Kaydet";
-			this.MasaKaydet.UseVisualStyleBackColor = true;
-			this.MasaKaydet.Click += new System.EventHandler(this.MasaKaydet_Click);
-			// 
-			// pictureBox1
-			// 
-			this.pictureBox1.Location = new System.Drawing.Point(769, 3);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(345, 323);
-			this.pictureBox1.TabIndex = 2;
-			this.pictureBox1.TabStop = false;
-			this.pictureBox1.Visible = false;
 			// 
 			// MasaESG
 			// 

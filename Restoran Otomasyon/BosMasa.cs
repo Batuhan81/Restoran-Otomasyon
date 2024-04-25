@@ -21,12 +21,14 @@ namespace Restoran_Otomasyon
 		}
 		int masaId;
 		Context db = new Context();
+		bool loaddayuklendi = false;
 		private void BosMasa_Load(object sender, EventArgs e)
 		{
 			MasaBilgileri();
 			UrunKategori();
 			menuKategoriler();
-			UrunleriGoster();
+			UrunleriGoster(0);
+			loaddayuklendi = true;
 			gridSiparisler.Columns.Add("UrunAdi", "Ürün Adı");
 			gridSiparisler.Columns.Add("Adet", "Adet");
 			gridSiparisler.Columns.Add("Fiyat", "Fiyat");
@@ -41,46 +43,19 @@ namespace Restoran_Otomasyon
 					column.Visible = false;
 				}
 			}
-
 		}
 
 		private void MasaBilgileri()
 		{
-			var x = db.Masalar.Find(masaId);
-			// x.Durum'a göre durumu belirleyin
-			txtmasaadi.Text = x.Kod;
-			string durumMetni = "";
-			switch (x.Durum)
+			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
+			if (txtDurum.Text == "Kirli")
 			{
-				case 1:
-					durumMetni = "Boş";
-					break;
-				case 2:
-					durumMetni = "Dolu";
-					break;
-				case 3:
-					durumMetni = "Kirli";
-					break;
-				case 4:
-					durumMetni = "Rezerve";
-					break;
-				case 5:
-					durumMetni = "Kapalı";
-					break;
-				default:
-					durumMetni = "Bilinmeyen Durum";
-					break;
+				DialogResult result = MessageBox.Show("Bu Masada Sipariş Almak İstediğinize Emin Misiniz(Masa Durumu=>Kirli)", "Uyarı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				if(DialogResult.No == result)
+				{
+					this.Close();
+				}
 			}
-
-			// Text kutusuna durum metnini ata
-			txtDurum.Text = durumMetni;
-			txtkapasite.Text = x.Kapasite.ToString();
-			txttutar.Text = Yardimcilar.FormatliDeger(x.Tutar.ToString());
-			txtodenen.Text = Yardimcilar.FormatliDeger(x.OdenenTutar.ToString());
-			var personel = db.Personeller.FirstOrDefault(o => o.Id == x.Id);
-			string adSoyad = personel != null ? $"{personel.Ad} {personel.Soyad}" : "";
-			txtpersonel.Text = adSoyad;
-			txtkategori.Text = db.Kategoriler.FirstOrDefault(o => o.Id == x.KategoriId).Ad;
 		}
 
 		void menuKategoriler()
@@ -97,10 +72,24 @@ namespace Restoran_Otomasyon
 			ComboUrun.ValueMember = "Id";
 			ComboUrun.DataSource = Urunkategori;
 		}
-		private void UrunleriGoster()
+		private void UrunleriGoster(int kategoriId)
 		{
-			// Görünürlüğü aktif olan tüm ürünleri çek
-			var urunler = db.Urunler.Where(o => o.Gorunurluk == true && o.Akitf == true).ToList();
+			List<Urun> urunler;
+			if (kategoriId <= 0)
+			{
+				urunler = db.Urunler
+							.Where(o => o.Gorunurluk == true && o.Akitf == true)
+							.ToList();
+				// Tüm ürünleri göster
+			}
+			else
+			{
+				// Belirli bir kategoriye ait ürünleri getir
+				urunler = db.Urunler
+							.Where(o => o.Gorunurluk == true && o.Akitf == true && o.KategorId == kategoriId)
+							.ToList();
+				// Belirli kategoriye ait ürünleri göster
+			}
 
 			int groupBoxHeight = 400; // GroupBox yüksekliği
 			int groupBoxWidth = 300;  // GroupBox genişliği
@@ -221,7 +210,6 @@ namespace Restoran_Otomasyon
 						MessageBox.Show("Lütfen geçerli bir miktar girin.");
 					}
 				};
-
 				// GroupBox'a kontrol öğelerini ekle
 				groupBox.Controls.Add(pictureBox);
 				groupBox.Controls.Add(labelDetay);
@@ -278,12 +266,13 @@ namespace Restoran_Otomasyon
 
 			var x = db.Masalar.Find(masaId);
 			x.Durum = 2;
+			x.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+			db.SaveChanges();
 			siparis.Tarih = DateTime.Now;
 			siparis.OdemeDurum = false;
 			siparis.Not = null;
 			siparis.YorumId = null;
 			siparis.Gorunurluk = true;
-
 
 			masasip.MasaId = masaId;
 			masasip.SiparisId = siparis.Id;
@@ -298,9 +287,7 @@ namespace Restoran_Otomasyon
 				if (row.Cells["Adet"].Value != null && Convert.ToInt32(row.Cells["Adet"].Value) > 0)
 				{
 					int miktar = Convert.ToInt32(row.Cells["Adet"].Value.ToString());
-
-
-					if (Convert.ToInt32(row.Cells["UrunID"].Value.ToString())!=0 && row.Cells["UrunID"].Value.ToString() != "")
+					if (Convert.ToInt32(row.Cells["UrunID"].Value.ToString()) != 0 && row.Cells["UrunID"].Value.ToString() != "")
 					{
 						int urunId = Convert.ToInt32(row.Cells["UrunID"].Value.ToString());
 
@@ -311,7 +298,7 @@ namespace Restoran_Otomasyon
 						urun.Gorunurluk = true;
 						db.SiparisUrunler.Add(urun);
 					}
-					else if (Convert.ToInt32(row.Cells["MenuID"].Value.ToString())!=0 && row.Cells["MenuID"].Value.ToString() != "")
+					else if (Convert.ToInt32(row.Cells["MenuID"].Value.ToString()) != 0 && row.Cells["MenuID"].Value.ToString() != "")
 					{
 						int menuId = Convert.ToInt32(row.Cells["MenuID"].Value.ToString());
 						SiparisMenu menu = new SiparisMenu();
@@ -325,12 +312,46 @@ namespace Restoran_Otomasyon
 			}
 			db.SaveChanges();
 			MessageBox.Show("Siparişiniz Onaylanmıştır.");
-			// Kullanıcıyı masa ESG formuna yönlendir
-			MasaESG formMasaESG = new MasaESG();
-			formMasaESG.Show();
-
-			// Bu formu gizle
+			MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
+			if (calisanForm != null)
+			{
+				calisanForm.MasaButonlariniGuncelle();
+			}
 			this.Close();
+		}
+		void PaneliTemizle()
+		{
+			UrunPaneli.Controls.Clear();
+		}
+
+		private void ComboUrun_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (loaddayuklendi == true)
+			{
+				ComboMenu.Text = "";
+				int kategoriID = (int)ComboUrun.SelectedValue;
+				PaneliTemizle();
+				UrunleriGoster(kategoriID);
+			}
+		}
+
+		private void ComboMenu_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (loaddayuklendi == true)
+			{
+				ComboUrun.Text = "";
+				int kategoriID = (int)ComboMenu.SelectedValue;
+				PaneliTemizle();
+				UrunleriGoster(kategoriID);
+			}
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			ComboUrun.Text = "";
+			ComboMenu.Text = "";
+			PaneliTemizle();
+			UrunleriGoster(0);
 		}
 	}
 }
