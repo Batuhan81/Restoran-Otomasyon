@@ -19,9 +19,11 @@ namespace Restoran_Otomasyon
 			InitializeComponent();
 			masaId = masaID;
 		}
+
 		int masaId;
 		Context db = new Context();
 		bool loaddayuklendi = false;
+
 		private void BosMasa_Load(object sender, EventArgs e)
 		{
 			MasaBilgileri();
@@ -51,7 +53,7 @@ namespace Restoran_Otomasyon
 			if (txtDurum.Text == "Kirli")
 			{
 				DialogResult result = MessageBox.Show("Bu Masada Sipariş Almak İstediğinize Emin Misiniz(Masa Durumu=>Kirli)", "Uyarı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-				if(DialogResult.No == result)
+				if (DialogResult.No == result)
 				{
 					this.Close();
 				}
@@ -65,6 +67,7 @@ namespace Restoran_Otomasyon
 			ComboMenu.ValueMember = "Id";
 			ComboMenu.DataSource = menuKat;
 		}
+
 		void UrunKategori()
 		{
 			var Urunkategori = db.Kategoriler.Where(o => o.Tur == "Ürün" && o.Gorunurluk == true).ToList();
@@ -72,6 +75,7 @@ namespace Restoran_Otomasyon
 			ComboUrun.ValueMember = "Id";
 			ComboUrun.DataSource = Urunkategori;
 		}
+
 		private void UrunleriGoster(int kategoriId)
 		{
 			List<Urun> urunler;
@@ -264,20 +268,52 @@ namespace Restoran_Otomasyon
 			MasaSiparis masasip = new MasaSiparis();
 			Masa masa = new Masa();
 
-			var x = db.Masalar.Find(masaId);
+			var x = db.Masalar.Find(masaId);//Bukısımda sorunvar
+			// Masanın durumunu kontrol edin
+			if (x.Durum == 4)
+			{
+				// Masanın rezervasyonunu bulun
+				var rezervasyon = db.MasaRezervasyonlar.FirstOrDefault(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today);
+
+				// Rezervasyon bulunduysa
+				if (rezervasyon != null)
+				{
+					// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
+					TimeSpan baslangicZamani = rezervasyon.Rezervasyon.BaslangicSaat;
+					TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
+
+					// Rezervasyonun başlangıç saati şu anki zamandan ileri bir zamansa veya aynı zamandaysa
+					if (baslangicZamani >= DateTime.Now.TimeOfDay && baslangicZamani <= yarimSaatSonrasininZamani)
+					{
+						// Rezervasyonun onay durumu henüz 3 değilse
+						if (rezervasyon.Rezervasyon.Onay != 3)
+						{
+							// Rezervasyonun onay durumunu 3 olarak güncelleyin
+							rezervasyon.Rezervasyon.Onay = 3;
+							int rezervasyonId = rezervasyon.Id;
+
+							// Değişiklikleri veritabanına kaydedin
+							db.SaveChanges();
+						}
+					}
+				}
+			}
+
 			x.Durum = 2;
-			x.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
 			db.SaveChanges();
 			siparis.Tarih = DateTime.Now;
 			siparis.OdemeDurum = false;
 			siparis.Not = null;
 			siparis.YorumId = null;
 			siparis.Gorunurluk = true;
+			siparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
 
 			masasip.MasaId = masaId;
 			masasip.SiparisId = siparis.Id;
 			masasip.MusteriId = null;
 			masasip.Gorunurluk = true;
+			masasip.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+			masasip.OdenenTutar = 0;
 
 			db.MasaSiparisler.Add(masasip);
 			db.Siparisler.Add(siparis);
@@ -290,7 +326,6 @@ namespace Restoran_Otomasyon
 					if (Convert.ToInt32(row.Cells["UrunID"].Value.ToString()) != 0 && row.Cells["UrunID"].Value.ToString() != "")
 					{
 						int urunId = Convert.ToInt32(row.Cells["UrunID"].Value.ToString());
-
 						SiparisUrun urun = new SiparisUrun();
 						urun.UrunId = urunId;
 						urun.Miktar = miktar;
@@ -310,6 +345,7 @@ namespace Restoran_Otomasyon
 					}
 				}
 			}
+
 			db.SaveChanges();
 			MessageBox.Show("Siparişiniz Onaylanmıştır.");
 			MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
@@ -319,6 +355,7 @@ namespace Restoran_Otomasyon
 			}
 			this.Close();
 		}
+
 		void PaneliTemizle()
 		{
 			UrunPaneli.Controls.Clear();

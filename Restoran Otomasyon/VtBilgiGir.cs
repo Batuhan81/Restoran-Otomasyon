@@ -35,7 +35,6 @@ namespace Restoran_Otomasyon
 				//string svad, int port, string dbad,string user,string sifre
 				vt.BağlantıDizesiniAyarla(svAdi.Text, Convert.ToInt32(port.Text), DbAdi.Text, UserAdi.Text, VtSifre.Text);
 				c.Database.Connection.ConnectionString = vt.yeniBağlantıDizesi;//Bağlantı Dizesini yenisiyle değiştirdim
-
 				try
 				{
 					if (!c.Database.Exists()) // Veritabanı yoksa

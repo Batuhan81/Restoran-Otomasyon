@@ -15,7 +15,7 @@ namespace Restoran_Otomasyon.Data
 
 		public Masa Masa { get; set; }
 
-		public Rezervasyon Rezervasyon { get; set; }
+		public virtual Rezervasyon Rezervasyon { get; set; }
 	}
 
 }

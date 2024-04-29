@@ -15,6 +15,10 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Gorunurluk { get; set; }
 
+		public decimal Tutar { get; set; }
+
+		public decimal OdenenTutar { get; set; }
+
 		public Masa Masa { get; set; }
 
 		public Siparis Siparis { get; set; } 

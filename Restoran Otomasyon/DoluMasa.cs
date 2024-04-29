@@ -37,12 +37,18 @@ namespace Restoran_Otomasyon
 
 		void masaBilgileri()
 		{
-			var masa = db.Masalar.Find(masaId);
-			masatutari = masa.Tutar;
-			masaOdenen = masa.OdenenTutar;
-			geriyekalanUcret = masatutari - masaOdenen;
-			txtkalan.Text = geriyekalanUcret.ToString();
+			var masa = db.MasaSiparisler.Where(s => s.MasaId == masaId)
+									 .OrderByDescending(s => s.Id)
+									 .FirstOrDefault();
+			if(masa != null)
+			{
+				masatutari = masa.Tutar;
+				masaOdenen = masa.OdenenTutar;
+				geriyekalanUcret = masatutari - masaOdenen;
+				txtkalan.Text = geriyekalanUcret.ToString();
+			}
 		}
+
 		private void MasaSiparisi()
 		{
 			var sonSiparis = db.MasaSiparisler.OrderByDescending(o => o.Id).FirstOrDefault(o => o.MasaId == masaId);
@@ -201,8 +207,9 @@ namespace Restoran_Otomasyon
 
 		private void DoluMasa_Load(object sender, EventArgs e)
 		{
-			masaBilgileri();
 			MasaSiparisi();
+			masaBilgileri();
+
 			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
 			UrunleriGoster(-1); // Tüm ürünleri göster
 			label7.Text = txtmasaadi.Text + " Nolu Masanın Siparişleri";
@@ -235,14 +242,18 @@ namespace Restoran_Otomasyon
 					db.Odemeler.Add(odeme);
 					db.SaveChanges();
 					var masa = db.Masalar.Find(masaId);
-					masa.OdenenTutar += Odenecek;
+					var masasiparis = db.MasaSiparisler.Where(s => s.MasaId == masaId)
+									 .OrderByDescending(s => s.Id)
+									 .FirstOrDefault();
+					masasiparis.OdenenTutar += Odenecek;
 					//Masanın ödenen ücretiyle tutar 5 aşağı yukarı eşleşiyorsa masa durumunu kirli yapm ve masanı tutarlarını 0'la
-					if (Math.Abs(masa.Tutar - masa.OdenenTutar) <= 5)
+					if (Math.Abs(masasiparis.Tutar - masasiparis.OdenenTutar) <= 5)
 					{
 						masa.Durum = 3;
-						masa.Tutar = 0;
-						masa.OdenenTutar = 0;
+						masasiparis.Tutar = 0;
+						masasiparis.OdenenTutar = 0;
 					}
+					txtodenen.Text = masasiparis.OdenenTutar + "₺";
 					db.SaveChanges();
 					masaBilgileri();
 					MessageBox.Show($"{Odenecek}₺ Ödeme Alındı Geriye Kalan {geriyekalanUcret}₺");
@@ -323,6 +334,18 @@ namespace Restoran_Otomasyon
 		private void button2_Click(object sender, EventArgs e)
 		{
 			Temizle();
+		}
+
+		private void btn5_Click(object sender, EventArgs e)
+		{
+			int deger = 5;
+			ButonluOdeme(deger);
+		}
+
+		private void btn10_Click(object sender, EventArgs e)
+		{
+			int deger = 10;
+			ButonluOdeme(deger);
 		}
 	}
 }

@@ -196,6 +196,7 @@
     <Compile Include="Data\KampanyaMusteri.cs" />
     <Compile Include="Data\Kasa.cs" />
     <Compile Include="Data\Kategori.cs" />
+    <Compile Include="Data\KayitsizMusteri.cs" />
     <Compile Include="Data\Kullanici.cs" />
     <Compile Include="Data\Malzeme.cs" />
     <Compile Include="Data\Masa.cs" />
@@ -255,6 +256,12 @@
     <Compile Include="MasaBilgiGuncelle.Designer.cs">
       <DependentUpon>MasaBilgiGuncelle.cs</DependentUpon>
     </Compile>
+    <Compile Include="MasaQr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasaQr.Designer.cs">
+      <DependentUpon>MasaQr.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuESG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,6 +279,12 @@
     </Compile>
     <Compile Include="OzellikESG.Designer.cs">
       <DependentUpon>OzellikESG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RandevuMasa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RandevuMasa.Designer.cs">
+      <DependentUpon>RandevuMasa.cs</DependentUpon>
     </Compile>
     <Compile Include="StokSayim.cs">
       <SubType>Form</SubType>
@@ -355,6 +368,9 @@
     <EmbeddedResource Include="MasaBilgiGuncelle.resx">
       <DependentUpon>MasaBilgiGuncelle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MasaQr.resx">
+      <DependentUpon>MasaQr.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Paneller\Admin_Paneli.resx">
       <DependentUpon>Admin_Paneli.cs</DependentUpon>
     </EmbeddedResource>
@@ -375,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OzellikESG.resx">
       <DependentUpon>OzellikESG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RandevuMasa.resx">
+      <DependentUpon>RandevuMasa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StokSayim.resx">
       <DependentUpon>StokSayim.cs</DependentUpon>

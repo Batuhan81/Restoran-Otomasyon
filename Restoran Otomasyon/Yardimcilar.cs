@@ -48,6 +48,10 @@ namespace Restoran_Otomasyon
 		public static void MasaBilgileri(int masaId, TextBox txtMasaAdi, TextBox txtDurum, TextBox txtKapasite, TextBox txtTutar, TextBox txtOdenen, TextBox txtPersonel, TextBox txtKategori, Context db)
 		{
 			var x = db.Masalar.Find(masaId);
+
+			var masasiparis = db.MasaSiparisler.Where(s => s.MasaId == masaId)
+									 .OrderByDescending(s => s.Id)
+									 .FirstOrDefault();
 			// x.Durum'a göre durumu belirleyin
 			txtMasaAdi.Text = x.Kod;
 			string durumMetni = "";
@@ -76,8 +80,17 @@ namespace Restoran_Otomasyon
 			// Text kutusuna durum metnini ata
 			txtDurum.Text = durumMetni;
 			txtKapasite.Text = x.Kapasite.ToString();
-			txtTutar.Text = Yardimcilar.FormatliDeger(x.Tutar.ToString());
-			txtOdenen.Text = Yardimcilar.FormatliDeger(x.OdenenTutar.ToString());
+			if (masasiparis != null)
+			{
+				txtTutar.Text = Yardimcilar.FormatliDeger(masasiparis.Tutar.ToString());
+				txtOdenen.Text = Yardimcilar.FormatliDeger(masasiparis.OdenenTutar.ToString());
+			}
+			else
+			{
+				txtTutar.Text = "0 ₺";
+				txtOdenen.Text = "0 ₺";
+			}
+			
 			var personel = db.Personeller.FirstOrDefault(o => o.Id == x.Id);
 			string adSoyad = personel != null ? $"{personel.Ad} {personel.Soyad}" : "";
 			txtPersonel.Text = adSoyad;

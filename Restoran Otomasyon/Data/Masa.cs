@@ -17,15 +17,17 @@ namespace Restoran_Otomasyon.Data
 
 		public string Qr {  get; set; }
 
-        public decimal Tutar { get; set; }
+		//public decimal Tutar { get; set; }
 
-		public decimal OdenenTutar { get; set; }
+		//public decimal OdenenTutar { get; set; }
 
 		public int? PersonelId { get; set; }
 
 		public bool Gorunurluk { get; set; }
 
-		public ICollection<MasaOzellik> MasaOzellikler { get; set; } = new List<MasaOzellik>();
+		public virtual ICollection<MasaOzellik> MasaOzellikler { get; set; } = new List<MasaOzellik>();
+
+		public virtual ICollection<MasaSiparis> MasaSiparis { get; set; } = new List<MasaSiparis>();
 
 		public Personel Personel { get; set; }
 	}

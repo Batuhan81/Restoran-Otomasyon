@@ -210,7 +210,7 @@ namespace Restoran_Otomasyon.Paneller
 			Urunlist();
 			Yardimcilar.GridRenklendir(gridUrun);
 			Yardimcilar.GridRenklendir(gridSecilenMalzemeler);
-
+			Aktiflik.Checked = true;
 			if (gridSecilenMalzemeler.Columns.Count == 0)
 			{
 				gridSecilenMalzemeler.Columns.Add("MalzemeAdi", "Malzeme Adı");

@@ -44,6 +44,7 @@ namespace Restoran_Otomasyon.Data
 		public DbSet<StokCikti> stokCiktilar { get; set; }
 		public DbSet<Odeme> Odemeler { get; set; }
 		public DbSet<Kampanya> Kampanyalar { get; set; }
+		public DbSet<KayitsizMusteri> KayitsizMusteriler { get; set; }
 
 	}
 }

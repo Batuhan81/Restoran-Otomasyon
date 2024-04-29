@@ -51,6 +51,7 @@
 			this.btnKatSil = new System.Windows.Forms.Button();
 			this.btnKatEkle = new System.Windows.Forms.Button();
 			this.MasaEkle = new System.Windows.Forms.Button();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.MasaPanel.SuspendLayout();
 			this.MasaEklePanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -273,6 +274,11 @@
 			this.MasaEkle.UseVisualStyleBackColor = true;
 			this.MasaEkle.Click += new System.EventHandler(this.MasaEkle_Click);
 			// 
+			// timer1
+			// 
+			this.timer1.Interval = 600000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// MasaESG
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -325,5 +331,6 @@
 		private System.Windows.Forms.Panel MasaOzellikPanel;
 		private System.Windows.Forms.Button MasaKaydet;
 		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

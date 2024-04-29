@@ -134,6 +134,7 @@ namespace Restoran_Otomasyon.Paneller
 		#region Eventler
 		private void MasaESG_Load(object sender, EventArgs e)
 		{
+			RezarvasyonKontrol();
 			MasaKategoriler();
 			if (comboKat.Items.Count > 0)
 			{
@@ -150,6 +151,12 @@ namespace Restoran_Otomasyon.Paneller
 			ToolStripMenuItem menuItemRandevular = new ToolStripMenuItem("Randevular");
 			menuItemRandevular.Click += MenuItemRandevular_Click;
 			contextMenuStrip1.Items.Add(menuItemRandevular);
+
+			// "Randevular" öğesini ekle
+			ToolStripMenuItem menuItemMasaQr = new ToolStripMenuItem("Masa Qr Kodu");
+			menuItemMasaQr.Click += MenuItemMasaQrları_Click;
+			contextMenuStrip1.Items.Add(menuItemMasaQr);
+
 			TemizleMasaButonlari();
 			ButonlarıGetir(secilenKategoriId);
 
@@ -173,12 +180,30 @@ namespace Restoran_Otomasyon.Paneller
 		// "Randevular" öğesine tıklama olayı
 		private void MenuItemRandevular_Click(object sender, EventArgs e)
 		{
+			ToolStripMenuItem item = (ToolStripMenuItem)sender;
+			ContextMenuStrip menu = (ContextMenuStrip)item.Owner;
+			Control sourceControl = menu.SourceControl;
+
+			// Sağ tıklanan butonun adından masa ID'sini çıkarın
+			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
+			RandevuMasa git = new RandevuMasa(masaId);
+			git.Show();
+		}
+		private void MenuItemMasaQrları_Click(object sender, EventArgs e)
+		{
+
+			ToolStripMenuItem item = (ToolStripMenuItem)sender;
+			ContextMenuStrip menu = (ContextMenuStrip)item.Owner;
+			Control sourceControl = menu.SourceControl;
+
+			// Sağ tıklanan butonun adından masa ID'sini çıkarın
+			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
+			MasaQr git = new MasaQr(masaId);
+			git.Show();
 			// Randevular formunu açmak için gerekli işlemleri burada gerçekleştirin
 		}
-
-
-
 		#endregion
+
 		private void MasaKaydet_Click(object sender, EventArgs e)
 		{
 			Masa masa = new Masa();
@@ -216,6 +241,12 @@ namespace Restoran_Otomasyon.Paneller
 						}
 					}
 				}
+				//Gerek yok
+				//MasaSiparis siparis = new MasaSiparis();
+				//siparis.MasaId = masaId;
+				//siparis.Tutar = 0;
+				//siparis.OdenenTutar = 0;
+				//db.MasaSiparisler.Add(siparis);
 				db.SaveChanges();
 
 				MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -235,9 +266,20 @@ namespace Restoran_Otomasyon.Paneller
 		}
 
 		int secilenKategoriId;
-		public  void ButonlarıGetir(int secilenKategoriId)
+		// Masanın butonunu ID'ye göre bulan yardımcı bir metod
+		private Button GetMasaButton(int masaId)
 		{
-			db.SaveChanges();
+			string buttonName;
+			foreach (Control item in MasaPanel.Controls)
+			{
+				buttonName = "masaButton" + masaId;
+				return this.Controls.Find(buttonName, true).FirstOrDefault() as Button;
+
+			}
+			return null;
+		}
+		public void ButonlarıGetir(int secilenKategoriId)
+		{
 			// MasaPanel'i alın
 			Panel masaPanel = this.Controls.Find("MasaPanel", true).FirstOrDefault() as Panel;
 
@@ -344,7 +386,7 @@ namespace Restoran_Otomasyon.Paneller
 								kirlimasa.Show();
 								break;
 							case 4: // Rezerve
-								DoluMasa rezervemasa = new DoluMasa(masaId); // Burada masa Id'sini göndermeniz gerekebilir
+								BosMasa rezervemasa = new BosMasa(masaId); // Burada masa Id'sini göndermeniz gerekebilir
 								rezervemasa.Show();
 								break;
 							case 5: // Kapalı
@@ -355,10 +397,6 @@ namespace Restoran_Otomasyon.Paneller
 								MessageBox.Show("Bilinmeyen masa durumu!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 								break;
 						}
-						//Masanın Qrını gösterme
-						//Image resizedImage = Yardimcilar.ResimBoyutlandir.DosyaYoluIleBoyutlandir(masa.Qr, pictureBox1.Width, pictureBox1.Height);
-						//pictureBox1.Image = resizedImage;
-						//pictureBox1.Visible = true;
 					};
 					masaPanel.Controls.Add(masaButton);
 				}
@@ -412,6 +450,43 @@ namespace Restoran_Otomasyon.Paneller
 			foreach (Button button in kaldırılacakButonlar)
 			{
 				masaPanel.Controls.Remove(button);
+			}
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)//Her 10 dkda bir rezervasyonu yaklaşan masa var mı diye kontrol et
+		{
+			RezarvasyonKontrol();
+		}
+
+		private void RezarvasyonKontrol()
+		{
+			using (var db = new Context())
+			{
+				// Tüm masaları alın
+				var masalar = db.Masalar.Where(m => m.Gorunurluk == true).ToList();
+
+				foreach (var digerMasa in masalar)
+				{
+					// Masa üzerindeki rezervasyonları kontrol et
+					var rezervasyonlar = db.MasaRezervasyonlar
+						.Where(r => r.MasaId == digerMasa.Id && r.Rezervasyon.Tarih == DateTime.Today && r.Rezervasyon.Onay == 1)
+						.ToList();
+
+					foreach (var rezervasyon in rezervasyonlar)
+					{
+						// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
+						TimeSpan baslangicZamani = rezervasyon.Rezervasyon.BaslangicSaat;
+						TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
+
+						// Eğer rezervasyonun başlangıç saati şuanki zamandan yarım saat sonraysa veya daha azsa, masanın durumunu rezerve olarak güncelle
+						if (baslangicZamani <= yarimSaatSonrasininZamani || baslangicZamani <= DateTime.Now.TimeOfDay)
+						{
+							digerMasa.Durum = 4;
+							db.SaveChanges();
+							MasaButonlariniGuncelle();
+						}
+					}
+				}
 			}
 		}
 	}

@@ -403,7 +403,7 @@ namespace Restoran_Otomasyon.Paneller
 			MenuList();
 			Yardimcilar.GridRenklendir(gridMenu);
 			Yardimcilar.GridRenklendir(gridSecilenUrunler);
-
+			Aktiflik.Checked=true;
 			if (gridSecilenUrunler.Columns.Count == 0)
 			{
 				gridSecilenUrunler.Columns.Add("MalzemeAdi", "Malzeme Adı");

@@ -34,12 +34,17 @@ namespace Restoran_Otomasyon
 			if (result == DialogResult.Yes)
 			{
 				var masa = db.Masalar.Find(masaId);
+
+				var masasiparis = db.MasaSiparisler.Where(s => s.MasaId == masaId)
+									 .OrderByDescending(s => s.Id)
+									 .FirstOrDefault();
+
 				masa.Kod = txtmasaadi.Text;
 				masa.Kapasite = Convert.ToInt32(txtkapasite.Text);
 				string dosyaYolu = Yardimcilar.KareKodOlustur(masa.Kod);
 				masa.Qr = dosyaYolu;
-				masa.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
-				masa.OdenenTutar = Yardimcilar.TemizleVeDondur(txtodenen, "");
+				masasiparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+				masasiparis.OdenenTutar = Yardimcilar.TemizleVeDondur(txtodenen, "");
 				if (personelId == 0)
 				{
 					masa.PersonelId = null;
@@ -49,6 +54,7 @@ namespace Restoran_Otomasyon
 					masa.PersonelId = personelId;
 				}
 				db.SaveChanges();
+				MessageBox.Show("Güncelleme İşlemi Başarılı");
 			}
 			else
 			{
@@ -78,7 +84,10 @@ namespace Restoran_Otomasyon
 		private bool IleriTarihliRezervasyonVar(int masaId)
 		{
 			// İleri tarihli bir rezervasyon kontrolü için gereken işlemleri yapın
-			var ileriTarihliRezervasyon = db.MasaRezervasyonlar.Any(o => o.MasaId == masaId && o.Rezervasyon.BitisSaat > DateTime.Now);
+			var ileriTarihliRezervasyon = db.MasaRezervasyonlar.Any(o => o.MasaId == masaId &&
+	(o.Rezervasyon.Tarih > DateTime.Today ||
+	(o.Rezervasyon.Tarih == DateTime.Today && o.Rezervasyon.BitisSaat > DateTime.Now.TimeOfDay)));
+
 			return ileriTarihliRezervasyon;
 		}
 		private void button3_Click(object sender, EventArgs e)
@@ -91,13 +100,13 @@ namespace Restoran_Otomasyon
 				return;
 			}
 
-			if (masa.Durum == 2 || masa.Durum == 3 || masa.Durum == 4)
+			if (masa.Durum == 2 || masa.Durum == 4)
 			{
 				MessageBox.Show("Masa kapatma işlemi için masa durumunun boş veya kapalı olması gerekmektedir.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 
-			if (masa.Durum == 1)
+			if (masa.Durum == 1 || masa.Durum == 3)
 			{
 				if (IleriTarihliRezervasyonVar(masaId))
 				{

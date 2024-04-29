@@ -7,10 +7,13 @@ namespace Restoran_Otomasyon.Data
 	{
 		public int Id { get; set; }
 
+		//public int MusteriId { get; set; }
+
 		public DateTime Tarih { get; set; }
 
-		public DateTime BaslangicSaat { get; set; }
-		public DateTime BitisSaat { get; set; }
+		public TimeSpan BaslangicSaat { get; set; }
+
+		public TimeSpan BitisSaat { get; set; }
 
 		public int KisiSayisi { get; set; }
 
@@ -18,8 +21,10 @@ namespace Restoran_Otomasyon.Data
 
 		//Bunu int olarak ayarla
 		public int Onay { get; set; }
+
 		public bool Gorunurluk { get; set; }
 
 		public DateTime TalepTarihi { get; set; }
+
 	}
 }
