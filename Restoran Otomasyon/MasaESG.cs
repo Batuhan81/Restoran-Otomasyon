@@ -485,6 +485,20 @@ namespace Restoran_Otomasyon.Paneller
 							db.SaveChanges();
 							MasaButonlariniGuncelle();
 						}
+						// Eğer rezervasyonun başlangıç saati, şu anki zamandan yarım saat sonrasından fazla ise ve onaylanmışsa, rezervasyon onayını 4 yap
+						else if (baslangicZamani > yarimSaatSonrasininZamani && rezervasyon.Rezervasyon.Onay == 1)
+						{
+							rezervasyon.Rezervasyon.Onay = 4;
+						}
+					}
+					// Rezervasyon tarihi bugünkü tarihten önce ve onaylanmışsa, onayı 6 yap
+					var gecmisRezervasyonlar = db.MasaRezervasyonlar
+						.Where(r => r.Rezervasyon.Tarih < DateTime.Today && r.Rezervasyon.Onay == 1)
+						.ToList();
+
+					foreach (var gecmisRezervasyon in gecmisRezervasyonlar)
+					{
+						gecmisRezervasyon.Rezervasyon.Onay = 6;
 					}
 				}
 			}

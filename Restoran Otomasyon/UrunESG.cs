@@ -125,7 +125,7 @@ namespace Restoran_Otomasyon.Paneller
 				Checkİndirim.Checked = false;
 				Urunlist();
 			}
-			else
+			else if(txtindirimli.Text.Length > 0)
 			{
 				timer1.Start();
 				MessageBox.Show("Kayıt Eklenirken İndirim Uygulanacaktır", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -219,7 +219,6 @@ namespace Restoran_Otomasyon.Paneller
 				gridSecilenMalzemeler.Columns.Add("Arttir", "Arttır");
 				gridSecilenMalzemeler.Columns.Add("Azalt", "Azalt");
 			}
-
 			// Arttırma ve azaltma butonları için sütunları ekledikten sonra, her satıra butonları eklememiz gerekiyor
 			foreach (DataGridViewRow row in gridSecilenMalzemeler.Rows)
 			{
@@ -266,7 +265,6 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					txtindirimTarihi.Text = indirimTarihi.ToString();
 				}
-
 				// Ürün ID'sini sakla (Güncelleme işlemi için kullanılacak)
 				int urunId = Convert.ToInt32(row.Cells["Id"].Value.ToString());
 				hiddenUrunId.Text = urunId.ToString();
@@ -303,7 +301,6 @@ namespace Restoran_Otomasyon.Paneller
 						int rowIndex = gridSecilenMalzemeler.Rows.Add(malzemeAdi, urunMalzeme.MalzemeId, urunMalzeme.Miktar, "+", "-");
 
 						// Buraya +- eksi butonlarını oluşturacak ve işlevlerinin itemcheck metodundaki yerine getirecek bir şey ekle
-
 						int index = -1;
 						for (int i = 0; i < checkedListMalzeme.Items.Count; i++)
 						{
@@ -314,7 +311,6 @@ namespace Restoran_Otomasyon.Paneller
 								break;
 							}
 						}
-
 						// Eğer malzeme ID'si checkedListMalzeme içinde bulunuyorsa, işaretle
 						if (index != -1)
 						{
@@ -397,8 +393,6 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (gosterildi == false)
 			{
-				//if (hiddenUrunId.Text != "")
-				//{
 				if (Checkİndirim.Checked == true)
 				{
 					panelİndirim.Visible = true;
@@ -408,14 +402,6 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					panelİndirim.Visible = false;
 				}
-				//}
-				//else
-				//{
-				//	timer1.Start();
-				//	MessageBox.Show("Ürünü Kayıt Etmeden İndirim Uygulayamazsınız", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				//	gosterildi = true;
-				//	Checkİndirim.Checked = false;
-				//}
 			}
 			gosterildi = false;
 		}

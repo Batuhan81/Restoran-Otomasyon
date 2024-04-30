@@ -280,6 +280,18 @@
     <Compile Include="OzellikESG.Designer.cs">
       <DependentUpon>OzellikESG.cs</DependentUpon>
     </Compile>
+    <Compile Include="StokList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StokList.Designer.cs">
+      <DependentUpon>StokList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StokCiktiSayfasi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StokCiktiSayfasi.Designer.cs">
+      <DependentUpon>StokCiktiSayfasi.cs</DependentUpon>
+    </Compile>
     <Compile Include="RandevuMasa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -391,6 +403,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OzellikESG.resx">
       <DependentUpon>OzellikESG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StokList.resx">
+      <DependentUpon>StokList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StokCiktiSayfasi.resx">
+      <DependentUpon>StokCiktiSayfasi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RandevuMasa.resx">
       <DependentUpon>RandevuMasa.cs</DependentUpon>

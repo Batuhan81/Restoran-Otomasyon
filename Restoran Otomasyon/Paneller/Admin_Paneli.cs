@@ -82,5 +82,41 @@ namespace Restoran_Otomasyon.Paneller
 			OzellikESG git=new OzellikESG();
 			git.Show();
 		}
+
+		private void stokGirdiToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			StokGirdiESG git = new StokGirdiESG();
+			git.Show();
+		}
+
+		private void stokSayımToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			StokSayim git = new StokSayim();
+			git.Show();
+		}
+
+		private void malzemeEkleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MalzemeESG git = new MalzemeESG();
+			git.Show();
+		}
+
+		private void menüOluşturToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MenuESG git = new MenuESG();
+			git.Show();
+		}
+
+		private void stokÇıktıToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			StokCiktiSayfasi git=new StokCiktiSayfasi();
+			git.Show();
+		}
+
+		private void stokListesiToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			StokList git=new StokList();	
+			git.Show();
+		}
 	}
 }

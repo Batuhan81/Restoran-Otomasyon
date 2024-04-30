@@ -45,7 +45,62 @@ namespace Restoran_Otomasyon
 					column.Visible = false;
 				}
 			}
+			// Formun constructor veya Load metodu içinde ContextMenuStrip'i oluştur
+			ContextMenuStrip siparisSilMenu = new ContextMenuStrip();
+			ToolStripMenuItem siparisSilMenuItem = new ToolStripMenuItem();
+			siparisSilMenuItem.Name = "siparisSilMenuItem";
+			siparisSilMenuItem.Size = new Size(180, 22);
+			siparisSilMenuItem.Text = "Siparişi Sil";
+			siparisSilMenuItem.Click += SiparisSilMenuItem_Click; // Siparişi silme işlevini tanımlayan bir event handler ekleyin
+			siparisSilMenu.Items.AddRange(new ToolStripItem[] { siparisSilMenuItem });
+
+			// DataGridView'e ContextMenuStrip'i ata
+			gridSiparisler.ContextMenuStrip = siparisSilMenu;
+
 		}
+		private void SiparisSilMenuItem_Click(object sender, EventArgs e)
+		{
+			if (gridSiparisler.SelectedRows.Count > 0)
+			{
+				foreach (DataGridViewRow row in gridSiparisler.SelectedRows)
+				{
+					// Seçili satırın ürün ID'sini al
+					int urunID = Convert.ToInt32(row.Cells["UrunID"].Value);
+
+					// UrunPaneli içindeki tüm GroupBox'ları döngüye al
+					foreach (Control control in UrunPaneli.Controls)
+					{
+						if (control is GroupBox groupBox)
+						{
+							// GroupBox içindeki TextBox'ları bul
+							foreach (Control innerControl in groupBox.Controls)
+							{
+								if (innerControl is TextBox textBox)
+								{
+									// Ürün ID'si seçilen ürün ID'sine eşitse, miktarı sıfırla
+									if (textBox.Tag != null && Convert.ToInt32(textBox.Tag) == urunID)
+									{
+										textBox.Text = "0";
+										break;
+									}
+								}
+							}
+						}
+					}
+
+					// İlgili satırı sil
+					gridSiparisler.Rows.Remove(row);
+				}
+				// Toplam tutarı yeniden hesapla
+				HesaplaToplamTutar();
+			}
+			else
+			{
+				MessageBox.Show("Lütfen silmek için bir satır seçin.");
+			}
+		}
+
+
 
 		private void MasaBilgileri()
 		{
@@ -151,6 +206,7 @@ namespace Restoran_Otomasyon
 				textBoxMiktar.Width = textBoxMiktarWidth; // TextBox genişliği
 				textBoxMiktar.TextAlign = HorizontalAlignment.Center; // Metni ortala
 				textBoxMiktar.Text = "0"; // Başlangıçta sıfır olarak ayarla
+				textBoxMiktar.Tag = urun.Id;
 
 				// - Butonu oluştur
 				Button buttonEksi = new Button();
@@ -273,32 +329,34 @@ namespace Restoran_Otomasyon
 			if (x.Durum == 4)
 			{
 				// Masanın rezervasyonunu bulun
-				var rezervasyon = db.MasaRezervasyonlar.FirstOrDefault(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today);
+				var rezervasyon = db.MasaRezervasyonlar.Where(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today).ToList();
 
 				// Rezervasyon bulunduysa
 				if (rezervasyon != null)
 				{
-					// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
-					TimeSpan baslangicZamani = rezervasyon.Rezervasyon.BaslangicSaat;
-					TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
+                    foreach (var item in rezervasyon)
+                    {
+						// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
+						TimeSpan baslangicZamani = item.Rezervasyon.BaslangicSaat;
+						TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
 
-					// Rezervasyonun başlangıç saati şu anki zamandan ileri bir zamansa veya aynı zamandaysa
-					if (baslangicZamani >= DateTime.Now.TimeOfDay && baslangicZamani <= yarimSaatSonrasininZamani)
-					{
-						// Rezervasyonun onay durumu henüz 3 değilse
-						if (rezervasyon.Rezervasyon.Onay != 3)
+						// Rezervasyonun başlangıç saati şu anki zamandan ileri bir zamansa veya aynı zamandaysa
+						if (baslangicZamani >= DateTime.Now.TimeOfDay && baslangicZamani <= yarimSaatSonrasininZamani)
 						{
-							// Rezervasyonun onay durumunu 3 olarak güncelleyin
-							rezervasyon.Rezervasyon.Onay = 3;
-							int rezervasyonId = rezervasyon.Id;
+							// Rezervasyonun onay durumu henüz 3 değilse
+							if (item.Rezervasyon.Onay != 3)
+							{
+								// Rezervasyonun onay durumunu 3 olarak güncelleyin
+								item.Rezervasyon.Onay = 3;
+								int rezervasyonId = item.Id;
 
-							// Değişiklikleri veritabanına kaydedin
-							db.SaveChanges();
+								// Değişiklikleri veritabanına kaydedin
+								db.SaveChanges();
+							}
 						}
 					}
 				}
 			}
-
 			x.Durum = 2;
 			db.SaveChanges();
 			siparis.Tarih = DateTime.Now;
