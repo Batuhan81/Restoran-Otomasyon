@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restoran_Otomasyon.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -61,25 +62,25 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void menüEkleSilGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MenuESG git=new MenuESG();
+			MenuESG git = new MenuESG();
 			git.Show();
 		}
 
 		private void stokSayımToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			StokSayim git= new StokSayim();
+			StokSayim git = new StokSayim();
 			git.Show();
 		}
 
 		private void masaOluşturToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MasaESG git=new MasaESG();
+			MasaESG git = new MasaESG();
 			git.Show();
 		}
 
 		private void masaÖzellikToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			OzellikESG git=new OzellikESG();
+			OzellikESG git = new OzellikESG();
 			git.Show();
 		}
 
@@ -109,14 +110,99 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void stokÇıktıToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			StokCiktiSayfasi git=new StokCiktiSayfasi();
+			StokCiktiSayfasi git = new StokCiktiSayfasi();
 			git.Show();
 		}
 
-		private void stokListesiToolStripMenuItem_Click(object sender, EventArgs e)
+		private void kasaToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			StokList git=new StokList();	
+			Kasa git = new Kasa();
 			git.Show();
+		}
+
+		private void Admin_Paneli_Load(object sender, EventArgs e)
+		{
+			MasalariGrafikteGoster();
+			OlusturMenu();
+			
+		}
+		string kullaniciAdi = "Batuhan";
+		int bakiye = 250;
+		private void OlusturMenu()
+		{
+			// "Programı Kapat" butonu oluşturulması
+			ToolStripMenuItem kapatItem = new ToolStripMenuItem("Programı Kapat");
+			kapatItem.Click += KapatItem_Click;
+
+			// "Giriş Ekranı" butonu oluşturulması
+			ToolStripMenuItem girisEkranıItem = new ToolStripMenuItem("Giriş Ekranı");
+			girisEkranıItem.Click += GirisEkranıItem_Click;
+
+			// Kullanıcı adını ve bakiyeyi göstermek için ToolStripMenuItem'ları oluşturun
+			ToolStripMenuItem bakiyeItem = new ToolStripMenuItem($"Bakiye: {bakiye:C}");
+			ToolStripMenuItem kullaniciAdiItem = new ToolStripMenuItem($"Merhaba, {kullaniciAdi}");
+
+			// MenuStrip'e öğeleri ekleme, sağdan sola doğru ekleniyor
+			menuStrip1.Items.Add(kapatItem);
+			menuStrip1.Items.Add(girisEkranıItem);
+			menuStrip1.Items.Add(new ToolStripSeparator());
+			menuStrip1.Items.Add(bakiyeItem);
+			menuStrip1.Items.Add(kullaniciAdiItem);
+
+			// MenuStrip'i formun en üstüne sabitleme
+			menuStrip1.Dock = DockStyle.Top;
+		}
+		// "Giriş Ekranı" butonunun tıklama olayı
+		private void GirisEkranıItem_Click(object sender, EventArgs e)
+		{
+			// Giriş ekranı formunu açma işlemi
+			Giris girisEkranı = new Giris();
+			girisEkranı.Show();
+		}
+
+		// "Programı Kapat" butonunun tıklama olayı
+		private void KapatItem_Click(object sender, EventArgs e)
+		{
+			// Programın kapatılması
+			Application.Exit();
+		}
+		Context db = new Context();
+		private void MasalariGrafikteGoster()
+		{
+			// Masaların kullanım oranlarını hesapla
+			var masaKullanimOranlari = new Dictionary<string, int>();
+
+			foreach (var masa in db.Masalar)
+			{
+				using (var db = new Context())
+				{
+					int masaID = masa.Id;
+					// Masanın toplam sipariş sayısını al
+					int toplamSiparisSayisi = db.MasaSiparisler.Where(o => o.MasaId == masaID).Count();
+
+					masaKullanimOranlari.Add(masa.Kod, toplamSiparisSayisi);
+				}
+			}
+
+			// Grafik veri bağlama
+			chart1.Series.Clear();
+			chart1.Series.Add("Sipariş Sayısı");
+
+			foreach (var masaKullanimOrani in masaKullanimOranlari)
+			{
+				chart1.Series["Sipariş Sayısı"].Points.AddXY(masaKullanimOrani.Key, masaKullanimOrani.Value);
+			}
+
+			// Grafik görünüm ayarları
+			chart1.ChartAreas[0].AxisX.Interval = 1;
+			chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+			chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+			chart1.ChartAreas[0].AxisX.Title = "Masa Kodu";
+			chart1.ChartAreas[0].AxisY.Title = "Sipariş Sayısı";
+		}
+		public  void grafikleriGuncelle()
+		{
+			MasalariGrafikteGoster();
 		}
 	}
 }

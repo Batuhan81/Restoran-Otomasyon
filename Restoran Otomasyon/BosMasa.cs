@@ -448,5 +448,11 @@ namespace Restoran_Otomasyon
 			PaneliTemizle();
 			UrunleriGoster(0);
 		}
+
+		private void BosMasa_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Admin_Paneli adminPaneliForm = new Admin_Paneli();
+			adminPaneliForm.grafikleriGuncelle();
+		}
 	}
 }

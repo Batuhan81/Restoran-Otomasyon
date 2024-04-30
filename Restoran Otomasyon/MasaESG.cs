@@ -503,5 +503,12 @@ namespace Restoran_Otomasyon.Paneller
 				}
 			}
 		}
+
+		private void MasaESG_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			Admin_Paneli adminPaneliForm = new Admin_Paneli();
+			adminPaneliForm.grafikleriGuncelle();
+
+		}
 	}
 }

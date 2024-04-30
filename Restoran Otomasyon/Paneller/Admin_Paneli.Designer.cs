@@ -28,6 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.çalışanİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CalisanCRUD = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,8 +50,10 @@
 			this.stokGirdiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.stokSayımToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.stokÇıktıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.stokListesiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.kasaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.menuStrip1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
@@ -61,7 +66,8 @@
             this.kategoriEkleToolStripMenuItem,
             this.ürünİşlemleriToolStripMenuItem,
             this.masaİşlemleriToolStripMenuItem,
-            this.stokİşlemleriToolStripMenuItem1});
+            this.stokİşlemleriToolStripMenuItem1,
+            this.kasaToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(1672, 31);
@@ -180,8 +186,7 @@
 			this.stokİşlemleriToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stokGirdiToolStripMenuItem,
             this.stokSayımToolStripMenuItem1,
-            this.stokÇıktıToolStripMenuItem,
-            this.stokListesiToolStripMenuItem});
+            this.stokÇıktıToolStripMenuItem});
 			this.stokİşlemleriToolStripMenuItem1.Name = "stokİşlemleriToolStripMenuItem1";
 			this.stokİşlemleriToolStripMenuItem1.Size = new System.Drawing.Size(128, 27);
 			this.stokİşlemleriToolStripMenuItem1.Text = "Stok İşlemleri";
@@ -189,36 +194,53 @@
 			// stokGirdiToolStripMenuItem
 			// 
 			this.stokGirdiToolStripMenuItem.Name = "stokGirdiToolStripMenuItem";
-			this.stokGirdiToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.stokGirdiToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
 			this.stokGirdiToolStripMenuItem.Text = "Stok Girdi";
 			this.stokGirdiToolStripMenuItem.Click += new System.EventHandler(this.stokGirdiToolStripMenuItem_Click);
 			// 
 			// stokSayımToolStripMenuItem1
 			// 
 			this.stokSayımToolStripMenuItem1.Name = "stokSayımToolStripMenuItem1";
-			this.stokSayımToolStripMenuItem1.Size = new System.Drawing.Size(224, 28);
+			this.stokSayımToolStripMenuItem1.Size = new System.Drawing.Size(180, 28);
 			this.stokSayımToolStripMenuItem1.Text = "Stok Sayım";
 			this.stokSayımToolStripMenuItem1.Click += new System.EventHandler(this.stokSayımToolStripMenuItem1_Click);
 			// 
 			// stokÇıktıToolStripMenuItem
 			// 
 			this.stokÇıktıToolStripMenuItem.Name = "stokÇıktıToolStripMenuItem";
-			this.stokÇıktıToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.stokÇıktıToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
 			this.stokÇıktıToolStripMenuItem.Text = "Stok Çıktı";
 			this.stokÇıktıToolStripMenuItem.Click += new System.EventHandler(this.stokÇıktıToolStripMenuItem_Click);
 			// 
-			// stokListesiToolStripMenuItem
+			// kasaToolStripMenuItem
 			// 
-			this.stokListesiToolStripMenuItem.Name = "stokListesiToolStripMenuItem";
-			this.stokListesiToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-			this.stokListesiToolStripMenuItem.Text = "Stok Listesi";
-			this.stokListesiToolStripMenuItem.Click += new System.EventHandler(this.stokListesiToolStripMenuItem_Click);
+			this.kasaToolStripMenuItem.Name = "kasaToolStripMenuItem";
+			this.kasaToolStripMenuItem.Size = new System.Drawing.Size(62, 27);
+			this.kasaToolStripMenuItem.Text = "Kasa";
+			this.kasaToolStripMenuItem.Click += new System.EventHandler(this.kasaToolStripMenuItem_Click);
+			// 
+			// chart1
+			// 
+			chartArea1.Name = "ChartArea1";
+			this.chart1.ChartAreas.Add(chartArea1);
+			legend1.Name = "Legend1";
+			this.chart1.Legends.Add(legend1);
+			this.chart1.Location = new System.Drawing.Point(12, 52);
+			this.chart1.Name = "chart1";
+			series1.ChartArea = "ChartArea1";
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.chart1.Series.Add(series1);
+			this.chart1.Size = new System.Drawing.Size(423, 350);
+			this.chart1.TabIndex = 1;
+			this.chart1.Text = "chart1";
 			// 
 			// Admin_Paneli
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1672, 686);
+			this.Controls.Add(this.chart1);
 			this.Controls.Add(this.menuStrip1);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.MainMenuStrip = this.menuStrip1;
@@ -227,8 +249,10 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Admin Paneli";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.Load += new System.EventHandler(this.Admin_Paneli_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -253,8 +277,9 @@
 		private System.Windows.Forms.ToolStripMenuItem stokGirdiToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem stokSayımToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem stokÇıktıToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem stokListesiToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem malzemeEkleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem menüOluşturToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem kasaToolStripMenuItem;
+		private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
 	}
 }

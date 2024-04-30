@@ -207,6 +207,7 @@ namespace Restoran_Otomasyon.Paneller
 							stokGirdisi.TedarikciId = Convert.ToInt32(hiddenTedarikciId.Text);
 							stokGirdisi.AlısFiyati = fiyatformatsiz;
 							stokGirdisi.SonStokMiktari = stok.Miktar;
+							stokGirdisi.Neden = "Stok Girdi";
 
 							db.SaveChanges();
 							timer1.Start();
@@ -257,6 +258,7 @@ namespace Restoran_Otomasyon.Paneller
 			girdi.TedarikciId = Convert.ToInt32(hiddenTedarikciId.Text);
 			girdi.AlısFiyati = fiyatformatsiz;
 			girdi.MalzemeId = malzemeId;
+			girdi.Neden ="Stok Girdisi";
 			var stokKaydi = db.Stoklar.FirstOrDefault(s => s.Malzeme.Id == malzemeId);
 			int selectedMalzemeId = (int)comboMalzeme.SelectedValue;
 			Olcu = db.Malzemeler.FirstOrDefault(o => o.Id == selectedMalzemeId).Tur;
@@ -295,6 +297,7 @@ namespace Restoran_Otomasyon.Paneller
 												   TedarikciId = o.TedarikciId,
 												   MalzemeId = o.MalzemeId,
 												   İşlemSonuStok = o.SonStokMiktari,
+												   Neden=o.Neden,
 												   GirdiTarih = o.Tarih,
 												   MalzemeTur = db.Malzemeler.Where(s => s.Id == o.MalzemeId).Select(x => x.Tur).FirstOrDefault(),
 											   })
@@ -307,6 +310,7 @@ namespace Restoran_Otomasyon.Paneller
 			gridStokGirdi.Columns["MalzemeId"].Visible = false;
 			gridStokGirdi.Columns["MalzemeTur"].Visible = false;
 			gridStokGirdi.Columns["Id"].Visible = false;
+			gridStokGirdi.Columns["Neden"].Visible = false;
 		}
 
 		void malzemeleriDoldur()

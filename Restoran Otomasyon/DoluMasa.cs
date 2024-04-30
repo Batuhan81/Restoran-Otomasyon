@@ -239,6 +239,7 @@ namespace Restoran_Otomasyon
 					Odenecek = Yardimcilar.TemizleVeDondur(txtodenecek, "");
 					odeme.Tutar = Odenecek;
 					odeme.SiparisID = sonSiparisId;
+					odeme.OdemeTarih = DateTime.Now;
 					db.Odemeler.Add(odeme);
 					db.SaveChanges();
 					var masa = db.Masalar.Find(masaId);
@@ -346,6 +347,12 @@ namespace Restoran_Otomasyon
 		{
 			int deger = 10;
 			ButonluOdeme(deger);
+		}
+
+		private void DoluMasa_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Admin_Paneli adminPaneliForm = new Admin_Paneli();
+			adminPaneliForm.grafikleriGuncelle();
 		}
 	}
 }

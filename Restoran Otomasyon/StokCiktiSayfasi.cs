@@ -51,7 +51,7 @@ namespace Restoran_Otomasyon.Paneller
 			gridCikti.Columns["GirdiTarih"].Visible = false;
 		}
 
-		private void Malzemeler()//Buna gerekli olan tüm sütunları ekleyeceğim 
+		private void Malzemeler()
 		{
 			var malzemeStokBilgileri = from malzeme in db.Malzemeler
 									   join stok in db.Stoklar on malzeme.Id equals stok.MalzemeId
@@ -60,7 +60,7 @@ namespace Restoran_Otomasyon.Paneller
 									   select new
 									   {
 										   MalzemeId = malzeme.Id,
-										   MalzemeAd = malzeme.Ad,
+										   Ad = malzeme.Ad,
 										   MalzemeTur = malzeme.Tur,
 										   Tedarikci=stok.Tedarikci.AdSoyad,
 										   TedarikciFirma=stok.Tedarikci.Firma,
@@ -73,6 +73,8 @@ namespace Restoran_Otomasyon.Paneller
 			gridMalzemeler.DataSource = malzemeStokBilgileri.ToList();
 			gridMalzemeler.Columns["MalzemeId"].Visible = false;
 			gridMalzemeler.Columns["StokId"].Visible = false;
+			gridMalzemeler.Columns["Tedarikci"].Visible = false;
+			gridMalzemeler.Columns["TedarikciFirma"].Visible = false;
 			gridMalzemeler.Columns["TedarikciId"].Visible = false;
 			gridMalzemeler.Columns["MalzemeTur"].Visible = false;
 		}

@@ -299,6 +299,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Masa İşlemleri";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MasaESG_FormClosed);
 			this.Load += new System.EventHandler(this.MasaESG_Load);
 			this.MasaPanel.ResumeLayout(false);
 			this.MasaEklePanel.ResumeLayout(false);

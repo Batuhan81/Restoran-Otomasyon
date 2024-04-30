@@ -40,6 +40,8 @@
 			this.UrunPaneli = new System.Windows.Forms.FlowLayoutPanel();
 			this.OdemePaneli = new System.Windows.Forms.Panel();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btn5 = new System.Windows.Forms.Button();
+			this.btn10 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.btn20 = new System.Windows.Forms.Button();
 			this.btn200 = new System.Windows.Forms.Button();
@@ -64,8 +66,6 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.btn10 = new System.Windows.Forms.Button();
-			this.btn5 = new System.Windows.Forms.Button();
 			this.UrunPaneli.SuspendLayout();
 			this.OdemePaneli.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -190,6 +190,26 @@
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Ödeme İşlemi";
+			// 
+			// btn5
+			// 
+			this.btn5.Location = new System.Drawing.Point(319, 15);
+			this.btn5.Name = "btn5";
+			this.btn5.Size = new System.Drawing.Size(94, 47);
+			this.btn5.TabIndex = 17;
+			this.btn5.Text = "5 ₺";
+			this.btn5.UseVisualStyleBackColor = true;
+			this.btn5.Click += new System.EventHandler(this.btn5_Click);
+			// 
+			// btn10
+			// 
+			this.btn10.Location = new System.Drawing.Point(319, 73);
+			this.btn10.Name = "btn10";
+			this.btn10.Size = new System.Drawing.Size(94, 47);
+			this.btn10.TabIndex = 16;
+			this.btn10.Text = "10 ₺";
+			this.btn10.UseVisualStyleBackColor = true;
+			this.btn10.Click += new System.EventHandler(this.btn10_Click);
 			// 
 			// button2
 			// 
@@ -430,26 +450,6 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// btn10
-			// 
-			this.btn10.Location = new System.Drawing.Point(319, 73);
-			this.btn10.Name = "btn10";
-			this.btn10.Size = new System.Drawing.Size(94, 47);
-			this.btn10.TabIndex = 16;
-			this.btn10.Text = "10 ₺";
-			this.btn10.UseVisualStyleBackColor = true;
-			this.btn10.Click += new System.EventHandler(this.btn10_Click);
-			// 
-			// btn5
-			// 
-			this.btn5.Location = new System.Drawing.Point(319, 15);
-			this.btn5.Name = "btn5";
-			this.btn5.Size = new System.Drawing.Size(94, 47);
-			this.btn5.TabIndex = 17;
-			this.btn5.Text = "5 ₺";
-			this.btn5.UseVisualStyleBackColor = true;
-			this.btn5.Click += new System.EventHandler(this.btn5_Click);
-			// 
 			// DoluMasa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -465,6 +465,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "DoluMasa";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DoluMasa_FormClosing);
 			this.Load += new System.EventHandler(this.DoluMasa_Load);
 			this.UrunPaneli.ResumeLayout(false);
 			this.OdemePaneli.ResumeLayout(false);
