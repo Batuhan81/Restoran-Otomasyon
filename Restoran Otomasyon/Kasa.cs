@@ -19,13 +19,13 @@ namespace Restoran_Otomasyon.Paneller
 		Context db = new Context();
 		private void Kasa_Load(object sender, EventArgs e)
 		{
-			Odemler();
+			Odemeler();
 			bugun = DateTime.Now.Date;
 			haftaninGunleri = DateTime.Now.DayOfWeek;
 			Yardimcilar.GridRenklendir(gridOdemeler);
 		}
 
-		private void Odemler()
+		public  void Odemeler()
 		{
 			var odemeler = db.Odemeler.Select(o => new
 			{
@@ -139,7 +139,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void button4_Click(object sender, EventArgs e)
 		{
-			Odemler(); 
+			Odemeler(); 
 		}
 
 		private void gridOdemeler_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

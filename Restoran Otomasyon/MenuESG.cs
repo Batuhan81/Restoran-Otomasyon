@@ -299,7 +299,7 @@ namespace Restoran_Otomasyon.Paneller
 							Yardimcilar.Temizle(groupMenu);
 							db.SaveChanges();
 							MenuList();
-							Aktiflik.Checked = false;
+							Aktiflik.Checked = true;
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;

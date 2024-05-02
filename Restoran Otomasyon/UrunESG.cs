@@ -638,7 +638,7 @@ namespace Restoran_Otomasyon.Paneller
 							Yardimcilar.Temizle(groupUrun);
 							db.SaveChanges();
 							Urunlist();
-							Aktiflik.Checked = false;
+							Aktiflik.Checked = true;
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;

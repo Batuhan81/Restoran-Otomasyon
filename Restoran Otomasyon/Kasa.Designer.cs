@@ -36,12 +36,12 @@
 			this.gridOdemeler = new System.Windows.Forms.DataGridView();
 			this.Takvim = new System.Windows.Forms.MonthCalendar();
 			this.FiltrePanel = new System.Windows.Forms.Panel();
+			this.button4 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.button4 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.gridOdemeler)).BeginInit();
 			this.FiltrePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -70,6 +70,7 @@
 			// gridOdemeler
 			// 
 			this.gridOdemeler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.gridOdemeler.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
 			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
 			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -132,36 +133,51 @@
 			this.FiltrePanel.UseWaitCursor = true;
 			this.FiltrePanel.Visible = false;
 			// 
+			// button4
+			// 
+			this.button4.BackColor = System.Drawing.Color.SkyBlue;
+			this.button4.Location = new System.Drawing.Point(295, 3);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(168, 62);
+			this.button4.TabIndex = 76;
+			this.button4.Text = "Genel";
+			this.button4.UseVisualStyleBackColor = false;
+			this.button4.UseWaitCursor = true;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
 			// button3
 			// 
+			this.button3.BackColor = System.Drawing.Color.SkyBlue;
 			this.button3.Location = new System.Drawing.Point(295, 207);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(168, 62);
 			this.button3.TabIndex = 75;
 			this.button3.Text = "Aylık";
-			this.button3.UseVisualStyleBackColor = true;
+			this.button3.UseVisualStyleBackColor = false;
 			this.button3.UseWaitCursor = true;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// button2
 			// 
+			this.button2.BackColor = System.Drawing.Color.SkyBlue;
 			this.button2.Location = new System.Drawing.Point(295, 139);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(168, 62);
 			this.button2.TabIndex = 74;
 			this.button2.Text = "Haftalık";
-			this.button2.UseVisualStyleBackColor = true;
+			this.button2.UseVisualStyleBackColor = false;
 			this.button2.UseWaitCursor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// button1
 			// 
+			this.button1.BackColor = System.Drawing.Color.SkyBlue;
 			this.button1.Location = new System.Drawing.Point(295, 71);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(168, 62);
 			this.button1.TabIndex = 73;
 			this.button1.Text = "Bugün";
-			this.button1.UseVisualStyleBackColor = true;
+			this.button1.UseVisualStyleBackColor = false;
 			this.button1.UseWaitCursor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
@@ -187,21 +203,11 @@
 			this.checkBox1.UseWaitCursor = true;
 			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
 			// 
-			// button4
-			// 
-			this.button4.Location = new System.Drawing.Point(295, 3);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(168, 62);
-			this.button4.TabIndex = 76;
-			this.button4.Text = "Genel";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.UseWaitCursor = true;
-			this.button4.Click += new System.EventHandler(this.button4_Click);
-			// 
 			// Kasa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1532, 828);
 			this.Controls.Add(this.checkBox1);
 			this.Controls.Add(this.FiltrePanel);

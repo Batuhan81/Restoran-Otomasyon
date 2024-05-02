@@ -463,7 +463,15 @@
   <ItemGroup>
     <None Include="Resim Ve İconlar\İconlar\Müşteri.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resim Ve İconlar\İconlar\Ana Ekran.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resim Ve İconlar\İconlar\KapatmaTuu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resim Ve İconlar\İconlar\Ekle2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

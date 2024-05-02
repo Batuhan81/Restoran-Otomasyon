@@ -1,4 +1,5 @@
-﻿using Restoran_Otomasyon.Paneller;
+﻿using Restoran_Otomasyon.Data;
+using Restoran_Otomasyon.Paneller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Restoran_Otomasyon
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Admin_Paneli());
+			Application.Run(new Admin_Paneli(1));
 		}
 	}
 }

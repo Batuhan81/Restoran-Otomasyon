@@ -26,6 +26,7 @@ namespace Restoran_Otomasyon
 			GirisYap(Ad, Sifre);
 		}
 		Context db = new Context();
+		int ıd;
 		public void GirisYap(string Ad,string Sifre)//gelen ad ve şifre bilgisine göre kullanıyı ilgili panele yönlendir
 		{
 			var kullanici = db.Kullanicilar.FirstOrDefault(o => o.Ad == Ad && o.Sifre == Sifre);
@@ -38,7 +39,8 @@ namespace Restoran_Otomasyon
 				}
 				else if(kullanici.Ad == "Admin")
 				{
-					Admin_Paneli git=new Admin_Paneli();
+					ıd = kullanici.Id;
+					Admin_Paneli git=new Admin_Paneli(ıd);
 					git.Show();
 					this.Close();
 				}

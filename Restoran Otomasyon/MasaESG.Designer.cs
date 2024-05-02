@@ -33,7 +33,6 @@
 			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.label2 = new System.Windows.Forms.Label();
 			this.comboKat = new System.Windows.Forms.ComboBox();
-			this.button1 = new System.Windows.Forms.Button();
 			this.MasaPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.MasaEklePanel = new System.Windows.Forms.Panel();
 			this.MasaKaydet = new System.Windows.Forms.Button();
@@ -70,7 +69,7 @@
 			this.label2.AutoSize = true;
 			this.label2.BackColor = System.Drawing.Color.Transparent;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(1236, 200);
+			this.label2.Location = new System.Drawing.Point(1262, 185);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(46, 22);
 			this.label2.TabIndex = 25;
@@ -80,33 +79,25 @@
 			// 
 			this.comboKat.Anchor = System.Windows.Forms.AnchorStyles.None;
 			this.comboKat.FormattingEnabled = true;
-			this.comboKat.Location = new System.Drawing.Point(1311, 196);
+			this.comboKat.Location = new System.Drawing.Point(1325, 183);
 			this.comboKat.Name = "comboKat";
-			this.comboKat.Size = new System.Drawing.Size(210, 26);
+			this.comboKat.Size = new System.Drawing.Size(105, 26);
 			this.comboKat.TabIndex = 24;
 			this.comboKat.SelectedIndexChanged += new System.EventHandler(this.comboKat_SelectedIndexChanged);
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(1469, 771);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 29;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
 			// 
 			// MasaPanel
 			// 
 			this.MasaPanel.Controls.Add(this.MasaEklePanel);
 			this.MasaPanel.Controls.Add(this.PanelKategori);
 			this.MasaPanel.Controls.Add(this.pictureBox1);
-			this.MasaPanel.Location = new System.Drawing.Point(13, 13);
+			this.MasaPanel.Location = new System.Drawing.Point(13, 12);
 			this.MasaPanel.Name = "MasaPanel";
 			this.MasaPanel.Size = new System.Drawing.Size(1142, 781);
 			this.MasaPanel.TabIndex = 30;
 			// 
 			// MasaEklePanel
 			// 
+			this.MasaEklePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.MasaEklePanel.Controls.Add(this.MasaKaydet);
 			this.MasaEklePanel.Controls.Add(this.button7);
 			this.MasaEklePanel.Controls.Add(this.MasaOzellik);
@@ -123,12 +114,13 @@
 			// 
 			// MasaKaydet
 			// 
-			this.MasaKaydet.Location = new System.Drawing.Point(107, 371);
+			this.MasaKaydet.BackColor = System.Drawing.Color.SkyBlue;
+			this.MasaKaydet.Location = new System.Drawing.Point(101, 371);
 			this.MasaKaydet.Name = "MasaKaydet";
 			this.MasaKaydet.Size = new System.Drawing.Size(174, 69);
 			this.MasaKaydet.TabIndex = 60;
 			this.MasaKaydet.Text = "Kaydet";
-			this.MasaKaydet.UseVisualStyleBackColor = true;
+			this.MasaKaydet.UseVisualStyleBackColor = false;
 			this.MasaKaydet.Click += new System.EventHandler(this.MasaKaydet_Click);
 			// 
 			// button7
@@ -154,6 +146,7 @@
 			// 
 			// MasaOzellik
 			// 
+			this.MasaOzellik.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.MasaOzellik.FormattingEnabled = true;
 			this.MasaOzellik.Location = new System.Drawing.Point(16, 123);
 			this.MasaOzellik.Name = "MasaOzellik";
@@ -163,24 +156,26 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.label1.Location = new System.Drawing.Point(35, 20);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(88, 18);
+			this.label1.Size = new System.Drawing.Size(98, 18);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Masa Kodu:";
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(125, 93);
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label4.Location = new System.Drawing.Point(104, 93);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(98, 18);
+			this.label4.Size = new System.Drawing.Size(111, 18);
 			this.label4.TabIndex = 4;
 			this.label4.Text = "Masa Özellik:";
 			// 
 			// txtkod
 			// 
-			this.txtkod.Location = new System.Drawing.Point(140, 14);
+			this.txtkod.Location = new System.Drawing.Point(140, 17);
 			this.txtkod.Name = "txtkod";
 			this.txtkod.Size = new System.Drawing.Size(185, 24);
 			this.txtkod.TabIndex = 1;
@@ -195,23 +190,26 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(13, 63);
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label3.Location = new System.Drawing.Point(13, 60);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(110, 18);
+			this.label3.Size = new System.Drawing.Size(124, 18);
 			this.label3.TabIndex = 2;
 			this.label3.Text = "Masa Kapasite:";
 			// 
 			// PanelKategori
 			// 
+			this.PanelKategori.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.PanelKategori.Location = new System.Drawing.Point(390, 3);
 			this.PanelKategori.Name = "PanelKategori";
-			this.PanelKategori.Size = new System.Drawing.Size(373, 376);
+			this.PanelKategori.Size = new System.Drawing.Size(397, 356);
 			this.PanelKategori.TabIndex = 0;
 			this.PanelKategori.Visible = false;
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Location = new System.Drawing.Point(769, 3);
+			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pictureBox1.Location = new System.Drawing.Point(793, 3);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(345, 323);
 			this.pictureBox1.TabIndex = 2;
@@ -220,6 +218,7 @@
 			// 
 			// MasaOzellikPanel
 			// 
+			this.MasaOzellikPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.MasaOzellikPanel.Location = new System.Drawing.Point(1161, 256);
 			this.MasaOzellikPanel.Name = "MasaOzellikPanel";
 			this.MasaOzellikPanel.Size = new System.Drawing.Size(368, 387);
@@ -229,6 +228,7 @@
 			// btnKatSil
 			// 
 			this.btnKatSil.Anchor = System.Windows.Forms.AnchorStyles.None;
+			this.btnKatSil.BackColor = System.Drawing.Color.SkyBlue;
 			this.btnKatSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.btnKatSil.ImageIndex = 1;
 			this.btnKatSil.ImageList = this.ımageList1;
@@ -239,12 +239,12 @@
 			this.btnKatSil.Text = " Kat Sil";
 			this.btnKatSil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.btnKatSil.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btnKatSil.UseVisualStyleBackColor = true;
+			this.btnKatSil.UseVisualStyleBackColor = false;
 			// 
 			// btnKatEkle
 			// 
 			this.btnKatEkle.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnKatEkle.BackColor = System.Drawing.Color.Transparent;
+			this.btnKatEkle.BackColor = System.Drawing.Color.SkyBlue;
 			this.btnKatEkle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.btnKatEkle.ImageKey = "Ekle2.png";
 			this.btnKatEkle.ImageList = this.ımageList1;
@@ -261,6 +261,7 @@
 			// MasaEkle
 			// 
 			this.MasaEkle.Anchor = System.Windows.Forms.AnchorStyles.None;
+			this.MasaEkle.BackColor = System.Drawing.Color.SkyBlue;
 			this.MasaEkle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.MasaEkle.ImageKey = "Ekle2.png";
 			this.MasaEkle.ImageList = this.ımageList1;
@@ -271,7 +272,7 @@
 			this.MasaEkle.Text = " Masa Ekle";
 			this.MasaEkle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.MasaEkle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.MasaEkle.UseVisualStyleBackColor = true;
+			this.MasaEkle.UseVisualStyleBackColor = false;
 			this.MasaEkle.Click += new System.EventHandler(this.MasaEkle_Click);
 			// 
 			// timer1
@@ -283,10 +284,10 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1541, 796);
 			this.Controls.Add(this.MasaOzellikPanel);
 			this.Controls.Add(this.MasaPanel);
-			this.Controls.Add(this.button1);
 			this.Controls.Add(this.btnKatSil);
 			this.Controls.Add(this.btnKatEkle);
 			this.Controls.Add(this.MasaEkle);
@@ -315,7 +316,6 @@
 		private System.Windows.Forms.Button MasaEkle;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.ComboBox comboKat;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.FlowLayoutPanel MasaPanel;
 		private System.Windows.Forms.Button btnKatSil;

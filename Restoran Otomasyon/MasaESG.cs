@@ -17,11 +17,13 @@ namespace Restoran_Otomasyon.Paneller
 {
 	public partial class MasaESG : Form
 	{
-		public MasaESG()
+		public MasaESG(int kullaniciID)
 		{
 			InitializeComponent();
 			InitializeEvents();
+			kullaniciId=kullaniciID;
 		}
+		int kullaniciId;
 		private void InitializeEvents()
 		{
 			if (masabilgisiGuncelle != null)
@@ -304,41 +306,29 @@ namespace Restoran_Otomasyon.Paneller
 					Button mevcutButon = masaPanel.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "masaButton" + masa.Id);
 					if (mevcutButon != null)
 					{
-						switch (masa.Durum)
-						{
-							case 1: // Boş
-								mevcutButon.BackColor = Color.Green;
-								break;
-							case 2: // Dolu
-								mevcutButon.BackColor = Color.Red;
-								break;
-							case 3: // Kirli
-								mevcutButon.BackColor = Color.Brown;
-								break;
-							case 4: // Rezerve
-								mevcutButon.BackColor = Color.Yellow;
-								break;
-							case 5: // Kapalı
-								mevcutButon.BackColor = Color.Gray;
-								break;
-							default:
-								mevcutButon.BackColor = Color.White; // Varsayılan renk
-								break;
-						}
 						continue;
 					}
 
 					// Butonu oluşturun
 					Button masaButton = new Button();
-					masaButton.Text = masa.Kod; // Butonun metni masa kodu olacak
 					masaButton.Name = "masaButton" + masa.Id; // Butonun adı masa Id'si olacak
 					masaButton.Location = new Point(10, 10); // Örneğin, butonun panel içerisindeki konumu
-					masaButton.Size = new Size(150, 100); // Butonun boyutu
-														  // Butonları oluşturduğunuz döngü içinde
-					masaButton.ContextMenuStrip = contextMenuStrip1;
+					masaButton.Size = new Size(180, 180); // Butonun boyutu
+					masaButton.FlatStyle = FlatStyle.Flat; // Düz bir stil kullanarak kenarlığı kaldırın
 
-					// Butonun durumuna göre uygun rengi belirle
+					// Butonun arka planına resim ekleyin
+					masaButton.BackgroundImage = Image.FromFile(@"C:\Users\Batuhan\Desktop\Üzerinde Çalıştığım\Restoran Otomasyon\Resim Ve İconlar\İconlar\masa3.png");
+					masaButton.BackgroundImageLayout = ImageLayout.Stretch; // Resmi buton boyutuna sığacak şekilde germe
 
+					// Butonun üzerindeki metni büyük ve belirgin hale getirin
+					masaButton.Font = new Font("Arial", 14, FontStyle.Bold);
+					masaButton.ForeColor = Color.White; // Metin rengini beyaz yapın
+
+					// Butonun üstüne metin ekleyin
+					masaButton.Text = masa.Kod; // Butonun metni masa kodu olacak
+					masaButton.TextAlign = ContentAlignment.MiddleCenter; // Metni ortala
+
+					// Butonun durumuna göre uygun rengi belirleyin
 					switch (masa.Durum)
 					{
 						case 1: // Boş
@@ -362,9 +352,8 @@ namespace Restoran_Otomasyon.Paneller
 					}
 
 					// Butona tıklama olayını ayarlayın
-					masaButton.Click += (sender, e) =>//Test amacıyla burada görünüyor qr
+					masaButton.Click += (sender, e) =>
 					{
-						contextMenuStrip1.Show(Cursor.Position);
 						// Tıklanan masa butonuna ait olan masa nesnesini al
 						Masa tıklananMasa = masa;
 
@@ -373,24 +362,24 @@ namespace Restoran_Otomasyon.Paneller
 						switch (masa.Durum)
 						{
 							case 1: // Boş
-									//Müşteri tanımlama formunu aç
-								BosMasa musteriForm = new BosMasa(masaId);
+									// Müşteri tanımlama formunu aç
+								BosMasa musteriForm = new BosMasa(masaId, kullaniciId);
 								musteriForm.Show();
 								break;
 							case 2: // Dolu
-								DoluMasa siparisForm = new DoluMasa(masaId);
+								DoluMasa siparisForm = new DoluMasa(masaId, kullaniciId);
 								siparisForm.Show();
 								break;
 							case 3: // Kirli
-								BosMasa kirlimasa = new BosMasa(masaId);
+								BosMasa kirlimasa = new BosMasa(masaId, kullaniciId);
 								kirlimasa.Show();
 								break;
 							case 4: // Rezerve
-								BosMasa rezervemasa = new BosMasa(masaId); // Burada masa Id'sini göndermeniz gerekebilir
+								BosMasa rezervemasa = new BosMasa(masaId, kullaniciId); // Burada masa Id'sini göndermeniz gerekebilir
 								rezervemasa.Show();
 								break;
 							case 5: // Kapalı
-								BosMasa kapaliMasa = new BosMasa(masaId);
+								BosMasa kapaliMasa = new BosMasa(masaId, kullaniciId);
 								kapaliMasa.Show();
 								break;
 							default:
@@ -402,6 +391,8 @@ namespace Restoran_Otomasyon.Paneller
 				}
 			}
 		}
+
+
 
 		private void comboKat_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -506,7 +497,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void MasaESG_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			Admin_Paneli adminPaneliForm = new Admin_Paneli();
+			Admin_Paneli adminPaneliForm = new Admin_Paneli(kullaniciId);
 			adminPaneliForm.grafikleriGuncelle();
 
 		}

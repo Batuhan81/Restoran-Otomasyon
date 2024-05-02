@@ -14,13 +14,15 @@ namespace Restoran_Otomasyon
 {
 	public partial class BosMasa : Form
 	{
-		public BosMasa(int masaID)
+		public BosMasa(int masaID,int kullaniciID)
 		{
 			InitializeComponent();
 			masaId = masaID;
+			kullaniciId=kullaniciID;
 		}
 
 		int masaId;
+		int kullaniciId;
 		Context db = new Context();
 		bool loaddayuklendi = false;
 
@@ -30,6 +32,7 @@ namespace Restoran_Otomasyon
 			UrunKategori();
 			menuKategoriler();
 			UrunleriGoster(0);
+			MenuleriGoster(0);
 			loaddayuklendi = true;
 			gridSiparisler.Columns.Add("UrunAdi", "Ürün Adı");
 			gridSiparisler.Columns.Add("Adet", "Adet");
@@ -130,7 +133,168 @@ namespace Restoran_Otomasyon
 			ComboUrun.ValueMember = "Id";
 			ComboUrun.DataSource = Urunkategori;
 		}
+		List<object> listelenek = new List<object>();
+		private void MenuleriGoster(int kategoriId)
+		{
+			// Menüleri göster
+			List<Data.Menu> menuler;
+			if (kategoriId <= 0)
+			{
+				menuler = db.Menuler
+							.Where(o => o.Gorunurluk == true && o.Akitf == true)
+							.ToList();
+			}
+			else
+			{
+				menuler = db.Menuler
+							.Where(o => o.Gorunurluk == true && o.Akitf == true && o.KategoriId == kategoriId)
+							.ToList();
+			}
 
+
+			int groupBoxHeight = 400; // GroupBox yüksekliği
+			int groupBoxWidth = 300;  // GroupBox genişliği
+
+			int pictureBoxWidth = 200; // PictureBox genişliği
+			int pictureBoxHeight = 200; // PictureBox yüksekliği
+
+			int textBoxMiktarWidth = 100; // Miktar TextBox'ının genişliği
+
+			int spacing = 10; // Elemanlar arasındaki boşluk
+
+			int x = spacing; // Başlangıç konumu X
+			int y = spacing; // Başlangıç konumu Y
+
+			// Panel'e bir AutoScroll özelliği ekle
+			UrunPaneli.AutoScroll = true;
+			
+			foreach (var Menu in menuler)
+			{
+
+				// Yeni bir GroupBox oluştur
+				GroupBox groupBox = new GroupBox();
+				groupBox.Text = Menu.Ad; // GroupBox başlığına ürün adını ekle
+				groupBox.Font = new Font("Arial", 10, FontStyle.Bold); 
+				groupBox.Width = groupBoxWidth;
+				groupBox.Height = groupBoxHeight;
+				groupBox.Location = new System.Drawing.Point(x, y);
+				groupBox.BackColor = Color.FromArgb(170, 198, 227); // Arka plan rengini ayarla
+				groupBox.Padding = new Padding(spacing); // Kenar boşluklarını ayarla
+
+				// PictureBox oluştur ve fotoğrafı yükle
+				PictureBox pictureBox = new PictureBox();
+				pictureBox.ImageLocation = Menu.Fotograf;
+				pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+				pictureBox.Width = pictureBoxWidth;
+				pictureBox.Height = pictureBoxHeight;
+				pictureBox.Location = new System.Drawing.Point((groupBoxWidth - pictureBoxWidth) / 2, spacing * 2); // PictureBox'in konumu
+
+				// Label oluştur ve ürün detaylarını ekle
+				Label labelDetay = new Label();
+				labelDetay.Text = Menu.Detay;
+				labelDetay.AutoSize = true;
+				labelDetay.Font = new Font("Arial", 12, FontStyle.Bold); // Yazı tipi ve boyutunu ayarla
+				labelDetay.Location = new System.Drawing.Point((groupBoxWidth - labelDetay.Width) / 2, pictureBoxHeight + 3 * spacing); // Label'in konumu
+
+				// Label oluştur ve ürün fiyatını ekle
+				Label labelFiyat = new Label();
+				labelFiyat.Text = "Fiyat: " + Menu.Fiyat.ToString("C2"); // Para birimi formatıyla fiyatı ekle
+				labelFiyat.AutoSize = true;
+				labelFiyat.Font = new Font("Arial", 12); // Yazı tipi ve boyutunu ayarla
+				labelFiyat.Location = new System.Drawing.Point((groupBoxWidth - labelFiyat.Width) / 2, labelDetay.Location.Y + labelDetay.Height + spacing); // Label'in konumu
+
+				// TextBox oluştur ve miktar girişi yapılacak
+				TextBox textBoxMiktar = new TextBox();
+				textBoxMiktar.Location = new System.Drawing.Point((groupBoxWidth - textBoxMiktarWidth) / 2, labelFiyat.Location.Y + labelFiyat.Height + spacing); // TextBox'in konumu
+				textBoxMiktar.Width = textBoxMiktarWidth; // TextBox genişliği
+				textBoxMiktar.TextAlign = HorizontalAlignment.Center; // Metni ortala
+				textBoxMiktar.Text = "0"; // Başlangıçta sıfır olarak ayarla
+				textBoxMiktar.Tag = Menu.Id;
+
+				// - Butonu oluştur
+				Button buttonEksi = new Button();
+				buttonEksi.Text = "-";
+				buttonEksi.Width = 25;
+				buttonEksi.Height = 25;
+				buttonEksi.Location = new Point(textBoxMiktar.Location.X - buttonEksi.Width - 5, textBoxMiktar.Location.Y);
+				buttonEksi.Click += (sender, e) =>
+				{
+					int miktar = 0;
+					if (int.TryParse(textBoxMiktar.Text, out miktar))
+					{
+						miktar = Math.Max(0, miktar - 1); // Negatif olmayan miktarı güvence altına al
+						textBoxMiktar.Text = miktar.ToString();
+					}
+				};
+
+				// + Butonu oluştur
+				Button buttonArti = new Button();
+				buttonArti.Text = "+";
+				buttonArti.Width = 25;
+				buttonArti.Height = 25;
+				buttonArti.Location = new Point(textBoxMiktar.Location.X + textBoxMiktar.Width + 5, textBoxMiktar.Location.Y);
+				buttonArti.Click += (sender, e) =>
+				{
+					int miktar = 0;
+					if (int.TryParse(textBoxMiktar.Text, out miktar))
+					{
+						miktar += 1;
+						textBoxMiktar.Text = miktar.ToString();
+					}
+				};
+
+				// Button oluştur ve onay butonu olarak ayarla
+				Button buttonOnayla = new Button();
+				buttonOnayla.Text = "Onayla";
+				buttonOnayla.Width = 150;
+				buttonOnayla.Height = 40; // Yükseklik artırıldı
+				buttonOnayla.Font = new Font("Arial", 12, FontStyle.Bold); // Yazı tipi ve boyutunu ayarla
+				buttonOnayla.BackColor = Color.DarkOrange; // Buton rengini ayarla
+				buttonOnayla.ForeColor = Color.White; // Yazı rengini ayarla
+				buttonOnayla.Location = new System.Drawing.Point((groupBoxWidth - buttonOnayla.Width) / 2, textBoxMiktar.Location.Y + textBoxMiktar.Height + spacing); // Button'un konumu
+				buttonOnayla.Click += (sender, e) =>
+				{
+					int miktar;
+					if (int.TryParse(textBoxMiktar.Text, out miktar) && miktar > 0)
+					{
+						// Ürün adı, miktar ve fiyat bilgilerini DataGridView'e ekle
+						DataGridViewRow newRow = new DataGridViewRow();
+						newRow.CreateCells(gridSiparisler);
+						newRow.Cells[0].Value = Menu.Ad; // Ürün adı
+						newRow.Cells[1].Value = miktar; // Miktar
+						newRow.Cells[2].Value = Menu.Fiyat.ToString("C2");
+						newRow.Cells[3].Value = "";
+						newRow.Cells[4].Value = Menu.Id.ToString();
+						gridSiparisler.Rows.Add(newRow);
+						// Toplam tutarı hesapla ve txttutar.Text'e yaz
+						HesaplaToplamTutar();
+					}
+					else
+					{
+						MessageBox.Show("Lütfen geçerli bir miktar girin.");
+					}
+				};
+				// GroupBox'a kontrol öğelerini ekle
+				groupBox.Controls.Add(pictureBox);
+				groupBox.Controls.Add(labelDetay);
+				groupBox.Controls.Add(labelFiyat);
+				groupBox.Controls.Add(textBoxMiktar);
+				groupBox.Controls.Add(buttonEksi);
+				groupBox.Controls.Add(buttonArti);
+				groupBox.Controls.Add(buttonOnayla);
+
+				// Panel'e GroupBox'ı ekle
+				UrunPaneli.Controls.Add(groupBox);
+
+				// Konumları güncelle
+				x += groupBoxWidth + spacing; // X konumunu güncelle, spacing kadar ileri taşı
+				if (x + groupBoxWidth + spacing > UrunPaneli.Width) // Eğer sığmıyorsa bir sonraki satıra geç
+				{
+					x = spacing; // X konumunu sıfırla
+					y += groupBoxHeight + spacing * 2; // Y konumunu bir sonraki satıra taşı
+				}
+			}
+		}
 		private void UrunleriGoster(int kategoriId)
 		{
 			List<Urun> urunler;
@@ -172,10 +336,12 @@ namespace Restoran_Otomasyon
 				// Yeni bir GroupBox oluştur
 				GroupBox groupBox = new GroupBox();
 				groupBox.Text = urun.Ad; // GroupBox başlığına ürün adını ekle
+				groupBox.Font = new Font("Arial", 10, FontStyle.Bold); 
 				groupBox.Width = groupBoxWidth;
 				groupBox.Height = groupBoxHeight;
 				groupBox.Location = new System.Drawing.Point(x, y);
-				groupBox.BackColor = Color.LightGray; // Arka plan rengini ayarla
+				groupBox.BackColor = Color.FromArgb(185, 209, 234);
+
 				groupBox.Padding = new Padding(spacing); // Kenar boşluklarını ayarla
 
 				// PictureBox oluştur ve fotoğrafı yükle
@@ -211,7 +377,7 @@ namespace Restoran_Otomasyon
 				// - Butonu oluştur
 				Button buttonEksi = new Button();
 				buttonEksi.Text = "-";
-				buttonEksi.Width = 25;
+				buttonEksi.Width = 30;
 				buttonEksi.Height = 25;
 				buttonEksi.Location = new Point(textBoxMiktar.Location.X - buttonEksi.Width - 5, textBoxMiktar.Location.Y);
 				buttonEksi.Click += (sender, e) =>
@@ -227,7 +393,7 @@ namespace Restoran_Otomasyon
 				// + Butonu oluştur
 				Button buttonArti = new Button();
 				buttonArti.Text = "+";
-				buttonArti.Width = 25;
+				buttonArti.Width = 30;
 				buttonArti.Height = 25;
 				buttonArti.Location = new Point(textBoxMiktar.Location.X + textBoxMiktar.Width + 5, textBoxMiktar.Location.Y);
 				buttonArti.Click += (sender, e) =>
@@ -381,7 +547,8 @@ namespace Restoran_Otomasyon
 				if (row.Cells["Adet"].Value != null && Convert.ToInt32(row.Cells["Adet"].Value) > 0)
 				{
 					int miktar = Convert.ToInt32(row.Cells["Adet"].Value.ToString());
-					if (Convert.ToInt32(row.Cells["UrunID"].Value.ToString()) != 0 && row.Cells["UrunID"].Value.ToString() != "")
+
+					if (row.Cells["UrunID"].Value != null && row.Cells["UrunID"].Value.ToString() != "")
 					{
 						int urunId = Convert.ToInt32(row.Cells["UrunID"].Value.ToString());
 						SiparisUrun urun = new SiparisUrun();
@@ -391,7 +558,7 @@ namespace Restoran_Otomasyon
 						urun.Gorunurluk = true;
 						db.SiparisUrunler.Add(urun);
 					}
-					else if (Convert.ToInt32(row.Cells["MenuID"].Value.ToString()) != 0 && row.Cells["MenuID"].Value.ToString() != "")
+					else if (row.Cells["MenuID"].Value != null && row.Cells["MenuID"].Value.ToString() != "")
 					{
 						int menuId = Convert.ToInt32(row.Cells["MenuID"].Value.ToString());
 						SiparisMenu menu = new SiparisMenu();
@@ -403,6 +570,7 @@ namespace Restoran_Otomasyon
 					}
 				}
 			}
+
 
 			db.SaveChanges();
 			MessageBox.Show("Siparişiniz Onaylanmıştır.");
@@ -437,7 +605,7 @@ namespace Restoran_Otomasyon
 				ComboUrun.Text = "";
 				int kategoriID = (int)ComboMenu.SelectedValue;
 				PaneliTemizle();
-				UrunleriGoster(kategoriID);
+				MenuleriGoster(kategoriID);
 			}
 		}
 
@@ -447,12 +615,18 @@ namespace Restoran_Otomasyon
 			ComboMenu.Text = "";
 			PaneliTemizle();
 			UrunleriGoster(0);
+			MenuleriGoster(0);
 		}
 
 		private void BosMasa_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Admin_Paneli adminPaneliForm = new Admin_Paneli();
+			Admin_Paneli adminPaneliForm = new Admin_Paneli(kullaniciId);
 			adminPaneliForm.grafikleriGuncelle();
+		}
+
+		private void groupBox2_Enter(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

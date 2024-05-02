@@ -320,7 +320,7 @@ namespace Restoran_Otomasyon
 			{
 				OpenFileDialog fileDialog = new OpenFileDialog();
 				fileDialog.Filter = "PNG Dosyaları (*.png)|*.png|JPG Dosyaları (*.jpg)|*.jpg|Tüm Dosyalar (*.png, *.jpg)|*.png;*.jpg";
-				fileDialog.FilterIndex = 1;
+				fileDialog.FilterIndex = 3;
 				fileDialog.RestoreDirectory = true;
 				fileDialog.CheckFileExists = true;
 				fileDialog.Title = "Dosya Seçiniz";

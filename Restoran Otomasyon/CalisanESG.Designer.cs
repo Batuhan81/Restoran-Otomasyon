@@ -29,9 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalisanESG));
 			this.gridPersonel = new System.Windows.Forms.DataGridView();
 			this.label1 = new System.Windows.Forms.Label();
@@ -39,9 +39,7 @@
 			this.txtad = new System.Windows.Forms.TextBox();
 			this.txttelefon = new System.Windows.Forms.MaskedTextBox();
 			this.groupPersonel = new System.Windows.Forms.GroupBox();
-			this.button5 = new System.Windows.Forms.Button();
 			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.label11 = new System.Windows.Forms.Label();
 			this.uzanti = new System.Windows.Forms.Label();
 			this.txtAdres = new System.Windows.Forms.RichTextBox();
 			this.button3 = new System.Windows.Forms.Button();
@@ -66,8 +64,10 @@
 			this.hiddenPersonelId = new System.Windows.Forms.TextBox();
 			this.hiddenAdresID = new System.Windows.Forms.TextBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.RolPaneli = new System.Windows.Forms.Panel();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.button5 = new System.Windows.Forms.Button();
+			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.gridPersonel)).BeginInit();
 			this.groupPersonel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -76,34 +76,35 @@
 			// gridPersonel
 			// 
 			this.gridPersonel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridPersonel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this.gridPersonel.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridPersonel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this.gridPersonel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridPersonel.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridPersonel.DefaultCellStyle = dataGridViewCellStyle5;
 			this.gridPersonel.Location = new System.Drawing.Point(416, 15);
 			this.gridPersonel.Margin = new System.Windows.Forms.Padding(4);
 			this.gridPersonel.Name = "gridPersonel";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridPersonel.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridPersonel.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this.gridPersonel.RowHeadersWidth = 51;
 			this.gridPersonel.RowTemplate.Height = 24;
 			this.gridPersonel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -115,23 +116,27 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(109, 33);
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label1.Location = new System.Drawing.Point(109, 31);
 			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(30, 16);
+			this.label1.Size = new System.Drawing.Size(32, 18);
 			this.label1.TabIndex = 19;
 			this.label1.Text = "Ad:";
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(8, 638);
+			this.button1.BackColor = System.Drawing.Color.SkyBlue;
+			this.button1.ImageKey = "Kaydet.png";
+			this.button1.ImageList = this.ımageList1;
+			this.button1.Location = new System.Drawing.Point(8, 647);
 			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(177, 66);
 			this.button1.TabIndex = 11;
 			this.button1.Text = "Kaydet";
-			this.button1.UseVisualStyleBackColor = true;
+			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// txtad
@@ -144,7 +149,7 @@
 			// 
 			// txttelefon
 			// 
-			this.txttelefon.Location = new System.Drawing.Point(169, 210);
+			this.txttelefon.Location = new System.Drawing.Point(169, 207);
 			this.txttelefon.Margin = new System.Windows.Forms.Padding(4);
 			this.txttelefon.Mask = "(999) 000-0000";
 			this.txttelefon.Name = "txttelefon";
@@ -154,7 +159,6 @@
 			// groupPersonel
 			// 
 			this.groupPersonel.Controls.Add(this.button5);
-			this.groupPersonel.Controls.Add(this.label11);
 			this.groupPersonel.Controls.Add(this.uzanti);
 			this.groupPersonel.Controls.Add(this.txtAdres);
 			this.groupPersonel.Controls.Add(this.button3);
@@ -179,45 +183,25 @@
 			this.groupPersonel.Controls.Add(this.label3);
 			this.groupPersonel.Controls.Add(this.label2);
 			this.groupPersonel.Controls.Add(this.label1);
-			this.groupPersonel.Location = new System.Drawing.Point(15, 15);
+			this.groupPersonel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.groupPersonel.Location = new System.Drawing.Point(15, 5);
 			this.groupPersonel.Margin = new System.Windows.Forms.Padding(4);
 			this.groupPersonel.Name = "groupPersonel";
 			this.groupPersonel.Padding = new System.Windows.Forms.Padding(4);
-			this.groupPersonel.Size = new System.Drawing.Size(393, 771);
+			this.groupPersonel.Size = new System.Drawing.Size(393, 781);
 			this.groupPersonel.TabIndex = 24;
 			this.groupPersonel.TabStop = false;
 			this.groupPersonel.Text = "Personel Bilgileri";
-			// 
-			// button5
-			// 
-			this.button5.BackColor = System.Drawing.SystemColors.Control;
-			this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.button5.ImageKey = "Ekle2.png";
-			this.button5.ImageList = this.ımageList1;
-			this.button5.Location = new System.Drawing.Point(352, 509);
-			this.button5.Margin = new System.Windows.Forms.Padding(4);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(33, 28);
-			this.button5.TabIndex = 40;
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
 			// 
 			// ımageList1
 			// 
 			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
 			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
 			this.ımageList1.Images.SetKeyName(0, "Ekle2.png");
-			// 
-			// label11
-			// 
-			this.label11.AutoSize = true;
-			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label11.Location = new System.Drawing.Point(166, 312);
-			this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(85, 16);
-			this.label11.TabIndex = 39;
-			this.label11.Text = "gg/aa/yyyy";
+			this.ımageList1.Images.SetKeyName(1, "ekle.png");
+			this.ımageList1.Images.SetKeyName(2, "Kaydet.png");
+			this.ımageList1.Images.SetKeyName(3, "Resim Ekle2.png");
+			this.ımageList1.Images.SetKeyName(4, "Sil butonu - Kopya.png");
 			// 
 			// uzanti
 			// 
@@ -241,30 +225,38 @@
 			// 
 			// button3
 			// 
-			this.button3.Location = new System.Drawing.Point(60, 712);
+			this.button3.BackColor = System.Drawing.Color.SkyBlue;
+			this.button3.ImageKey = "Resim Ekle2.png";
+			this.button3.ImageList = this.ımageList1;
+			this.button3.Location = new System.Drawing.Point(60, 721);
 			this.button3.Margin = new System.Windows.Forms.Padding(4);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(277, 51);
 			this.button3.TabIndex = 13;
 			this.button3.Text = "Personel Resim";
-			this.button3.UseVisualStyleBackColor = true;
+			this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button3.UseVisualStyleBackColor = false;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(208, 638);
+			this.button2.BackColor = System.Drawing.Color.SkyBlue;
+			this.button2.ImageKey = "Sil butonu - Kopya.png";
+			this.button2.ImageList = this.ımageList1;
+			this.button2.Location = new System.Drawing.Point(208, 647);
 			this.button2.Margin = new System.Windows.Forms.Padding(4);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(177, 66);
 			this.button2.TabIndex = 12;
 			this.button2.Text = "Sil";
-			this.button2.UseVisualStyleBackColor = true;
+			this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button2.UseVisualStyleBackColor = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// ComboRol
 			// 
 			this.ComboRol.FormattingEnabled = true;
-			this.ComboRol.Location = new System.Drawing.Point(169, 509);
+			this.ComboRol.Location = new System.Drawing.Point(169, 508);
 			this.ComboRol.Margin = new System.Windows.Forms.Padding(4);
 			this.ComboRol.Name = "ComboRol";
 			this.ComboRol.Size = new System.Drawing.Size(175, 28);
@@ -276,7 +268,7 @@
 			this.comboCinsiyet.Items.AddRange(new object[] {
             "Kadın",
             "Erkek"});
-			this.comboCinsiyet.Location = new System.Drawing.Point(169, 454);
+			this.comboCinsiyet.Location = new System.Drawing.Point(169, 447);
 			this.comboCinsiyet.Margin = new System.Windows.Forms.Padding(4);
 			this.comboCinsiyet.Name = "comboCinsiyet";
 			this.comboCinsiyet.Size = new System.Drawing.Size(175, 28);
@@ -284,7 +276,7 @@
 			// 
 			// txtmaas
 			// 
-			this.txtmaas.Location = new System.Drawing.Point(169, 271);
+			this.txtmaas.Location = new System.Drawing.Point(169, 267);
 			this.txtmaas.Margin = new System.Windows.Forms.Padding(4);
 			this.txtmaas.Name = "txtmaas";
 			this.txtmaas.Size = new System.Drawing.Size(175, 27);
@@ -293,7 +285,7 @@
 			// 
 			// txtbaslamaT
 			// 
-			this.txtbaslamaT.Location = new System.Drawing.Point(169, 393);
+			this.txtbaslamaT.Location = new System.Drawing.Point(169, 387);
 			this.txtbaslamaT.Margin = new System.Windows.Forms.Padding(4);
 			this.txtbaslamaT.Mask = "00/00/0000";
 			this.txtbaslamaT.Name = "txtbaslamaT";
@@ -303,7 +295,7 @@
 			// 
 			// txtdogumT
 			// 
-			this.txtdogumT.Location = new System.Drawing.Point(169, 332);
+			this.txtdogumT.Location = new System.Drawing.Point(169, 327);
 			this.txtdogumT.Margin = new System.Windows.Forms.Padding(4);
 			this.txtdogumT.Mask = "00/00/0000";
 			this.txtdogumT.Name = "txtdogumT";
@@ -313,7 +305,7 @@
 			// 
 			// txteposta
 			// 
-			this.txteposta.Location = new System.Drawing.Point(169, 149);
+			this.txteposta.Location = new System.Drawing.Point(169, 147);
 			this.txteposta.Margin = new System.Windows.Forms.Padding(4);
 			this.txteposta.Name = "txteposta";
 			this.txteposta.Size = new System.Drawing.Size(175, 27);
@@ -321,7 +313,7 @@
 			// 
 			// txtsoyad
 			// 
-			this.txtsoyad.Location = new System.Drawing.Point(169, 88);
+			this.txtsoyad.Location = new System.Drawing.Point(169, 87);
 			this.txtsoyad.Margin = new System.Windows.Forms.Padding(4);
 			this.txtsoyad.Name = "txtsoyad";
 			this.txtsoyad.Size = new System.Drawing.Size(175, 27);
@@ -330,105 +322,105 @@
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label10.Location = new System.Drawing.Point(104, 515);
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label10.Location = new System.Drawing.Point(104, 513);
 			this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(35, 16);
+			this.label10.Size = new System.Drawing.Size(39, 18);
 			this.label10.TabIndex = 28;
 			this.label10.Text = "Rol:";
 			// 
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label9.Location = new System.Drawing.Point(164, 541);
+			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label9.Location = new System.Drawing.Point(168, 541);
 			this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(52, 16);
+			this.label9.Size = new System.Drawing.Size(56, 18);
 			this.label9.TabIndex = 27;
 			this.label9.Text = "Adres:";
 			// 
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label8.Location = new System.Drawing.Point(73, 460);
+			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label8.Location = new System.Drawing.Point(73, 452);
 			this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(66, 16);
+			this.label8.Size = new System.Drawing.Size(73, 18);
 			this.label8.TabIndex = 26;
 			this.label8.Text = "Cinsiyet:";
 			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label7.Location = new System.Drawing.Point(23, 399);
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label7.Location = new System.Drawing.Point(23, 391);
 			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(116, 16);
+			this.label7.Size = new System.Drawing.Size(125, 18);
 			this.label7.TabIndex = 25;
 			this.label7.Text = "Başlama Tarihi:";
 			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label6.Location = new System.Drawing.Point(35, 338);
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label6.Location = new System.Drawing.Point(35, 331);
 			this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(104, 16);
+			this.label6.Size = new System.Drawing.Size(114, 18);
 			this.label6.TabIndex = 24;
 			this.label6.Text = "Doğum Tarihi:";
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label5.Location = new System.Drawing.Point(90, 277);
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label5.Location = new System.Drawing.Point(90, 271);
 			this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(49, 16);
+			this.label5.Size = new System.Drawing.Size(54, 18);
 			this.label5.TabIndex = 23;
 			this.label5.Text = "Maaş:";
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label4.Location = new System.Drawing.Point(75, 216);
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label4.Location = new System.Drawing.Point(75, 211);
 			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(64, 16);
+			this.label4.Size = new System.Drawing.Size(69, 18);
 			this.label4.TabIndex = 22;
 			this.label4.Text = "Telefon:";
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label3.Location = new System.Drawing.Point(73, 155);
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label3.Location = new System.Drawing.Point(73, 151);
 			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(66, 16);
+			this.label3.Size = new System.Drawing.Size(74, 18);
 			this.label3.TabIndex = 21;
 			this.label3.Text = "E-Posta:";
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(83, 94);
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label2.Location = new System.Drawing.Point(83, 91);
 			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(56, 16);
+			this.label2.Size = new System.Drawing.Size(60, 18);
 			this.label2.TabIndex = 20;
 			this.label2.Text = "Soyad:";
 			// 
 			// button4
 			// 
-			this.button4.Location = new System.Drawing.Point(493, 12);
+			this.button4.Location = new System.Drawing.Point(491, 36);
 			this.button4.Margin = new System.Windows.Forms.Padding(4);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(146, 28);
@@ -460,6 +452,15 @@
 			// 
 			this.timer1.Interval = 2000;
 			// 
+			// RolPaneli
+			// 
+			this.RolPaneli.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.RolPaneli.Location = new System.Drawing.Point(425, 292);
+			this.RolPaneli.Name = "RolPaneli";
+			this.RolPaneli.Size = new System.Drawing.Size(612, 318);
+			this.RolPaneli.TabIndex = 41;
+			this.RolPaneli.Visible = false;
+			// 
 			// pictureBox1
 			// 
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -470,20 +471,37 @@
 			this.pictureBox1.TabStop = false;
 			this.pictureBox1.Visible = false;
 			// 
-			// RolPaneli
+			// button5
 			// 
-			this.RolPaneli.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.RolPaneli.Location = new System.Drawing.Point(425, 292);
-			this.RolPaneli.Name = "RolPaneli";
-			this.RolPaneli.Size = new System.Drawing.Size(612, 318);
-			this.RolPaneli.TabIndex = 41;
-			this.RolPaneli.Visible = false;
+			this.button5.BackColor = System.Drawing.SystemColors.Control;
+			this.button5.BackgroundImage = global::Restoran_Otomasyon.Properties.Resources.Ekle2;
+			this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button5.ImageIndex = 0;
+			this.button5.ImageList = this.ımageList2;
+			this.button5.Location = new System.Drawing.Point(352, 508);
+			this.button5.Margin = new System.Windows.Forms.Padding(4);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(33, 29);
+			this.button5.TabIndex = 40;
+			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// ımageList2
+			// 
+			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
+			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
+			this.ımageList2.Images.SetKeyName(1, "ekle.png");
+			this.ımageList2.Images.SetKeyName(2, "Kaydet.png");
+			this.ımageList2.Images.SetKeyName(3, "Resim Ekle2.png");
+			this.ımageList2.Images.SetKeyName(4, "Sil butonu - Kopya.png");
 			// 
 			// CalisanESG
 			// 
 			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1536, 815);
 			this.Controls.Add(this.RolPaneli);
 			this.Controls.Add(this.pictureBox1);
@@ -542,9 +560,9 @@
 		public System.Windows.Forms.TextBox hiddenAdresID;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label uzanti;
-		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.Panel RolPaneli;
+		private System.Windows.Forms.ImageList ımageList2;
 	}
 }
