@@ -41,6 +41,7 @@
 			// 
 			// button1
 			// 
+			this.button1.BackColor = System.Drawing.Color.SkyBlue;
 			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.button1.ImageKey = "Gönder.png";
 			this.button1.ImageList = this.ımageList1;
@@ -50,7 +51,7 @@
 			this.button1.TabIndex = 3;
 			this.button1.Text = "Şifre Gönder";
 			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.button1.UseVisualStyleBackColor = true;
+			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// ımageList1
@@ -108,6 +109,7 @@
 			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(267, 214);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.comboBox1);

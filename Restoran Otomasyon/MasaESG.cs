@@ -146,8 +146,9 @@ namespace Restoran_Otomasyon.Paneller
 
 			// "Masa Güncelle" öğesini ekle
 			ToolStripMenuItem menuItemMasaGuncelle = new ToolStripMenuItem("Masa Güncelle");
-			menuItemMasaGuncelle.Click += MenuItemMasaGuncelle_Click;
+			menuItemMasaGuncelle.Click += MenuItemMasaGuncelle_Click; // Doğru işleyiciyi ekleyin
 			contextMenuStrip1.Items.Add(menuItemMasaGuncelle);
+
 
 			// "Randevular" öğesini ekle
 			ToolStripMenuItem menuItemRandevular = new ToolStripMenuItem("Randevular");
@@ -323,7 +324,7 @@ namespace Restoran_Otomasyon.Paneller
 					// Butonun üzerindeki metni büyük ve belirgin hale getirin
 					masaButton.Font = new Font("Arial", 14, FontStyle.Bold);
 					masaButton.ForeColor = Color.White; // Metin rengini beyaz yapın
-
+					masaButton.ContextMenuStrip = contextMenuStrip1;
 					// Butonun üstüne metin ekleyin
 					masaButton.Text = masa.Kod; // Butonun metni masa kodu olacak
 					masaButton.TextAlign = ContentAlignment.MiddleCenter; // Metni ortala

@@ -28,15 +28,18 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OzellikESG));
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtAd = new System.Windows.Forms.TextBox();
 			this.Kaydet = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.gridOzellik = new System.Windows.Forms.DataGridView();
 			this.hiddenId = new System.Windows.Forms.TextBox();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.gridOzellik)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -59,26 +62,37 @@
 			// 
 			// Kaydet
 			// 
+			this.Kaydet.BackColor = System.Drawing.Color.SkyBlue;
+			this.Kaydet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.Kaydet.ImageKey = "Kaydet.png";
+			this.Kaydet.ImageList = this.ımageList1;
 			this.Kaydet.Location = new System.Drawing.Point(4, 92);
 			this.Kaydet.Name = "Kaydet";
 			this.Kaydet.Size = new System.Drawing.Size(169, 60);
 			this.Kaydet.TabIndex = 2;
 			this.Kaydet.Text = "Kaydet";
-			this.Kaydet.UseVisualStyleBackColor = true;
+			this.Kaydet.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.Kaydet.UseVisualStyleBackColor = false;
 			this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
 			// 
 			// button1
 			// 
+			this.button1.BackColor = System.Drawing.Color.SkyBlue;
+			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button1.ImageKey = "Sil butonu - Kopya.png";
+			this.button1.ImageList = this.ımageList1;
 			this.button1.Location = new System.Drawing.Point(4, 163);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(169, 60);
 			this.button1.TabIndex = 3;
 			this.button1.Text = "Sil";
-			this.button1.UseVisualStyleBackColor = true;
+			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button1.UseVisualStyleBackColor = false;
 			// 
 			// gridOzellik
 			// 
 			this.gridOzellik.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.gridOzellik.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
 			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
 			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
 			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -122,6 +136,13 @@
 			this.hiddenId.TabIndex = 47;
 			this.hiddenId.Visible = false;
 			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Kaydet.png");
+			this.ımageList1.Images.SetKeyName(1, "Sil butonu - Kopya.png");
+			// 
 			// OzellikESG
 			// 
 			this.AcceptButton = this.Kaydet;
@@ -154,5 +175,6 @@
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.DataGridView gridOzellik;
 		private System.Windows.Forms.TextBox hiddenId;
+		private System.Windows.Forms.ImageList ımageList1;
 	}
 }

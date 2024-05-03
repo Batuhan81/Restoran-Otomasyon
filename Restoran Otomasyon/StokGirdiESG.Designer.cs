@@ -29,11 +29,15 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StokGirdiESG));
 			this.hiddenStokId = new System.Windows.Forms.TextBox();
 			this.groupGirdi = new System.Windows.Forms.GroupBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.txtTedarikci = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
 			this.txtfirma = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
@@ -49,9 +53,8 @@
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.hiddenMalzemeId = new System.Windows.Forms.TextBox();
 			this.hiddensStokGirdiId = new System.Windows.Forms.TextBox();
-			this.txtTedarikci = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.groupGirdi.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridStokGirdi)).BeginInit();
 			this.SuspendLayout();
@@ -67,11 +70,12 @@
 			// 
 			// groupGirdi
 			// 
+			this.groupGirdi.Controls.Add(this.label4);
+			this.groupGirdi.Controls.Add(this.txtfirma);
 			this.groupGirdi.Controls.Add(this.label6);
+			this.groupGirdi.Controls.Add(this.label7);
 			this.groupGirdi.Controls.Add(this.txtTedarikci);
 			this.groupGirdi.Controls.Add(this.label5);
-			this.groupGirdi.Controls.Add(this.txtfirma);
-			this.groupGirdi.Controls.Add(this.label4);
 			this.groupGirdi.Controls.Add(this.label3);
 			this.groupGirdi.Controls.Add(this.comboMalzeme);
 			this.groupGirdi.Controls.Add(this.txtAlisF);
@@ -80,14 +84,44 @@
 			this.groupGirdi.Controls.Add(this.label1);
 			this.groupGirdi.Controls.Add(this.uzanti);
 			this.groupGirdi.Controls.Add(this.button1);
+			this.groupGirdi.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.groupGirdi.Location = new System.Drawing.Point(10, 13);
 			this.groupGirdi.Margin = new System.Windows.Forms.Padding(4);
 			this.groupGirdi.Name = "groupGirdi";
 			this.groupGirdi.Padding = new System.Windows.Forms.Padding(4);
-			this.groupGirdi.Size = new System.Drawing.Size(393, 406);
+			this.groupGirdi.Size = new System.Drawing.Size(337, 406);
 			this.groupGirdi.TabIndex = 47;
 			this.groupGirdi.TabStop = false;
 			this.groupGirdi.Text = "Girdi Bilgileri";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label6.Location = new System.Drawing.Point(106, 177);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(130, 16);
+			this.label6.TabIndex = 49;
+			this.label6.Text = "Tedarikçi Bilgileri";
+			// 
+			// txtTedarikci
+			// 
+			this.txtTedarikci.Location = new System.Drawing.Point(152, 284);
+			this.txtTedarikci.Name = "txtTedarikci";
+			this.txtTedarikci.ReadOnly = true;
+			this.txtTedarikci.Size = new System.Drawing.Size(149, 22);
+			this.txtTedarikci.TabIndex = 48;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label5.Location = new System.Drawing.Point(49, 286);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(79, 16);
+			this.label5.TabIndex = 47;
+			this.label5.Text = "Ad Soyad:";
 			// 
 			// txtfirma
 			// 
@@ -111,7 +145,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label3.Location = new System.Drawing.Point(28, 40);
+			this.label3.Location = new System.Drawing.Point(28, 31);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(100, 16);
 			this.label3.TabIndex = 44;
@@ -120,7 +154,7 @@
 			// comboMalzeme
 			// 
 			this.comboMalzeme.FormattingEnabled = true;
-			this.comboMalzeme.Location = new System.Drawing.Point(152, 40);
+			this.comboMalzeme.Location = new System.Drawing.Point(152, 31);
 			this.comboMalzeme.Name = "comboMalzeme";
 			this.comboMalzeme.Size = new System.Drawing.Size(149, 24);
 			this.comboMalzeme.TabIndex = 43;
@@ -128,7 +162,7 @@
 			// 
 			// txtAlisF
 			// 
-			this.txtAlisF.Location = new System.Drawing.Point(152, 152);
+			this.txtAlisF.Location = new System.Drawing.Point(152, 143);
 			this.txtAlisF.Name = "txtAlisF";
 			this.txtAlisF.Size = new System.Drawing.Size(149, 22);
 			this.txtAlisF.TabIndex = 42;
@@ -138,7 +172,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(49, 152);
+			this.label2.Location = new System.Drawing.Point(49, 143);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(79, 16);
 			this.label2.TabIndex = 41;
@@ -146,7 +180,7 @@
 			// 
 			// txtalinanMik
 			// 
-			this.txtalinanMik.Location = new System.Drawing.Point(152, 97);
+			this.txtalinanMik.Location = new System.Drawing.Point(152, 88);
 			this.txtalinanMik.Name = "txtalinanMik";
 			this.txtalinanMik.Size = new System.Drawing.Size(149, 22);
 			this.txtalinanMik.TabIndex = 40;
@@ -156,7 +190,7 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(28, 96);
+			this.label1.Location = new System.Drawing.Point(28, 87);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(100, 16);
 			this.label1.TabIndex = 39;
@@ -175,50 +209,55 @@
 			// 
 			// button1
 			// 
+			this.button1.BackColor = System.Drawing.Color.SkyBlue;
+			this.button1.ImageKey = "Kaydet.png";
+			this.button1.ImageList = this.ımageList1;
 			this.button1.Location = new System.Drawing.Point(83, 332);
 			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(177, 66);
 			this.button1.TabIndex = 6;
-			this.button1.Text = "Kaydet";
-			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Text = "   Kaydet";
+			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// gridStokGirdi
 			// 
 			this.gridStokGirdi.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridStokGirdi.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this.gridStokGirdi.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+			dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridStokGirdi.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
 			this.gridStokGirdi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridStokGirdi.DefaultCellStyle = dataGridViewCellStyle2;
-			this.gridStokGirdi.Location = new System.Drawing.Point(411, 13);
+			dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridStokGirdi.DefaultCellStyle = dataGridViewCellStyle11;
+			this.gridStokGirdi.Location = new System.Drawing.Point(353, 13);
 			this.gridStokGirdi.Margin = new System.Windows.Forms.Padding(4);
 			this.gridStokGirdi.Name = "gridStokGirdi";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridStokGirdi.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridStokGirdi.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
 			this.gridStokGirdi.RowHeadersWidth = 51;
 			this.gridStokGirdi.RowTemplate.Height = 24;
 			this.gridStokGirdi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridStokGirdi.Size = new System.Drawing.Size(1111, 406);
+			this.gridStokGirdi.Size = new System.Drawing.Size(1169, 406);
 			this.gridStokGirdi.TabIndex = 46;
 			this.gridStokGirdi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridStokGirdi_CellClick);
 			this.gridStokGirdi.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridStokGirdi_CellFormatting);
@@ -254,38 +293,27 @@
 			this.hiddensStokGirdiId.TabIndex = 51;
 			this.hiddensStokGirdiId.Visible = false;
 			// 
-			// txtTedarikci
+			// label7
 			// 
-			this.txtTedarikci.Location = new System.Drawing.Point(152, 284);
-			this.txtTedarikci.Name = "txtTedarikci";
-			this.txtTedarikci.ReadOnly = true;
-			this.txtTedarikci.Size = new System.Drawing.Size(149, 22);
-			this.txtTedarikci.TabIndex = 48;
+			this.label7.AutoSize = true;
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label7.Location = new System.Drawing.Point(7, 193);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(283, 44);
+			this.label7.TabIndex = 50;
+			this.label7.Text = " - - - - - - - - - - - - - - - - - - - - -\r\n\r\n";
 			// 
-			// label5
+			// ımageList1
 			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label5.Location = new System.Drawing.Point(49, 286);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(79, 16);
-			this.label5.TabIndex = 47;
-			this.label5.Text = "Ad Soyad:";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label6.Location = new System.Drawing.Point(171, 195);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(73, 16);
-			this.label6.TabIndex = 49;
-			this.label6.Text = "Tedarikçi";
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Kaydet.png");
 			// 
 			// StokGirdiESG
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1527, 432);
 			this.Controls.Add(this.hiddensStokGirdiId);
 			this.Controls.Add(this.hiddenTedarikciId);
@@ -328,5 +356,7 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox txtTedarikci;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.ImageList ımageList1;
 	}
 }

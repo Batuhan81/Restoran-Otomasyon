@@ -49,6 +49,7 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.groupBox1.Controls.Add(this.UserAdi);
 			this.groupBox1.Controls.Add(this.port);
 			this.groupBox1.Controls.Add(this.label1);
@@ -60,16 +61,17 @@
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.DbAdi);
 			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Location = new System.Drawing.Point(12, 3);
+			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.groupBox1.Location = new System.Drawing.Point(12, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(472, 435);
+			this.groupBox1.Size = new System.Drawing.Size(445, 413);
 			this.groupBox1.TabIndex = 15;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Veri Tabanı İçin Verilerini Giriniz";
+			this.groupBox1.Text = "Veri Tabanı İçin Bİlgileri Giriniz";
 			// 
 			// UserAdi
 			// 
-			this.UserAdi.Location = new System.Drawing.Point(179, 229);
+			this.UserAdi.Location = new System.Drawing.Point(170, 208);
 			this.UserAdi.Name = "UserAdi";
 			this.UserAdi.Size = new System.Drawing.Size(263, 22);
 			this.UserAdi.TabIndex = 4;
@@ -77,7 +79,7 @@
 			// 
 			// port
 			// 
-			this.port.Location = new System.Drawing.Point(179, 109);
+			this.port.Location = new System.Drawing.Point(170, 88);
 			this.port.Name = "port";
 			this.port.Size = new System.Drawing.Size(263, 22);
 			this.port.TabIndex = 2;
@@ -86,24 +88,26 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(68, 52);
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label1.Location = new System.Drawing.Point(59, 31);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(73, 16);
+			this.label1.Size = new System.Drawing.Size(84, 16);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Server Adı:";
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(89, 112);
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label5.Location = new System.Drawing.Point(80, 91);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(55, 16);
+			this.label5.Size = new System.Drawing.Size(63, 16);
 			this.label5.TabIndex = 9;
 			this.label5.Text = "Port No:";
 			// 
 			// svAdi
 			// 
-			this.svAdi.Location = new System.Drawing.Point(179, 49);
+			this.svAdi.Location = new System.Drawing.Point(170, 28);
 			this.svAdi.Name = "svAdi";
 			this.svAdi.Size = new System.Drawing.Size(263, 22);
 			this.svAdi.TabIndex = 1;
@@ -111,7 +115,7 @@
 			// 
 			// VtSifre
 			// 
-			this.VtSifre.Location = new System.Drawing.Point(179, 289);
+			this.VtSifre.Location = new System.Drawing.Point(170, 268);
 			this.VtSifre.Name = "VtSifre";
 			this.VtSifre.Size = new System.Drawing.Size(263, 22);
 			this.VtSifre.TabIndex = 5;
@@ -119,15 +123,17 @@
 			// 
 			// button1
 			// 
+			this.button1.BackColor = System.Drawing.Color.SkyBlue;
+			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.button1.ImageKey = "Kaydet.png";
 			this.button1.ImageList = this.ımageList1;
-			this.button1.Location = new System.Drawing.Point(108, 348);
+			this.button1.Location = new System.Drawing.Point(99, 327);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(221, 81);
 			this.button1.TabIndex = 6;
-			this.button1.Text = "Kaydet";
+			this.button1.Text = "  Kaydet";
 			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.button1.UseVisualStyleBackColor = true;
+			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// ımageList1
@@ -139,24 +145,26 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(13, 292);
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label4.Location = new System.Drawing.Point(4, 271);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(117, 16);
+			this.label4.Size = new System.Drawing.Size(136, 16);
 			this.label4.TabIndex = 7;
 			this.label4.Text = "Veri Tabanı Şifresi";
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(45, 172);
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label2.Location = new System.Drawing.Point(36, 151);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(93, 16);
+			this.label2.Size = new System.Drawing.Size(106, 16);
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Databese Adı:";
 			// 
 			// DbAdi
 			// 
-			this.DbAdi.Location = new System.Drawing.Point(179, 169);
+			this.DbAdi.Location = new System.Drawing.Point(170, 148);
 			this.DbAdi.Name = "DbAdi";
 			this.DbAdi.Size = new System.Drawing.Size(263, 22);
 			this.DbAdi.TabIndex = 3;
@@ -164,9 +172,10 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(59, 232);
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label3.Location = new System.Drawing.Point(50, 211);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(78, 16);
+			this.label3.Size = new System.Drawing.Size(91, 16);
 			this.label3.TabIndex = 5;
 			this.label3.Text = "User Bilgisi:";
 			// 
@@ -184,7 +193,8 @@
 			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(492, 444);
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.ClientSize = new System.Drawing.Size(474, 434);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.baglantiDizesi);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

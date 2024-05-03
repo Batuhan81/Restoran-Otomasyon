@@ -26,6 +26,14 @@ namespace Restoran_Otomasyon
 		private void MasaBilgiGuncelle_Load(object sender, EventArgs e)
 		{
 			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
+			if (txtDurum.Text == "Kapalı")
+			{
+				button3.ImageKey = "Aç.png";
+			}
+			else
+			{
+				button3.ImageKey = "Kapalı.png";
+			}
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -85,8 +93,11 @@ namespace Restoran_Otomasyon
 		{
 			// İleri tarihli bir rezervasyon kontrolü için gereken işlemleri yapın
 			var ileriTarihliRezervasyon = db.MasaRezervasyonlar.Any(o => o.MasaId == masaId &&
-	(o.Rezervasyon.Tarih > DateTime.Today ||
-	(o.Rezervasyon.Tarih == DateTime.Today && o.Rezervasyon.BitisSaat > DateTime.Now.TimeOfDay)));
+				(o.Rezervasyon.Tarih > DateTime.Today ||
+				(o.Rezervasyon.Tarih == DateTime.Today && o.Rezervasyon.BitisSaat.Hours > DateTime.Now.Hour) ||
+				(o.Rezervasyon.Tarih == DateTime.Today && o.Rezervasyon.BitisSaat.Hours == DateTime.Now.Hour && o.Rezervasyon.BitisSaat.Minutes > DateTime.Now.Minute) ||
+				(o.Rezervasyon.Tarih == DateTime.Today && o.Rezervasyon.BitisSaat.Hours == DateTime.Now.Hour && o.Rezervasyon.BitisSaat.Minutes == DateTime.Now.Minute && o.Rezervasyon.BitisSaat.Seconds > DateTime.Now.Second)));
+
 
 			return ileriTarihliRezervasyon;
 		}

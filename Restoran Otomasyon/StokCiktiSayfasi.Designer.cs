@@ -28,12 +28,14 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StokCiktiSayfasi));
 			this.gridMalzemeler = new System.Windows.Forms.DataGridView();
 			this.ComboNeden = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
@@ -50,6 +52,7 @@
 			this.gridCikti = new System.Windows.Forms.DataGridView();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.gridMalzemeler)).BeginInit();
 			this.groupCikti.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridCikti)).BeginInit();
@@ -58,6 +61,7 @@
 			// gridMalzemeler
 			// 
 			this.gridMalzemeler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.gridMalzemeler.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
 			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
 			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -102,14 +106,14 @@
             "Diğer"});
 			this.ComboNeden.Location = new System.Drawing.Point(158, 80);
 			this.ComboNeden.Name = "ComboNeden";
-			this.ComboNeden.Size = new System.Drawing.Size(141, 24);
+			this.ComboNeden.Size = new System.Drawing.Size(141, 26);
 			this.ComboNeden.TabIndex = 48;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(28, 86);
+			this.label1.Location = new System.Drawing.Point(35, 88);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(104, 18);
 			this.label1.TabIndex = 49;
@@ -119,7 +123,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(28, 127);
+			this.label2.Location = new System.Drawing.Point(36, 129);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(103, 18);
 			this.label2.TabIndex = 50;
@@ -129,17 +133,22 @@
 			// 
 			this.txtmiktar.Location = new System.Drawing.Point(158, 127);
 			this.txtmiktar.Name = "txtmiktar";
-			this.txtmiktar.Size = new System.Drawing.Size(141, 22);
+			this.txtmiktar.Size = new System.Drawing.Size(141, 24);
 			this.txtmiktar.TabIndex = 51;
 			// 
 			// BtnCikti
 			// 
+			this.BtnCikti.BackColor = System.Drawing.Color.SkyBlue;
+			this.BtnCikti.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.BtnCikti.ImageKey = "stokDüş.png";
+			this.BtnCikti.ImageList = this.ımageList1;
 			this.BtnCikti.Location = new System.Drawing.Point(113, 176);
 			this.BtnCikti.Name = "BtnCikti";
 			this.BtnCikti.Size = new System.Drawing.Size(159, 78);
 			this.BtnCikti.TabIndex = 52;
 			this.BtnCikti.Text = "Çıktı Ekle";
-			this.BtnCikti.UseVisualStyleBackColor = true;
+			this.BtnCikti.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.BtnCikti.UseVisualStyleBackColor = false;
 			this.BtnCikti.Click += new System.EventHandler(this.BtnCikti_Click);
 			// 
 			// HiddenStokID
@@ -179,14 +188,14 @@
 			this.txtstok.Location = new System.Drawing.Point(158, 43);
 			this.txtstok.Name = "txtstok";
 			this.txtstok.ReadOnly = true;
-			this.txtstok.Size = new System.Drawing.Size(141, 22);
+			this.txtstok.Size = new System.Drawing.Size(141, 24);
 			this.txtstok.TabIndex = 58;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label3.Location = new System.Drawing.Point(28, 43);
+			this.label3.Location = new System.Drawing.Point(40, 45);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(99, 18);
 			this.label3.TabIndex = 57;
@@ -201,10 +210,10 @@
 			this.groupCikti.Controls.Add(this.label1);
 			this.groupCikti.Controls.Add(this.label2);
 			this.groupCikti.Controls.Add(this.txtmiktar);
-			this.groupCikti.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.groupCikti.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.groupCikti.Location = new System.Drawing.Point(520, 35);
 			this.groupCikti.Name = "groupCikti";
-			this.groupCikti.Size = new System.Drawing.Size(334, 260);
+			this.groupCikti.Size = new System.Drawing.Size(323, 260);
 			this.groupCikti.TabIndex = 59;
 			this.groupCikti.TabStop = false;
 			this.groupCikti.Text = "Çıktı Bilgileri";
@@ -212,6 +221,7 @@
 			// gridCikti
 			// 
 			this.gridCikti.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.gridCikti.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
 			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
 			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
 			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -229,7 +239,7 @@
 			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.gridCikti.DefaultCellStyle = dataGridViewCellStyle5;
-			this.gridCikti.Location = new System.Drawing.Point(862, 35);
+			this.gridCikti.Location = new System.Drawing.Point(850, 35);
 			this.gridCikti.Margin = new System.Windows.Forms.Padding(4);
 			this.gridCikti.Name = "gridCikti";
 			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -262,17 +272,24 @@
 			// 
 			this.label5.AutoSize = true;
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label5.Location = new System.Drawing.Point(1048, 6);
+			this.label5.Location = new System.Drawing.Point(1036, 6);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(79, 25);
 			this.label5.TabIndex = 61;
 			this.label5.Text = "Çıktılar";
 			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "stokDüş.png");
+			// 
 			// StokCiktiSayfasi
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1326, 303);
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.ClientSize = new System.Drawing.Size(1304, 303);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.gridCikti);
@@ -314,5 +331,6 @@
 		private System.Windows.Forms.DataGridView gridCikti;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.ImageList ımageList1;
 	}
 }

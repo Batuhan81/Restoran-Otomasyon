@@ -87,7 +87,6 @@ namespace Restoran_Otomasyon
 		void GUnlereRenkVerme()
 		{
 			Takvim.RemoveAllBoldedDates(); // Önceki vurgulamaları kaldır
-
 			// Tüm rezervasyonları al
 			var rezervasyonlar = db.Rezervasyonlar.Where(x => x.Onay < 3 && x.Tarih >= DateTime.Today).ToList();
 

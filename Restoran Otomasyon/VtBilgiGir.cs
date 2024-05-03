@@ -24,6 +24,7 @@ namespace Restoran_Otomasyon
 			VtBilgileri vt = new VtBilgileri();
 			if (Yardimcilar.HepsiDoluMu(groupBox1))//veritabanı oluşturmak için gerekli tüm bilgiler girilimi kontrolü
 			{
+				MessageBox.Show("Veri Tabanı Oluşturuluyor İşlem Biraz Zaman Alabilir.");
 				// Kullanıcı tarafından girilen bağlantı bilgilerini al
 				vt.DatabaseAdi = DbAdi.Text;
 				vt.Port = Convert.ToInt32(port.Text);
