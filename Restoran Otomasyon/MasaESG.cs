@@ -21,7 +21,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			InitializeComponent();
 			InitializeEvents();
-			kullaniciId=kullaniciID;
+			kullaniciId = kullaniciID;
 		}
 		int kullaniciId;
 		private void InitializeEvents()
@@ -143,12 +143,26 @@ namespace Restoran_Otomasyon.Paneller
 				comboKat.SelectedIndex = 0; // Eğer eleman varsa, ilk elemanı seç
 			}
 			// ContextMenuStrip'i oluşturun
+			var kullanici = db.Kullanicilar.Find(kullaniciId);
+			if (kullanici != null && kullanici.Ad != "Admin")
+			{
+				// Eğer kullanıcı admin değilse, ilgili butonları ve kontrolleri gizle
+				btnKatEkle.Visible = false;
+				btnKatSil.Visible = false;
+				MasaEkle.Visible = false;
+				MasaPanel.Location = new Point(20, 30); // MasaPanel'i biraz aşağı kaydır
 
+				// Label2 ve ComboKat'i MasaPanel'in içine değil, formun üstüne taşıyın
+				label2.Location = new Point(680, 8);
+				this.Controls.Add(label2); // Forma label2 kontrolünü ekleyin
+				comboKat.Location = new Point(720, 8);
+				this.Controls.Add(comboKat); // Forma comboKat kontrolünü ekleyin
+				MasaPanel.Size = new Size(1500, 781);
+			}
 			// "Masa Güncelle" öğesini ekle
 			ToolStripMenuItem menuItemMasaGuncelle = new ToolStripMenuItem("Masa Güncelle");
 			menuItemMasaGuncelle.Click += MenuItemMasaGuncelle_Click; // Doğru işleyiciyi ekleyin
 			contextMenuStrip1.Items.Add(menuItemMasaGuncelle);
-
 
 			// "Randevular" öğesini ekle
 			ToolStripMenuItem menuItemRandevular = new ToolStripMenuItem("Randevular");
@@ -162,7 +176,6 @@ namespace Restoran_Otomasyon.Paneller
 
 			TemizleMasaButonlari();
 			ButonlarıGetir(secilenKategoriId);
-
 		}
 
 		// "Masa Güncelle" öğesine tıklama olayı
@@ -388,12 +401,12 @@ namespace Restoran_Otomasyon.Paneller
 								break;
 						}
 					};
+					masaButton.Margin = new Padding(15, 15, 15, 15); // Sol: 20, Üst: 30, Sağ: 20, Alt: 30 piksel boşluk bırakır
+
 					masaPanel.Controls.Add(masaButton);
 				}
 			}
 		}
-
-
 
 		private void comboKat_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -498,9 +511,24 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void MasaESG_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			Admin_Paneli adminPaneliForm = new Admin_Paneli(kullaniciId);
-			adminPaneliForm.grafikleriGuncelle();
-
+			if (kullaniciId == 1)
+			{
+				var adminpaneliform = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
+				if (adminpaneliform != null)
+				{
+					// Grafikleri güncelle
+					adminpaneliform.grafikleriGuncelle();
+				}
+			}
+			else
+			{
+				var kasaPaneliForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
+				if (kasaPaneliForm != null)
+				{
+					// Grafikleri güncelle
+					kasaPaneliForm.grafikleriGuncelle();
+				}
+			}
 		}
 	}
 }

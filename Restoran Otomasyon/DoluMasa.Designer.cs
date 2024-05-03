@@ -43,8 +43,10 @@
 			this.OdemePaneli = new System.Windows.Forms.Panel();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btn5 = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.btn10 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
+			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
 			this.btn20 = new System.Windows.Forms.Button();
 			this.btn200 = new System.Windows.Forms.Button();
 			this.txtkalan = new System.Windows.Forms.TextBox();
@@ -68,8 +70,6 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
 			this.UrunPaneli.SuspendLayout();
 			this.OdemePaneli.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -210,6 +210,12 @@
 			this.btn5.UseVisualStyleBackColor = false;
 			this.btn5.Click += new System.EventHandler(this.btn5_Click);
 			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Para.png");
+			// 
 			// btn10
 			// 
 			this.btn10.BackColor = System.Drawing.Color.SkyBlue;
@@ -237,6 +243,14 @@
 			this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.button2.UseVisualStyleBackColor = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// ımageList2
+			// 
+			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
+			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList2.Images.SetKeyName(0, "Ödeme.png");
+			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
+			this.ımageList2.Images.SetKeyName(2, "Ödeme.png");
 			// 
 			// btn20
 			// 
@@ -491,20 +505,6 @@
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// ımageList1
-			// 
-			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
-			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList1.Images.SetKeyName(0, "Para.png");
-			// 
-			// ımageList2
-			// 
-			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
-			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList2.Images.SetKeyName(0, "Ödeme.png");
-			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
-			this.ımageList2.Images.SetKeyName(2, "Ödeme.png");
-			// 
 			// DoluMasa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -521,7 +521,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "DoluMasa";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DoluMasa_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DoluMasa_FormClosed);
 			this.Load += new System.EventHandler(this.DoluMasa_Load);
 			this.UrunPaneli.ResumeLayout(false);
 			this.OdemePaneli.ResumeLayout(false);

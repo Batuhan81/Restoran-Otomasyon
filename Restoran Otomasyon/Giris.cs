@@ -29,17 +29,21 @@ namespace Restoran_Otomasyon
 		int ıd;
 		public void GirisYap(string Ad,string Sifre)//gelen ad ve şifre bilgisine göre kullanıyı ilgili panele yönlendir
 		{
+			db.Dispose();
+			db = new Context();
 			var kullanici = db.Kullanicilar.FirstOrDefault(o => o.Ad == Ad && o.Sifre == Sifre);
 			if (kullanici != null)
 			{
+				ıd = kullanici.Id;
+
 				if (kullanici.Ad == "Kasa")
 				{
-					//kasa paneli
+					KasaPaneli git = new KasaPaneli(ıd);
+					git.Show();
 					this.Close();
 				}
 				else if(kullanici.Ad == "Admin")
 				{
-					ıd = kullanici.Id;
 					Admin_Paneli git=new Admin_Paneli(ıd);
 					git.Show();
 					this.Close();
@@ -64,17 +68,7 @@ namespace Restoran_Otomasyon
 		//Veritabanı oluşturulduktan sonra bir kullanıcıyı otomatik olarak ekliyorum kişi projeye ilk bu kişiyle girecek ve kalan işlemleri yapabilecek
 		private void Giris_Load(object sender, EventArgs e)
 		{
-			if (!db.Kullanicilar.Any())
-			{
-				k.Ad = "Admin";
-				k.Sifre = "admin123";
-				db.Kullanicilar.Add(k);
-				db.SaveChanges();
-			}
-			else
-			{
-				;
-			}
+		
 			txtAd.Focus();
 		}
 

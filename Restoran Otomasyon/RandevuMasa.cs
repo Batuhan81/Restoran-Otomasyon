@@ -24,7 +24,7 @@ namespace Restoran_Otomasyon
 		{
 			Takvim.MinDate = DateTime.Now;
 			Takvim.MaxDate = DateTime.Now.AddMonths(3);
-			GUnlereRenkVerme();
+			GUnlereRenkVerme(masaId);
 			Yardimcilar.GridRenklendir(gridRandevular);
 			RandevulariYukle();
 			comboOnay.SelectedIndex = 0;
@@ -36,7 +36,7 @@ namespace Restoran_Otomasyon
 		{
 			// Masaya ait rezervasyonları veritabanından al
 			var masaninRandevulari = db.MasaRezervasyonlar
-				.Where(x => x.MasaId == masaId &&  x.Rezervasyon.Tarih >= DateTime.Today)
+				.Where(x => x.MasaId == masaId && x.Rezervasyon.Tarih >= DateTime.Today)
 				.Select(x => new
 				{
 					RezervasyonID = x.Rezervasyon.Id,
@@ -66,7 +66,7 @@ namespace Restoran_Otomasyon
 			secilenSaat = Convert.ToInt32(ComboSaat.SelectedItem);
 
 			// ComboBitisSaat kontrolünü temizle
-			bitisSaat.Items.Clear();
+			CombobitisSaat.Items.Clear();
 
 			// Seçilen saatten sonraki saat değerlerini ComboBitisSaat'e ekle
 			if (secilenSaat == 24)
@@ -75,7 +75,7 @@ namespace Restoran_Otomasyon
 			}
 			for (int i = secilenSaat; i <= 24; i++)
 			{
-				bitisSaat.Items.Add(i);
+				CombobitisSaat.Items.Add(i);
 			}
 		}
 
@@ -84,30 +84,30 @@ namespace Restoran_Otomasyon
 			secilendakika = Convert.ToInt32(ComboDakika.SelectedItem);
 
 		}
-		void GUnlereRenkVerme()
+		void GUnlereRenkVerme(int masaId)
 		{
 			Takvim.RemoveAllBoldedDates(); // Önceki vurgulamaları kaldır
-			// Tüm rezervasyonları al
-			var rezervasyonlar = db.Rezervasyonlar.Where(x => x.Onay < 3 && x.Tarih >= DateTime.Today).ToList();
+
+			// Seçilen masaya ait rezervasyonları al
+			var rezervasyonlar = db.MasaRezervasyonlar
+									.Where(x => x.Rezervasyon.Onay < 3 && x.Rezervasyon.Tarih >= DateTime.Today && x.MasaId == masaId)
+									.Select(x => x.Rezervasyon.Tarih)
+									.ToList();
 
 			// Her bir rezervasyon için günü sarı arka plan ve kalın yazı tipi ile işaretle
-			foreach (var rezervasyon in rezervasyonlar)
+			foreach (var tarih in rezervasyonlar)
 			{
-				Takvim.AddBoldedDate(rezervasyon.Tarih);
-				Takvim.UpdateBoldedDates();
-
-				// Sarı arka plan rengi
-				Takvim.BackColor = Color.Yellow;
-
-				// Kalın yazı tipi
-				Takvim.TitleForeColor = Color.Red; // Kalın yazı tipi için bir örnek renk kullanıldı, istediğiniz bir renk seçebilirsiniz
+				Takvim.AddBoldedDate(tarih);
 			}
+
+			Takvim.UpdateBoldedDates();
 		}
+
 
 
 		private void Takvim_DateChanged(object sender, DateRangeEventArgs e)
 		{
-			GUnlereRenkVerme();
+			GUnlereRenkVerme(masaId);
 			secilentarih = Takvim.SelectionStart;
 			if (secilentarih.Date == DateTime.Today)
 			{
@@ -142,74 +142,84 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
+
 		void temizle()
 		{
 			ComboSaat.Text = "";
 			ComboDakika.Text = "";
 			bitisDakika.Text = "";
-			bitisSaat.Text = "";
+			CombobitisSaat.Text = "";
 			txtkisiSayisi.Text = "";
 			txttalep.Text = "";
 		}
+
 		MasaRezervasyon masarezervasyon = new MasaRezervasyon();
 		Rezervasyon rezervasyon = new Rezervasyon();
 		Context db = new Context();
 		int ıd;
+
 		private void button1_Click(object sender, EventArgs e)
 		{
-			// Seçilen saat ve dakikayı birleştirerek başlangıç saatini oluştur
-			TimeSpan baslangicSaat = new TimeSpan(secilenSaat, secilendakika, 0);
-			TimeSpan bitisSaat = new TimeSpan(bitisSaati, bitisDakikasi, 0);
-
-			if (hiddenID.Text == "")
+			if (ComboSaat.SelectedIndex != -1 && ComboDakika.SelectedIndex != -1 && CombobitisSaat.SelectedIndex != -1 && bitisDakika.SelectedIndex != -1 && txtkisiSayisi.Text != "")
 			{
-				// Rezervasyonun tarihini seçilen tarih olarak ayarla
-				rezervasyon.Tarih = secilentarih.Date;
-				rezervasyon.BaslangicSaat = baslangicSaat;
-				rezervasyon.BitisSaat = bitisSaat;
-				rezervasyon.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
-				rezervasyon.Talep = txttalep.Text;
-				rezervasyon.Onay = comboOnay.SelectedIndex + 1;
-				rezervasyon.Gorunurluk = true;
-				rezervasyon.TalepTarihi = DateTime.Now;
-				db.Rezervasyonlar.Add(rezervasyon);
-				db.SaveChanges();
-				// Masanın rezervasyon bilgilerini ayarla
-				masarezervasyon.RezervasyonId = rezervasyon.Id;
-				masarezervasyon.MasaId = masaId;
-				masarezervasyon.Gorunurluk = true;
-				db.MasaRezervasyonlar.Add(masarezervasyon);
-				db.SaveChanges();
-				MessageBox.Show("Rezarvasyon Başarı İle Oluşturuldu.");
+				// Seçilen saat ve dakikayı birleştirerek başlangıç saatini oluştur
+				TimeSpan baslangicSaat = new TimeSpan(secilenSaat, secilendakika, 0);
+				TimeSpan bitisSaat = new TimeSpan(bitisSaati, bitisDakikasi, 0);
+
+				if (hiddenID.Text == "")
+				{
+					// Rezervasyonun tarihini seçilen tarih olarak ayarla
+					rezervasyon.Tarih = secilentarih.Date;
+					rezervasyon.BaslangicSaat = baslangicSaat;
+					rezervasyon.BitisSaat = bitisSaat;
+					rezervasyon.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
+					rezervasyon.Talep = txttalep.Text;
+					rezervasyon.Onay = comboOnay.SelectedIndex + 1;
+					rezervasyon.Gorunurluk = true;
+					rezervasyon.TalepTarihi = DateTime.Now;
+					db.Rezervasyonlar.Add(rezervasyon);
+					db.SaveChanges();
+					// Masanın rezervasyon bilgilerini ayarla
+					masarezervasyon.RezervasyonId = rezervasyon.Id;
+					masarezervasyon.MasaId = masaId;
+					masarezervasyon.Gorunurluk = true;
+					db.MasaRezervasyonlar.Add(masarezervasyon);
+					db.SaveChanges();
+					MessageBox.Show("Rezarvasyon Başarı İle Oluşturuldu.");
+				}
+				else
+				{
+					var y = db.MasaRezervasyonlar.Find(ıd);
+					y.RezervasyonId = rezervasyon.Id;
+					y.MasaId = masaId;
+					y.Gorunurluk = true;
+					var x = db.Rezervasyonlar.Find(y.RezervasyonId);
+					// Rezervasyonun tarihini seçilen tarih olarak ayarla
+					x.Tarih = secilentarih.Date;
+					x.BaslangicSaat = baslangicSaat;
+					x.BitisSaat = bitisSaat;
+					x.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
+					x.Talep = txttalep.Text;
+					x.Onay = comboOnay.SelectedIndex + 1;
+					x.Gorunurluk = true;
+					x.TalepTarihi = DateTime.Now;
+					MessageBox.Show("Rezarvasyon Başarı İle Güncellendi.");
+					db.SaveChanges();
+				}
+				temizle();
+				RandevulariYukle();
+				GUnlereRenkVerme(masaId);
 			}
 			else
 			{
-				var y = db.MasaRezervasyonlar.Find(ıd);
-				y.RezervasyonId = rezervasyon.Id;
-				y.MasaId = masaId;
-				y.Gorunurluk = true;
-				var x = db.Rezervasyonlar.Find(y.RezervasyonId);
-				// Rezervasyonun tarihini seçilen tarih olarak ayarla
-				x.Tarih = secilentarih.Date;
-				x.BaslangicSaat = baslangicSaat;
-				x.BitisSaat = bitisSaat;
-				x.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
-				x.Talep = txttalep.Text;
-				x.Onay = comboOnay.SelectedIndex + 1;
-				x.Gorunurluk = true;
-				x.TalepTarihi = DateTime.Now;
-				MessageBox.Show("Rezarvasyon Başarı İle Güncellendi.");
-				db.SaveChanges();
+				MessageBox.Show("Rezervasyon İçin Gerekli Tüm Bilgileri Girdiğinizden Emin Olunuz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
-			temizle();
-			RandevulariYukle();
-			GUnlereRenkVerme();
 		}
 		int bitisSaati;
 		int bitisDakikasi;
 		private void bitisSaat_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			bitisSaati = Convert.ToInt32(bitisSaat.SelectedItem);
+			bitisSaati = Convert.ToInt32(CombobitisSaat.SelectedItem);
 			bitisDakika.Items.Clear();
 			if (bitisSaati > secilenSaat)
 			{
@@ -248,7 +258,7 @@ namespace Restoran_Otomasyon
 				Takvim.SelectionStart = (DateTime)selectedRow.Cells["Tarih"].Value;
 				ComboSaat.SelectedItem = ((TimeSpan)selectedRow.Cells["BaslangicSaat"].Value).Hours;
 				ComboDakika.SelectedItem = ((TimeSpan)selectedRow.Cells["BaslangicSaat"].Value).Minutes;
-				bitisSaat.SelectedItem = ((TimeSpan)selectedRow.Cells["BitisSaat"].Value).Hours;
+				CombobitisSaat.SelectedItem = ((TimeSpan)selectedRow.Cells["BitisSaat"].Value).Hours;
 				bitisDakika.SelectedItem = ((TimeSpan)selectedRow.Cells["BitisSaat"].Value).Minutes;
 				txtkisiSayisi.Text = selectedRow.Cells["KisiSayisi"].Value.ToString();
 				txttalep.Text = selectedRow.Cells["Talep"].Value.ToString();
@@ -270,8 +280,7 @@ namespace Restoran_Otomasyon
 			MessageBox.Show("Rezervasyon İptal Edildi");
 			temizle();
 			RandevulariYukle();
-			GUnlereRenkVerme();
-
+			GUnlereRenkVerme(masaId);
 		}
 	}
 }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Restoran_Otomasyon.Paneller
 {
-	public partial class Kasa : Form
+	public partial class KasaFormu : Form
 	{
-		public Kasa()
+		public KasaFormu()
 		{
 			InitializeComponent();
 		}

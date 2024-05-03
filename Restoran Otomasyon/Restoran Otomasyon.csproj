@@ -246,6 +246,7 @@
     <Compile Include="Giris.Designer.cs">
       <DependentUpon>Giris.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grafikler.cs" />
     <Compile Include="KategoriESG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -282,11 +283,35 @@
     <Compile Include="OzellikESG.Designer.cs">
       <DependentUpon>OzellikESG.cs</DependentUpon>
     </Compile>
-    <Compile Include="Kasa.cs">
+    <Compile Include="KasaFormu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Kasa.Designer.cs">
-      <DependentUpon>Kasa.cs</DependentUpon>
+    <Compile Include="KasaFormu.Designer.cs">
+      <DependentUpon>KasaFormu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Kampanya.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Kampanya.Designer.cs">
+      <DependentUpon>Kampanya.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Paneller\KasaPaneli.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paneller\KasaPaneli.Designer.cs">
+      <DependentUpon>KasaPaneli.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuListe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuListe.Designer.cs">
+      <DependentUpon>MenuListe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UrunList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UrunList.Designer.cs">
+      <DependentUpon>UrunList.cs</DependentUpon>
     </Compile>
     <Compile Include="StokCiktiSayfasi.cs">
       <SubType>Form</SubType>
@@ -379,6 +404,9 @@
     <EmbeddedResource Include="Giris.resx">
       <DependentUpon>Giris.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Kampanya.resx">
+      <DependentUpon>Kampanya.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MasaBilgiGuncelle.resx">
       <DependentUpon>MasaBilgiGuncelle.cs</DependentUpon>
     </EmbeddedResource>
@@ -406,8 +434,17 @@
     <EmbeddedResource Include="OzellikESG.resx">
       <DependentUpon>OzellikESG.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Kasa.resx">
-      <DependentUpon>Kasa.cs</DependentUpon>
+    <EmbeddedResource Include="KasaFormu.resx">
+      <DependentUpon>KasaFormu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Paneller\KasaPaneli.resx">
+      <DependentUpon>KasaPaneli.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuListe.resx">
+      <DependentUpon>MenuListe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UrunList.resx">
+      <DependentUpon>UrunList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StokCiktiSayfasi.resx">
       <DependentUpon>StokCiktiSayfasi.cs</DependentUpon>

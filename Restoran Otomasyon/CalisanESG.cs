@@ -15,13 +15,12 @@ namespace Restoran_Otomasyon.Paneller
 	public partial class CalisanESG : Form
 	{
 	
-		public CalisanESG()
+		public CalisanESG(int kullaniID)
 		{
 			InitializeComponent();
-			// RolEklendi olayına abone ol
-		
+			kullaniId = kullaniID;
 		}
-		
+		int kullaniId;
 		private void button4_Click(object sender, EventArgs e)//Buna gerek kalmadı çünkü adres bilgisini doğrudan çalışsan içerisinde kayıt edeceğiz (yapmıştım silmek istemedim erişilebilir bir buton değil)
 		{
 			// Adres formunu aç
@@ -174,6 +173,23 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			RolleriDoldur();
 			PersonelList();
+			//Giren kullanıcı admin değilse Crud işlemlerini sağlayan butonları sakladım ve açılan boşluğu kapatmak adına konumlarla oynadım
+			var kullanici = db.Kullanicilar.Find(kullaniId);
+			if (kullanici.Ad != "Admin")
+			{
+				button1.Visible=false;
+				button2.Visible=false;
+				button3.Visible=false;
+				button4.Visible=false;
+				button5.Visible=false;
+				label9.Location = new Point(168, 590);
+				txtAdres.Location = new Point(8, 610);
+				txtAdres.Size=new Size(377, 125);
+				foreach (Control control in groupPersonel.Controls)
+				{
+					control.Location = new Point(control.Location.X, control.Location.Y + 30);
+				}
+			}
 			//işe başlama tarihi günün tarihi olarak geliyor
 			gününT = DateTime.Now.ToString("dd/MM/yyyy");
 			txtbaslamaT.Text = gününT;

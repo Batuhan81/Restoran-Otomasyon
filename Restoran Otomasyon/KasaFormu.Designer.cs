@@ -1,6 +1,6 @@
 ﻿namespace Restoran_Otomasyon.Paneller
 {
-	partial class Kasa
+	partial class KasaFormu
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -120,6 +120,7 @@
 			// 
 			// FiltrePanel
 			// 
+			this.FiltrePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.FiltrePanel.Controls.Add(this.button4);
 			this.FiltrePanel.Controls.Add(this.button3);
 			this.FiltrePanel.Controls.Add(this.button2);
@@ -203,7 +204,7 @@
 			this.checkBox1.UseWaitCursor = true;
 			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
 			// 
-			// Kasa
+			// KasaFormu
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -215,7 +216,7 @@
 			this.Controls.Add(this.txtBakiye);
 			this.Controls.Add(this.label1);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.Name = "Kasa";
+			this.Name = "KasaFormu";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Kasa";

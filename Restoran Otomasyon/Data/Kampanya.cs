@@ -11,6 +11,7 @@ namespace Restoran_Otomasyon.Data
         public int Id { get; set; }
 
 		public string Ad { get; set; }
+
 		public Decimal Indirim { get; set; }
 
 		public int SartTutar {  get; set; }

@@ -28,24 +28,24 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea31 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend31 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series31 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea32 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend32 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series32 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea33 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend33 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series33 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea34 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend34 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series34 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea35 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend35 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series35 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea36 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend36 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series36 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.MasaYogunluk = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.çalışanİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CalisanCRUD = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,16 +75,16 @@
 			this.programıKapatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.OdemeYuzde = new System.Windows.Forms.DataVisualization.Charting.Chart();
-			this.chartGunlereGoreSiparis = new System.Windows.Forms.DataVisualization.Charting.Chart();
-			this.chartEnCokSiparisEdilenUrunler = new System.Windows.Forms.DataVisualization.Charting.Chart();
-			this.chartEnCokSiparisEdilenMenuler = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.GunlereGore = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.EnCokSiparisUrun = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.EnCokSiparisMenu = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.DolulukOranlari = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			((System.ComponentModel.ISupportInitialize)(this.MasaYogunluk)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.OdemeYuzde)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.chartGunlereGoreSiparis)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.chartEnCokSiparisEdilenUrunler)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.chartEnCokSiparisEdilenMenuler)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.GunlereGore)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisUrun)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisMenu)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DolulukOranlari)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -93,17 +93,17 @@
 			this.MasaYogunluk.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.MasaYogunluk.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.MasaYogunluk.BorderlineWidth = 5;
-			chartArea31.Name = "ChartArea1";
-			this.MasaYogunluk.ChartAreas.Add(chartArea31);
-			legend31.Name = "Legend1";
-			this.MasaYogunluk.Legends.Add(legend31);
+			chartArea1.Name = "ChartArea1";
+			this.MasaYogunluk.ChartAreas.Add(chartArea1);
+			legend1.Name = "Legend1";
+			this.MasaYogunluk.Legends.Add(legend1);
 			this.MasaYogunluk.Location = new System.Drawing.Point(93, 48);
 			this.MasaYogunluk.Name = "MasaYogunluk";
 			this.MasaYogunluk.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			series31.ChartArea = "ChartArea1";
-			series31.Legend = "Legend1";
-			series31.Name = "Series1";
-			this.MasaYogunluk.Series.Add(series31);
+			series1.ChartArea = "ChartArea1";
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.MasaYogunluk.Series.Add(series1);
 			this.MasaYogunluk.Size = new System.Drawing.Size(383, 333);
 			this.MasaYogunluk.SuppressExceptions = true;
 			this.MasaYogunluk.TabIndex = 1;
@@ -283,15 +283,14 @@
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 27);
-			this.toolStripMenuItem2.Text = "                         ";
-			this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click_2);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(130, 27);
+			this.toolStripMenuItem2.Text = "Kampanyalar";
 			// 
 			// bosluklar
 			// 
 			this.bosluklar.Name = "bosluklar";
-			this.bosluklar.Size = new System.Drawing.Size(269, 27);
-			this.bosluklar.Text = "                                                 ";
+			this.bosluklar.Size = new System.Drawing.Size(244, 27);
+			this.bosluklar.Text = "                                            ";
 			// 
 			// Karsilama
 			// 
@@ -331,93 +330,93 @@
 			this.OdemeYuzde.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.OdemeYuzde.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.OdemeYuzde.BorderlineWidth = 5;
-			chartArea32.Name = "ChartArea1";
-			this.OdemeYuzde.ChartAreas.Add(chartArea32);
-			legend32.Name = "Legend1";
-			this.OdemeYuzde.Legends.Add(legend32);
+			chartArea2.Name = "ChartArea1";
+			this.OdemeYuzde.ChartAreas.Add(chartArea2);
+			legend2.Name = "Legend1";
+			this.OdemeYuzde.Legends.Add(legend2);
 			this.OdemeYuzde.Location = new System.Drawing.Point(577, 48);
 			this.OdemeYuzde.Name = "OdemeYuzde";
-			series32.ChartArea = "ChartArea1";
-			series32.Legend = "Legend1";
-			series32.Name = "Series1";
-			this.OdemeYuzde.Series.Add(series32);
+			series2.ChartArea = "ChartArea1";
+			series2.Legend = "Legend1";
+			series2.Name = "Series1";
+			this.OdemeYuzde.Series.Add(series2);
 			this.OdemeYuzde.Size = new System.Drawing.Size(383, 333);
 			this.OdemeYuzde.TabIndex = 2;
 			this.OdemeYuzde.Text = "chart2";
 			// 
-			// chartGunlereGoreSiparis
+			// GunlereGore
 			// 
-			this.chartGunlereGoreSiparis.BorderlineColor = System.Drawing.Color.LightSteelBlue;
-			this.chartGunlereGoreSiparis.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-			this.chartGunlereGoreSiparis.BorderlineWidth = 5;
-			chartArea33.Name = "ChartArea1";
-			this.chartGunlereGoreSiparis.ChartAreas.Add(chartArea33);
-			legend33.Name = "Legend1";
-			this.chartGunlereGoreSiparis.Legends.Add(legend33);
-			this.chartGunlereGoreSiparis.Location = new System.Drawing.Point(1061, 48);
-			this.chartGunlereGoreSiparis.Name = "chartGunlereGoreSiparis";
-			series33.ChartArea = "ChartArea1";
-			series33.Legend = "Legend1";
-			series33.Name = "Series1";
-			this.chartGunlereGoreSiparis.Series.Add(series33);
-			this.chartGunlereGoreSiparis.Size = new System.Drawing.Size(383, 333);
-			this.chartGunlereGoreSiparis.TabIndex = 3;
-			this.chartGunlereGoreSiparis.Text = "chart2";
+			this.GunlereGore.BorderlineColor = System.Drawing.Color.LightSteelBlue;
+			this.GunlereGore.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+			this.GunlereGore.BorderlineWidth = 5;
+			chartArea3.Name = "ChartArea1";
+			this.GunlereGore.ChartAreas.Add(chartArea3);
+			legend3.Name = "Legend1";
+			this.GunlereGore.Legends.Add(legend3);
+			this.GunlereGore.Location = new System.Drawing.Point(1061, 48);
+			this.GunlereGore.Name = "GunlereGore";
+			series3.ChartArea = "ChartArea1";
+			series3.Legend = "Legend1";
+			series3.Name = "Series1";
+			this.GunlereGore.Series.Add(series3);
+			this.GunlereGore.Size = new System.Drawing.Size(383, 333);
+			this.GunlereGore.TabIndex = 3;
+			this.GunlereGore.Text = "chart2";
 			// 
-			// chartEnCokSiparisEdilenUrunler
+			// EnCokSiparisUrun
 			// 
-			this.chartEnCokSiparisEdilenUrunler.BorderlineColor = System.Drawing.Color.LightSteelBlue;
-			this.chartEnCokSiparisEdilenUrunler.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-			this.chartEnCokSiparisEdilenUrunler.BorderlineWidth = 5;
-			chartArea34.Name = "ChartArea1";
-			this.chartEnCokSiparisEdilenUrunler.ChartAreas.Add(chartArea34);
-			legend34.Name = "Legend1";
-			this.chartEnCokSiparisEdilenUrunler.Legends.Add(legend34);
-			this.chartEnCokSiparisEdilenUrunler.Location = new System.Drawing.Point(93, 412);
-			this.chartEnCokSiparisEdilenUrunler.Name = "chartEnCokSiparisEdilenUrunler";
-			series34.ChartArea = "ChartArea1";
-			series34.Legend = "Legend1";
-			series34.Name = "Series1";
-			this.chartEnCokSiparisEdilenUrunler.Series.Add(series34);
-			this.chartEnCokSiparisEdilenUrunler.Size = new System.Drawing.Size(383, 333);
-			this.chartEnCokSiparisEdilenUrunler.TabIndex = 4;
-			this.chartEnCokSiparisEdilenUrunler.Text = "chart2";
+			this.EnCokSiparisUrun.BorderlineColor = System.Drawing.Color.LightSteelBlue;
+			this.EnCokSiparisUrun.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+			this.EnCokSiparisUrun.BorderlineWidth = 5;
+			chartArea4.Name = "ChartArea1";
+			this.EnCokSiparisUrun.ChartAreas.Add(chartArea4);
+			legend4.Name = "Legend1";
+			this.EnCokSiparisUrun.Legends.Add(legend4);
+			this.EnCokSiparisUrun.Location = new System.Drawing.Point(93, 412);
+			this.EnCokSiparisUrun.Name = "EnCokSiparisUrun";
+			series4.ChartArea = "ChartArea1";
+			series4.Legend = "Legend1";
+			series4.Name = "Series1";
+			this.EnCokSiparisUrun.Series.Add(series4);
+			this.EnCokSiparisUrun.Size = new System.Drawing.Size(383, 333);
+			this.EnCokSiparisUrun.TabIndex = 4;
+			this.EnCokSiparisUrun.Text = "chart2";
 			// 
-			// chartEnCokSiparisEdilenMenuler
+			// EnCokSiparisMenu
 			// 
-			this.chartEnCokSiparisEdilenMenuler.BorderlineColor = System.Drawing.Color.LightSteelBlue;
-			this.chartEnCokSiparisEdilenMenuler.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-			this.chartEnCokSiparisEdilenMenuler.BorderlineWidth = 5;
-			chartArea35.Name = "ChartArea1";
-			this.chartEnCokSiparisEdilenMenuler.ChartAreas.Add(chartArea35);
-			legend35.Name = "Legend1";
-			this.chartEnCokSiparisEdilenMenuler.Legends.Add(legend35);
-			this.chartEnCokSiparisEdilenMenuler.Location = new System.Drawing.Point(577, 412);
-			this.chartEnCokSiparisEdilenMenuler.Name = "chartEnCokSiparisEdilenMenuler";
-			series35.ChartArea = "ChartArea1";
-			series35.Legend = "Legend1";
-			series35.Name = "Series1";
-			this.chartEnCokSiparisEdilenMenuler.Series.Add(series35);
-			this.chartEnCokSiparisEdilenMenuler.Size = new System.Drawing.Size(383, 333);
-			this.chartEnCokSiparisEdilenMenuler.TabIndex = 5;
-			this.chartEnCokSiparisEdilenMenuler.Text = "chart2";
+			this.EnCokSiparisMenu.BorderlineColor = System.Drawing.Color.LightSteelBlue;
+			this.EnCokSiparisMenu.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+			this.EnCokSiparisMenu.BorderlineWidth = 5;
+			chartArea5.Name = "ChartArea1";
+			this.EnCokSiparisMenu.ChartAreas.Add(chartArea5);
+			legend5.Name = "Legend1";
+			this.EnCokSiparisMenu.Legends.Add(legend5);
+			this.EnCokSiparisMenu.Location = new System.Drawing.Point(577, 412);
+			this.EnCokSiparisMenu.Name = "EnCokSiparisMenu";
+			series5.ChartArea = "ChartArea1";
+			series5.Legend = "Legend1";
+			series5.Name = "Series1";
+			this.EnCokSiparisMenu.Series.Add(series5);
+			this.EnCokSiparisMenu.Size = new System.Drawing.Size(383, 333);
+			this.EnCokSiparisMenu.TabIndex = 5;
+			this.EnCokSiparisMenu.Text = "chart2";
 			// 
 			// DolulukOranlari
 			// 
 			this.DolulukOranlari.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.DolulukOranlari.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.DolulukOranlari.BorderlineWidth = 5;
-			chartArea36.Name = "ChartArea1";
-			this.DolulukOranlari.ChartAreas.Add(chartArea36);
-			legend36.Name = "Legend1";
-			this.DolulukOranlari.Legends.Add(legend36);
+			chartArea6.Name = "ChartArea1";
+			this.DolulukOranlari.ChartAreas.Add(chartArea6);
+			legend6.Name = "Legend1";
+			this.DolulukOranlari.Legends.Add(legend6);
 			this.DolulukOranlari.Location = new System.Drawing.Point(1061, 412);
 			this.DolulukOranlari.Name = "DolulukOranlari";
 			this.DolulukOranlari.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			series36.ChartArea = "ChartArea1";
-			series36.Legend = "Legend1";
-			series36.Name = "Series1";
-			this.DolulukOranlari.Series.Add(series36);
+			series6.ChartArea = "ChartArea1";
+			series6.Legend = "Legend1";
+			series6.Name = "Series1";
+			this.DolulukOranlari.Series.Add(series6);
 			this.DolulukOranlari.Size = new System.Drawing.Size(383, 333);
 			this.DolulukOranlari.SuppressExceptions = true;
 			this.DolulukOranlari.TabIndex = 6;
@@ -430,9 +429,9 @@
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1924, 925);
 			this.Controls.Add(this.DolulukOranlari);
-			this.Controls.Add(this.chartEnCokSiparisEdilenMenuler);
-			this.Controls.Add(this.chartEnCokSiparisEdilenUrunler);
-			this.Controls.Add(this.chartGunlereGoreSiparis);
+			this.Controls.Add(this.EnCokSiparisMenu);
+			this.Controls.Add(this.EnCokSiparisUrun);
+			this.Controls.Add(this.GunlereGore);
 			this.Controls.Add(this.OdemeYuzde);
 			this.Controls.Add(this.MasaYogunluk);
 			this.Controls.Add(this.menuStrip1);
@@ -448,9 +447,9 @@
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.OdemeYuzde)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.chartGunlereGoreSiparis)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.chartEnCokSiparisEdilenUrunler)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.chartEnCokSiparisEdilenMenuler)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.GunlereGore)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisUrun)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisMenu)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DolulukOranlari)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -487,9 +486,9 @@
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 		private System.Windows.Forms.DataVisualization.Charting.Chart OdemeYuzde;
-		private System.Windows.Forms.DataVisualization.Charting.Chart chartGunlereGoreSiparis;
-		private System.Windows.Forms.DataVisualization.Charting.Chart chartEnCokSiparisEdilenUrunler;
-		private System.Windows.Forms.DataVisualization.Charting.Chart chartEnCokSiparisEdilenMenuler;
+		private System.Windows.Forms.DataVisualization.Charting.Chart GunlereGore;
+		private System.Windows.Forms.DataVisualization.Charting.Chart EnCokSiparisUrun;
+		private System.Windows.Forms.DataVisualization.Charting.Chart EnCokSiparisMenu;
 		private System.Windows.Forms.DataVisualization.Charting.Chart DolulukOranlari;
 	}
 }

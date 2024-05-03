@@ -15,11 +15,11 @@ namespace Restoran_Otomasyon
 {
 	public partial class DoluMasa : Form
 	{
-		public DoluMasa(int masaID,int kullaniciID)
+		public DoluMasa(int masaID, int kullaniciID)
 		{
 			InitializeComponent();
 			masaId = masaID;
-			kullaniciId=kullaniciID;
+			kullaniciId = kullaniciID;
 		}
 		int masaId;
 		Context db = new Context();
@@ -43,7 +43,7 @@ namespace Restoran_Otomasyon
 			var masa = db.MasaSiparisler.Where(s => s.MasaId == masaId)
 									 .OrderByDescending(s => s.Id)
 									 .FirstOrDefault();
-			if(masa != null)
+			if (masa != null)
 			{
 				masatutari = masa.Tutar;
 				masaOdenen = masa.OdenenTutar;
@@ -202,6 +202,7 @@ namespace Restoran_Otomasyon
 					x = spacing; // X konumunu sıfırla
 					y += groupBoxHeight + spacing * 2; // Y konumunu bir sonraki satıra taşı
 				}
+				groupBox.Margin = new Padding(15, 15, 15, 15);
 			}
 
 			// Menüleri göster
@@ -320,10 +321,9 @@ namespace Restoran_Otomasyon
 					x = spacing; // X konumunu sıfırla
 					y += groupBoxHeight + spacing * 2; // Y konumunu bir sonraki satıra taşı
 				}
+				groupBox.Margin = new Padding(15, 15, 15, 15);
 			}
 		}
-
-
 
 		private void DoluMasa_Load(object sender, EventArgs e)
 		{
@@ -348,7 +348,7 @@ namespace Restoran_Otomasyon
 				OdemePaneli.Visible = false;
 			}
 		}
-	
+
 		private void button5_Click(object sender, EventArgs e)
 		{
 			if (Odenecek <= geriyekalanUcret)
@@ -367,6 +367,8 @@ namespace Restoran_Otomasyon
 									 .OrderByDescending(s => s.Id)
 									 .FirstOrDefault();
 					masasiparis.OdenenTutar += Odenecek;
+					var kasa = db.Kasalar.Find(1);
+					kasa.Bakiye += Odenecek;
 					//Masanın ödenen ücretiyle tutar 5 aşağı yukarı eşleşiyorsa masa durumunu kirli yapm ve masanı tutarlarını 0'la
 					if (Math.Abs(masasiparis.Tutar - masasiparis.OdenenTutar) <= 5)
 					{
@@ -376,6 +378,7 @@ namespace Restoran_Otomasyon
 					}
 					txtodenen.Text = masasiparis.OdenenTutar + "₺";
 					db.SaveChanges();
+					
 					masaBilgileri();
 					MessageBox.Show($"{Odenecek}₺ Ödeme Alındı Geriye Kalan {geriyekalanUcret}₺");
 					if (geriyekalanUcret == 0)
@@ -469,10 +472,26 @@ namespace Restoran_Otomasyon
 			ButonluOdeme(deger);
 		}
 
-		private void DoluMasa_FormClosing(object sender, FormClosingEventArgs e)
+		private void DoluMasa_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			Admin_Paneli adminPaneliForm = new Admin_Paneli(kullaniciId);
-			adminPaneliForm.grafikleriGuncelle();
+			if (kullaniciId == 1)
+			{
+				var adminpaneliform = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
+				if (adminpaneliform != null)
+				{
+					// Grafikleri güncelle
+					adminpaneliform.grafikleriGuncelle();
+				}
+			}
+			else
+			{
+				var kasaPaneliForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
+				if (kasaPaneliForm != null)
+				{
+					// Grafikleri güncelle
+					kasaPaneliForm.grafikleriGuncelle();
+				}
+			}
 		}
 	}
 }

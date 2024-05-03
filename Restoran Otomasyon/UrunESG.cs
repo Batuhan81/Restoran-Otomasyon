@@ -64,27 +64,7 @@ namespace Restoran_Otomasyon.Paneller
 								.ToList();
 			checkedListMalzeme.DataSource = malzemeler;
 		}
-		void Urunlist()
-		{
-			var Urunler = db.Urunler.Where(o => o.Gorunurluk == true).Select(o => new
-			{
-				Id = o.Id,
-				Ad = o.Ad,
-				Aciklama = o.Aciklama,
-				Detay = o.Detay,
-				Fiyat = o.Fiyat,
-				Fotoğraf = o.Fotograf,
-				Aktiflik = o.Akitf ? "Aktif" : "Pasif",
-				İndirimliFiyat = o.IndirimliFiyat,
-				İndirimTarihi = o.IndirimTarihi,
-				Yüzde = o.IndirimYuzdesi,
-				Kategori = db.Kategoriler.FirstOrDefault(x => x.Id == o.KategorId).Ad,
-			}).ToList();
-
-			gridUrun.DataSource = Urunler;
-			gridUrun.Columns["Fotoğraf"].Visible = false;
-			gridUrun.Columns["Id"].Visible = true;
-		}
+		
 
 		public void kategoriler()
 		{
@@ -123,7 +103,7 @@ namespace Restoran_Otomasyon.Paneller
 				db.SaveChanges();
 				MessageBox.Show("İndirim Uygulandı");
 				Checkİndirim.Checked = false;
-				Urunlist();
+				Urunlist(gridUrun);
 			}
 			else if(txtindirimli.Text.Length > 0)
 			{
@@ -207,10 +187,11 @@ namespace Restoran_Otomasyon.Paneller
 		private void UrunESG_Load(object sender, EventArgs e)
 		{
 			kategoriler();
-			Urunlist();
+			Urunlist(gridUrun);
 			Yardimcilar.GridRenklendir(gridUrun);
 			Yardimcilar.GridRenklendir(gridSecilenMalzemeler);
 			Aktiflik.Checked = true;
+			Gorunurluk.Checked = true;
 			if (gridSecilenMalzemeler.Columns.Count == 0)
 			{
 				gridSecilenMalzemeler.Columns.Add("MalzemeAdi", "Malzeme Adı");
@@ -248,12 +229,12 @@ namespace Restoran_Otomasyon.Paneller
 				txtdetay.Text = row.Cells["Detay"].Value.ToString();
 				uzanti.Text = row.Cells["Fotoğraf"].Value.ToString();
 				Aktiflik.Checked = row.Cells["Aktiflik"].Value.ToString() == "Aktif" ? true : false;
+				Gorunurluk.Checked = row.Cells["Görünürlük"].Value.ToString() == "Görünür" ? true : false;
 				indirimliFiyat = Convert.ToDecimal(row.Cells["İndirimliFiyat"].Value.ToString());
 				txtindirimli.Text = Yardimcilar.FormatliDeger(indirimliFiyat.ToString());
 				txtyuzde.Text = row.Cells["Yüzde"].Value.ToString();
 				comboKategori.Text = row.Cells["Kategori"].Value.ToString();
 				DateTime indirimTarihi = Convert.ToDateTime(row.Cells["İndirimTarihi"].Value.ToString());
-
 				formatsizFiyat = Convert.ToDecimal(row.Cells["Fiyat"].Value.ToString());
 				txtfiyat.Text = Yardimcilar.FormatliDeger(formatsizFiyat.ToString());
 				formatsizFiyat = TemizleVeDondur(txtfiyat, "");
@@ -516,7 +497,7 @@ namespace Restoran_Otomasyon.Paneller
 								urn.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 
 								urn.KategorId = (int)comboKategori.SelectedValue;
-								urn.Gorunurluk = true;
+								urn.Gorunurluk = Gorunurluk.Checked;
 								db.Urunler.Add(urn);
 								timer1.Start();
 								MessageBox.Show("Yeni Ürün Kayıt Edildi");
@@ -578,6 +559,7 @@ namespace Restoran_Otomasyon.Paneller
 								{
 									x.IndirimTarihi = DateTime.MinValue;
 								}
+								x.Gorunurluk = Gorunurluk.Checked;
 								x.IndirimliFiyat = Yardimcilar.TemizleVeDondur(txtindirimli, "");
 								x.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 								x.KategorId = (int)comboKategori.SelectedValue;
@@ -637,7 +619,7 @@ namespace Restoran_Otomasyon.Paneller
 							}
 							Yardimcilar.Temizle(groupUrun);
 							db.SaveChanges();
-							Urunlist();
+							Urunlist(gridUrun);
 							Aktiflik.Checked = true;
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
@@ -695,7 +677,7 @@ namespace Restoran_Otomasyon.Paneller
 						{
 							urunMalzeme.Gorunurluk = false;
 						}
-						Urunlist();
+						Urunlist(gridUrun);
 					}
 				}
 			}
@@ -737,7 +719,7 @@ namespace Restoran_Otomasyon.Paneller
 				txtyuzde.Text = "";
 				txtindirimTarihi.Text = "";
 				Checkİndirim.Checked = false;
-				Urunlist();
+				Urunlist(gridUrun);
 			}
 		}
 		private void button6_Click(object sender, EventArgs e)

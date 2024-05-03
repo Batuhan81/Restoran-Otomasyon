@@ -20,11 +20,10 @@ namespace Restoran_Otomasyon
 
 		private void button1_Click(object sender, EventArgs e)
 		{ 
-			Context c=new Context();
+			Context db=new Context();
 			VtBilgileri vt = new VtBilgileri();
 			if (Yardimcilar.HepsiDoluMu(groupBox1))//veritabanı oluşturmak için gerekli tüm bilgiler girilimi kontrolü
 			{
-				MessageBox.Show("Veri Tabanı Oluşturuluyor İşlem Biraz Zaman Alabilir.");
 				// Kullanıcı tarafından girilen bağlantı bilgilerini al
 				vt.DatabaseAdi = DbAdi.Text;
 				vt.Port = Convert.ToInt32(port.Text);
@@ -35,12 +34,40 @@ namespace Restoran_Otomasyon
 				// Bağlantı dizesini ayarla
 				//string svad, int port, string dbad,string user,string sifre
 				vt.BağlantıDizesiniAyarla(svAdi.Text, Convert.ToInt32(port.Text), DbAdi.Text, UserAdi.Text, VtSifre.Text);
-				c.Database.Connection.ConnectionString = vt.yeniBağlantıDizesi;//Bağlantı Dizesini yenisiyle değiştirdim
+				db.Database.Connection.ConnectionString = vt.yeniBağlantıDizesi;//Bağlantı Dizesini yenisiyle değiştirdim
 				try
 				{
-					if (!c.Database.Exists()) // Veritabanı yoksa
+					if (!db.Database.Exists()) // Veritabanı yoksa
 					{
-						c.Database.Create(); // Yeni bir veritabanı oluştur
+						MessageBox.Show("Veri Tabanı Oluşturuluyor İşlem Biraz Zaman Alabilir.");
+						db.Database.Create(); // Yeni bir veritabanı oluştur
+						if (!db.Kullanicilar.Any())
+						{
+							// Eklemek istediğiniz kullanıcı adları ve şifreler
+							string[] kullaniciAdlari = { "Admin", "Kasa", "Mutfak" };
+							string[] sifreler = { "admin123", "kasa123", "mutfak123" };
+
+							// Kullanıcı adları ve şifreleri dizilerinin uzunluğu kadar döngüyü çalıştır
+							for (int i = 0; i < kullaniciAdlari.Length; i++)
+							{
+								// Yeni bir Kullanici nesnesi oluşturun
+								Kullanici k = new Kullanici();
+								// Kullanıcı adını ve şifreyi dizi elemanlarından alın
+								k.Ad = kullaniciAdlari[i];
+								k.Sifre = sifreler[i];
+
+								// Kullanıcıyı veritabanına ekleyin
+								db.Kullanicilar.Add(k);
+							}
+							Kasa kasa= new Kasa();
+							kasa.Bakiye = 0;
+							db.Kasalar.Add(kasa);
+							db.SaveChanges();
+						}
+						else
+						{
+							;
+						}
 						MessageBox.Show("Veri Tabanı Oluşturuldu.");
 						MessageBox.Show("Tekrar Giriş Sayfasına Yönlendirileceksiniz.");
 						this.Close();

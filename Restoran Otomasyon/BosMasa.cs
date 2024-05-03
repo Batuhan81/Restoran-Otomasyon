@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Restoran_Otomasyon
 {
@@ -293,6 +294,7 @@ namespace Restoran_Otomasyon
 					x = spacing; // X konumunu sıfırla
 					y += groupBoxHeight + spacing * 2; // Y konumunu bir sonraki satıra taşı
 				}
+				groupBox.Margin = new Padding(15, 15, 15, 15);
 			}
 		}
 		private void UrunleriGoster(int kategoriId)
@@ -455,6 +457,7 @@ namespace Restoran_Otomasyon
 					x = spacing; // X konumunu sıfırla
 					y += groupBoxHeight + spacing * 2; // Y konumunu bir sonraki satıra taşı
 				}
+				groupBox.Margin = new Padding(15, 15, 15, 15);
 			}
 		}
 
@@ -618,15 +621,26 @@ namespace Restoran_Otomasyon
 			MenuleriGoster(0);
 		}
 
-		private void BosMasa_FormClosing(object sender, FormClosingEventArgs e)
+        private void BosMasa_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			Admin_Paneli adminPaneliForm = new Admin_Paneli(kullaniciId);
-			adminPaneliForm.grafikleriGuncelle();
-		}
-
-		private void groupBox2_Enter(object sender, EventArgs e)
-		{
-
+			if (kullaniciId == 1)
+			{
+				var adminpaneliform = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
+				if (adminpaneliform != null)
+				{
+					// Grafikleri güncelle
+					adminpaneliform.grafikleriGuncelle();
+				}
+			}
+			else
+			{
+				var kasaPaneliForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
+				if (kasaPaneliForm != null)
+				{
+					// Grafikleri güncelle
+					kasaPaneliForm.grafikleriGuncelle();
+				}
+			}
 		}
 	}
 }

@@ -14,6 +14,56 @@ namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
+		public static void Urunlist(DataGridView gridUrun)//Admin göreceği için gorunurlık filtresi yok
+		{
+			using (var db = new Context())
+			{
+				var Urunler = db.Urunler.OrderByDescending(o=>o.Id).Select(o => new
+				{
+					Id = o.Id,
+					Ad = o.Ad,
+					Aciklama = o.Aciklama,
+					Detay = o.Detay,
+					Fiyat = o.Fiyat,
+					Fotoğraf = o.Fotograf,
+					Aktiflik = o.Akitf ? "Aktif" : "Pasif",
+					Görünürlük = o.Gorunurluk ? "Görünür" : "Görünmez",
+					İndirimliFiyat = o.IndirimliFiyat,
+					İndirimTarihi = o.IndirimTarihi,
+					Yüzde = o.IndirimYuzdesi,
+					Kategori = db.Kategoriler.FirstOrDefault(x => x.Id == o.KategorId).Ad,
+				}).ToList();
+				gridUrun.DataSource = Urunler;
+				gridUrun.Columns["Fotoğraf"].Visible = false;
+				gridUrun.Columns["Id"].Visible = true;
+			}
+		}
+
+		public static void Menulist(DataGridView gridMenu)//Admin göreceği için gorunurlık filtresi yok
+		{
+			using (var db = new Context())
+			{
+				var Menuler = db.Menuler.OrderByDescending(o=>o.Id).Select(o => new
+				{
+					Id = o.Id,
+					Ad = o.Ad,
+					Aciklama = o.Aciklama,
+					Detay = o.Detay,
+					Fiyat = o.Fiyat,
+					Fotoğraf = o.Fotograf,
+					Aktiflik = o.Akitf ? "Aktif" : "Pasif",
+					İndirimliFiyat = o.IndirimliFiyat,
+					Görünürlük = o.Gorunurluk ? "Görünür" : "Görünmez",
+					İndirimTarihi = o.IndirimTarihi,
+					Yüzde = o.IndirimYuzdesi,
+					Kategori = db.Kategoriler.FirstOrDefault(x => x.Id == o.KategoriId).Ad,
+				}).ToList();
+				gridMenu.DataSource = Menuler;
+				gridMenu.Columns["Fotoğraf"].Visible = false;
+				gridMenu.Columns["Id"].Visible = true;
+			}
+		}
+
 		public static string KareKodOlustur(string masakodu)
 		{
 			// QR kodunu oluştur
