@@ -17,6 +17,6 @@ namespace Restoran_Otomasyon.Data
 
 		public Siparis Siparis { get; set; }
 
-		public Urun Urun { get; set; } 
+		public virtual Urun Urun { get; set; } 
 	}
 }

@@ -209,6 +209,12 @@
     <Compile Include="Data\MenuUrun.cs" />
     <Compile Include="Data\Musteri.cs" />
     <Compile Include="Data\Mutfak.cs" />
+    <Compile Include="Paneller\MutfakPaneli.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paneller\MutfakPaneli.Designer.cs">
+      <DependentUpon>MutfakPaneli.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\Odeme.cs" />
     <Compile Include="Data\Ozellik.cs" />
     <Compile Include="Data\Personel.cs" />
@@ -312,6 +318,12 @@
     </Compile>
     <Compile Include="MenuListe.Designer.cs">
       <DependentUpon>MenuListe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MusteriListesi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MusteriListesi.Designer.cs">
+      <DependentUpon>MusteriListesi.cs</DependentUpon>
     </Compile>
     <Compile Include="UrunList.cs">
       <SubType>Form</SubType>
@@ -451,6 +463,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuListe.resx">
       <DependentUpon>MenuListe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MusteriListesi.resx">
+      <DependentUpon>MusteriListesi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Paneller\MutfakPaneli.resx">
+      <DependentUpon>MutfakPaneli.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UrunList.resx">
       <DependentUpon>UrunList.cs</DependentUpon>

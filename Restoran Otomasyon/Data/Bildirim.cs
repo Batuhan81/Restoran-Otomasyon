@@ -21,7 +21,6 @@ namespace Restoran_Otomasyon.Data
 
 		public int MutfakId { get; set; }
 
-
 		public Kasa Kasa { get; set; }
 
 		public Musteri Musteri { get; set; }

@@ -142,23 +142,23 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				comboKat.SelectedIndex = 0; // Eğer eleman varsa, ilk elemanı seç
 			}
-			// ContextMenuStrip'i oluşturun
 			var kullanici = db.Kullanicilar.Find(kullaniciId);
 			if (kullanici != null && kullanici.Ad != "Admin")
 			{
-				// Eğer kullanıcı admin değilse, ilgili butonları ve kontrolleri gizle
+				// Eğer kullanıcı admin değilse, ilgili butonları ve kontrolleri gizle ve bazı şeylerin konumlarını değiştir
 				btnKatEkle.Visible = false;
 				btnKatSil.Visible = false;
 				MasaEkle.Visible = false;
 				MasaPanel.Location = new Point(20, 30); // MasaPanel'i biraz aşağı kaydır
 
-				// Label2 ve ComboKat'i MasaPanel'in içine değil, formun üstüne taşıyın
+				// Label2 ve ComboKat'ı formun üstüne taşınması
 				label2.Location = new Point(680, 8);
-				this.Controls.Add(label2); // Forma label2 kontrolünü ekleyin
+				this.Controls.Add(label2); 
 				comboKat.Location = new Point(720, 8);
-				this.Controls.Add(comboKat); // Forma comboKat kontrolünü ekleyin
+				this.Controls.Add(comboKat);
 				MasaPanel.Size = new Size(1500, 781);
 			}
+			// ContextMenuStrip'i oluşturun
 			// "Masa Güncelle" öğesini ekle
 			ToolStripMenuItem menuItemMasaGuncelle = new ToolStripMenuItem("Masa Güncelle");
 			menuItemMasaGuncelle.Click += MenuItemMasaGuncelle_Click; // Doğru işleyiciyi ekleyin

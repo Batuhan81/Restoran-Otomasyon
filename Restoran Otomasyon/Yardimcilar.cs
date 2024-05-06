@@ -130,7 +130,7 @@ namespace Restoran_Otomasyon
 			// Text kutusuna durum metnini ata
 			txtDurum.Text = durumMetni;
 			txtKapasite.Text = x.Kapasite.ToString();
-			if (masasiparis != null)
+			if (masasiparis != null && x.Durum==2)//Masa doluysa bilgilerini getir değilse 0 olması gerekir.
 			{
 				txtTutar.Text = Yardimcilar.FormatliDeger(masasiparis.Tutar.ToString());
 				txtOdenen.Text = Yardimcilar.FormatliDeger(masasiparis.OdenenTutar.ToString());

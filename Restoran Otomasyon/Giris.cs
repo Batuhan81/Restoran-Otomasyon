@@ -50,7 +50,8 @@ namespace Restoran_Otomasyon
 				}
 				else if (kullanici.Ad == "Mutfak")
 				{
-					//mutfak Paneli
+					MutfakPaneli git = new MutfakPaneli(ıd);
+					git.Show();
 					this.Close();
 				}
 				else

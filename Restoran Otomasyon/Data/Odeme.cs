@@ -10,7 +10,7 @@ namespace Restoran_Otomasyon.Data
 	{
 		public int Id { get; set; }
 
-		public int Tur { get; set; }
+		public int Tur { get; set; }//1 Nakit/ 2 Kart
 
 		public decimal Tutar { get; set; }
 

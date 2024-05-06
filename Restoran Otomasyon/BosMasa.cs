@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
@@ -104,8 +107,6 @@ namespace Restoran_Otomasyon
 			}
 		}
 
-
-
 		private void MasaBilgileri()
 		{
 			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
@@ -197,12 +198,47 @@ namespace Restoran_Otomasyon
 				labelDetay.Font = new Font("Arial", 12, FontStyle.Bold); // Yazı tipi ve boyutunu ayarla
 				labelDetay.Location = new System.Drawing.Point((groupBoxWidth - labelDetay.Width) / 2, pictureBoxHeight + 3 * spacing); // Label'in konumu
 
-				// Label oluştur ve ürün fiyatını ekle
+				// Urun nesnesi oluşturulduğunu varsayalım
+
 				Label labelFiyat = new Label();
-				labelFiyat.Text = "Fiyat: " + Menu.Fiyat.ToString("C2"); // Para birimi formatıyla fiyatı ekle
 				labelFiyat.AutoSize = true;
 				labelFiyat.Font = new Font("Arial", 12); // Yazı tipi ve boyutunu ayarla
 				labelFiyat.Location = new System.Drawing.Point((groupBoxWidth - labelFiyat.Width) / 2, labelDetay.Location.Y + labelDetay.Height + spacing); // Label'in konumu
+
+				// İndirimli fiyat varsa
+				if (Menu.IndirimliFiyat < Menu.Fiyat && Menu.IndirimliFiyat != 0)
+				{
+					// Fiyat metnini oluştur
+					string fiyatMetni = "Fiyat: " + Menu.Fiyat.ToString("C2"); // Normal fiyatı içeren metin
+
+					// Eğer indirimli fiyat varsa, metne ekleyelim
+					if (Menu.IndirimliFiyat < Menu.Fiyat)
+					{
+						fiyatMetni += " " + Menu.IndirimliFiyat.ToString("C2", CultureInfo.GetCultureInfo("tr-TR")); // Indirimli fiyatı metne ekleyelim
+					}
+
+					// Label'ın metnini fiyatMetni olarak ayarla
+					labelFiyat.Text = fiyatMetni;
+
+					// Sadece normal fiyatın üstünü çiz
+					int index = fiyatMetni.IndexOf(Menu.IndirimliFiyat.ToString("C2")); // Normal fiyatın başlangıç index'ini bul
+					int length = Menu.Fiyat.ToString("C2").Length - 1; // Normal fiyatın uzunluğunu bul
+
+					// Label'ın Paint event'inde sadece normal fiyatın üstünü çiz
+					labelFiyat.Paint += (sender, e) =>
+					{
+						using (var pen = new Pen(Color.Black, 2))
+						{
+							var yCoordinate = labelFiyat.Height / 2; // Etiketin yüksekliğinin yarısı
+							e.Graphics.DrawLine(pen, labelFiyat.Left - 60, yCoordinate, labelFiyat.Left + length, yCoordinate); // Üstü çizili bir şekilde normal fiyatı çiz
+						}
+					};
+				}
+				// İndirim yoksa sadece normal fiyatı göster
+				else
+				{
+					labelFiyat.Text = "Fiyat: " + Menu.Fiyat.ToString("C2");
+				}
 
 				// TextBox oluştur ve miktar girişi yapılacak
 				TextBox textBoxMiktar = new TextBox();
@@ -361,12 +397,47 @@ namespace Restoran_Otomasyon
 				labelDetay.Font = new Font("Arial", 12, FontStyle.Bold); // Yazı tipi ve boyutunu ayarla
 				labelDetay.Location = new System.Drawing.Point((groupBoxWidth - labelDetay.Width) / 2, pictureBoxHeight + 3 * spacing); // Label'in konumu
 
-				// Label oluştur ve ürün fiyatını ekle
+				// Urun nesnesi oluşturulduğunu varsayalım
+
 				Label labelFiyat = new Label();
-				labelFiyat.Text = "Fiyat: " + urun.Fiyat.ToString("C2"); // Para birimi formatıyla fiyatı ekle
 				labelFiyat.AutoSize = true;
 				labelFiyat.Font = new Font("Arial", 12); // Yazı tipi ve boyutunu ayarla
 				labelFiyat.Location = new System.Drawing.Point((groupBoxWidth - labelFiyat.Width) / 2, labelDetay.Location.Y + labelDetay.Height + spacing); // Label'in konumu
+
+				// İndirimli fiyat varsa
+				if (urun.IndirimliFiyat < urun.Fiyat && urun.IndirimliFiyat!=0)
+				{
+					// Fiyat metnini oluştur
+					string fiyatMetni = "Fiyat: " + urun.Fiyat.ToString("C2"); // Normal fiyatı içeren metin
+
+					// Eğer indirimli fiyat varsa, metne ekleyelim
+					if (urun.IndirimliFiyat < urun.Fiyat)
+					{
+						fiyatMetni += " " + urun.IndirimliFiyat.ToString("C2", CultureInfo.GetCultureInfo("tr-TR")); // Indirimli fiyatı metne ekleyelim
+					}
+
+					// Label'ın metnini fiyatMetni olarak ayarla
+					labelFiyat.Text = fiyatMetni;
+
+					// Sadece normal fiyatın üstünü çiz
+					int index = fiyatMetni.IndexOf(urun.IndirimliFiyat.ToString("C2")); // Normal fiyatın başlangıç index'ini bul
+					int length = urun.Fiyat.ToString("C2").Length-1; // Normal fiyatın uzunluğunu bul
+
+					// Label'ın Paint event'inde sadece normal fiyatın üstünü çiz
+					labelFiyat.Paint += (sender, e) =>
+					{
+						using (var pen = new Pen(Color.Black, 2))
+						{
+							var yCoordinate = labelFiyat.Height / 2; // Etiketin yüksekliğinin yarısı
+							e.Graphics.DrawLine(pen, labelFiyat.Left -60, yCoordinate, labelFiyat.Left + length , yCoordinate); // Üstü çizili bir şekilde normal fiyatı çiz
+						}
+					};
+				}
+				// İndirim yoksa sadece normal fiyatı göster
+				else
+				{
+					labelFiyat.Text = "Fiyat: " + urun.Fiyat.ToString("C2");
+				}
 
 				// TextBox oluştur ve miktar girişi yapılacak
 				TextBox textBoxMiktar = new TextBox();
@@ -427,7 +498,14 @@ namespace Restoran_Otomasyon
 						newRow.CreateCells(gridSiparisler);
 						newRow.Cells[0].Value = urun.Ad; // Ürün adı
 						newRow.Cells[1].Value = miktar; // Miktar
-						newRow.Cells[2].Value = urun.Fiyat.ToString("C2"); // Fiyat
+						if(urun.IndirimliFiyat != 0)
+						{
+							newRow.Cells[2].Value = urun.IndirimliFiyat.ToString("C2"); // Fiyat
+						}
+						else
+						{
+							newRow.Cells[2].Value = urun.Fiyat.ToString("C2"); // Fiyat
+						}
 						newRow.Cells[3].Value = urun.Id.ToString(); // Fiyat
 						gridSiparisler.Rows.Add(newRow);
 						// Toplam tutarı hesapla ve txttutar.Text'e yaz
@@ -492,15 +570,12 @@ namespace Restoran_Otomasyon
 			Siparis siparis = new Siparis();
 			MasaSiparis masasip = new MasaSiparis();
 			Masa masa = new Masa();
-
-			var x = db.Masalar.Find(masaId);//Bukısımda sorunvar
-			// Masanın durumunu kontrol edin
+			Durum Durum=new Durum();
+			//Bu kısımda bir masaya tıklanıldığında eğer masa durumu rezerve ise durumunu gerçekleştiye çeviriyor yani rezerve eden kişinin geldiğini anlamına geliyor.
+			var x = db.Masalar.Find(masaId);
 			if (x.Durum == 4)
 			{
-				// Masanın rezervasyonunu bulun
 				var rezervasyon = db.MasaRezervasyonlar.Where(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today).ToList();
-
-				// Rezervasyon bulunduysa
 				if (rezervasyon != null)
 				{
                     foreach (var item in rezervasyon)
@@ -526,7 +601,7 @@ namespace Restoran_Otomasyon
 					}
 				}
 			}
-			x.Durum = 2;
+			x.Durum = 2;//Masa durumu dolu yapıldı.
 			db.SaveChanges();
 			siparis.Tarih = DateTime.Now;
 			siparis.OdemeDurum = false;
@@ -534,14 +609,12 @@ namespace Restoran_Otomasyon
 			siparis.YorumId = null;
 			siparis.Gorunurluk = true;
 			siparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
-
 			masasip.MasaId = masaId;
 			masasip.SiparisId = siparis.Id;
 			masasip.MusteriId = null;
 			masasip.Gorunurluk = true;
 			masasip.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
 			masasip.OdenenTutar = 0;
-
 			db.MasaSiparisler.Add(masasip);
 			db.Siparisler.Add(siparis);
 
@@ -573,10 +646,15 @@ namespace Restoran_Otomasyon
 					}
 				}
 			}
-
-
 			db.SaveChanges();
 			MessageBox.Show("Siparişiniz Onaylanmıştır.");
+			//Sipariş Durumunun Ayarlandığı Kısım
+			Durum.Ad = 2;//Sipariş Onaylandı
+			Durum.Zaman = DateTime.Now;//Onaylanma Zamanı
+			Durum.Yer=1;//Bu işlem nerede yapıldı Müşteri Tarafında sipariş alındığında
+			Durum.SiparisId = siparis.Id;
+			db.Durumlar.Add(Durum);
+			db.SaveChanges();
 			MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
 			if (calisanForm != null)
 			{

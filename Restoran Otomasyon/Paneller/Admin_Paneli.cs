@@ -45,19 +45,19 @@ namespace Restoran_Otomasyon.Paneller
 			git.Show();
 		}
 
-		private void kategoriEkleSilGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void KategoriESG(object sender, EventArgs e)
 		{
 			KategoriESG git = new KategoriESG();
 			git.Show();
 		}
 
-		private void masaOluşturToolStripMenuItem_Click(object sender, EventArgs e)
+		private void MasaESG(object sender, EventArgs e)
 		{
 			MasaESG git = new MasaESG(KullaniciId);
 			git.Show();
 		}
 
-		private void masaÖzellikToolStripMenuItem_Click(object sender, EventArgs e)
+		private void MasaOzellik(object sender, EventArgs e)
 		{
 			OzellikESG git = new OzellikESG();
 			git.Show();
@@ -69,7 +69,7 @@ namespace Restoran_Otomasyon.Paneller
 			git.Show();
 		}
 
-		private void stokSayımToolStripMenuItem1_Click(object sender, EventArgs e)
+		private void StokSayim(object sender, EventArgs e)
 		{
 			StokSayim git = new StokSayim();
 			git.Show();
@@ -81,13 +81,13 @@ namespace Restoran_Otomasyon.Paneller
 			git.Show();
 		}
 
-		private void menüOluşturToolStripMenuItem_Click(object sender, EventArgs e)
+		private void MenuESG(object sender, EventArgs e)
 		{
 			MenuESG git = new MenuESG();
 			git.Show();
 		}
 
-		private void stokÇıktıToolStripMenuItem_Click(object sender, EventArgs e)
+		private void StokCikti(object sender, EventArgs e)
 		{
 			StokCiktiSayfasi git = new StokCiktiSayfasi();
 			git.Show();
@@ -135,7 +135,7 @@ namespace Restoran_Otomasyon.Paneller
 			Grafikler.DolulukGrafik(DolulukOranlari, db);
 		}
 
-		private void girişSayfasıToolStripMenuItem_Click(object sender, EventArgs e)
+		private void GirisSayfasi(object sender, EventArgs e)
 		{
 			Giris girisSayfasi = new Giris();
 			girisSayfasi.Show();
@@ -147,9 +147,38 @@ namespace Restoran_Otomasyon.Paneller
 			Application.Exit();
 		}
 
-		private void bilgilerimiGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void BilgilerimiGuncelle(object sender, EventArgs e)
 		{
 			BilgileriGuncelle git = new BilgileriGuncelle(KullaniciId) ;
+			git.Show();
+		}
+
+		private void Musteriİslemleri(object sender, EventArgs e)
+		{
+			
+		}
+
+		private void MusteriList(object sender, EventArgs e)
+		{
+			MusteriListesi git = new MusteriListesi(1);
+			git.Show();
+		}
+
+		private void KayitsizMusteriList(object sender, EventArgs e)
+		{
+			MusteriListesi git = new MusteriListesi(2);
+			git.Show();
+		}
+
+		private void KasaGuncelle(object sender, EventArgs e)
+		{
+			BilgileriGuncelle git=new BilgileriGuncelle(2);//2 nolu kullanıcı Kasa oluyor
+			git.Show();
+		}
+
+		private void MutfakBilgiGuncelle(object sender, EventArgs e)
+		{
+			BilgileriGuncelle git = new BilgileriGuncelle(3);//3 nolu kullanıcı Mutfak oluyor
 			git.Show();
 		}
 	}

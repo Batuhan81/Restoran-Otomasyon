@@ -15,5 +15,9 @@ namespace Restoran_Otomasyon.Data
 		public string Telefon { get; set; }
 
 		public int RezarvasyonId {  get; set; }
+
+		public bool Gorunurluk {  get; set; }
+
+		public DateTime KayitTarihi { get; set; }
 	}
 }

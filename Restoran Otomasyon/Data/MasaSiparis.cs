@@ -19,7 +19,7 @@ namespace Restoran_Otomasyon.Data
 
 		public decimal OdenenTutar { get; set; }
 
-		public Masa Masa { get; set; }
+		public virtual Masa Masa { get; set; }
 
 		public Siparis Siparis { get; set; } 
 	}

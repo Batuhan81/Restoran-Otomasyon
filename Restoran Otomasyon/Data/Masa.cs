@@ -9,7 +9,7 @@ namespace Restoran_Otomasyon.Data
 
 		public string Kod { get; set; }
 
-		public int Durum { get; set; }
+		public int Durum { get; set; }// 1 Boş/2 Dolu/3 Kirli/4 Rezerve/5 Kapalı
 
 		public int Kapasite { get; set; }
 
