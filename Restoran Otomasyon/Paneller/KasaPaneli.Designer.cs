@@ -70,6 +70,7 @@
 			this.GunlereGore = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.OdemeYuzde = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.MasaYogunluk = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.bilgilerimiGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DolulukOranlari)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisMenu)).BeginInit();
@@ -92,6 +93,8 @@
 			// 
 			// Karsilama
 			// 
+			this.Karsilama.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bilgilerimiGüncelleToolStripMenuItem});
 			this.Karsilama.Name = "Karsilama";
 			this.Karsilama.Size = new System.Drawing.Size(102, 27);
 			this.Karsilama.Text = " Merhaba,";
@@ -340,6 +343,13 @@
 			this.MasaYogunluk.TabIndex = 8;
 			this.MasaYogunluk.Text = "chart1";
 			// 
+			// bilgilerimiGüncelleToolStripMenuItem
+			// 
+			this.bilgilerimiGüncelleToolStripMenuItem.Name = "bilgilerimiGüncelleToolStripMenuItem";
+			this.bilgilerimiGüncelleToolStripMenuItem.Size = new System.Drawing.Size(247, 28);
+			this.bilgilerimiGüncelleToolStripMenuItem.Text = "Bilgilerimi Güncelle";
+			this.bilgilerimiGüncelleToolStripMenuItem.Click += new System.EventHandler(this.bilgilerimiGüncelleToolStripMenuItem_Click);
+			// 
 			// KasaPaneli
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -398,5 +408,6 @@
 		private System.Windows.Forms.DataVisualization.Charting.Chart GunlereGore;
 		private System.Windows.Forms.DataVisualization.Charting.Chart OdemeYuzde;
 		private System.Windows.Forms.DataVisualization.Charting.Chart MasaYogunluk;
+		private System.Windows.Forms.ToolStripMenuItem bilgilerimiGüncelleToolStripMenuItem;
 	}
 }

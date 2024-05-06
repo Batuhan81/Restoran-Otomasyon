@@ -100,5 +100,11 @@ namespace Restoran_Otomasyon.Paneller
 			BakiyeHesapla();
 			Invalidate(); 
 		}
+
+		private void bilgilerimiGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			BilgileriGuncelle git = new BilgileriGuncelle(KullaniciId);
+			git.Show();
+		}
 	}
 }

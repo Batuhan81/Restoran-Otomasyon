@@ -73,12 +73,13 @@
 			this.Bakiyee = new System.Windows.Forms.ToolStripMenuItem();
 			this.girişSayfasıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.programıKapatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+			this.ındex = new System.Windows.Forms.ToolStripMenuItem();
 			this.OdemeYuzde = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.GunlereGore = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.EnCokSiparisUrun = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.EnCokSiparisMenu = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.DolulukOranlari = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.bilgilerimiGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.MasaYogunluk)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.OdemeYuzde)).BeginInit();
@@ -273,7 +274,7 @@
             this.Bakiyee,
             this.girişSayfasıToolStripMenuItem,
             this.programıKapatToolStripMenuItem,
-            this.toolStripMenuItem3});
+            this.ındex});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(1924, 31);
@@ -294,6 +295,8 @@
 			// 
 			// Karsilama
 			// 
+			this.Karsilama.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bilgilerimiGüncelleToolStripMenuItem});
 			this.Karsilama.Name = "Karsilama";
 			this.Karsilama.Size = new System.Drawing.Size(102, 27);
 			this.Karsilama.Text = " Merhaba,";
@@ -320,10 +323,10 @@
 			this.programıKapatToolStripMenuItem.Text = "Programı Kapat";
 			this.programıKapatToolStripMenuItem.Click += new System.EventHandler(this.programıKapatToolStripMenuItem_Click);
 			// 
-			// toolStripMenuItem3
+			// ındex
 			// 
-			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(14, 27);
+			this.ındex.Name = "ındex";
+			this.ındex.Size = new System.Drawing.Size(14, 27);
 			// 
 			// OdemeYuzde
 			// 
@@ -422,6 +425,13 @@
 			this.DolulukOranlari.TabIndex = 6;
 			this.DolulukOranlari.Text = "chart1";
 			// 
+			// bilgilerimiGüncelleToolStripMenuItem
+			// 
+			this.bilgilerimiGüncelleToolStripMenuItem.Name = "bilgilerimiGüncelleToolStripMenuItem";
+			this.bilgilerimiGüncelleToolStripMenuItem.Size = new System.Drawing.Size(247, 28);
+			this.bilgilerimiGüncelleToolStripMenuItem.Text = "Bilgilerimi Güncelle";
+			this.bilgilerimiGüncelleToolStripMenuItem.Click += new System.EventHandler(this.bilgilerimiGüncelleToolStripMenuItem_Click);
+			// 
 			// Admin_Paneli
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -483,12 +493,13 @@
 		private System.Windows.Forms.ToolStripMenuItem programıKapatToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem Bakiyee;
 		private System.Windows.Forms.ToolStripMenuItem bosluklar;
-		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+		private System.Windows.Forms.ToolStripMenuItem ındex;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 		private System.Windows.Forms.DataVisualization.Charting.Chart OdemeYuzde;
 		private System.Windows.Forms.DataVisualization.Charting.Chart GunlereGore;
 		private System.Windows.Forms.DataVisualization.Charting.Chart EnCokSiparisUrun;
 		private System.Windows.Forms.DataVisualization.Charting.Chart EnCokSiparisMenu;
 		private System.Windows.Forms.DataVisualization.Charting.Chart DolulukOranlari;
+		private System.Windows.Forms.ToolStripMenuItem bilgilerimiGüncelleToolStripMenuItem;
 	}
 }

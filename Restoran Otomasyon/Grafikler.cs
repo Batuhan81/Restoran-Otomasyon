@@ -13,7 +13,6 @@ namespace Restoran_Otomasyon
 	{
 		public static void DolulukGrafik(Chart chart, Context db)
 		{
-			
 			var masaDurumlari = db.Masalar.Select(m => m.Durum).ToList();
 
 			// Durum sayaçları
@@ -72,6 +71,7 @@ namespace Restoran_Otomasyon
 			chart.Titles.Clear();
 			chart.Series.Add("Doluluk Oranları");
 			chart.Series["Doluluk Oranları"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+
 			foreach (var kvp in veriNoktalari)
 			{
 				chart.Series["Doluluk Oranları"].Points.AddXY(kvp.Key, kvp.Value);
@@ -86,6 +86,7 @@ namespace Restoran_Otomasyon
 			// Chart kontrolünün güncellenmesi
 			chart.Update();
 		}
+
 
 		public static void EnCokSiparisMenu(Chart EnCokSiparisMenu, Context db)
 		{

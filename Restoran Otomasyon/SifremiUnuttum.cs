@@ -27,12 +27,24 @@ namespace Restoran_Otomasyon
 			if (comboBox1.SelectedIndex != -1)//Bir talep seçildiyse maili gönder
 			{
 				email = txtmail.Text;
-				SifreGonder(email);
-				if (eslesenKayit != 0)
+				string adminEposta = db.Kullanicilar.Find(1).Mail;
+				if (adminEposta == email)
 				{
-					timer1.Start();
-					MessageBox.Show("Yeni Şifreniz Mail Yolu İle İletilmiştir Lütfen Kontrol Edininiz...");
-					this.Close();
+					if (eslesenKayit != 0)
+					{
+						SifreGonder(email);
+						timer1.Start();
+						MessageBox.Show("Yeni Şifreniz Mail Yolu İle İletilmiştir Lütfen Kontrol Edininiz...");
+						this.Close();
+					}
+					else
+					{
+						MessageBox.Show("Girdiğiniz Mail Bulunamadı", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					}
+				}
+				else
+				{
+					MessageBox.Show("Şifre Sıfırlama Mailleri Yalnızca Yöneticilere Gönderilebilir Lütfen Yöneticinizle İletişime Geçiniz!","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Warning);
 				}
 			}
 			else

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -14,15 +15,15 @@ namespace Restoran_Otomasyon.Paneller
 		public Admin_Paneli(int KullaniciID)
 		{
 			InitializeComponent();
-			AdminId = KullaniciID;
+			KullaniciId = KullaniciID;
 		}
-		int AdminId;
+		int KullaniciId;
 		string kullaniciAdi;
 		string bakiye;
 		Context db = new Context();
 		private void CalisanCRUD_Click(object sender, EventArgs e)
 		{
-			CalisanESG git = new CalisanESG(AdminId);
+			CalisanESG git = new CalisanESG(KullaniciId);
 			git.Show();
 		}
 
@@ -52,7 +53,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void masaOluşturToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MasaESG git = new MasaESG(AdminId);
+			MasaESG git = new MasaESG(KullaniciId);
 			git.Show();
 		}
 
@@ -102,7 +103,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			db.Dispose();
 			db = new Context();
-			var x = db.Kullanicilar.FirstOrDefault(o => o.Id == AdminId);
+			var x = db.Kullanicilar.FirstOrDefault(o => o.Id == KullaniciId);
 			if (x != null)
 			{
 				kullaniciAdi = x.Ad;
@@ -110,6 +111,10 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			grafikleriGuncelle();
 			bakiyeHesapla();
+			if (Bakiyee.Text.Length > 6)
+			{
+				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 5);
+			}
 		}
 
 		private void bakiyeHesapla()
@@ -140,6 +145,12 @@ namespace Restoran_Otomasyon.Paneller
 		private void programıKapatToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
+		}
+
+		private void bilgilerimiGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			BilgileriGuncelle git = new BilgileriGuncelle(KullaniciId) ;
+			git.Show();
 		}
 	}
 }

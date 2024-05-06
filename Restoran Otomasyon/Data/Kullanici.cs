@@ -11,9 +11,13 @@ namespace Restoran_Otomasyon.Data
 	{
 		[Key] 
 		public int Id { get; set; }
+
         public string Mail { get; set; }
+
         public string Ad { get; set; }
+
         public string Sifre { get; set; }
+
 		public bool Gorunurluk { get; set; }
 	}
 }
