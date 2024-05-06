@@ -9,8 +9,7 @@ namespace Restoran_Otomasyon.Data
 
 		public DateTime Tarih { get; set; }
 
-		//bu adres ıd olacak 
-		public string Adres { get; set; }
+		public int AdresId { get; set; }
 
 		public decimal Tutar { get; set; }
 

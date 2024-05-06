@@ -7,7 +7,7 @@ namespace Restoran_Otomasyon.Data
 	{
 		public int Id { get; set; }
 
-		//public int MusteriId { get; set; }
+		public int MusteriId { get; set; }
 
 		public DateTime Tarih { get; set; }
 
@@ -19,7 +19,6 @@ namespace Restoran_Otomasyon.Data
 
 		public string Talep { get; set; }
 
-		//Bunu int olarak ayarla
 		public int Onay { get; set; }
 
 		public bool Gorunurluk { get; set; }

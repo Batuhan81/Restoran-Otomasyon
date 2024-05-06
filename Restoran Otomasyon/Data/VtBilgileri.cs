@@ -10,9 +10,13 @@ namespace Restoran_Otomasyon.Data
 	public class VtBilgileri
 	{
 		public string ServerAdi { get; set; }
+
 		public string DatabaseAdi { get; set; }
+
 		public string UserBilgisi { get; set; }
+
 		public string VtSifre { get; set; }
+
 		public int Port { get; set; }
 
 		public string yeniBağlantıDizesi;

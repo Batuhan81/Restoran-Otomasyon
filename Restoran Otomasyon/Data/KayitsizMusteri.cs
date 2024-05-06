@@ -12,7 +12,7 @@ namespace Restoran_Otomasyon.Data
 
 		public string Ad { get; set; }
 
-		public string Tel { get; set; }
+		public string Telefon { get; set; }
 
 		public int RezarvasyonId {  get; set; }
 	}

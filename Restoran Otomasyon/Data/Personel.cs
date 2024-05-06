@@ -24,6 +24,7 @@ namespace Restoran_Otomasyon.Data
 		public bool Cinsiyet { get; set; }
 
         public string Adres { get; set; }
+
         public int RolId { get; set; }
 
 		public string fotograf {  get; set; }
