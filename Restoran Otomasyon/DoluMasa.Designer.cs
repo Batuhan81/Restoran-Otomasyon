@@ -67,9 +67,15 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtmasaadi = new System.Windows.Forms.TextBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.txtsiparisDurum = new System.Windows.Forms.TextBox();
+			this.label14 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.checkFis = new System.Windows.Forms.CheckBox();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.UrunPaneli.SuspendLayout();
 			this.OdemePaneli.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -80,6 +86,7 @@
 			// 
 			this.txtkategori.Location = new System.Drawing.Point(135, 285);
 			this.txtkategori.Name = "txtkategori";
+			this.txtkategori.ReadOnly = true;
 			this.txtkategori.Size = new System.Drawing.Size(142, 24);
 			this.txtkategori.TabIndex = 13;
 			// 
@@ -97,6 +104,7 @@
 			// 
 			this.txtpersonel.Location = new System.Drawing.Point(135, 241);
 			this.txtpersonel.Name = "txtpersonel";
+			this.txtpersonel.ReadOnly = true;
 			this.txtpersonel.Size = new System.Drawing.Size(142, 24);
 			this.txtpersonel.TabIndex = 11;
 			// 
@@ -114,6 +122,7 @@
 			// 
 			this.txtodenen.Location = new System.Drawing.Point(135, 197);
 			this.txtodenen.Name = "txtodenen";
+			this.txtodenen.ReadOnly = true;
 			this.txtodenen.Size = new System.Drawing.Size(142, 24);
 			this.txtodenen.TabIndex = 9;
 			// 
@@ -131,6 +140,7 @@
 			// 
 			this.txttutar.Location = new System.Drawing.Point(135, 153);
 			this.txttutar.Name = "txttutar";
+			this.txttutar.ReadOnly = true;
 			this.txttutar.Size = new System.Drawing.Size(142, 24);
 			this.txttutar.TabIndex = 7;
 			// 
@@ -148,6 +158,7 @@
 			// 
 			this.txtkapasite.Location = new System.Drawing.Point(135, 109);
 			this.txtkapasite.Name = "txtkapasite";
+			this.txtkapasite.ReadOnly = true;
 			this.txtkapasite.Size = new System.Drawing.Size(142, 24);
 			this.txtkapasite.TabIndex = 5;
 			// 
@@ -170,6 +181,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.checkFis);
 			this.groupBox2.Controls.Add(this.btn5);
 			this.groupBox2.Controls.Add(this.btn10);
 			this.groupBox2.Controls.Add(this.button2);
@@ -251,6 +263,7 @@
 			this.ımageList2.Images.SetKeyName(0, "Ödeme.png");
 			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
 			this.ımageList2.Images.SetKeyName(2, "Ödeme.png");
+			this.ımageList2.Images.SetKeyName(3, "YemekTeslim.png");
 			// 
 			// btn20
 			// 
@@ -428,6 +441,7 @@
 			// 
 			this.txtDurum.Location = new System.Drawing.Point(135, 65);
 			this.txtDurum.Name = "txtDurum";
+			this.txtDurum.ReadOnly = true;
 			this.txtDurum.Size = new System.Drawing.Size(142, 24);
 			this.txtDurum.TabIndex = 3;
 			// 
@@ -445,11 +459,14 @@
 			// 
 			this.txtmasaadi.Location = new System.Drawing.Point(135, 21);
 			this.txtmasaadi.Name = "txtmasaadi";
+			this.txtmasaadi.ReadOnly = true;
 			this.txtmasaadi.Size = new System.Drawing.Size(142, 24);
 			this.txtmasaadi.TabIndex = 1;
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.txtsiparisDurum);
+			this.groupBox1.Controls.Add(this.label14);
 			this.groupBox1.Controls.Add(this.txtkategori);
 			this.groupBox1.Controls.Add(this.label9);
 			this.groupBox1.Controls.Add(this.txtpersonel);
@@ -466,10 +483,28 @@
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Location = new System.Drawing.Point(1233, 47);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(284, 320);
+			this.groupBox1.Size = new System.Drawing.Size(284, 358);
 			this.groupBox1.TabIndex = 49;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Masa Bilgileri";
+			// 
+			// txtsiparisDurum
+			// 
+			this.txtsiparisDurum.Location = new System.Drawing.Point(135, 322);
+			this.txtsiparisDurum.Name = "txtsiparisDurum";
+			this.txtsiparisDurum.ReadOnly = true;
+			this.txtsiparisDurum.Size = new System.Drawing.Size(142, 24);
+			this.txtsiparisDurum.TabIndex = 15;
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label14.Location = new System.Drawing.Point(9, 325);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(120, 18);
+			this.label14.TabIndex = 14;
+			this.label14.Text = "Sipariş Durum:";
 			// 
 			// label1
 			// 
@@ -496,7 +531,7 @@
 			this.button1.BackColor = System.Drawing.Color.SkyBlue;
 			this.button1.ImageKey = "Ödeme.png";
 			this.button1.ImageList = this.ımageList2;
-			this.button1.Location = new System.Drawing.Point(1277, 373);
+			this.button1.Location = new System.Drawing.Point(1283, 525);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(197, 74);
 			this.button1.TabIndex = 56;
@@ -505,12 +540,46 @@
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// button3
+			// 
+			this.button3.BackColor = System.Drawing.Color.SkyBlue;
+			this.button3.ImageKey = "YemekTeslim.png";
+			this.button3.ImageList = this.ımageList2;
+			this.button3.Location = new System.Drawing.Point(1283, 435);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(197, 74);
+			this.button3.TabIndex = 57;
+			this.button3.Text = "Sipariş Teslim Edildi";
+			this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button3.UseVisualStyleBackColor = false;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// timer1
+			// 
+			this.timer1.Interval = 2000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
+			// checkFis
+			// 
+			this.checkFis.AutoSize = true;
+			this.checkFis.Location = new System.Drawing.Point(99, 234);
+			this.checkFis.Name = "checkFis";
+			this.checkFis.Size = new System.Drawing.Size(168, 22);
+			this.checkFis.TabIndex = 58;
+			this.checkFis.Text = "Fiş Kesilecek Mi ?";
+			this.checkFis.UseVisualStyleBackColor = true;
+			// 
+			// printDocument1
+			// 
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+			// 
 			// DoluMasa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1552, 799);
+			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.UrunPaneli);
@@ -519,7 +588,7 @@
 			this.Name = "DoluMasa";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "DoluMasa";
+			this.Text = "Masa Bilgileri";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DoluMasa_FormClosed);
 			this.Load += new System.EventHandler(this.DoluMasa_Load);
@@ -575,5 +644,11 @@
 		private System.Windows.Forms.Button btn10;
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.ImageList ımageList2;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.TextBox txtsiparisDurum;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.CheckBox checkFis;
+		private System.Drawing.Printing.PrintDocument printDocument1;
 	}
 }

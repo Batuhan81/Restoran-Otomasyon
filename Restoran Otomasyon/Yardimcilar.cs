@@ -18,7 +18,7 @@ namespace Restoran_Otomasyon
 		{
 			using (var db = new Context())
 			{
-				var Urunler = db.Urunler.OrderByDescending(o=>o.Id).Select(o => new
+				var Urunler = db.Urunler.OrderByDescending(o => o.Id).Select(o => new
 				{
 					Id = o.Id,
 					Ad = o.Ad,
@@ -43,7 +43,7 @@ namespace Restoran_Otomasyon
 		{
 			using (var db = new Context())
 			{
-				var Menuler = db.Menuler.OrderByDescending(o=>o.Id).Select(o => new
+				var Menuler = db.Menuler.OrderByDescending(o => o.Id).Select(o => new
 				{
 					Id = o.Id,
 					Ad = o.Ad,
@@ -95,13 +95,56 @@ namespace Restoran_Otomasyon
 			return dosyaYolu;
 		}
 
-		public static void MasaBilgileri(int masaId, TextBox txtMasaAdi, TextBox txtDurum, TextBox txtKapasite, TextBox txtTutar, TextBox txtOdenen, TextBox txtPersonel, TextBox txtKategori, Context db)
+		public static bool StoklariKontrolEt(Urun urun, int miktar,Context db)
+		{
+			// Ürünün gerekli malzemelerini bul
+			var gerekliMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == urun.Id).ToList();
+
+			// Her bir malzeme için stok kontrolü yap
+			foreach (var malzeme in gerekliMalzemeler)
+			{
+				// Malzemenin stok bilgisini al
+				var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == malzeme.MalzemeId);
+
+				// Eğer stok bulunamadıysa veya stok miktarı yeterli değilse, işlemi durdur
+				if (stok == null || stok.Miktar < malzeme.Miktar * miktar)
+				{
+					return false;
+				}
+			}
+
+			// Eğer tüm malzemelerin stok miktarı yeterli ise true dön
+			return true;
+		}
+
+		public static void MasaBilgileri(int masaId, TextBox txtMasaAdi, TextBox txtDurum, TextBox txtKapasite, TextBox txtTutar, TextBox txtOdenen, TextBox txtPersonel, TextBox txtKategori, TextBox txtsiparisDurum, Context db)
 		{
 			var x = db.Masalar.Find(masaId);
 
 			var masasiparis = db.MasaSiparisler.Where(s => s.MasaId == masaId)
 									 .OrderByDescending(s => s.Id)
 									 .FirstOrDefault();
+			if (masasiparis != null)
+			{
+				if (masasiparis.SiparisId != 0)
+				{
+					var maxAd = db.Durumlar.Where(o => o.SiparisId == masasiparis.SiparisId).Max(o => o.Ad);
+
+					switch (maxAd)
+					{
+						case 1: txtsiparisDurum.Text = "Sipariş Alındı"; break;
+						case 2: txtsiparisDurum.Text = "Sipariş Onaylandı"; break;
+						case 3: txtsiparisDurum.Text = " Hazırlanıyor"; break;
+						case 4: txtsiparisDurum.Text = " Hazırlandı"; break;
+						case 5: txtsiparisDurum.Text = "Ödeme Bekliyor"; break;
+						case 6: txtsiparisDurum.Text = "Ödendi"; break;
+						case 7: txtsiparisDurum.Text = "İptal Edildi"; break;
+						case 8: txtsiparisDurum.Text = "Yolda"; break;
+						case 9: txtsiparisDurum.Text = "Teslim Edildi"; break;
+					}
+				}
+			}
+		
 			// x.Durum'a göre durumu belirleyin
 			txtMasaAdi.Text = x.Kod;
 			string durumMetni = "";
@@ -130,7 +173,7 @@ namespace Restoran_Otomasyon
 			// Text kutusuna durum metnini ata
 			txtDurum.Text = durumMetni;
 			txtKapasite.Text = x.Kapasite.ToString();
-			if (masasiparis != null && x.Durum==2)//Masa doluysa bilgilerini getir değilse 0 olması gerekir.
+			if (masasiparis != null && x.Durum == 2)//Masa doluysa bilgilerini getir değilse 0 olması gerekir.
 			{
 				txtTutar.Text = Yardimcilar.FormatliDeger(masasiparis.Tutar.ToString());
 				txtOdenen.Text = Yardimcilar.FormatliDeger(masasiparis.OdenenTutar.ToString());
@@ -140,7 +183,7 @@ namespace Restoran_Otomasyon
 				txtTutar.Text = "0 ₺";
 				txtOdenen.Text = "0 ₺";
 			}
-			
+
 			var personel = db.Personeller.FirstOrDefault(o => o.Id == x.Id);
 			string adSoyad = personel != null ? $"{personel.Ad} {personel.Soyad}" : "";
 			txtPersonel.Text = adSoyad;
@@ -294,7 +337,7 @@ namespace Restoran_Otomasyon
 		public static decimal TemizleVeDondur(TextBox textBox, string birim)
 		{
 			string text = textBox.Text.Trim(); // Textbox'tan değeri alırken baştaki ve sondaki boşlukları temizle
-			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't', '₺','%'); // Textbox'tan birim ifadesini temizle
+			text = text.TrimEnd(' ', 'K', 'g', 'L', 'A', 'd', 'e', 't', '₺', '%'); // Textbox'tan birim ifadesini temizle
 			text = text.TrimStart('₺');
 
 			// Temizlenmiş değeri uygun formata dönüştür ve decimal türüne dönüştür

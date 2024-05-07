@@ -57,8 +57,6 @@ namespace Restoran_Otomasyon.Data
 			gridOnaylananlar.DataSource = siparisler;
 		}
 
-
-
 		void HazirlanmaktaOlanSiparisler()
 		{
 			gridHazirlananlar.DataSource = null;
@@ -91,66 +89,79 @@ namespace Restoran_Otomasyon.Data
 		private void button1_Click(object sender, EventArgs e)
 		{
 			// Seçilen satırın ID'sini al
-			int selectedSiparisId = (int)gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value;
-
-			// Yeni bir Durum oluştur
-			var yeniDurum = new Durum()
+			if(gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value.ToString() != null)
 			{
-				Ad = 3, // Hazırlanıyor durumu
-				Zaman = DateTime.Now, // Şu anki zamanı al
-				Yer = 2, // Mutfak yerine 2 değerini atadım
-				SiparisId = selectedSiparisId // Seçilen siparişin ID'sini ata
-			};
+				int selectedSiparisId = (int)gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value;
+				// Yeni bir Durum oluştur
+				var yeniDurum = new Durum()
+				{
+					Ad = 3, // Hazırlanıyor durumu
+					Zaman = DateTime.Now, // Şu anki zamanı al
+					Yer = 2, // Mutfak yerine 2 değerini atadım
+					SiparisId = selectedSiparisId // Seçilen siparişin ID'sini ata
+				};
 
-			// Yeni Durumu veritabanına ekle
-			db.Durumlar.Add(yeniDurum);
-			db.SaveChanges(); // Değişiklikleri kaydet
-
-			// Seçilen siparişin durumunu yeni Durum'un ID'siyle güncelle
-			var siparislerToUpdate = db.Siparisler.Where(s => s.Id == selectedSiparisId).ToList();
-			foreach (var siparis in siparislerToUpdate)
-			{
-				siparis.Durumlars.Add(yeniDurum);
+				// Yeni Durumu veritabanına ekle
+				db.Durumlar.Add(yeniDurum);
+				// Değişiklikleri kaydet
+				db.SaveChanges();
+				// Seçilen siparişin durumunu yeni Durum'un ID'siyle güncelle
+				var siparislerToUpdate = db.Siparisler.Where(s => s.Id == selectedSiparisId).ToList();
+				foreach (var siparis in siparislerToUpdate)
+				{
+					siparis.Durumlars.Add(yeniDurum);
+				}
+				// Değişiklikleri tekrar kaydet
+				db.SaveChanges();
+				// Onaylanan siparişleri yeniden yükle
+				OnaylananSiparisler();
+				HazirlanmaktaOlanSiparisler();
 			}
-
-			db.SaveChanges(); // Değişiklikleri kaydet
-
-			// Onaylanan siparişleri yeniden yükle
-			OnaylananSiparisler();
-			HazirlanmaktaOlanSiparisler();
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-
 			// Seçilen satırın ID'sini al
-			int selectedSiparisId = (int)gridHazirlananlar.CurrentRow.Cells["SiparisId"].Value;
-
-			// Yeni bir Durum oluştur
-			var yeniDurum = new Durum()
+			if (gridHazirlananlar.CurrentRow.Cells["SiparisId"].Value.ToString() != null)
 			{
-				Ad = 4, // Hazırlanıyor durumu
-				Zaman = DateTime.Now, // Şu anki zamanı al
-				Yer = 2, // Mutfak yerine 2 değerini atadım
-				SiparisId = selectedSiparisId // Seçilen siparişin ID'sini ata
-			};
+				int selectedSiparisId = (int)gridHazirlananlar.CurrentRow.Cells["SiparisId"].Value;
 
-			// Yeni Durumu veritabanına ekle
-			db.Durumlar.Add(yeniDurum);
-			db.SaveChanges(); // Değişiklikleri kaydet
+				// Yeni bir Durum oluştur
+				var yeniDurum = new Durum()
+				{
+					Ad = 4, // Hazırlanıyor durumu
+					Zaman = DateTime.Now, // Şu anki zamanı al
+					Yer = 2, // Mutfak yerine 2 değerini atadım
+					SiparisId = selectedSiparisId // Seçilen siparişin ID'sini ata
+				};
 
-			// Seçilen siparişin durumunu yeni Durum'un ID'siyle güncelle
-			var siparislerToUpdate = db.Siparisler.Where(s => s.Id == selectedSiparisId).ToList();
-			foreach (var siparis in siparislerToUpdate)
-			{
-				siparis.Durumlars.Add(yeniDurum);
+				// Yeni Durumu veritabanına ekle
+				db.Durumlar.Add(yeniDurum);
+				db.SaveChanges(); // Değişiklikleri kaydet
+
+				// Seçilen siparişin durumunu yeni Durum'un ID'siyle güncelle
+				var siparislerToUpdate = db.Siparisler.Where(s => s.Id == selectedSiparisId).ToList();
+				foreach (var siparis in siparislerToUpdate)
+				{
+					siparis.Durumlars.Add(yeniDurum);
+				}
+				db.SaveChanges(); // Değişiklikleri kaydet
+								  // Onaylanan siparişleri yeniden yükle
+				OnaylananSiparisler();
+				HazirlanmaktaOlanSiparisler();
 			}
+		}
 
-			db.SaveChanges(); // Değişiklikleri kaydet
+		private void button3_Click(object sender, EventArgs e)
+		{
+			Giris git= new Giris();
+			git.Show();
+			this.Close();
+		}
 
-			// Onaylanan siparişleri yeniden yükle
-			OnaylananSiparisler();
-			HazirlanmaktaOlanSiparisler();
+		private void button4_Click(object sender, EventArgs e)
+		{
+			Application.Exit();
 		}
 	}
 }

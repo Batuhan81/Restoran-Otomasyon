@@ -25,7 +25,7 @@ namespace Restoran_Otomasyon
 		Context db = new Context();
 		private void MasaBilgiGuncelle_Load(object sender, EventArgs e)
 		{
-			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
+			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori,txtsiparisDurum, db);
 			if (txtDurum.Text == "Kapalı")
 			{
 				button3.ImageKey = "Aç.png";
@@ -66,7 +66,7 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
-				Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
+				Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori,txtsiparisDurum, db);
 			}
 		}
 

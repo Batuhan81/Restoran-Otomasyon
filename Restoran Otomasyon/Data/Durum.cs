@@ -16,6 +16,5 @@ namespace Restoran_Otomasyon.Data
 		public int SiparisId { get; set; }
 
 		public Siparis Siparis { get; set; }
-		//Buraya aktiflik ekleyebilirz belki çünkü daha yemek hazır olmadan ödeme alınıp masa boşa düşebiliyor
 	}
 }

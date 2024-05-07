@@ -18,11 +18,11 @@ namespace Restoran_Otomasyon
 {
 	public partial class BosMasa : Form
 	{
-		public BosMasa(int masaID,int kullaniciID)
+		public BosMasa(int masaID, int kullaniciID)
 		{
 			InitializeComponent();
 			masaId = masaID;
-			kullaniciId=kullaniciID;
+			kullaniciId = kullaniciID;
 		}
 
 		int masaId;
@@ -30,8 +30,65 @@ namespace Restoran_Otomasyon
 		Context db = new Context();
 		bool loaddayuklendi = false;
 
+		void StokKontrol()
+		{
+			var tumMalzemeler = db.Malzemeler.ToList();
+
+			foreach (var malzeme in tumMalzemeler)
+			{
+				// Malzemenin stok bilgisini al
+				var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == malzeme.Id);
+
+				if (stok != null)
+				{
+					//Eğer malze miktarları koşullardan daha küçükse o malzemeyi kullanan her şeyin aktifliği kapatıp sipariş verilmesini engelliyorum
+					if ((malzeme.Tur == "Adet" && stok.Miktar <= 5) ||
+						(malzeme.Tur == "Kg" && stok.Miktar <= 500) ||
+						(malzeme.Tur == "L" && stok.Miktar <= 500))
+					{
+						// Malzemeyi kullanan tüm ürünleri bul
+						var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
+
+						foreach (var urun in urunler)
+						{
+							// Ürünün aktifliğini kapat
+							urun.Urun.Akitf = false;
+
+							// Ürünü kullanan menülerin aktifliğini kapat
+							var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
+							foreach (var menu in kullananMenuler)
+							{
+								menu.Akitf = false;
+							}
+						}
+					}
+					else if (stok.Miktar >= stok.MinStok)
+					{
+						// Malzemeyi kullanan tüm ürünleri bul
+						var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
+
+						foreach (var urun in urunler)
+						{
+							// Ürünün aktifliğini aç
+							urun.Urun.Akitf = true;
+
+							// Ürünü kullanan menülerin aktifliğini aç
+							var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
+							foreach (var menu in kullananMenuler)
+							{
+								menu.Akitf = true;
+							}
+						}
+					}
+				}
+			}
+			// Değişiklikleri kaydet
+			db.SaveChanges();
+		}
+
 		private void BosMasa_Load(object sender, EventArgs e)
 		{
+			StokKontrol();
 			MasaBilgileri();
 			UrunKategori();
 			menuKategoriler();
@@ -49,7 +106,7 @@ namespace Restoran_Otomasyon
 			{
 				if (column.HeaderText == "UrunID" || column.HeaderText == "MenuID")
 				{
-					column.Visible = false;
+					column.Visible = true;
 				}
 			}
 			// Formun constructor veya Load metodu içinde ContextMenuStrip'i oluştur
@@ -109,7 +166,7 @@ namespace Restoran_Otomasyon
 
 		private void MasaBilgileri()
 		{
-			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
+			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, txtsiparisDurum, db);
 			if (txtDurum.Text == "Kirli")
 			{
 				DialogResult result = MessageBox.Show("Bu Masada Sipariş Almak İstediğinize Emin Misiniz(Masa Durumu=>Kirli)", "Uyarı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -169,14 +226,14 @@ namespace Restoran_Otomasyon
 
 			// Panel'e bir AutoScroll özelliği ekle
 			UrunPaneli.AutoScroll = true;
-			
+
 			foreach (var Menu in menuler)
 			{
 
 				// Yeni bir GroupBox oluştur
 				GroupBox groupBox = new GroupBox();
 				groupBox.Text = Menu.Ad; // GroupBox başlığına ürün adını ekle
-				groupBox.Font = new Font("Arial", 10, FontStyle.Bold); 
+				groupBox.Font = new Font("Arial", 10, FontStyle.Bold);
 				groupBox.Width = groupBoxWidth;
 				groupBox.Height = groupBoxHeight;
 				groupBox.Location = new System.Drawing.Point(x, y);
@@ -294,23 +351,53 @@ namespace Restoran_Otomasyon
 					int miktar;
 					if (int.TryParse(textBoxMiktar.Text, out miktar) && miktar > 0)
 					{
-						// Ürün adı, miktar ve fiyat bilgilerini DataGridView'e ekle
-						DataGridViewRow newRow = new DataGridViewRow();
-						newRow.CreateCells(gridSiparisler);
-						newRow.Cells[0].Value = Menu.Ad; // Ürün adı
-						newRow.Cells[1].Value = miktar; // Miktar
-						newRow.Cells[2].Value = Menu.Fiyat.ToString("C2");
-						newRow.Cells[3].Value = "";
-						newRow.Cells[4].Value = Menu.Id.ToString();
-						gridSiparisler.Rows.Add(newRow);
-						// Toplam tutarı hesapla ve txttutar.Text'e yaz
-						HesaplaToplamTutar();
+						bool stokDurum = true; // Başlangıçta stok durumu true olarak ayarla
+						var menuUrunleri = db.MenuUrunler.Where(o => o.MenuId == o.MenuId).ToList();
+						// Menünün içindeki her bir ürün için stok kontrolü yap
+						foreach (var menuUrun in menuUrunleri)
+						{
+							// Her bir ürünün stok durumunu kontrol et
+							bool urunStokDurumu = Yardimcilar.StoklariKontrolEt(menuUrun.Urun, miktar, db);
+
+							// Herhangi bir ürünün stok durumu false ise, menü için stok durumu false yap ve döngüden çık
+							if (!urunStokDurumu)
+							{
+								stokDurum = false;
+								break;
+							}
+						}
+
+						if (stokDurum)
+						{
+							// Ürün adı, miktar ve fiyat bilgilerini DataGridView'e ekle
+							DataGridViewRow newRow = new DataGridViewRow();
+							newRow.CreateCells(gridSiparisler);
+							newRow.Cells[0].Value = Menu.Ad; // Menü adı
+							newRow.Cells[1].Value = miktar; // Miktar
+							if (Menu.IndirimliFiyat != 0)
+							{
+								newRow.Cells[2].Value = Menu.IndirimliFiyat.ToString("C2"); // Fiyat
+							}
+							else
+							{
+								newRow.Cells[2].Value = Menu.Fiyat.ToString("C2"); // Fiyat
+							}
+							newRow.Cells[4].Value = Menu.Id.ToString(); // Fiyat
+							gridSiparisler.Rows.Add(newRow);
+							// Toplam tutarı hesapla ve txttutar.Text'e yaz
+							HesaplaToplamTutar();
+						}
+						else
+						{
+							MessageBox.Show("Talep Edilen Menü İçin Yeterli Stok Yok.");
+						}
 					}
 					else
 					{
 						MessageBox.Show("Lütfen geçerli bir miktar girin.");
 					}
 				};
+
 				// GroupBox'a kontrol öğelerini ekle
 				groupBox.Controls.Add(pictureBox);
 				groupBox.Controls.Add(labelDetay);
@@ -374,7 +461,7 @@ namespace Restoran_Otomasyon
 				// Yeni bir GroupBox oluştur
 				GroupBox groupBox = new GroupBox();
 				groupBox.Text = urun.Ad; // GroupBox başlığına ürün adını ekle
-				groupBox.Font = new Font("Arial", 10, FontStyle.Bold); 
+				groupBox.Font = new Font("Arial", 10, FontStyle.Bold);
 				groupBox.Width = groupBoxWidth;
 				groupBox.Height = groupBoxHeight;
 				groupBox.Location = new System.Drawing.Point(x, y);
@@ -405,7 +492,7 @@ namespace Restoran_Otomasyon
 				labelFiyat.Location = new System.Drawing.Point((groupBoxWidth - labelFiyat.Width) / 2, labelDetay.Location.Y + labelDetay.Height + spacing); // Label'in konumu
 
 				// İndirimli fiyat varsa
-				if (urun.IndirimliFiyat < urun.Fiyat && urun.IndirimliFiyat!=0)
+				if (urun.IndirimliFiyat < urun.Fiyat && urun.IndirimliFiyat != 0)
 				{
 					// Fiyat metnini oluştur
 					string fiyatMetni = "Fiyat: " + urun.Fiyat.ToString("C2"); // Normal fiyatı içeren metin
@@ -421,7 +508,7 @@ namespace Restoran_Otomasyon
 
 					// Sadece normal fiyatın üstünü çiz
 					int index = fiyatMetni.IndexOf(urun.IndirimliFiyat.ToString("C2")); // Normal fiyatın başlangıç index'ini bul
-					int length = urun.Fiyat.ToString("C2").Length-1; // Normal fiyatın uzunluğunu bul
+					int length = urun.Fiyat.ToString("C2").Length - 1; // Normal fiyatın uzunluğunu bul
 
 					// Label'ın Paint event'inde sadece normal fiyatın üstünü çiz
 					labelFiyat.Paint += (sender, e) =>
@@ -429,7 +516,7 @@ namespace Restoran_Otomasyon
 						using (var pen = new Pen(Color.Black, 2))
 						{
 							var yCoordinate = labelFiyat.Height / 2; // Etiketin yüksekliğinin yarısı
-							e.Graphics.DrawLine(pen, labelFiyat.Left -60, yCoordinate, labelFiyat.Left + length , yCoordinate); // Üstü çizili bir şekilde normal fiyatı çiz
+							e.Graphics.DrawLine(pen, labelFiyat.Left - 60, yCoordinate, labelFiyat.Left + length, yCoordinate); // Üstü çizili bir şekilde normal fiyatı çiz
 						}
 					};
 				}
@@ -493,23 +580,32 @@ namespace Restoran_Otomasyon
 					int miktar;
 					if (int.TryParse(textBoxMiktar.Text, out miktar) && miktar > 0)
 					{
-						// Ürün adı, miktar ve fiyat bilgilerini DataGridView'e ekle
-						DataGridViewRow newRow = new DataGridViewRow();
-						newRow.CreateCells(gridSiparisler);
-						newRow.Cells[0].Value = urun.Ad; // Ürün adı
-						newRow.Cells[1].Value = miktar; // Miktar
-						if(urun.IndirimliFiyat != 0)
+						bool StokDurum = Yardimcilar.StoklariKontrolEt(urun, miktar, db);
+
+						if (StokDurum == true)
 						{
-							newRow.Cells[2].Value = urun.IndirimliFiyat.ToString("C2"); // Fiyat
+							// Ürün adı, miktar ve fiyat bilgilerini DataGridView'e ekle
+							DataGridViewRow newRow = new DataGridViewRow();
+							newRow.CreateCells(gridSiparisler);
+							newRow.Cells[0].Value = urun.Ad; // Ürün adı
+							newRow.Cells[1].Value = miktar; // Miktar
+							if (urun.IndirimliFiyat != 0)
+							{
+								newRow.Cells[2].Value = urun.IndirimliFiyat.ToString("C2"); // Fiyat
+							}
+							else
+							{
+								newRow.Cells[2].Value = urun.Fiyat.ToString("C2"); // Fiyat
+							}
+							newRow.Cells[3].Value = urun.Id.ToString(); // Fiyat
+							gridSiparisler.Rows.Add(newRow);
+							// Toplam tutarı hesapla ve txttutar.Text'e yaz
+							HesaplaToplamTutar();
 						}
 						else
 						{
-							newRow.Cells[2].Value = urun.Fiyat.ToString("C2"); // Fiyat
+							MessageBox.Show("Talep Edilen Ürün İçin Yeterli Stok Yok.");
 						}
-						newRow.Cells[3].Value = urun.Id.ToString(); // Fiyat
-						gridSiparisler.Rows.Add(newRow);
-						// Toplam tutarı hesapla ve txttutar.Text'e yaz
-						HesaplaToplamTutar();
 					}
 					else
 					{
@@ -570,7 +666,7 @@ namespace Restoran_Otomasyon
 			Siparis siparis = new Siparis();
 			MasaSiparis masasip = new MasaSiparis();
 			Masa masa = new Masa();
-			Durum Durum=new Durum();
+			Durum Durum = new Durum();
 			//Bu kısımda bir masaya tıklanıldığında eğer masa durumu rezerve ise durumunu gerçekleştiye çeviriyor yani rezerve eden kişinin geldiğini anlamına geliyor.
 			var x = db.Masalar.Find(masaId);
 			if (x.Durum == 4)
@@ -578,8 +674,8 @@ namespace Restoran_Otomasyon
 				var rezervasyon = db.MasaRezervasyonlar.Where(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today).ToList();
 				if (rezervasyon != null)
 				{
-                    foreach (var item in rezervasyon)
-                    {
+					foreach (var item in rezervasyon)
+					{
 						// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
 						TimeSpan baslangicZamani = item.Rezervasyon.BaslangicSaat;
 						TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
@@ -648,10 +744,135 @@ namespace Restoran_Otomasyon
 			}
 			db.SaveChanges();
 			MessageBox.Show("Siparişiniz Onaylanmıştır.");
+			// Seçilen siparişin içindeki ürünleri al
+			var siparisUrunler = db.SiparisUrunler.Where(su => su.SiparisId == siparis.Id).ToList();
+			var siparisMenuUrunler = db.SiparisMenus.Where(su => su.SiparisId == siparis.Id).ToList();
+
+			if (siparisUrunler.Count() > 0)
+			{
+				foreach (var siparisUrun in siparisUrunler)
+				{
+					// Ürünün malzemelerini ve miktarlarını al
+					var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == siparisUrun.UrunId).ToList();
+					// Her bir malzeme için işlem yap
+					foreach (var urunMalzeme in urunMalzemeler)
+					{
+						// Malzemenin stok miktarından düşülecek miktarı belirle
+						int dusulecekMiktar = urunMalzeme.Miktar * siparisUrun.Miktar;
+
+						// İlgili malzemenin stokunu bul
+						var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
+
+						// Eğer stok bulunduysa ve düşülecek miktar stok miktarından fazla değilse
+						if (stok != null && stok.Miktar >= dusulecekMiktar)
+						{
+							// Malzemeden stoktan düşüm yap
+							stok.Miktar -= dusulecekMiktar;
+
+							string malzemeAd = db.Malzemeler.FirstOrDefault(s => s.Id == stok.MalzemeId).Ad;
+
+							// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
+							if (stok.Miktar < stok.MinStok)
+							{
+								//Bunu daha sonra Admine bildirim olarak atıcaz
+								MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
+							}
+							else if (stok.Miktar == 0)
+							{
+								MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
+							}
+							// Stok çıkışı kaydını oluştur
+							var stokCikti = new StokCikti
+							{
+								Neden = "Sipariş Hazırlama",
+								Miktar = dusulecekMiktar,
+								SonStok = stok.Miktar,
+								Gorunuluk = true, // Gösterim durumunu belirle
+								TedarikciId = stok.TedarikciId,
+								MalzemeId = stok.MalzemeId,
+								Tarih = DateTime.Now // Şu anki zamanı ata
+							};
+							// Stok çıkışını veritabanına ekle
+							db.stokCiktilar.Add(stokCikti);
+						}
+						else
+						{
+							// Ürünün aktifliğini kapat
+							urunMalzeme.Urun.Akitf = false;
+							MessageBox.Show("Stok yetersiz.");
+							return;
+						}
+					}
+				}
+			}
+			else if (siparisMenuUrunler.Count > 0)
+			{
+				foreach (var siparisMenuUrun in siparisMenuUrunler)
+				{
+					// Sipariş menüsündeki her bir ürün için işlem yap
+					var menuUrunler = db.MenuUrunler.Where(mu => mu.MenuId == siparisMenuUrun.MenuId).ToList();
+					foreach (var menuUrun in menuUrunler)
+					{
+						// Ürünün malzemelerini ve miktarlarını al
+						var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == menuUrun.UrunId).ToList();
+						// Her bir malzeme için işlem yap
+						foreach (var urunMalzeme in urunMalzemeler)
+						{
+							// Malzemenin stok miktarından düşülecek miktarı belirle
+							int dusulecekMiktar = urunMalzeme.Miktar * siparisMenuUrun.Miktar;
+
+							// İlgili malzemenin stokunu bul
+							var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
+
+							// Eğer stok bulunduysa ve düşülecek miktar stok miktarından fazla değilse
+							if (stok != null && stok.Miktar >= dusulecekMiktar)
+							{
+								// Malzemeden stoktan düşüm yap
+								stok.Miktar -= dusulecekMiktar;
+
+								string malzemeAd = db.Malzemeler.FirstOrDefault(s => s.Id == stok.MalzemeId).Ad;
+
+								// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
+								if (stok.Miktar < stok.MinStok)
+								{
+									//Bunu daha sonra Admine bildirim olarak atıcaz
+									MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
+								}
+								else if (stok.Miktar == 0)
+								{
+									MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
+								}
+								// Stok çıkışı kaydını oluştur
+								var stokCikti = new StokCikti
+								{
+									Neden = "Sipariş Hazırlama",
+									Miktar = dusulecekMiktar,
+									SonStok = stok.Miktar,
+									Gorunuluk = true, // Gösterim durumunu belirle
+									TedarikciId = stok.TedarikciId,
+									MalzemeId = stok.MalzemeId,
+									Tarih = DateTime.Now // Şu anki zamanı ata
+								};
+								// Stok çıkışını veritabanına ekle
+								db.stokCiktilar.Add(stokCikti);
+							}
+							else
+							{
+								// Ürünün aktifliğini kapat
+								urunMalzeme.Urun.Akitf = false;
+								MessageBox.Show("Stok yetersiz.");
+								return;
+							}
+						}
+					}
+				}
+
+			}
+
 			//Sipariş Durumunun Ayarlandığı Kısım
 			Durum.Ad = 2;//Sipariş Onaylandı
 			Durum.Zaman = DateTime.Now;//Onaylanma Zamanı
-			Durum.Yer=1;//Bu işlem nerede yapıldı Müşteri Tarafında sipariş alındığında
+			Durum.Yer = 1;//Bu işlem nerede yapıldı Müşteri Tarafında sipariş alındığında
 			Durum.SiparisId = siparis.Id;
 			db.Durumlar.Add(Durum);
 			db.SaveChanges();
@@ -699,7 +920,7 @@ namespace Restoran_Otomasyon
 			MenuleriGoster(0);
 		}
 
-        private void BosMasa_FormClosed(object sender, FormClosedEventArgs e)
+		private void BosMasa_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			if (kullaniciId == 1)
 			{

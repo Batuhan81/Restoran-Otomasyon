@@ -28,18 +28,24 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MutfakPaneli));
 			this.gridOnaylananlar = new System.Windows.Forms.DataGridView();
 			this.gridHazirlananlar = new System.Windows.Forms.DataGridView();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.button3 = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.button4 = new System.Windows.Forms.Button();
+			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.gridOnaylananlar)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridHazirlananlar)).BeginInit();
 			this.SuspendLayout();
@@ -162,11 +168,49 @@
 			this.label2.TabIndex = 75;
 			this.label2.Text = "Hazırlanıyor Olanlar";
 			// 
+			// button3
+			// 
+			this.button3.ImageKey = "Ana Ekran.png";
+			this.button3.ImageList = this.ımageList1;
+			this.button3.Location = new System.Drawing.Point(1386, 3);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(65, 32);
+			this.button3.TabIndex = 76;
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Ana Ekran.png");
+			this.ımageList1.Images.SetKeyName(1, "KapatmaTuu.png");
+			// 
+			// button4
+			// 
+			this.button4.ImageKey = "KapatmaTuu.png";
+			this.button4.ImageList = this.ımageList2;
+			this.button4.Location = new System.Drawing.Point(1457, 3);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(65, 32);
+			this.button4.TabIndex = 77;
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
+			// ımageList2
+			// 
+			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
+			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList2.Images.SetKeyName(0, "Ana Ekran.png");
+			this.ımageList2.Images.SetKeyName(1, "KapatmaTuu.png");
+			// 
 			// MutfakPaneli
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1535, 799);
+			this.Controls.Add(this.button4);
+			this.Controls.Add(this.button3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button2);
@@ -174,7 +218,7 @@
 			this.Controls.Add(this.gridHazirlananlar);
 			this.Controls.Add(this.gridOnaylananlar);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "MutfakPaneli";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -196,5 +240,9 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.ImageList ımageList1;
+		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.ImageList ımageList2;
 	}
 }

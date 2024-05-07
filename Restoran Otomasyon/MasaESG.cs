@@ -169,10 +169,13 @@ namespace Restoran_Otomasyon.Paneller
 			menuItemRandevular.Click += MenuItemRandevular_Click;
 			contextMenuStrip1.Items.Add(menuItemRandevular);
 
-			// "Randevular" öğesini ekle
 			ToolStripMenuItem menuItemMasaQr = new ToolStripMenuItem("Masa Qr Kodu");
 			menuItemMasaQr.Click += MenuItemMasaQrları_Click;
 			contextMenuStrip1.Items.Add(menuItemMasaQr);
+
+			ToolStripMenuItem masaTemizle = new ToolStripMenuItem("Masayı Temizle");
+			masaTemizle.Click += MenuItemMasaTemizle_Click;
+			contextMenuStrip1.Items.Add(masaTemizle);
 
 			TemizleMasaButonlari();
 			ButonlarıGetir(secilenKategoriId);
@@ -193,6 +196,22 @@ namespace Restoran_Otomasyon.Paneller
 			git.Show();
 		}
 
+		private void MenuItemMasaTemizle_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem item = (ToolStripMenuItem)sender;
+			ContextMenuStrip menu = (ContextMenuStrip)item.Owner;
+			Control sourceControl = menu.SourceControl;
+
+			// Sağ tıklanan butonun adından masa ID'sini çıkarın
+			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
+
+			// Masa bilgi güncelleme formunu açın
+			var masa=db.Masalar.Find(masaId);
+			masa.Durum = 1;
+			db.SaveChanges();
+			MasaButonlariniGuncelle();
+		}
+
 		// "Randevular" öğesine tıklama olayı
 		private void MenuItemRandevular_Click(object sender, EventArgs e)
 		{
@@ -205,6 +224,7 @@ namespace Restoran_Otomasyon.Paneller
 			RandevuMasa git = new RandevuMasa(masaId);
 			git.Show();
 		}
+
 		private void MenuItemMasaQrları_Click(object sender, EventArgs e)
 		{
 

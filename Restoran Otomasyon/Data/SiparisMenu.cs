@@ -18,5 +18,6 @@ namespace Restoran_Otomasyon.Data
 		public Menu Menu { get; set; } 
 
 		public Siparis Siparis { get; set; }
+
 	}
 }

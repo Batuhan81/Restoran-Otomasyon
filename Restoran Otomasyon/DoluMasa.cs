@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Forms;
+//using System.Windows.Media;
 
 namespace Restoran_Otomasyon
 {
@@ -399,7 +401,7 @@ namespace Restoran_Otomasyon
 			MasaSiparisi();
 			masaBilgileri();
 
-			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, db);
+			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori,txtsiparisDurum, db);
 			UrunleriGoster(-1); // Tüm ürünleri göster
 			label7.Text = txtmasaadi.Text + " Nolu Masanın Siparişleri";
 		}
@@ -408,9 +410,20 @@ namespace Restoran_Otomasyon
 		{
 			if (OdemePaneli.Visible != true)
 			{
-				txtkalan.Text = geriyekalanUcret.ToString();
-				OdemePaneli.Visible = true;
-				txtmasatutarı.Text = txttutar.Text;
+				var maxAd = db.Durumlar.Where(o => o.SiparisId == sonSiparisId)
+						.Max(o => o.Ad); // SiparisId'si sonSiparisId olan durumlar arasından en büyük Ad değerini bul
+				var durum = db.Durumlar.FirstOrDefault(o => o.SiparisId == sonSiparisId && o.Ad == maxAd); // Bu en büyük Ad değerine sahip olan durumu getir
+
+				if (durum.Ad == 5)
+				{
+					txtkalan.Text = geriyekalanUcret.ToString();
+					OdemePaneli.Visible = true;
+					txtmasatutarı.Text = txttutar.Text;
+				}
+				else
+				{
+					MessageBox.Show("Ödeme Yapılmadan Önce Sipariş Teslim Edilmelidir.","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Information);
+				}
 			}
 			else
 			{
@@ -444,23 +457,26 @@ namespace Restoran_Otomasyon
 					if (Math.Abs(masasiparis.Tutar - masasiparis.OdenenTutar) <= 5)
 					{
 						masa.Durum = 3;
-						//Bunları Neden koydum bilmiyorum bu değerlerin aslında 0 lanmaması hep vtde tutulması gerek
-						//masasiparis.Tutar = 0;
-						//masasiparis.OdenenTutar = 0;
 					}
 					txtodenen.Text = masasiparis.OdenenTutar + "₺";
 					db.SaveChanges();
-					
+
 					masaBilgileri();
+					
 					MessageBox.Show($"{Odenecek}₺ Ödeme Alındı Geriye Kalan {geriyekalanUcret}₺");
 					if (geriyekalanUcret == 0)
 					{
 						durum.Yer = 3;//Kasa
 						durum.Ad = 6;//Ödendi
-						durum.Zaman=DateTime.Now;
+						durum.Zaman = DateTime.Now;
 						durum.SiparisId = masasiparis.SiparisId;
-						db.Durumlar.Add( durum );	
-						db.SaveChanges() ;
+						db.Durumlar.Add(durum);
+						db.SaveChanges();
+						if (checkFis.Checked)
+						{
+							Yazdır();
+							//fişi burada keseeğiz
+						}
 						MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
 						if (calisanForm != null)
 						{
@@ -571,5 +587,150 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			Durum durum=new Durum();
+			var maxAd = db.Durumlar.Where(o => o.SiparisId == sonSiparisId)
+						.Max(o => o.Ad); // SiparisId'si sonSiparisId olan durumlar arasından en büyük Ad değerini bul
+			var siparisdurum = db.Durumlar.FirstOrDefault(o => o.SiparisId == sonSiparisId && o.Ad == maxAd); // Bu en büyük Ad değerine sahip olan durumu getir
+			if (siparisdurum.Ad == 4)
+			{
+				durum.Ad = 5;
+				durum.Zaman=DateTime.Now;
+				durum.Yer = 1;
+				durum.SiparisId = sonSiparisId;
+				db.Durumlar.Add(durum);
+				db.SaveChanges();
+				timer1.Start();
+				MessageBox.Show("Sipariş Müşteriye Teslim Edildi.");
+				Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, txtsiparisDurum, db);
+			}
+			else if(siparisdurum.Ad == 5)
+			{
+				timer1.Start();
+				MessageBox.Show("Sipariş Müşteriye Zaten Teslim Edildi.");
+			}
+			else
+			{
+				MessageBox.Show("Siparişin Teslim Edilebilmesi İçin Mutfakta Hazırlanmış Olması Gerekir !","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Error);
+			}
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			timer1.Stop();
+			SendKeys.Send("{ESC}");
+		}
+
+		private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+		{
+			Graphics graphic = e.Graphics;
+			Font font = new Font("Arial", 12);
+
+			// Fişin genişliği ve uzunluğunu belirle
+			float receiptWidth = 80; // mm cinsinden genişlik
+			float receiptHeight = 80; // mm cinsinden uzunluk
+
+			float fontHeight = font.GetHeight();
+			int startX = 10;
+			int startY = 10;
+			int offset = 40;
+			Pen pen = new Pen(Color.Black);
+			float endX = startX + receiptWidth; // Çizginin bitiş noktasını belirle
+
+			// Restoran adını ve tarih saat bilgisini yazdır
+			graphic.DrawString("Restoran Adı", new Font("Arial", 18), new SolidBrush(Color.Black), startX, startY);
+			graphic.DrawString(DateTime.Now.ToString(), new Font("Arial", 12), new SolidBrush(Color.Black), startX, startY + (int)fontHeight + 10);
+
+			offset += 10;
+			
+											// Veritabanından siparişleri çek
+			var sonSiparis = db.MasaSiparisler.Where(o => o.MasaId == masaId).OrderByDescending(o => o.Id).FirstOrDefault();
+
+			if (sonSiparis != null)
+			{
+				// Son siparişin ID'sini al
+				int sonSiparisId = sonSiparis.SiparisId;
+
+				// Sipariş detaylarını çek
+				var siparisDetayListUrun = db.SiparisUrunler.Where(s => s.SiparisId == sonSiparisId).ToList();
+				var siparisDetayListMenu = db.SiparisMenus.Where(s => s.SiparisId == sonSiparisId).ToList();
+
+				// Her bir sipariş detayını fişe ekle
+				foreach (var siparisDetay in siparisDetayListUrun)
+				{
+					int miktar = siparisDetay.Miktar;
+					string urunAdi = siparisDetay.Urun.Ad;
+
+					string orderDetail = $"{miktar} x {urunAdi}"; // Sipariş detayını oluştur
+					graphic.DrawString(orderDetail, font, new SolidBrush(Color.Black), startX, startY + offset);
+					offset += (int)fontHeight + 10; // Satır aralığı
+				}
+
+				// Her bir sipariş detayını fişe ekle
+				foreach (var siparisDetay in siparisDetayListMenu)
+				{
+					int miktar = siparisDetay.Miktar;
+					string urunAdi = siparisDetay.Menu.Ad;
+					decimal fiyat = siparisDetay.Menu.Fiyat;
+
+					string orderDetail = $"{miktar} x {urunAdi} - {fiyat}"; // Sipariş detayını oluştur
+					graphic.DrawString(orderDetail, font, new SolidBrush(Color.Black), startX, startY + offset);
+					offset += (int)fontHeight + 10; // Satır aralığı
+				}
+
+				// Tam çizgi ekle
+				graphic.DrawLine(pen, startX, startY + offset, endX+100, startY + offset);
+				offset += 10;
+
+
+				// Toplam ödenen tutarı al ve fişe ekle
+				decimal toplamTutar = sonSiparis.Tutar;
+				string total = $"Toplam: {toplamTutar} ₺"; // Toplam ödenen tutarı oluştur
+				graphic.DrawString(total, font, new SolidBrush(Color.Black), startX, startY + offset);
+
+				// Ödeme türünü al ve fişe ekle
+				string odemeTuru = comboOdemeTur.Text;
+				string paymentType = $"Ödeme Türü: {odemeTuru}"; // Ödeme türünü oluştur
+				graphic.DrawString(paymentType, font, new SolidBrush(Color.Black), startX, startY + offset + (int)fontHeight + 5);
+
+				// Bir sonraki sipariş için offset'i bir daha artır
+				offset += (int)fontHeight + 10;
+			}
+		}
+
+		private void Yazdır()
+		{
+			// Yazıcıyı kontrol et
+			if (PrinterSettings.InstalledPrinters.Count > 0)
+			{
+				// Yazıcı varsa yazdırma işlemine devam et
+				PrintDialog printDialog = new PrintDialog();
+				printDialog.Document = printDocument1;
+
+				if (printDialog.ShowDialog() == DialogResult.OK)
+				{
+					printDocument1.Print();
+				}
+			}
+			else
+			{
+				// Yazıcı yoksa PDF olarak kaydetme işlemine geç
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+				saveFileDialog.Filter = "PDF Dosyası|*.pdf";
+				saveFileDialog.Title = "Fişi Kaydet";
+				saveFileDialog.FileName = "Fiş.pdf"; // Varsayılan dosya adı
+
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					string filePath = saveFileDialog.FileName;
+					printDocument1.PrinterSettings.PrintToFile = true;
+					printDocument1.PrinterSettings.PrintFileName = filePath;
+					printDocument1.Print();
+				}
+			}
+		}
+
 	}
 }

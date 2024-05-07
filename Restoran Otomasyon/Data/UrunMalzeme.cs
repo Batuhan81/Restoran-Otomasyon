@@ -17,8 +17,8 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Secenek {  get; set; }
 
-		public Malzeme Malzeme { get; set; } 
+		public virtual Malzeme Malzeme { get; set; } 
 
-		public Urun Urun { get; set; } 
+		public virtual Urun Urun { get; set; } 
 	}
 }
