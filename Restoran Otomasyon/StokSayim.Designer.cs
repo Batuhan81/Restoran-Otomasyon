@@ -35,12 +35,12 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.BtnGuncelle = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.BtnEslesti = new System.Windows.Forms.Button();
 			this.malzemeListesi = new System.Windows.Forms.ListBox();
 			this.ComboNeden = new System.Windows.Forms.ComboBox();
 			this.hiddenMalzemeID = new System.Windows.Forms.TextBox();
 			this.hiddenstokId = new System.Windows.Forms.TextBox();
-			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.SuspendLayout();
 			// 
 			// VtStok
@@ -59,6 +59,8 @@
 			this.EldekiStok.Size = new System.Drawing.Size(111, 24);
 			this.EldekiStok.TabIndex = 2;
 			this.EldekiStok.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.EldekiStok.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EldekiStok_KeyDown);
+			this.EldekiStok.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EldekiStok_KeyPress);
 			this.EldekiStok.Leave += new System.EventHandler(this.EldekiStok_Leave);
 			// 
 			// label1
@@ -95,6 +97,13 @@
 			this.BtnGuncelle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.BtnGuncelle.UseVisualStyleBackColor = false;
 			this.BtnGuncelle.Click += new System.EventHandler(this.BtnGuncelle_Click);
+			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Güncelle.png");
+			this.ımageList1.Images.SetKeyName(1, "Doğru.png");
 			// 
 			// BtnEslesti
 			// 
@@ -144,13 +153,6 @@
 			this.hiddenstokId.Size = new System.Drawing.Size(111, 24);
 			this.hiddenstokId.TabIndex = 10;
 			this.hiddenstokId.Visible = false;
-			// 
-			// ımageList1
-			// 
-			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
-			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList1.Images.SetKeyName(0, "Güncelle.png");
-			this.ımageList1.Images.SetKeyName(1, "Doğru.png");
 			// 
 			// StokSayim
 			// 

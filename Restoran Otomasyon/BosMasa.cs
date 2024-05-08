@@ -610,6 +610,7 @@ namespace Restoran_Otomasyon
 					else
 					{
 						MessageBox.Show("Lütfen geçerli bir miktar girin.");
+						textBoxMiktar.Text = 0.ToString();	
 					}
 				};
 				// GroupBox'a kontrol öğelerini ekle

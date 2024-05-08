@@ -191,5 +191,15 @@ namespace Restoran_Otomasyon.Paneller
 				Temizle();
 			}
 		}
+
+		private void EldekiStok_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(EldekiStok,sender,e);
+		}
+
+		private void EldekiStok_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(EldekiStok, e);
+		}
 	}
 }

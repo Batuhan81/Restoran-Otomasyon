@@ -204,6 +204,8 @@
 			this.txtodenen.Name = "txtodenen";
 			this.txtodenen.Size = new System.Drawing.Size(142, 22);
 			this.txtodenen.TabIndex = 9;
+			this.txtodenen.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtodenen_KeyDown);
+			this.txtodenen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtodenen_KeyPress);
 			// 
 			// label5
 			// 
@@ -221,6 +223,8 @@
 			this.txttutar.Name = "txttutar";
 			this.txttutar.Size = new System.Drawing.Size(142, 22);
 			this.txttutar.TabIndex = 7;
+			this.txttutar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txttutar_KeyDown);
+			this.txttutar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txttutar_KeyPress);
 			// 
 			// label4
 			// 

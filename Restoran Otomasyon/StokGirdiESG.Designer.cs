@@ -29,17 +29,18 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StokGirdiESG));
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StokGirdiESG));
 			this.hiddenStokId = new System.Windows.Forms.TextBox();
 			this.groupGirdi = new System.Windows.Forms.GroupBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtfirma = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
 			this.txtTedarikci = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
-			this.txtfirma = new System.Windows.Forms.TextBox();
-			this.label4 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.comboMalzeme = new System.Windows.Forms.ComboBox();
 			this.txtAlisF = new System.Windows.Forms.TextBox();
@@ -48,13 +49,12 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.uzanti = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.gridStokGirdi = new System.Windows.Forms.DataGridView();
 			this.hiddenTedarikciId = new System.Windows.Forms.TextBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.hiddenMalzemeId = new System.Windows.Forms.TextBox();
 			this.hiddensStokGirdiId = new System.Windows.Forms.TextBox();
-			this.label7 = new System.Windows.Forms.Label();
-			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.groupGirdi.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridStokGirdi)).BeginInit();
 			this.SuspendLayout();
@@ -94,6 +94,24 @@
 			this.groupGirdi.TabStop = false;
 			this.groupGirdi.Text = "Girdi Bilgileri";
 			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label4.Location = new System.Drawing.Point(78, 230);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(50, 16);
+			this.label4.TabIndex = 45;
+			this.label4.Text = "Firma:";
+			// 
+			// txtfirma
+			// 
+			this.txtfirma.Location = new System.Drawing.Point(152, 229);
+			this.txtfirma.Name = "txtfirma";
+			this.txtfirma.ReadOnly = true;
+			this.txtfirma.Size = new System.Drawing.Size(149, 22);
+			this.txtfirma.TabIndex = 46;
+			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
@@ -104,6 +122,16 @@
 			this.label6.Size = new System.Drawing.Size(130, 16);
 			this.label6.TabIndex = 49;
 			this.label6.Text = "Tedarikçi Bilgileri";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label7.Location = new System.Drawing.Point(7, 193);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(283, 44);
+			this.label7.TabIndex = 50;
+			this.label7.Text = " - - - - - - - - - - - - - - - - - - - - -\r\n\r\n";
 			// 
 			// txtTedarikci
 			// 
@@ -122,24 +150,6 @@
 			this.label5.Size = new System.Drawing.Size(79, 16);
 			this.label5.TabIndex = 47;
 			this.label5.Text = "Ad Soyad:";
-			// 
-			// txtfirma
-			// 
-			this.txtfirma.Location = new System.Drawing.Point(152, 229);
-			this.txtfirma.Name = "txtfirma";
-			this.txtfirma.ReadOnly = true;
-			this.txtfirma.Size = new System.Drawing.Size(149, 22);
-			this.txtfirma.TabIndex = 46;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label4.Location = new System.Drawing.Point(78, 230);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(50, 16);
-			this.label4.TabIndex = 45;
-			this.label4.Text = "Firma:";
 			// 
 			// label3
 			// 
@@ -166,6 +176,8 @@
 			this.txtAlisF.Name = "txtAlisF";
 			this.txtAlisF.Size = new System.Drawing.Size(149, 22);
 			this.txtAlisF.TabIndex = 42;
+			this.txtAlisF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAlisF_KeyDown);
+			this.txtAlisF.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAlisF_KeyPress);
 			this.txtAlisF.Leave += new System.EventHandler(this.txtAlisF_Leave);
 			// 
 			// label2
@@ -184,6 +196,8 @@
 			this.txtalinanMik.Name = "txtalinanMik";
 			this.txtalinanMik.Size = new System.Drawing.Size(149, 22);
 			this.txtalinanMik.TabIndex = 40;
+			this.txtalinanMik.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtalinanMik_KeyDown);
+			this.txtalinanMik.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtalinanMik_KeyPress);
 			this.txtalinanMik.Leave += new System.EventHandler(this.txtalinanMik_Leave);
 			// 
 			// label1
@@ -221,6 +235,12 @@
 			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Kaydet.png");
 			// 
 			// gridStokGirdi
 			// 
@@ -292,22 +312,6 @@
 			this.hiddensStokGirdiId.Size = new System.Drawing.Size(49, 22);
 			this.hiddensStokGirdiId.TabIndex = 51;
 			this.hiddensStokGirdiId.Visible = false;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label7.Location = new System.Drawing.Point(7, 193);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(283, 44);
-			this.label7.TabIndex = 50;
-			this.label7.Text = " - - - - - - - - - - - - - - - - - - - - -\r\n\r\n";
-			// 
-			// ımageList1
-			// 
-			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
-			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList1.Images.SetKeyName(0, "Kaydet.png");
 			// 
 			// StokGirdiESG
 			// 

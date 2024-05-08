@@ -42,6 +42,7 @@
 			this.UrunPaneli = new System.Windows.Forms.FlowLayoutPanel();
 			this.OdemePaneli = new System.Windows.Forms.Panel();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.checkFis = new System.Windows.Forms.CheckBox();
 			this.btn5 = new System.Windows.Forms.Button();
 			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.btn10 = new System.Windows.Forms.Button();
@@ -74,7 +75,6 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.checkFis = new System.Windows.Forms.CheckBox();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.UrunPaneli.SuspendLayout();
 			this.OdemePaneli.SuspendLayout();
@@ -207,6 +207,16 @@
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Ödeme İşlemi";
+			// 
+			// checkFis
+			// 
+			this.checkFis.AutoSize = true;
+			this.checkFis.Location = new System.Drawing.Point(99, 234);
+			this.checkFis.Name = "checkFis";
+			this.checkFis.Size = new System.Drawing.Size(168, 22);
+			this.checkFis.TabIndex = 58;
+			this.checkFis.Text = "Fiş Kesilecek Mi ?";
+			this.checkFis.UseVisualStyleBackColor = true;
 			// 
 			// btn5
 			// 
@@ -381,6 +391,8 @@
 			this.txtkisisayisi.Size = new System.Drawing.Size(100, 24);
 			this.txtkisisayisi.TabIndex = 9;
 			this.txtkisisayisi.TextChanged += new System.EventHandler(this.txtkisisayisi_TextChanged);
+			this.txtkisisayisi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtkisisayisi_KeyDown);
+			this.txtkisisayisi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtkisisayisi_KeyPress);
 			// 
 			// txtodenecek
 			// 
@@ -388,6 +400,9 @@
 			this.txtodenecek.Name = "txtodenecek";
 			this.txtodenecek.Size = new System.Drawing.Size(146, 24);
 			this.txtodenecek.TabIndex = 4;
+			this.txtodenecek.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtodenecek_KeyDown);
+			this.txtodenecek.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtodenecek_KeyPress);
+			this.txtodenecek.Leave += new System.EventHandler(this.txtodenecek_Leave);
 			// 
 			// label11
 			// 
@@ -558,16 +573,6 @@
 			// 
 			this.timer1.Interval = 2000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-			// 
-			// checkFis
-			// 
-			this.checkFis.AutoSize = true;
-			this.checkFis.Location = new System.Drawing.Point(99, 234);
-			this.checkFis.Name = "checkFis";
-			this.checkFis.Size = new System.Drawing.Size(168, 22);
-			this.checkFis.TabIndex = 58;
-			this.checkFis.Text = "Fiş Kesilecek Mi ?";
-			this.checkFis.UseVisualStyleBackColor = true;
 			// 
 			// printDocument1
 			// 

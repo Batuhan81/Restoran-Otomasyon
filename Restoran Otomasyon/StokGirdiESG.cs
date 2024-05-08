@@ -258,7 +258,7 @@ namespace Restoran_Otomasyon.Paneller
 			girdi.TedarikciId = Convert.ToInt32(hiddenTedarikciId.Text);
 			girdi.AlısFiyati = fiyatformatsiz;
 			girdi.MalzemeId = malzemeId;
-			girdi.Neden ="Stok Girdisi";
+			girdi.Neden = "Stok Girdisi";
 			var stokKaydi = db.Stoklar.FirstOrDefault(s => s.Malzeme.Id == malzemeId);
 			int selectedMalzemeId = (int)comboMalzeme.SelectedValue;
 			Olcu = db.Malzemeler.FirstOrDefault(o => o.Id == selectedMalzemeId).Tur;
@@ -297,7 +297,7 @@ namespace Restoran_Otomasyon.Paneller
 												   TedarikciId = o.TedarikciId,
 												   MalzemeId = o.MalzemeId,
 												   İşlemSonuStok = o.SonStokMiktari,
-												   Neden=o.Neden,
+												   Neden = o.Neden,
 												   GirdiTarih = o.Tarih,
 												   MalzemeTur = db.Malzemeler.Where(s => s.Id == o.MalzemeId).Select(x => x.Tur).FirstOrDefault(),
 											   })
@@ -322,5 +322,25 @@ namespace Restoran_Otomasyon.Paneller
 			comboMalzeme.DataSource = malzemeler;
 		}
 		#endregion
+
+		private void txtalinanMik_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtalinanMik, sender, e);
+		}
+
+		private void txtalinanMik_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtalinanMik, e);
+		}
+
+		private void txtAlisF_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtAlisF, sender, e);
+		}
+
+		private void txtAlisF_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtAlisF, e);
+		}
 	}
 }

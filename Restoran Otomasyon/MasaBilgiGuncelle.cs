@@ -165,5 +165,25 @@ namespace Restoran_Otomasyon
 			}
 			this.Close();
 		}
+
+		private void txtodenen_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtodenen, sender, e);
+		}
+
+		private void txtodenen_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtodenen,e);
+		}
+
+		private void txttutar_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txttutar, sender, e);
+		}
+
+		private void txttutar_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txttutar, e);
+		}
 	}
 }

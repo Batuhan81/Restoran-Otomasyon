@@ -222,5 +222,15 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			Yardimcilar.gridFormatStokMiktari(gridCikti, "SonStok");
 		}
+
+		private void txtmiktar_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtmiktar,sender, e);
+		}
+
+		private void txtmiktar_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtmiktar, e);
+		}
 	}
 }

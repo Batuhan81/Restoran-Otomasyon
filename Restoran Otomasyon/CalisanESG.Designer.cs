@@ -29,24 +29,26 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalisanESG));
 			this.gridPersonel = new System.Windows.Forms.DataGridView();
 			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.txtad = new System.Windows.Forms.TextBox();
 			this.txttelefon = new System.Windows.Forms.MaskedTextBox();
 			this.groupPersonel = new System.Windows.Forms.GroupBox();
-			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.txtmaas = new System.Windows.Forms.TextBox();
+			this.button5 = new System.Windows.Forms.Button();
+			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
 			this.uzanti = new System.Windows.Forms.Label();
 			this.txtAdres = new System.Windows.Forms.RichTextBox();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.ComboRol = new System.Windows.Forms.ComboBox();
 			this.comboCinsiyet = new System.Windows.Forms.ComboBox();
-			this.txtmaas = new System.Windows.Forms.MaskedTextBox();
 			this.txtbaslamaT = new System.Windows.Forms.MaskedTextBox();
 			this.txtdogumT = new System.Windows.Forms.MaskedTextBox();
 			this.txteposta = new System.Windows.Forms.TextBox();
@@ -66,8 +68,6 @@
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.RolPaneli = new System.Windows.Forms.Panel();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.button5 = new System.Windows.Forms.Button();
-			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.gridPersonel)).BeginInit();
 			this.groupPersonel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -77,34 +77,34 @@
 			// 
 			this.gridPersonel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.gridPersonel.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridPersonel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridPersonel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
 			this.gridPersonel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridPersonel.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridPersonel.DefaultCellStyle = dataGridViewCellStyle17;
 			this.gridPersonel.Location = new System.Drawing.Point(416, 15);
 			this.gridPersonel.Margin = new System.Windows.Forms.Padding(4);
 			this.gridPersonel.Name = "gridPersonel";
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridPersonel.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridPersonel.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
 			this.gridPersonel.RowHeadersWidth = 51;
 			this.gridPersonel.RowTemplate.Height = 24;
 			this.gridPersonel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -139,6 +139,16 @@
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Ekle2.png");
+			this.ımageList1.Images.SetKeyName(1, "ekle.png");
+			this.ımageList1.Images.SetKeyName(2, "Kaydet.png");
+			this.ımageList1.Images.SetKeyName(3, "Resim Ekle2.png");
+			this.ımageList1.Images.SetKeyName(4, "Sil butonu - Kopya.png");
+			// 
 			// txtad
 			// 
 			this.txtad.Location = new System.Drawing.Point(169, 27);
@@ -155,9 +165,12 @@
 			this.txttelefon.Name = "txttelefon";
 			this.txttelefon.Size = new System.Drawing.Size(175, 27);
 			this.txttelefon.TabIndex = 4;
+			this.txttelefon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txttelefon_KeyDown);
+			this.txttelefon.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txttelefon_KeyPress);
 			// 
 			// groupPersonel
 			// 
+			this.groupPersonel.Controls.Add(this.txtmaas);
 			this.groupPersonel.Controls.Add(this.button5);
 			this.groupPersonel.Controls.Add(this.uzanti);
 			this.groupPersonel.Controls.Add(this.txtAdres);
@@ -166,7 +179,6 @@
 			this.groupPersonel.Controls.Add(this.ComboRol);
 			this.groupPersonel.Controls.Add(this.button1);
 			this.groupPersonel.Controls.Add(this.comboCinsiyet);
-			this.groupPersonel.Controls.Add(this.txtmaas);
 			this.groupPersonel.Controls.Add(this.txtbaslamaT);
 			this.groupPersonel.Controls.Add(this.txtdogumT);
 			this.groupPersonel.Controls.Add(this.txteposta);
@@ -193,15 +205,40 @@
 			this.groupPersonel.TabStop = false;
 			this.groupPersonel.Text = "Personel Bilgileri";
 			// 
-			// ımageList1
+			// txtmaas
 			// 
-			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
-			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList1.Images.SetKeyName(0, "Ekle2.png");
-			this.ımageList1.Images.SetKeyName(1, "ekle.png");
-			this.ımageList1.Images.SetKeyName(2, "Kaydet.png");
-			this.ımageList1.Images.SetKeyName(3, "Resim Ekle2.png");
-			this.ımageList1.Images.SetKeyName(4, "Sil butonu - Kopya.png");
+			this.txtmaas.Location = new System.Drawing.Point(169, 267);
+			this.txtmaas.Name = "txtmaas";
+			this.txtmaas.Size = new System.Drawing.Size(175, 27);
+			this.txtmaas.TabIndex = 41;
+			this.txtmaas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtmaas_KeyDown);
+			this.txtmaas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtmaas_KeyPress);
+			this.txtmaas.Leave += new System.EventHandler(this.txtmaas_Leave);
+			// 
+			// button5
+			// 
+			this.button5.BackColor = System.Drawing.SystemColors.Control;
+			this.button5.BackgroundImage = global::Restoran_Otomasyon.Properties.Resources.Ekle2;
+			this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button5.ImageIndex = 0;
+			this.button5.ImageList = this.ımageList2;
+			this.button5.Location = new System.Drawing.Point(352, 508);
+			this.button5.Margin = new System.Windows.Forms.Padding(4);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(33, 29);
+			this.button5.TabIndex = 40;
+			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// ımageList2
+			// 
+			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
+			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
+			this.ımageList2.Images.SetKeyName(1, "ekle.png");
+			this.ımageList2.Images.SetKeyName(2, "Kaydet.png");
+			this.ımageList2.Images.SetKeyName(3, "Resim Ekle2.png");
+			this.ımageList2.Images.SetKeyName(4, "Sil butonu - Kopya.png");
 			// 
 			// uzanti
 			// 
@@ -273,15 +310,6 @@
 			this.comboCinsiyet.Name = "comboCinsiyet";
 			this.comboCinsiyet.Size = new System.Drawing.Size(175, 28);
 			this.comboCinsiyet.TabIndex = 8;
-			// 
-			// txtmaas
-			// 
-			this.txtmaas.Location = new System.Drawing.Point(169, 267);
-			this.txtmaas.Margin = new System.Windows.Forms.Padding(4);
-			this.txtmaas.Name = "txtmaas";
-			this.txtmaas.Size = new System.Drawing.Size(175, 27);
-			this.txtmaas.TabIndex = 5;
-			this.txtmaas.Leave += new System.EventHandler(this.txtmaas_Leave);
 			// 
 			// txtbaslamaT
 			// 
@@ -471,31 +499,6 @@
 			this.pictureBox1.TabStop = false;
 			this.pictureBox1.Visible = false;
 			// 
-			// button5
-			// 
-			this.button5.BackColor = System.Drawing.SystemColors.Control;
-			this.button5.BackgroundImage = global::Restoran_Otomasyon.Properties.Resources.Ekle2;
-			this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.button5.ImageIndex = 0;
-			this.button5.ImageList = this.ımageList2;
-			this.button5.Location = new System.Drawing.Point(352, 508);
-			this.button5.Margin = new System.Windows.Forms.Padding(4);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(33, 29);
-			this.button5.TabIndex = 40;
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
-			// 
-			// ımageList2
-			// 
-			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
-			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
-			this.ımageList2.Images.SetKeyName(1, "ekle.png");
-			this.ımageList2.Images.SetKeyName(2, "Kaydet.png");
-			this.ımageList2.Images.SetKeyName(3, "Resim Ekle2.png");
-			this.ımageList2.Images.SetKeyName(4, "Sil butonu - Kopya.png");
-			// 
 			// CalisanESG
 			// 
 			this.AcceptButton = this.button1;
@@ -546,7 +549,6 @@
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.ComboBox ComboRol;
 		private System.Windows.Forms.ComboBox comboCinsiyet;
-		private System.Windows.Forms.MaskedTextBox txtmaas;
 		private System.Windows.Forms.MaskedTextBox txtbaslamaT;
 		private System.Windows.Forms.MaskedTextBox txtdogumT;
 		private System.Windows.Forms.TextBox txteposta;
@@ -564,5 +566,6 @@
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.Panel RolPaneli;
 		private System.Windows.Forms.ImageList ımageList2;
+		private System.Windows.Forms.TextBox txtmaas;
 	}
 }

@@ -308,5 +308,35 @@ namespace Restoran_Otomasyon.Paneller
 				TedarikciPaneli.Visible = false;
 			}
 		}
+
+		private void txtfiyat_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtfiyat,sender,e);
+		}
+
+		private void txtfiyat_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtfiyat, e);
+		}
+
+		private void txtmin_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtmin, sender, e);
+		}
+
+		private void txtmin_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtmin, e);
+		}
+
+		private void txtmax_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtmax, e);
+		}
+
+		private void txtmax_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtmax, sender, e);
+		}
 	}
 }

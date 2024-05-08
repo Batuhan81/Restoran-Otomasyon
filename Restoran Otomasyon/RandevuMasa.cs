@@ -406,5 +406,15 @@ namespace Restoran_Otomasyon
 			MessageBox.Show($"'{x.Ad}' Adlı Müşteri Seçildi ");
 			musteriId = 0;
 		}
+
+		private void txtkisiSayisi_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtkisiSayisi, e);
+		}
+
+		private void txtkisiSayisi_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtkisiSayisi,sender,e);
+		}
 	}
 }

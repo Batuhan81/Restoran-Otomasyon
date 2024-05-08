@@ -51,7 +51,7 @@ namespace Restoran_Otomasyon
 				masatutari = masa.Tutar;
 				masaOdenen = masa.OdenenTutar;
 				geriyekalanUcret = masatutari - masaOdenen;
-				txtkalan.Text = geriyekalanUcret.ToString();
+				txtkalan.Text =Yardimcilar.FormatliDeger( geriyekalanUcret.ToString());
 			}
 		}
 
@@ -401,7 +401,7 @@ namespace Restoran_Otomasyon
 			MasaSiparisi();
 			masaBilgileri();
 
-			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori,txtsiparisDurum, db);
+			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, txtsiparisDurum, db);
 			UrunleriGoster(-1); // Tüm ürünleri göster
 			label7.Text = txtmasaadi.Text + " Nolu Masanın Siparişleri";
 		}
@@ -416,13 +416,13 @@ namespace Restoran_Otomasyon
 
 				if (durum.Ad == 5)
 				{
-					txtkalan.Text = geriyekalanUcret.ToString();
+					txtkalan.Text =Yardimcilar.FormatliDeger( geriyekalanUcret.ToString());
 					OdemePaneli.Visible = true;
 					txtmasatutarı.Text = txttutar.Text;
 				}
 				else
 				{
-					MessageBox.Show("Ödeme Yapılmadan Önce Sipariş Teslim Edilmelidir.","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Information);
+					MessageBox.Show("Ödeme Yapılmadan Önce Sipariş Teslim Edilmelidir.", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
 			else
@@ -462,7 +462,7 @@ namespace Restoran_Otomasyon
 					db.SaveChanges();
 
 					masaBilgileri();
-					
+
 					MessageBox.Show($"{Odenecek}₺ Ödeme Alındı Geriye Kalan {geriyekalanUcret}₺");
 					if (geriyekalanUcret == 0)
 					{
@@ -502,21 +502,24 @@ namespace Restoran_Otomasyon
 
 		private void txtkisisayisi_TextChanged(object sender, EventArgs e)
 		{
-			kisisayisi = Convert.ToInt32(txtkisisayisi.Text);
-			// Kişi başı ücreti hesapla
-			kisibasiUcret = geriyekalanUcret / kisisayisi;
-
-			// Yuvarlanmış ücretleri depolamak için bir dizi oluştur
-			decimal[] yuvarlanmisUcretler = new decimal[5];
-			for (int i = 0; i < 5; i++)
+			if(txtkisisayisi.Text !=""&& txtkisisayisi.Text != 0.ToString())
 			{
-				// İlgili ücreti yuvarla ve diziye ekle
-				yuvarlanmisUcretler[i] = Math.Floor(kisibasiUcret * 4) / 4; // 0.25 katsayısı ile yuvarla
-			}
+				kisisayisi = Convert.ToInt32(txtkisisayisi.Text);
+				// Kişi başı ücreti hesapla
+				kisibasiUcret = geriyekalanUcret / kisisayisi;
 
-			// Orijinal ücrete en yakın olan yuvarlanmış ücreti bul
-			enYakinUcret = yuvarlanmisUcretler.OrderBy(x => Math.Abs(x - kisibasiUcret)).First();
-			txtodenecek.Text = enYakinUcret.ToString();
+				// Yuvarlanmış ücretleri depolamak için bir dizi oluştur
+				decimal[] yuvarlanmisUcretler = new decimal[5];
+				for (int i = 0; i < 5; i++)
+				{
+					// İlgili ücreti yuvarla ve diziye ekle
+					yuvarlanmisUcretler[i] = Math.Floor(kisibasiUcret * 4) / 4; // 0.25 katsayısı ile yuvarla
+				}
+
+				// Orijinal ücrete en yakın olan yuvarlanmış ücreti bul
+				enYakinUcret = yuvarlanmisUcretler.OrderBy(x => Math.Abs(x - kisibasiUcret)).First();
+				txtodenecek.Text = enYakinUcret.ToString();
+			}
 		}
 
 		private void btn20_Click(object sender, EventArgs e)
@@ -528,7 +531,7 @@ namespace Restoran_Otomasyon
 		{
 			Odenecek = Yardimcilar.TemizleVeDondur(txtodenecek, "");
 			Odenecek = Odenecek + Deger;
-			txtodenecek.Text = Odenecek.ToString();
+			txtodenecek.Text =Yardimcilar.FormatliDeger( Odenecek.ToString());
 			Odenecek = Yardimcilar.TemizleVeDondur(txtodenecek, "");
 		}
 		private void btn50_Click(object sender, EventArgs e)
@@ -590,14 +593,14 @@ namespace Restoran_Otomasyon
 
 		private void button3_Click(object sender, EventArgs e)
 		{
-			Durum durum=new Durum();
+			Durum durum = new Durum();
 			var maxAd = db.Durumlar.Where(o => o.SiparisId == sonSiparisId)
 						.Max(o => o.Ad); // SiparisId'si sonSiparisId olan durumlar arasından en büyük Ad değerini bul
 			var siparisdurum = db.Durumlar.FirstOrDefault(o => o.SiparisId == sonSiparisId && o.Ad == maxAd); // Bu en büyük Ad değerine sahip olan durumu getir
 			if (siparisdurum.Ad == 4)
 			{
 				durum.Ad = 5;
-				durum.Zaman=DateTime.Now;
+				durum.Zaman = DateTime.Now;
 				durum.Yer = 1;
 				durum.SiparisId = sonSiparisId;
 				db.Durumlar.Add(durum);
@@ -606,14 +609,14 @@ namespace Restoran_Otomasyon
 				MessageBox.Show("Sipariş Müşteriye Teslim Edildi.");
 				Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, txtsiparisDurum, db);
 			}
-			else if(siparisdurum.Ad == 5)
+			else if (siparisdurum.Ad == 5)
 			{
 				timer1.Start();
 				MessageBox.Show("Sipariş Müşteriye Zaten Teslim Edildi.");
 			}
 			else
 			{
-				MessageBox.Show("Siparişin Teslim Edilebilmesi İçin Mutfakta Hazırlanmış Olması Gerekir !","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Error);
+				MessageBox.Show("Siparişin Teslim Edilebilmesi İçin Mutfakta Hazırlanmış Olması Gerekir !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -644,8 +647,8 @@ namespace Restoran_Otomasyon
 			graphic.DrawString(DateTime.Now.ToString(), new Font("Arial", 12), new SolidBrush(Color.Black), startX, startY + (int)fontHeight + 10);
 
 			offset += 10;
-			
-											// Veritabanından siparişleri çek
+
+			// Veritabanından siparişleri çek
 			var sonSiparis = db.MasaSiparisler.Where(o => o.MasaId == masaId).OrderByDescending(o => o.Id).FirstOrDefault();
 
 			if (sonSiparis != null)
@@ -681,7 +684,7 @@ namespace Restoran_Otomasyon
 				}
 
 				// Tam çizgi ekle
-				graphic.DrawLine(pen, startX, startY + offset, endX+100, startY + offset);
+				graphic.DrawLine(pen, startX, startY + offset, endX + 100, startY + offset);
 				offset += 10;
 
 
@@ -732,5 +735,29 @@ namespace Restoran_Otomasyon
 			}
 		}
 
+		private void txtodenecek_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtodenecek, e);
+		}
+
+		private void txtodenecek_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtodenecek, sender, e);
+		}
+
+		private void txtodenecek_Leave(object sender, EventArgs e)
+		{
+			txtodenecek.Text =Yardimcilar.FormatliDeger(txtodenecek.Text);
+		}
+
+		private void txtkisisayisi_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtkisisayisi, sender, e);
+		}
+
+		private void txtkisisayisi_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtkisisayisi,e);
+		}
 	}
 }

@@ -756,5 +756,35 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 		#endregion
+
+		private void txtfiyat_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtfiyat, e);
+		}
+
+		private void txtfiyat_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtfiyat, sender, e);
+		}
+
+		private void txtindirimli_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtindirimli, sender, e);
+		}
+
+		private void txtindirimli_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtindirimli, e);
+		}
+
+		private void txtyuzde_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtyuzde,sender,e);
+		}
+
+		private void txtyuzde_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtyuzde, e);
+		}
 	}
 }

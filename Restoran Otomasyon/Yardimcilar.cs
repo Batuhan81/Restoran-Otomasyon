@@ -14,6 +14,89 @@ namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
+		public static void KontrolEt(Control control, KeyPressEventArgs e )
+		{
+			TextBoxBase textBox = control as TextBoxBase;
+			MaskedTextBox maskedTextBox = control as MaskedTextBox;
+			if (textBox != null)
+			{
+				if (char.IsDigit(e.KeyChar) || e.KeyChar == 8)  // Eğer bir rakam veya BACKSPACE tuşu ise
+				{
+					textBox.BackColor = Color.White; // Arkaplan rengini beyaz yap
+				}
+				else
+				{
+					e.Handled = true; // Karakteri engelle
+					textBox.BackColor = Color.Red; // Arkaplan rengini kırmızı yap
+				}
+			}else if(maskedTextBox != null)
+			{
+				if (char.IsDigit(e.KeyChar) || e.KeyChar == 8)  // Eğer bir rakam veya BACKSPACE tuşu ise
+				{
+					maskedTextBox.BackColor = Color.White; // Arkaplan rengini beyaz yap
+				}
+				else
+				{
+					e.Handled = true; // Karakteri engelle
+					maskedTextBox.BackColor = Color.Red; // Arkaplan rengini kırmızı yap
+				}
+			}
+		}
+		public static void Kopyalama(Control control, object sender, KeyEventArgs e)
+		{
+			TextBoxBase textBox = control as TextBoxBase;
+			MaskedTextBox maskedTextBox = control as MaskedTextBox;
+
+			if (textBox != null)
+			{
+				if (e.Control && e.KeyCode == Keys.C)
+				{
+					// Ctrl + C tuş kombinasyonu algılandı, metni panoya kopyala
+					Clipboard.SetText(textBox.SelectedText);
+					// Tuş kombinasyonunu engelleme
+					e.SuppressKeyPress = true;
+				}
+				else if (e.Control && e.KeyCode == Keys.A)
+				{
+					// Ctrl + A tuş kombinasyonu algılandı, tüm metni seç
+					textBox.SelectAll();
+					// Tuş kombinasyonunu engelleme
+					e.SuppressKeyPress = true;
+				}
+				else if (e.Control && e.KeyCode == Keys.V)
+				{
+					// Ctrl + V tuş kombinasyonu algılandı, panodan metni yapıştır
+					textBox.Paste();
+					// Tuş kombinasyonunu engelleme
+					e.SuppressKeyPress = true;
+				}
+			}
+			else if (maskedTextBox != null)
+			{
+				if (e.Control && e.KeyCode == Keys.C)
+				{
+					// Ctrl + C tuş kombinasyonu algılandı, metni panoya kopyala
+					Clipboard.SetText(maskedTextBox.SelectedText);
+					// Tuş kombinasyonunu engelleme
+					e.SuppressKeyPress = true;
+				}
+				else if (e.Control && e.KeyCode == Keys.A)
+				{
+					// Ctrl + A tuş kombinasyonu algılandı, tüm metni seç
+					maskedTextBox.SelectAll();
+					// Tuş kombinasyonunu engelleme
+					e.SuppressKeyPress = true;
+				}
+				else if (e.Control && e.KeyCode == Keys.V)
+				{
+					// Ctrl + V tuş kombinasyonu algılandı, panodan metni yapıştır
+					maskedTextBox.Paste();
+					// Tuş kombinasyonunu engelleme
+					e.SuppressKeyPress = true;
+				}
+			}
+		}
+
 		public static void Urunlist(DataGridView gridUrun)//Admin göreceği için gorunurlık filtresi yok
 		{
 			using (var db = new Context())

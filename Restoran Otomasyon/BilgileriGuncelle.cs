@@ -111,5 +111,14 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			SifreTuru(txtyeniSifre.Text);
 		}
+
+		private void txtAd_TextChanged(object sender, EventArgs e)
+		{
+		}
+
+		private void txtAd_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			
+		}
 	}
 }

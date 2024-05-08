@@ -550,5 +550,15 @@ namespace Restoran_Otomasyon.Paneller
 				}
 			}
 		}
+
+		private void txtkapasite_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtkapasite, e);
+		}
+
+		private void txtkapasite_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtkapasite, sender, e);
+		}
 	}
 }

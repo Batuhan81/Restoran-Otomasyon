@@ -115,11 +115,15 @@
 			// MasaKaydet
 			// 
 			this.MasaKaydet.BackColor = System.Drawing.Color.SkyBlue;
+			this.MasaKaydet.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.MasaKaydet.ImageKey = "Kaydet.png";
+			this.MasaKaydet.ImageList = this.ımageList2;
 			this.MasaKaydet.Location = new System.Drawing.Point(101, 371);
 			this.MasaKaydet.Name = "MasaKaydet";
 			this.MasaKaydet.Size = new System.Drawing.Size(174, 69);
 			this.MasaKaydet.TabIndex = 60;
-			this.MasaKaydet.Text = "Kaydet";
+			this.MasaKaydet.Text = "    Kaydet";
+			this.MasaKaydet.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.MasaKaydet.UseVisualStyleBackColor = false;
 			this.MasaKaydet.Click += new System.EventHandler(this.MasaKaydet_Click);
 			// 
@@ -143,6 +147,7 @@
 			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
 			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
 			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
+			this.ımageList2.Images.SetKeyName(2, "Kaydet.png");
 			// 
 			// MasaOzellik
 			// 
@@ -186,6 +191,8 @@
 			this.txtkapasite.Name = "txtkapasite";
 			this.txtkapasite.Size = new System.Drawing.Size(185, 24);
 			this.txtkapasite.TabIndex = 3;
+			this.txtkapasite.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtkapasite_KeyDown);
+			this.txtkapasite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtkapasite_KeyPress);
 			// 
 			// label3
 			// 

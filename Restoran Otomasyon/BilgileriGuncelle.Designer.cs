@@ -31,6 +31,9 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BilgileriGuncelle));
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.sifreT = new System.Windows.Forms.Label();
+			this.txtmevcutsifre = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
 			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.txttekrar = new System.Windows.Forms.TextBox();
@@ -41,9 +44,6 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtAd = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.txtmevcutsifre = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
-			this.sifreT = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -68,6 +68,32 @@
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Kullanıcı Bilgileri";
+			// 
+			// sifreT
+			// 
+			this.sifreT.AutoSize = true;
+			this.sifreT.Location = new System.Drawing.Point(95, 228);
+			this.sifreT.Name = "sifreT";
+			this.sifreT.Size = new System.Drawing.Size(0, 18);
+			this.sifreT.TabIndex = 1;
+			// 
+			// txtmevcutsifre
+			// 
+			this.txtmevcutsifre.Location = new System.Drawing.Point(122, 110);
+			this.txtmevcutsifre.Name = "txtmevcutsifre";
+			this.txtmevcutsifre.PasswordChar = '*';
+			this.txtmevcutsifre.Size = new System.Drawing.Size(139, 24);
+			this.txtmevcutsifre.TabIndex = 9;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label5.Location = new System.Drawing.Point(11, 112);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(102, 18);
+			this.label5.TabIndex = 8;
+			this.label5.Text = "Mevcut Şifre";
 			// 
 			// button1
 			// 
@@ -149,6 +175,8 @@
 			this.txtAd.Name = "txtAd";
 			this.txtAd.Size = new System.Drawing.Size(139, 24);
 			this.txtAd.TabIndex = 1;
+			this.txtAd.TextChanged += new System.EventHandler(this.txtAd_TextChanged);
+			this.txtAd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAd_KeyPress);
 			// 
 			// label1
 			// 
@@ -159,32 +187,6 @@
 			this.label1.Size = new System.Drawing.Size(32, 18);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Ad:";
-			// 
-			// txtmevcutsifre
-			// 
-			this.txtmevcutsifre.Location = new System.Drawing.Point(122, 110);
-			this.txtmevcutsifre.Name = "txtmevcutsifre";
-			this.txtmevcutsifre.PasswordChar = '*';
-			this.txtmevcutsifre.Size = new System.Drawing.Size(139, 24);
-			this.txtmevcutsifre.TabIndex = 9;
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label5.Location = new System.Drawing.Point(11, 112);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(102, 18);
-			this.label5.TabIndex = 8;
-			this.label5.Text = "Mevcut Şifre";
-			// 
-			// sifreT
-			// 
-			this.sifreT.AutoSize = true;
-			this.sifreT.Location = new System.Drawing.Point(95, 228);
-			this.sifreT.Name = "sifreT";
-			this.sifreT.Size = new System.Drawing.Size(0, 18);
-			this.sifreT.TabIndex = 1;
 			// 
 			// BilgileriGuncelle
 			// 

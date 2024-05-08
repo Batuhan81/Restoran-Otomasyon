@@ -14,7 +14,7 @@ namespace Restoran_Otomasyon.Paneller
 {
 	public partial class CalisanESG : Form
 	{
-	
+
 		public CalisanESG(int kullaniID)
 		{
 			InitializeComponent();
@@ -37,7 +37,7 @@ namespace Restoran_Otomasyon.Paneller
 		Personel p = new Personel();
 		Context db = new Context();
 		string fotouzanti;
-	
+
 
 		private void button1_Click(object sender, EventArgs e)
 		{
@@ -177,14 +177,14 @@ namespace Restoran_Otomasyon.Paneller
 			var kullanici = db.Kullanicilar.Find(kullaniId);
 			if (kullanici.Ad != "Admin")
 			{
-				button1.Visible=false;
-				button2.Visible=false;
-				button3.Visible=false;
-				button4.Visible=false;
-				button5.Visible=false;
+				button1.Visible = false;
+				button2.Visible = false;
+				button3.Visible = false;
+				button4.Visible = false;
+				button5.Visible = false;
 				label9.Location = new Point(168, 590);
 				txtAdres.Location = new Point(8, 610);
-				txtAdres.Size=new Size(377, 125);
+				txtAdres.Size = new Size(377, 125);
 				foreach (Control control in groupPersonel.Controls)
 				{
 					control.Location = new Point(control.Location.X, control.Location.Y + 30);
@@ -299,15 +299,6 @@ namespace Restoran_Otomasyon.Paneller
 			Yardimcilar.GridFormat(gridPersonel, "Maas", e);
 		}
 		Decimal maasformatsız;
-		private void txtmaas_Leave(object sender, EventArgs e)
-		{
-			if (txtmaas.Text != "")
-			{
-				maasformatsız = Convert.ToDecimal(Yardimcilar.FormatsizDeger(txtmaas.Text));
-				txtmaas.Text = maasformatsız.ToString();
-				txtmaas.Text = Yardimcilar.FormatliDeger(txtmaas.Text);
-			}
-		}
 
 		private void uzanti_TextChanged(object sender, EventArgs e)
 		{
@@ -316,11 +307,11 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void button5_Click(object sender, EventArgs e)
 		{
-			if(RolPaneli.Visible != true)
+			if (RolPaneli.Visible != true)
 			{
 				RolPaneli.Visible = true;
 				// Form1'i açmak için
-				Yardimcilar.OpenForm(new RolESG(),RolPaneli);
+				Yardimcilar.OpenForm(new RolESG(), RolPaneli);
 				ComboRol.Text = "";
 			}
 			else
@@ -328,6 +319,37 @@ namespace Restoran_Otomasyon.Paneller
 				RolPaneli.Visible = false;
 			}
 			//RolleriDoldur();anlık olarak iletiyorum
+		}
+
+		//maskedda gerek yokmuşta ben gene yapmış bulundum
+		private void txttelefon_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txttelefon, e);
+		}
+
+		private void txttelefon_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txttelefon, sender, e);
+		}
+
+		private void txtmaas_KeyDown(object sender, KeyEventArgs e)
+		{
+			Yardimcilar.Kopyalama(txtmaas, sender, e);
+		}
+
+		private void txtmaas_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			Yardimcilar.KontrolEt(txtmaas,e);
+		}
+
+		private void txtmaas_Leave(object sender, EventArgs e)
+		{
+			if (txtmaas.Text != "")
+			{
+				maasformatsız = Convert.ToDecimal(Yardimcilar.FormatsizDeger(txtmaas.Text));
+				txtmaas.Text = maasformatsız.ToString();
+				txtmaas.Text = Yardimcilar.FormatliDeger(txtmaas.Text);
+			}
 		}
 	}
 }
