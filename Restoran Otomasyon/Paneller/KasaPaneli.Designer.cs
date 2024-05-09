@@ -49,6 +49,7 @@
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.Bakiyee = new System.Windows.Forms.ToolStripMenuItem();
 			this.Karsilama = new System.Windows.Forms.ToolStripMenuItem();
+			this.bilgilerimiGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.bosluklar = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -70,7 +71,6 @@
 			this.GunlereGore = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.OdemeYuzde = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.MasaYogunluk = new System.Windows.Forms.DataVisualization.Charting.Chart();
-			this.bilgilerimiGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DolulukOranlari)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisMenu)).BeginInit();
@@ -98,6 +98,13 @@
 			this.Karsilama.Name = "Karsilama";
 			this.Karsilama.Size = new System.Drawing.Size(102, 27);
 			this.Karsilama.Text = " Merhaba,";
+			// 
+			// bilgilerimiGüncelleToolStripMenuItem
+			// 
+			this.bilgilerimiGüncelleToolStripMenuItem.Name = "bilgilerimiGüncelleToolStripMenuItem";
+			this.bilgilerimiGüncelleToolStripMenuItem.Size = new System.Drawing.Size(247, 28);
+			this.bilgilerimiGüncelleToolStripMenuItem.Text = "Bilgilerimi Güncelle";
+			this.bilgilerimiGüncelleToolStripMenuItem.Click += new System.EventHandler(this.bilgilerimiGüncelleToolStripMenuItem_Click);
 			// 
 			// bosluklar
 			// 
@@ -343,17 +350,11 @@
 			this.MasaYogunluk.TabIndex = 8;
 			this.MasaYogunluk.Text = "chart1";
 			// 
-			// bilgilerimiGüncelleToolStripMenuItem
-			// 
-			this.bilgilerimiGüncelleToolStripMenuItem.Name = "bilgilerimiGüncelleToolStripMenuItem";
-			this.bilgilerimiGüncelleToolStripMenuItem.Size = new System.Drawing.Size(247, 28);
-			this.bilgilerimiGüncelleToolStripMenuItem.Text = "Bilgilerimi Güncelle";
-			this.bilgilerimiGüncelleToolStripMenuItem.Click += new System.EventHandler(this.bilgilerimiGüncelleToolStripMenuItem_Click);
-			// 
 			// KasaPaneli
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1914, 906);
 			this.Controls.Add(this.DolulukOranlari);
 			this.Controls.Add(this.EnCokSiparisMenu);

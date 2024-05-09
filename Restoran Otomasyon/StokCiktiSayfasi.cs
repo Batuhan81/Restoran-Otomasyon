@@ -221,6 +221,7 @@ namespace Restoran_Otomasyon.Paneller
 		private void gridCikti_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			Yardimcilar.gridFormatStokMiktari(gridCikti, "SonStok");
+			Yardimcilar.gridFormatStokMiktari(gridCikti, "Miktar");
 		}
 
 		private void txtmiktar_KeyDown(object sender, KeyEventArgs e)
@@ -231,6 +232,56 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtmiktar_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(txtmiktar, e);
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+			var adagore=db.stokCiktilar.Where(o=>o.Gorunuluk==true && o.Malzeme.Ad.Contains(textBox1.Text)).Select(o => new
+			{
+				Id = o.Id,
+				MalzemeAd = o.Malzeme.Ad,
+				Neden = o.Neden,
+				Miktar = o.Miktar,
+				SonStok = o.SonStok,
+				TedarikciAdi = o.Tedarikci.AdSoyad,
+				TedarikciId = o.TedarikciId,
+				MalzemeId = o.MalzemeId,
+				GirdiTarih = o.Tarih,
+				MalzemeTur = db.Malzemeler.Where(s => s.Id == o.MalzemeId).Select(x => x.Tur).FirstOrDefault(),
+			}).ToList();
+			gridCikti.DataSource=adagore;
+
+			var malzemeStokBilgileri = from malzeme in db.Malzemeler
+									   join stok in db.Stoklar on malzeme.Id equals stok.MalzemeId
+									   join tedarikci in db.Tedarikciler on stok.TedarikciId equals tedarikci.Id
+									   where malzeme.Gorunurluk == true && malzeme.Ad.Contains(textBox1.Text) //Yalnızca Görünür olan malzemeleri listeler
+									   select new
+									   {
+										   MalzemeId = malzeme.Id,
+										   Ad = malzeme.Ad,
+										   MalzemeTur = malzeme.Tur,
+										   Tedarikci = stok.Tedarikci.AdSoyad,
+										   TedarikciFirma = stok.Tedarikci.Firma,
+										   StokMiktar = stok.Miktar,
+										   StokMin = stok.MinStok,
+										   StokMax = stok.MaxStok,
+										   TedarikciId = tedarikci.Id, // Tedarikçi ID'sini gösteriyoruz
+										   StokId = stok.Id,
+									   };
+			gridMalzemeler.DataSource = malzemeStokBilgileri.ToList();
+			gridMalzemeler.Columns["MalzemeId"].Visible = false;
+			gridMalzemeler.Columns["StokId"].Visible = false;
+			gridMalzemeler.Columns["Tedarikci"].Visible = false;
+			gridMalzemeler.Columns["TedarikciFirma"].Visible = false;
+			gridMalzemeler.Columns["TedarikciId"].Visible = false;
+			gridMalzemeler.Columns["MalzemeTur"].Visible = false;
+		}
+
+		private void button8_Click(object sender, EventArgs e)
+		{
+			textBox1.Text = "";
+			Malzemeler();
+			Ciktilar();
 		}
 	}
 }

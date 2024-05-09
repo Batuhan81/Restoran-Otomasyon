@@ -40,6 +40,7 @@
 			this.hiddenUrunId = new System.Windows.Forms.TextBox();
 			this.hiddenMalzemeId = new System.Windows.Forms.TextBox();
 			this.groupUrun = new System.Windows.Forms.GroupBox();
+			this.CheckAktiflik = new System.Windows.Forms.CheckBox();
 			this.CheckGorunurluk = new System.Windows.Forms.CheckBox();
 			this.button7 = new System.Windows.Forms.Button();
 			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -90,7 +91,6 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.label15 = new System.Windows.Forms.Label();
 			this.txtAdAra = new System.Windows.Forms.TextBox();
-			this.CheckAktiflik = new System.Windows.Forms.CheckBox();
 			this.groupUrun.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridUrun)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -159,6 +159,16 @@
 			this.groupUrun.TabIndex = 47;
 			this.groupUrun.TabStop = false;
 			this.groupUrun.Text = "Malzeme Bilgileri";
+			// 
+			// CheckAktiflik
+			// 
+			this.CheckAktiflik.AutoSize = true;
+			this.CheckAktiflik.Location = new System.Drawing.Point(32, 30);
+			this.CheckAktiflik.Name = "CheckAktiflik";
+			this.CheckAktiflik.Size = new System.Drawing.Size(80, 22);
+			this.CheckAktiflik.TabIndex = 61;
+			this.CheckAktiflik.Text = "Aktiflik";
+			this.CheckAktiflik.UseVisualStyleBackColor = true;
 			// 
 			// CheckGorunurluk
 			// 
@@ -686,9 +696,6 @@
 			// KategoriAra
 			// 
 			this.KategoriAra.FormattingEnabled = true;
-			this.KategoriAra.Items.AddRange(new object[] {
-            "Kadın",
-            "Erkek"});
 			this.KategoriAra.Location = new System.Drawing.Point(899, 23);
 			this.KategoriAra.Margin = new System.Windows.Forms.Padding(4);
 			this.KategoriAra.Name = "KategoriAra";
@@ -781,16 +788,6 @@
 			this.txtAdAra.Size = new System.Drawing.Size(144, 28);
 			this.txtAdAra.TabIndex = 0;
 			this.txtAdAra.TextChanged += new System.EventHandler(this.txtAdAra_TextChanged);
-			// 
-			// CheckAktiflik
-			// 
-			this.CheckAktiflik.AutoSize = true;
-			this.CheckAktiflik.Location = new System.Drawing.Point(32, 30);
-			this.CheckAktiflik.Name = "CheckAktiflik";
-			this.CheckAktiflik.Size = new System.Drawing.Size(80, 22);
-			this.CheckAktiflik.TabIndex = 61;
-			this.CheckAktiflik.Text = "Aktiflik";
-			this.CheckAktiflik.UseVisualStyleBackColor = true;
 			// 
 			// UrunESG
 			// 

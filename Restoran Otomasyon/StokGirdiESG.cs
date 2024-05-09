@@ -77,7 +77,7 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				DataGridViewRow row = gridStokGirdi.Rows[e.RowIndex];
 				hiddensStokGirdiId.Text = row.Cells["Id"].Value.ToString();
-				txtfirma.Text = row.Cells["TedarikciAdi"].Value.ToString();
+				txtfirma.Text = row.Cells["TedarikçiFirma"].Value.ToString();
 				comboMalzeme.Text = row.Cells["MalzemeAdi"].Value.ToString();
 				txtAlisF.Text = row.Cells["AlisFiyati"].Value.ToString();
 				hiddenMalzemeId.Text = row.Cells["MalzemeId"].Value.ToString();
@@ -248,6 +248,7 @@ namespace Restoran_Otomasyon.Paneller
 			malzemeleriDoldur();
 			Girdilİstesi();
 			Yardimcilar.GridRenklendir(gridStokGirdi);
+			FiltreKaldır(); 
 		}
 		#endregion
 
@@ -291,7 +292,7 @@ namespace Restoran_Otomasyon.Paneller
 											   {
 												   Id = o.Id,
 												   GirdiMiktar = o.Miktar,
-												   TedarikciAdi = o.Tedarikci.AdSoyad,
+												   TedarikçiFirma = o.Tedarikci.Firma,
 												   MalzemeAdi = o.Malzeme.Ad,
 												   AlisFiyati = o.AlısFiyati,
 												   TedarikciId = o.TedarikciId,
@@ -315,12 +316,21 @@ namespace Restoran_Otomasyon.Paneller
 
 		void malzemeleriDoldur()
 		{
-			// Görünürlüğü true olan malzemeleri veritabanından al ve combo box'a doldur
+			// Görünürlüğü true olan malzemeleri veritabanından al ve combo box'lara doldur
 			var malzemeler = db.Malzemeler.Where(m => m.Gorunurluk).ToList();
-			comboMalzeme.DisplayMember = "Ad"; // ComboBox'ta görünecek metin malzeme adı olacak
-			comboMalzeme.ValueMember = "Id"; // ComboBox'ta saklanacak değer malzeme ID'si olacak
+
+			comboMalzeme.DisplayMember = "Ad";
+			comboMalzeme.ValueMember = "Id";
 			comboMalzeme.DataSource = malzemeler;
+
+			// Mazmeara ComboBox'ına aynı malzemelerin kopyasını yükle
+			var malzemelerKopya = new List<Malzeme>(malzemeler);
+			MalzemeAra.DisplayMember = "Ad";
+			MalzemeAra.ValueMember = "Id";
+			MalzemeAra.DataSource = malzemelerKopya;
 		}
+
+
 		#endregion
 
 		private void txtalinanMik_KeyDown(object sender, KeyEventArgs e)
@@ -341,6 +351,72 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtAlisF_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(txtAlisF, e);
+		}
+
+		private void MalzemeAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			MalzemeID = (int)MalzemeAra.SelectedValue;
+
+			FiltreleVeYukle();
+		}
+		string Ad;
+		int? MalzemeID;
+		private void FiltreleVeYukle()
+		{
+			IQueryable<StokGirdi> query = db.StokGirdiler.OrderByDescending(o => o.Id);
+			if (!string.IsNullOrEmpty(Ad))
+			{
+				query = query.Where(p => p.Tedarikci.Firma.Contains(Ad));
+			}
+
+			if (MalzemeID != null)
+			{
+				query = query.Where(p => p.MalzemeId == MalzemeID);
+			}
+			// Stok girdilerini en son ID'ye göre sırala ve ilgili stok bilgilerini ekle
+			var stokGirdiler = query.Select(o => new
+			{
+				Id = o.Id,
+				GirdiMiktar = o.Miktar,
+				TedarikçiFirma = o.Tedarikci.Firma,
+				MalzemeAdi = o.Malzeme.Ad,
+				AlisFiyati = o.AlısFiyati,
+				TedarikciId = o.TedarikciId,
+				MalzemeId = o.MalzemeId,
+				İşlemSonuStok = o.SonStokMiktari,
+				Neden = o.Neden,
+				GirdiTarih = o.Tarih,
+				MalzemeTur = db.Malzemeler.Where(s => s.Id == o.MalzemeId).Select(x => x.Tur).FirstOrDefault(),
+			}).ToList();
+			gridStokGirdi.DataSource = stokGirdiler;
+
+			// DataGridView'deki sütunları düzenleme ve Gizleme
+			gridStokGirdi.Columns["Id"].DisplayIndex = 0; // Girdi ID sütununu en başa al
+			gridStokGirdi.Columns["TedarikciId"].Visible = false;
+			gridStokGirdi.Columns["MalzemeId"].Visible = false;
+			gridStokGirdi.Columns["MalzemeTur"].Visible = false;
+			gridStokGirdi.Columns["Id"].Visible = false;
+			gridStokGirdi.Columns["Neden"].Visible = false;
+		}
+
+		private void FirmaAra_TextChanged(object sender, EventArgs e)
+		{
+			Ad = FirmaAra.Text;
+			FiltreleVeYukle();
+		}
+
+		private void button8_Click(object sender, EventArgs e)
+		{
+			FiltreKaldır();
+		}
+
+		private void FiltreKaldır()
+		{
+			Ad = "";
+			MalzemeID = null;
+			FirmaAra.Text = "";
+			MalzemeAra.Text = "";
+			Girdilİstesi();
 		}
 	}
 }

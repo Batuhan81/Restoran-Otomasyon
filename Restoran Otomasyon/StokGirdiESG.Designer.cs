@@ -55,13 +55,20 @@
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.hiddenMalzemeId = new System.Windows.Forms.TextBox();
 			this.hiddensStokGirdiId = new System.Windows.Forms.TextBox();
+			this.groupUrunFiltre = new System.Windows.Forms.GroupBox();
+			this.MalzemeAra = new System.Windows.Forms.ComboBox();
+			this.button8 = new System.Windows.Forms.Button();
+			this.label8 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.FirmaAra = new System.Windows.Forms.TextBox();
 			this.groupGirdi.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridStokGirdi)).BeginInit();
+			this.groupUrunFiltre.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// hiddenStokId
 			// 
-			this.hiddenStokId.Location = new System.Drawing.Point(420, 78);
+			this.hiddenStokId.Location = new System.Drawing.Point(355, 359);
 			this.hiddenStokId.Margin = new System.Windows.Forms.Padding(4);
 			this.hiddenStokId.Name = "hiddenStokId";
 			this.hiddenStokId.Size = new System.Drawing.Size(49, 22);
@@ -85,11 +92,11 @@
 			this.groupGirdi.Controls.Add(this.uzanti);
 			this.groupGirdi.Controls.Add(this.button1);
 			this.groupGirdi.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.groupGirdi.Location = new System.Drawing.Point(10, 13);
+			this.groupGirdi.Location = new System.Drawing.Point(8, 2);
 			this.groupGirdi.Margin = new System.Windows.Forms.Padding(4);
 			this.groupGirdi.Name = "groupGirdi";
 			this.groupGirdi.Padding = new System.Windows.Forms.Padding(4);
-			this.groupGirdi.Size = new System.Drawing.Size(337, 406);
+			this.groupGirdi.Size = new System.Drawing.Size(337, 417);
 			this.groupGirdi.TabIndex = 47;
 			this.groupGirdi.TabStop = false;
 			this.groupGirdi.Text = "Girdi Bilgileri";
@@ -263,7 +270,7 @@
 			dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.gridStokGirdi.DefaultCellStyle = dataGridViewCellStyle11;
-			this.gridStokGirdi.Location = new System.Drawing.Point(353, 13);
+			this.gridStokGirdi.Location = new System.Drawing.Point(353, 71);
 			this.gridStokGirdi.Margin = new System.Windows.Forms.Padding(4);
 			this.gridStokGirdi.Name = "gridStokGirdi";
 			dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -277,14 +284,14 @@
 			this.gridStokGirdi.RowHeadersWidth = 51;
 			this.gridStokGirdi.RowTemplate.Height = 24;
 			this.gridStokGirdi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridStokGirdi.Size = new System.Drawing.Size(1169, 406);
+			this.gridStokGirdi.Size = new System.Drawing.Size(1169, 348);
 			this.gridStokGirdi.TabIndex = 46;
 			this.gridStokGirdi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridStokGirdi_CellClick);
 			this.gridStokGirdi.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridStokGirdi_CellFormatting);
 			// 
 			// hiddenTedarikciId
 			// 
-			this.hiddenTedarikciId.Location = new System.Drawing.Point(420, 11);
+			this.hiddenTedarikciId.Location = new System.Drawing.Point(355, 292);
 			this.hiddenTedarikciId.Margin = new System.Windows.Forms.Padding(4);
 			this.hiddenTedarikciId.Name = "hiddenTedarikciId";
 			this.hiddenTedarikciId.Size = new System.Drawing.Size(49, 22);
@@ -297,7 +304,7 @@
 			// 
 			// hiddenMalzemeId
 			// 
-			this.hiddenMalzemeId.Location = new System.Drawing.Point(420, 46);
+			this.hiddenMalzemeId.Location = new System.Drawing.Point(355, 327);
 			this.hiddenMalzemeId.Margin = new System.Windows.Forms.Padding(4);
 			this.hiddenMalzemeId.Name = "hiddenMalzemeId";
 			this.hiddenMalzemeId.Size = new System.Drawing.Size(49, 22);
@@ -306,19 +313,86 @@
 			// 
 			// hiddensStokGirdiId
 			// 
-			this.hiddensStokGirdiId.Location = new System.Drawing.Point(420, 116);
+			this.hiddensStokGirdiId.Location = new System.Drawing.Point(355, 397);
 			this.hiddensStokGirdiId.Margin = new System.Windows.Forms.Padding(4);
 			this.hiddensStokGirdiId.Name = "hiddensStokGirdiId";
 			this.hiddensStokGirdiId.Size = new System.Drawing.Size(49, 22);
 			this.hiddensStokGirdiId.TabIndex = 51;
 			this.hiddensStokGirdiId.Visible = false;
 			// 
+			// groupUrunFiltre
+			// 
+			this.groupUrunFiltre.Controls.Add(this.MalzemeAra);
+			this.groupUrunFiltre.Controls.Add(this.button8);
+			this.groupUrunFiltre.Controls.Add(this.label8);
+			this.groupUrunFiltre.Controls.Add(this.label15);
+			this.groupUrunFiltre.Controls.Add(this.FirmaAra);
+			this.groupUrunFiltre.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.groupUrunFiltre.Location = new System.Drawing.Point(354, 2);
+			this.groupUrunFiltre.Name = "groupUrunFiltre";
+			this.groupUrunFiltre.Size = new System.Drawing.Size(1168, 62);
+			this.groupUrunFiltre.TabIndex = 70;
+			this.groupUrunFiltre.TabStop = false;
+			this.groupUrunFiltre.Text = "Filtre Seçenekleri";
+			// 
+			// MalzemeAra
+			// 
+			this.MalzemeAra.FormattingEnabled = true;
+			this.MalzemeAra.Items.AddRange(new object[] {
+            "Aktif",
+            "Pasif"});
+			this.MalzemeAra.Location = new System.Drawing.Point(788, 22);
+			this.MalzemeAra.Margin = new System.Windows.Forms.Padding(4);
+			this.MalzemeAra.Name = "MalzemeAra";
+			this.MalzemeAra.Size = new System.Drawing.Size(125, 30);
+			this.MalzemeAra.TabIndex = 45;
+			this.MalzemeAra.SelectedIndexChanged += new System.EventHandler(this.MalzemeAra_SelectedIndexChanged);
+			// 
+			// button8
+			// 
+			this.button8.BackColor = System.Drawing.Color.SkyBlue;
+			this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button8.Location = new System.Drawing.Point(1061, 21);
+			this.button8.Name = "button8";
+			this.button8.Size = new System.Drawing.Size(84, 35);
+			this.button8.TabIndex = 44;
+			this.button8.Text = "Kaldır";
+			this.button8.UseVisualStyleBackColor = false;
+			this.button8.Click += new System.EventHandler(this.button8_Click);
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(633, 25);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(128, 22);
+			this.label8.TabIndex = 3;
+			this.label8.Text = "Malzeme Adı:";
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(133, 25);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(101, 22);
+			this.label15.TabIndex = 1;
+			this.label15.Text = "Firma Adı:";
+			// 
+			// FirmaAra
+			// 
+			this.FirmaAra.Location = new System.Drawing.Point(255, 22);
+			this.FirmaAra.Name = "FirmaAra";
+			this.FirmaAra.Size = new System.Drawing.Size(144, 28);
+			this.FirmaAra.TabIndex = 0;
+			this.FirmaAra.TextChanged += new System.EventHandler(this.FirmaAra_TextChanged);
+			// 
 			// StokGirdiESG
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ClientSize = new System.Drawing.Size(1527, 432);
+			this.ClientSize = new System.Drawing.Size(1527, 425);
+			this.Controls.Add(this.groupUrunFiltre);
 			this.Controls.Add(this.hiddensStokGirdiId);
 			this.Controls.Add(this.hiddenTedarikciId);
 			this.Controls.Add(this.hiddenMalzemeId);
@@ -333,6 +407,8 @@
 			this.groupGirdi.ResumeLayout(false);
 			this.groupGirdi.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridStokGirdi)).EndInit();
+			this.groupUrunFiltre.ResumeLayout(false);
+			this.groupUrunFiltre.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -362,5 +438,11 @@
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.ImageList ımageList1;
+		private System.Windows.Forms.GroupBox groupUrunFiltre;
+		private System.Windows.Forms.ComboBox MalzemeAra;
+		private System.Windows.Forms.Button button8;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.TextBox FirmaAra;
 	}
 }

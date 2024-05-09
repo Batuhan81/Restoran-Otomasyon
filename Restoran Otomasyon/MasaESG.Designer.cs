@@ -36,8 +36,8 @@
 			this.MasaPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.MasaEklePanel = new System.Windows.Forms.Panel();
 			this.MasaKaydet = new System.Windows.Forms.Button();
-			this.button7 = new System.Windows.Forms.Button();
 			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
+			this.button7 = new System.Windows.Forms.Button();
 			this.MasaOzellik = new System.Windows.Forms.CheckedListBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -87,6 +87,7 @@
 			// 
 			// MasaPanel
 			// 
+			this.MasaPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.MasaPanel.Controls.Add(this.MasaEklePanel);
 			this.MasaPanel.Controls.Add(this.PanelKategori);
 			this.MasaPanel.Controls.Add(this.pictureBox1);
@@ -97,7 +98,7 @@
 			// 
 			// MasaEklePanel
 			// 
-			this.MasaEklePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.MasaEklePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.MasaEklePanel.Controls.Add(this.MasaKaydet);
 			this.MasaEklePanel.Controls.Add(this.button7);
 			this.MasaEklePanel.Controls.Add(this.MasaOzellik);
@@ -127,6 +128,14 @@
 			this.MasaKaydet.UseVisualStyleBackColor = false;
 			this.MasaKaydet.Click += new System.EventHandler(this.MasaKaydet_Click);
 			// 
+			// ımageList2
+			// 
+			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
+			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
+			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
+			this.ımageList2.Images.SetKeyName(2, "Kaydet.png");
+			// 
 			// button7
 			// 
 			this.button7.BackColor = System.Drawing.SystemColors.Control;
@@ -140,14 +149,6 @@
 			this.button7.TabIndex = 59;
 			this.button7.UseVisualStyleBackColor = true;
 			this.button7.Click += new System.EventHandler(this.button7_Click);
-			// 
-			// ımageList2
-			// 
-			this.ımageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList2.ImageStream")));
-			this.ımageList2.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList2.Images.SetKeyName(0, "Ekle2.png");
-			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
-			this.ımageList2.Images.SetKeyName(2, "Kaydet.png");
 			// 
 			// MasaOzellik
 			// 
@@ -206,7 +207,7 @@
 			// 
 			// PanelKategori
 			// 
-			this.PanelKategori.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.PanelKategori.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.PanelKategori.Location = new System.Drawing.Point(390, 3);
 			this.PanelKategori.Name = "PanelKategori";
 			this.PanelKategori.Size = new System.Drawing.Size(397, 356);
@@ -215,8 +216,8 @@
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pictureBox1.Location = new System.Drawing.Point(793, 3);
+			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.pictureBox1.Location = new System.Drawing.Point(3, 459);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(345, 323);
 			this.pictureBox1.TabIndex = 2;
@@ -225,7 +226,7 @@
 			// 
 			// MasaOzellikPanel
 			// 
-			this.MasaOzellikPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.MasaOzellikPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.MasaOzellikPanel.Location = new System.Drawing.Point(1161, 256);
 			this.MasaOzellikPanel.Name = "MasaOzellikPanel";
 			this.MasaOzellikPanel.Size = new System.Drawing.Size(368, 387);

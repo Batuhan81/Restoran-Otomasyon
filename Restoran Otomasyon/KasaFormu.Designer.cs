@@ -42,6 +42,8 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.OdemeFiltre = new System.Windows.Forms.ComboBox();
+			this.label3 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.gridOdemeler)).BeginInit();
 			this.FiltrePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -204,12 +206,38 @@
 			this.checkBox1.UseWaitCursor = true;
 			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
 			// 
+			// OdemeFiltre
+			// 
+			this.OdemeFiltre.FormattingEnabled = true;
+			this.OdemeFiltre.Items.AddRange(new object[] {
+            "Tümü",
+            "Nakit",
+            "Kart"});
+			this.OdemeFiltre.Location = new System.Drawing.Point(384, 12);
+			this.OdemeFiltre.Name = "OdemeFiltre";
+			this.OdemeFiltre.Size = new System.Drawing.Size(121, 26);
+			this.OdemeFiltre.TabIndex = 74;
+			this.OdemeFiltre.SelectedIndexChanged += new System.EventHandler(this.OdemeFiltre_SelectedIndexChanged);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label3.Location = new System.Drawing.Point(258, 16);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(118, 20);
+			this.label3.TabIndex = 75;
+			this.label3.Text = "Ödeme Türü:";
+			this.label3.UseWaitCursor = true;
+			// 
 			// KasaFormu
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1532, 828);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.OdemeFiltre);
 			this.Controls.Add(this.checkBox1);
 			this.Controls.Add(this.FiltrePanel);
 			this.Controls.Add(this.gridOdemeler);
@@ -244,5 +272,7 @@
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.ComboBox OdemeFiltre;
+		private System.Windows.Forms.Label label3;
 	}
 }

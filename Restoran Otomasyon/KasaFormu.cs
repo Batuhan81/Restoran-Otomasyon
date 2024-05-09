@@ -25,7 +25,7 @@ namespace Restoran_Otomasyon.Paneller
 			Yardimcilar.GridRenklendir(gridOdemeler);
 		}
 
-		public  void Odemeler()
+		public void Odemeler()
 		{
 			var odemeler = db.Odemeler.Select(o => new
 			{
@@ -34,7 +34,7 @@ namespace Restoran_Otomasyon.Paneller
 				Tutar = o.Tutar,
 				Ödeme_Tarihi = o.OdemeTarih,
 			}).ToList();
-			txtBakiye.Text =odemeler.Sum(o => o.Tutar).ToString();
+			txtBakiye.Text = odemeler.Sum(o => o.Tutar).ToString();
 			gridOdemeler.DataSource = odemeler;
 			gridOdemeler.Columns["Id"].Visible = false;
 		}
@@ -70,17 +70,34 @@ namespace Restoran_Otomasyon.Paneller
 			DateTime bugunBaslangic = new DateTime(bugun.Year, bugun.Month, bugun.Day, 0, 0, 0);
 			DateTime bugunBitis = new DateTime(bugun.Year, bugun.Month, bugun.Day, 23, 59, 59);
 
-			// Bugünün başlangıç ve bitiş saatleri arasındaki ödemeleri al
-			var Gunluk = db.Odemeler.Where(o => o.OdemeTarih >= bugunBaslangic && o.OdemeTarih <= bugunBitis).Select(o => new
+			if (OdemeFiltre.SelectedIndex == 0)
 			{
-				Id = o.Id,
-				Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
-				Tutar = o.Tutar,
-				Ödeme_Tarihi = o.OdemeTarih,
-			}).ToList();
-			decimal toplamTutar = Gunluk.Sum(o => o.Tutar);
-			txtBakiye.Text = toplamTutar.ToString();
-			gridOdemeler.DataSource = Gunluk;
+				// Bugünün başlangıç ve bitiş saatleri arasındaki ödemeleri al
+				var Gunluk = db.Odemeler.Where(o => o.OdemeTarih >= bugunBaslangic && o.OdemeTarih <= bugunBitis && o.Tur == Filtre).Select(o => new
+				{
+					Id = o.Id,
+					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
+					Tutar = o.Tutar,
+					Ödeme_Tarihi = o.OdemeTarih,
+				}).ToList();
+				decimal toplamTutar = Gunluk.Sum(o => o.Tutar);
+				txtBakiye.Text = toplamTutar.ToString();
+				gridOdemeler.DataSource = Gunluk;
+			}
+			else
+			{
+				// Bugünün başlangıç ve bitiş saatleri arasındaki ödemeleri al
+				var Gunluk = db.Odemeler.Where(o => o.OdemeTarih >= bugunBaslangic && o.OdemeTarih <= bugunBitis).Select(o => new
+				{
+					Id = o.Id,
+					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
+					Tutar = o.Tutar,
+					Ödeme_Tarihi = o.OdemeTarih,
+				}).ToList();
+				decimal toplamTutar = Gunluk.Sum(o => o.Tutar);
+				txtBakiye.Text = toplamTutar.ToString();
+				gridOdemeler.DataSource = Gunluk;
+			}
 		}
 
 
@@ -90,34 +107,70 @@ namespace Restoran_Otomasyon.Paneller
 			DateTime haftaninIlkGunu = bugun.AddDays(-(int)haftaninGunleri);
 			// Haftanın son gününü bulma (haftanın ilk gününe 6 gün ekleyerek)
 			DateTime haftaninSonGunu = haftaninIlkGunu.AddDays(6);
-			var haftalikOdemeler = db.Odemeler.Where(o => o.OdemeTarih >= haftaninIlkGunu && o.OdemeTarih <= haftaninSonGunu).Select(o => new
+			if (OdemeFiltre.SelectedIndex == 0)
 			{
-				Id = o.Id,
-				Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
-				Tutar = o.Tutar,
-				Ödeme_Tarihi = o.OdemeTarih,
-			}).ToList();
-			// Haftalık ödemelerin toplamını hesaplayın
-			decimal haftalikToplamTutar = haftalikOdemeler.Sum(o => o.Tutar);
-			txtBakiye.Text = haftalikToplamTutar.ToString();
-			gridOdemeler.DataSource = haftalikOdemeler;
+				var haftalikOdemeler = db.Odemeler.Where(o => o.OdemeTarih >= haftaninIlkGunu && o.OdemeTarih <= haftaninSonGunu).Select(o => new
+				{
+					Id = o.Id,
+					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
+					Tutar = o.Tutar,
+					Ödeme_Tarihi = o.OdemeTarih,
+				}).ToList();
+				// Haftalık ödemelerin toplamını hesaplayın
+				decimal haftalikToplamTutar = haftalikOdemeler.Sum(o => o.Tutar);
+				txtBakiye.Text = haftalikToplamTutar.ToString();
+				gridOdemeler.DataSource = haftalikOdemeler;
+			}
+			else
+			{
+				var haftalikOdemeler = db.Odemeler.Where(o => o.OdemeTarih >= haftaninIlkGunu && o.OdemeTarih <= haftaninSonGunu && o.Tur == Filtre).Select(o => new
+				{
+					Id = o.Id,
+					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
+					Tutar = o.Tutar,
+					Ödeme_Tarihi = o.OdemeTarih,
+				}).ToList();
+				// Haftalık ödemelerin toplamını hesaplayın
+				decimal haftalikToplamTutar = haftalikOdemeler.Sum(o => o.Tutar);
+				txtBakiye.Text = haftalikToplamTutar.ToString();
+				gridOdemeler.DataSource = haftalikOdemeler;
+			}
+
 		}
 
 		private void button3_Click(object sender, EventArgs e)
 		{
 			DateTime ayinIlkGunu = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).Date;
 			DateTime ayinSonGunu = ayinIlkGunu.AddMonths(1).Date;
-			var ayinOdemeleri = db.Odemeler.Where(o => o.OdemeTarih >= ayinIlkGunu && o.OdemeTarih <= ayinSonGunu).Select(o => new
+			if (OdemeFiltre.SelectedIndex == 0)
 			{
-				Id = o.Id,
-				Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
-				Tutar = o.Tutar,
-				Ödeme_Tarihi = o.OdemeTarih,
-			}).ToList();
-			// Bu ay içindeki ödemelerin toplamını hesaplayın
-			decimal ayinToplamTutar = ayinOdemeleri.Sum(o => o.Tutar);
-			txtBakiye.Text = ayinToplamTutar.ToString();
-			gridOdemeler.DataSource = ayinOdemeleri;
+				var ayinOdemeleri = db.Odemeler.Where(o => o.OdemeTarih >= ayinIlkGunu && o.OdemeTarih <= ayinSonGunu).Select(o => new
+				{
+					Id = o.Id,
+					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
+					Tutar = o.Tutar,
+					Ödeme_Tarihi = o.OdemeTarih,
+				}).ToList();
+				// Bu ay içindeki ödemelerin toplamını hesaplayın
+				decimal ayinToplamTutar = ayinOdemeleri.Sum(o => o.Tutar);
+				txtBakiye.Text = ayinToplamTutar.ToString();
+				gridOdemeler.DataSource = ayinOdemeleri;
+			}
+			else
+			{
+				var ayinOdemeleri = db.Odemeler.Where(o => o.OdemeTarih >= ayinIlkGunu && o.OdemeTarih <= ayinSonGunu && o.Tur==Filtre).Select(o => new
+				{
+					Id = o.Id,
+					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
+					Tutar = o.Tutar,
+					Ödeme_Tarihi = o.OdemeTarih,
+				}).ToList();
+				// Bu ay içindeki ödemelerin toplamını hesaplayın
+				decimal ayinToplamTutar = ayinOdemeleri.Sum(o => o.Tutar);
+				txtBakiye.Text = ayinToplamTutar.ToString();
+				gridOdemeler.DataSource = ayinOdemeleri;
+			}
+			
 		}
 
 		private void txtBakiye_TextChanged(object sender, EventArgs e)
@@ -127,24 +180,47 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void checkBox1_CheckedChanged(object sender, EventArgs e)
 		{
-			if(checkBox1.Checked==true)
+			if (checkBox1.Checked == true)
 			{
 				FiltrePanel.Visible = true;
 			}
 			else
 			{
-				FiltrePanel.Visible=false;
+				FiltrePanel.Visible = false;
 			}
 		}
 
 		private void button4_Click(object sender, EventArgs e)
 		{
-			Odemeler(); 
+			Odemeler();
 		}
 
 		private void gridOdemeler_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			Yardimcilar.GridFormat(gridOdemeler, "Tutar", e);
+		}
+		int Filtre;
+		private void OdemeFiltre_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Filtre = OdemeFiltre.SelectedIndex;
+			if (Filtre == 0)
+			{
+				Odemeler();
+			}
+			else
+			{
+				var odemeler = db.Odemeler.Where(o => o.Tur == Filtre).Select(o => new
+				{
+					Id = o.Id,
+					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
+					Tutar = o.Tutar,
+					Ödeme_Tarihi = o.OdemeTarih,
+				}).ToList();
+				txtBakiye.Text = odemeler.Sum(o => o.Tutar).ToString();
+				gridOdemeler.DataSource = odemeler;
+				gridOdemeler.Columns["Id"].Visible = false;
+			}
+
 		}
 	}
 }
