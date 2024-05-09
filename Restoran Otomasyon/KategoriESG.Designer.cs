@@ -45,6 +45,8 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.gridKategori = new System.Windows.Forms.DataGridView();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.label3 = new System.Windows.Forms.Label();
+			this.ComboFiltre = new System.Windows.Forms.ComboBox();
 			this.groupKategori.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridKategori)).BeginInit();
 			this.SuspendLayout();
@@ -60,6 +62,8 @@
 			// 
 			// groupKategori
 			// 
+			this.groupKategori.Controls.Add(this.label3);
+			this.groupKategori.Controls.Add(this.ComboFiltre);
 			this.groupKategori.Controls.Add(this.label2);
 			this.groupKategori.Controls.Add(this.comboTur);
 			this.groupKategori.Controls.Add(this.uzanti);
@@ -80,11 +84,11 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(44, 80);
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label2.Location = new System.Drawing.Point(42, 110);
 			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(104, 16);
+			this.label2.Size = new System.Drawing.Size(115, 18);
 			this.label2.TabIndex = 40;
 			this.label2.Text = "Kategori Türü:";
 			// 
@@ -95,7 +99,7 @@
             "Masa",
             "Ürün",
             "Menü"});
-			this.comboTur.Location = new System.Drawing.Point(163, 76);
+			this.comboTur.Location = new System.Drawing.Point(170, 107);
 			this.comboTur.Name = "comboTur";
 			this.comboTur.Size = new System.Drawing.Size(175, 26);
 			this.comboTur.TabIndex = 2;
@@ -116,7 +120,7 @@
 			this.button2.BackColor = System.Drawing.Color.SkyBlue;
 			this.button2.ImageKey = "Sil butonu - Kopya.png";
 			this.button2.ImageList = this.ımageList1;
-			this.button2.Location = new System.Drawing.Point(208, 132);
+			this.button2.Location = new System.Drawing.Point(210, 153);
 			this.button2.Margin = new System.Windows.Forms.Padding(4);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(177, 66);
@@ -138,7 +142,7 @@
 			this.button1.BackColor = System.Drawing.Color.SkyBlue;
 			this.button1.ImageKey = "Kaydet.png";
 			this.button1.ImageList = this.ımageList1;
-			this.button1.Location = new System.Drawing.Point(8, 132);
+			this.button1.Location = new System.Drawing.Point(10, 153);
 			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(177, 66);
@@ -150,7 +154,7 @@
 			// 
 			// txtad
 			// 
-			this.txtad.Location = new System.Drawing.Point(163, 32);
+			this.txtad.Location = new System.Drawing.Point(170, 63);
 			this.txtad.Margin = new System.Windows.Forms.Padding(4);
 			this.txtad.Name = "txtad";
 			this.txtad.Size = new System.Drawing.Size(175, 24);
@@ -159,11 +163,11 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(118, 35);
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label1.Location = new System.Drawing.Point(125, 66);
 			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(30, 16);
+			this.label1.Size = new System.Drawing.Size(32, 18);
 			this.label1.TabIndex = 19;
 			this.label1.Text = "Ad:";
 			// 
@@ -211,6 +215,31 @@
 			this.timer1.Interval = 2000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label3.Location = new System.Drawing.Point(63, 27);
+			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(94, 18);
+			this.label3.TabIndex = 42;
+			this.label3.Text = "Tür Filtresi:";
+			// 
+			// ComboFiltre
+			// 
+			this.ComboFiltre.FormattingEnabled = true;
+			this.ComboFiltre.Items.AddRange(new object[] {
+            "Tümü",
+            "Masa",
+            "Ürün",
+            "Menü"});
+			this.ComboFiltre.Location = new System.Drawing.Point(170, 24);
+			this.ComboFiltre.Name = "ComboFiltre";
+			this.ComboFiltre.Size = new System.Drawing.Size(175, 26);
+			this.ComboFiltre.TabIndex = 41;
+			this.ComboFiltre.SelectedIndexChanged += new System.EventHandler(this.ComboFiltre_SelectedIndexChanged);
+			// 
 			// KategoriESG
 			// 
 			this.AcceptButton = this.button1;
@@ -247,5 +276,7 @@
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.ComboBox comboTur;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ComboBox ComboFiltre;
 	}
 }

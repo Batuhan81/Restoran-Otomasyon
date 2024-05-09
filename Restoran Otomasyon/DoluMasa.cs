@@ -62,6 +62,8 @@ namespace Restoran_Otomasyon
 			{
 				sonSiparisId = sonSiparis.SiparisId;
 			}
+			var masasiparisleri = db.MasaSiparisler.Where(o => o.Siparis.OdemeDurum == false && o.MasaId == masaId).ToList();
+
 		}
 
 		private void UrunleriGoster(int kategoriId)
@@ -758,6 +760,25 @@ namespace Restoran_Otomasyon
 		private void txtkisisayisi_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(txtkisisayisi,e);
+		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			if(PanelSiparis.Visible!=true)
+			{
+				PanelSiparis.Visible = true;
+				Yardimcilar.OpenForm(new BosMasa(masaId,kullaniciId), PanelSiparis);
+				PanelSiparis.BringToFront();
+			}
+			else
+			{
+				PanelSiparis.Visible=false;
+			}
+		}
+
+		private void PanelSiparis_Paint(object sender, PaintEventArgs e)
+		{
+
 		}
 	}
 }

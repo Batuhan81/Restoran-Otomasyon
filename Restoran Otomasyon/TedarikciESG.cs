@@ -170,5 +170,37 @@ namespace Restoran_Otomasyon
 				*/
 			}
 		}
+		void Filtrele()
+		{
+			string ad = txtAdAra.Text;
+			string mail = txtmailAra.Text;
+			string telefon = txtTelAra.Text;
+			telefon = new string(telefon.Where(char.IsDigit).ToArray());
+			var Tedarikciler = db.Tedarikciler.Where(r => r.Gorunurluk == true&& r.Firma.Contains(ad) && r.Eposta.Contains(mail) && r.Telefon.Contains(telefon)).Select(o => new
+			{
+				Id = o.Id,
+				Ad = o.AdSoyad,
+				Firma = o.Firma,
+				Eposta = o.Eposta,
+				Telefon = o.Telefon,
+				Adres = o.AdresBİlgisi,
+			}).ToList();
+			gridTedarikci.DataSource = Tedarikciler;
+		}
+
+		private void txtAdAra_TextChanged(object sender, EventArgs e)
+		{
+			Filtrele();
+		}
+
+		private void txtmailAra_TextChanged(object sender, EventArgs e)
+		{
+			Filtrele();
+		}
+
+		private void txtTelAra_TextChanged(object sender, EventArgs e)
+		{
+			Filtrele();
+		}
 	}
 }

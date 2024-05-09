@@ -15,6 +15,6 @@ namespace Restoran_Otomasyon.Data
 
 		public int SiparisId { get; set; }
 
-		public Siparis Siparis { get; set; }
+		public virtual Siparis Siparis { get; set; }
 	}
 }

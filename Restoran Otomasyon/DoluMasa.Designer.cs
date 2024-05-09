@@ -76,6 +76,8 @@
 			this.button3 = new System.Windows.Forms.Button();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+			this.PanelSiparis = new System.Windows.Forms.Panel();
+			this.button4 = new System.Windows.Forms.Button();
 			this.UrunPaneli.SuspendLayout();
 			this.OdemePaneli.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -274,6 +276,7 @@
 			this.ımageList2.Images.SetKeyName(1, "Sil butonu - Kopya.png");
 			this.ımageList2.Images.SetKeyName(2, "Ödeme.png");
 			this.ımageList2.Images.SetKeyName(3, "YemekTeslim.png");
+			this.ımageList2.Images.SetKeyName(4, "SiparisAl.png");
 			// 
 			// btn20
 			// 
@@ -546,7 +549,7 @@
 			this.button1.BackColor = System.Drawing.Color.SkyBlue;
 			this.button1.ImageKey = "Ödeme.png";
 			this.button1.ImageList = this.ımageList2;
-			this.button1.Location = new System.Drawing.Point(1283, 525);
+			this.button1.Location = new System.Drawing.Point(1283, 526);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(197, 74);
 			this.button1.TabIndex = 56;
@@ -578,17 +581,42 @@
 			// 
 			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
 			// 
+			// PanelSiparis
+			// 
+			this.PanelSiparis.Location = new System.Drawing.Point(3, 4);
+			this.PanelSiparis.Name = "PanelSiparis";
+			this.PanelSiparis.Size = new System.Drawing.Size(1537, 783);
+			this.PanelSiparis.TabIndex = 58;
+			this.PanelSiparis.Visible = false;
+			this.PanelSiparis.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelSiparis_Paint);
+			// 
+			// button4
+			// 
+			this.button4.BackColor = System.Drawing.Color.SkyBlue;
+			this.button4.ImageKey = "SiparisAl.png";
+			this.button4.ImageList = this.ımageList2;
+			this.button4.Location = new System.Drawing.Point(1283, 617);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(197, 74);
+			this.button4.TabIndex = 59;
+			this.button4.Text = "Siparis Düzenle";
+			this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button4.UseVisualStyleBackColor = false;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
 			// DoluMasa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1552, 799);
+			this.Controls.Add(this.button4);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.UrunPaneli);
 			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.PanelSiparis);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.Name = "DoluMasa";
 			this.ShowIcon = false;
@@ -655,5 +683,7 @@
 		private System.Windows.Forms.Label label14;
 		private System.Windows.Forms.CheckBox checkFis;
 		private System.Drawing.Printing.PrintDocument printDocument1;
+		private System.Windows.Forms.Panel PanelSiparis;
+		private System.Windows.Forms.Button button4;
 	}
 }

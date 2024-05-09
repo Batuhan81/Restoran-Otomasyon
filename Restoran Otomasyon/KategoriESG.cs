@@ -135,5 +135,28 @@ namespace Restoran_Otomasyon.Paneller
 			txtad.Text = gridKategori.CurrentRow.Cells["Ad"].Value.ToString();
 			comboTur.Text = gridKategori.CurrentRow.Cells["Tür"].Value.ToString();
 		}
+
+		private void ComboFiltre_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string TurAd = ComboFiltre.Text;
+
+			if (TurAd == "Tümü")
+			{
+				Listele();
+			}
+			else
+			{
+				var kategoriler = db.Kategoriler
+						   .Where(r => r.Gorunurluk == true && r.Tur == TurAd)
+						   .Select(kategori => new
+						   {
+							   Id = kategori.Id,
+							   Ad = kategori.Ad,
+							   Tür = kategori.Tur,
+						   })
+						   .ToList();
+				gridKategori.DataSource = kategoriler;
+			}
+		}
 	}
 }

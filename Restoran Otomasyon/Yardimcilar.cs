@@ -118,7 +118,7 @@ namespace Restoran_Otomasyon
 				}).ToList();
 				gridUrun.DataSource = Urunler;
 				gridUrun.Columns["Fotoğraf"].Visible = false;
-				gridUrun.Columns["Id"].Visible = true;
+				gridUrun.Columns["Id"].Visible = false;
 			}
 		}
 
@@ -143,7 +143,7 @@ namespace Restoran_Otomasyon
 				}).ToList();
 				gridMenu.DataSource = Menuler;
 				gridMenu.Columns["Fotoğraf"].Visible = false;
-				gridMenu.Columns["Id"].Visible = true;
+				gridMenu.Columns["Id"].Visible = false;
 			}
 		}
 

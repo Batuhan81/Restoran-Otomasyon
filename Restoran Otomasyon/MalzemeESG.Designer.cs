@@ -30,9 +30,9 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MalzemeESG));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.hiddenTedarikciId = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.ımageList2 = new System.Windows.Forms.ImageList(this.components);
@@ -61,16 +61,26 @@
 			this.gridMalzeme = new System.Windows.Forms.DataGridView();
 			this.hiddenStokId = new System.Windows.Forms.TextBox();
 			this.TedarikciPaneli = new System.Windows.Forms.Panel();
+			this.groupMalzemeFiltre = new System.Windows.Forms.GroupBox();
+			this.button6 = new System.Windows.Forms.Button();
+			this.ComboTedarikciAra = new System.Windows.Forms.ComboBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label11 = new System.Windows.Forms.Label();
+			this.txtAdAra = new System.Windows.Forms.TextBox();
+			this.olcuAra = new System.Windows.Forms.ComboBox();
 			this.groupMalzeme.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridMalzeme)).BeginInit();
+			this.TedarikciPaneli.SuspendLayout();
+			this.groupMalzemeFiltre.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// hiddenTedarikciId
 			// 
-			this.hiddenTedarikciId.Location = new System.Drawing.Point(423, 11);
+			this.hiddenTedarikciId.Location = new System.Drawing.Point(4, 27);
 			this.hiddenTedarikciId.Margin = new System.Windows.Forms.Padding(4);
 			this.hiddenTedarikciId.Name = "hiddenTedarikciId";
-			this.hiddenTedarikciId.Size = new System.Drawing.Size(49, 24);
+			this.hiddenTedarikciId.Size = new System.Drawing.Size(49, 22);
 			this.hiddenTedarikciId.TabIndex = 43;
 			this.hiddenTedarikciId.Visible = false;
 			// 
@@ -101,10 +111,10 @@
 			// 
 			// hiddenMalzemeId
 			// 
-			this.hiddenMalzemeId.Location = new System.Drawing.Point(423, 46);
+			this.hiddenMalzemeId.Location = new System.Drawing.Point(4, 62);
 			this.hiddenMalzemeId.Margin = new System.Windows.Forms.Padding(4);
 			this.hiddenMalzemeId.Name = "hiddenMalzemeId";
-			this.hiddenMalzemeId.Size = new System.Drawing.Size(49, 24);
+			this.hiddenMalzemeId.Size = new System.Drawing.Size(49, 22);
 			this.hiddenMalzemeId.TabIndex = 44;
 			this.hiddenMalzemeId.Visible = false;
 			// 
@@ -262,6 +272,7 @@
 			this.txtmax.Name = "txtmax";
 			this.txtmax.Size = new System.Drawing.Size(175, 27);
 			this.txtmax.TabIndex = 5;
+			this.txtmax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.txtmax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtmax_KeyDown);
 			this.txtmax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtmax_KeyPress);
 			this.txtmax.Leave += new System.EventHandler(this.txtmax_Leave);
@@ -272,6 +283,7 @@
 			this.txtmin.Name = "txtmin";
 			this.txtmin.Size = new System.Drawing.Size(175, 27);
 			this.txtmin.TabIndex = 4;
+			this.txtmin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.txtmin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtmin_KeyDown);
 			this.txtmin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtmin_KeyPress);
 			this.txtmin.Leave += new System.EventHandler(this.txtmin_Leave);
@@ -284,6 +296,7 @@
 			this.txtstok.Size = new System.Drawing.Size(175, 27);
 			this.txtstok.TabIndex = 48;
 			this.txtstok.Text = "0";
+			this.txtstok.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.txtstok.Leave += new System.EventHandler(this.txtstok_Leave);
 			// 
 			// label7
@@ -355,59 +368,156 @@
 			// 
 			this.gridMalzeme.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.gridMalzeme.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-			dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridMalzeme.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridMalzeme.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this.gridMalzeme.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridMalzeme.DefaultCellStyle = dataGridViewCellStyle17;
-			this.gridMalzeme.Location = new System.Drawing.Point(414, 13);
+			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridMalzeme.DefaultCellStyle = dataGridViewCellStyle5;
+			this.gridMalzeme.Location = new System.Drawing.Point(414, 88);
 			this.gridMalzeme.Margin = new System.Windows.Forms.Padding(4);
 			this.gridMalzeme.Name = "gridMalzeme";
-			dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridMalzeme.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
+			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridMalzeme.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
 			this.gridMalzeme.RowHeadersWidth = 51;
 			this.gridMalzeme.RowTemplate.Height = 24;
 			this.gridMalzeme.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridMalzeme.Size = new System.Drawing.Size(1111, 787);
+			this.gridMalzeme.Size = new System.Drawing.Size(1111, 712);
 			this.gridMalzeme.TabIndex = 41;
 			this.gridMalzeme.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMalzeme_CellClick);
 			this.gridMalzeme.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridMalzeme_CellFormatting);
 			// 
 			// hiddenStokId
 			// 
-			this.hiddenStokId.Location = new System.Drawing.Point(423, 78);
+			this.hiddenStokId.Location = new System.Drawing.Point(4, 101);
 			this.hiddenStokId.Margin = new System.Windows.Forms.Padding(4);
 			this.hiddenStokId.Name = "hiddenStokId";
-			this.hiddenStokId.Size = new System.Drawing.Size(49, 24);
+			this.hiddenStokId.Size = new System.Drawing.Size(49, 22);
 			this.hiddenStokId.TabIndex = 45;
 			this.hiddenStokId.Visible = false;
 			// 
 			// TedarikciPaneli
 			// 
+			this.TedarikciPaneli.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.TedarikciPaneli.Controls.Add(this.hiddenMalzemeId);
+			this.TedarikciPaneli.Controls.Add(this.hiddenStokId);
+			this.TedarikciPaneli.Controls.Add(this.hiddenTedarikciId);
 			this.TedarikciPaneli.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.TedarikciPaneli.Location = new System.Drawing.Point(423, 109);
 			this.TedarikciPaneli.Name = "TedarikciPaneli";
 			this.TedarikciPaneli.Size = new System.Drawing.Size(1040, 472);
 			this.TedarikciPaneli.TabIndex = 46;
 			this.TedarikciPaneli.Visible = false;
+			// 
+			// groupMalzemeFiltre
+			// 
+			this.groupMalzemeFiltre.Controls.Add(this.olcuAra);
+			this.groupMalzemeFiltre.Controls.Add(this.button6);
+			this.groupMalzemeFiltre.Controls.Add(this.ComboTedarikciAra);
+			this.groupMalzemeFiltre.Controls.Add(this.label14);
+			this.groupMalzemeFiltre.Controls.Add(this.label12);
+			this.groupMalzemeFiltre.Controls.Add(this.label11);
+			this.groupMalzemeFiltre.Controls.Add(this.txtAdAra);
+			this.groupMalzemeFiltre.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.groupMalzemeFiltre.Location = new System.Drawing.Point(413, 13);
+			this.groupMalzemeFiltre.Name = "groupMalzemeFiltre";
+			this.groupMalzemeFiltre.Size = new System.Drawing.Size(1112, 68);
+			this.groupMalzemeFiltre.TabIndex = 47;
+			this.groupMalzemeFiltre.TabStop = false;
+			this.groupMalzemeFiltre.Text = "Filtre Seçenekleri";
+			// 
+			// button6
+			// 
+			this.button6.BackColor = System.Drawing.Color.SkyBlue;
+			this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button6.Location = new System.Drawing.Point(1003, 24);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(84, 35);
+			this.button6.TabIndex = 44;
+			this.button6.Text = "Kaldır";
+			this.button6.UseVisualStyleBackColor = false;
+			this.button6.Click += new System.EventHandler(this.button6_Click);
+			// 
+			// ComboTedarikciAra
+			// 
+			this.ComboTedarikciAra.FormattingEnabled = true;
+			this.ComboTedarikciAra.Items.AddRange(new object[] {
+            "Kadın",
+            "Erkek"});
+			this.ComboTedarikciAra.Location = new System.Drawing.Point(776, 31);
+			this.ComboTedarikciAra.Margin = new System.Windows.Forms.Padding(4);
+			this.ComboTedarikciAra.Name = "ComboTedarikciAra";
+			this.ComboTedarikciAra.Size = new System.Drawing.Size(125, 30);
+			this.ComboTedarikciAra.TabIndex = 42;
+			this.ComboTedarikciAra.SelectedIndexChanged += new System.EventHandler(this.ComboTedarikciAra_SelectedIndexChanged);
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label14.Location = new System.Drawing.Point(686, 37);
+			this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(82, 18);
+			this.label14.TabIndex = 43;
+			this.label14.Text = "Tedarikçi:";
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Location = new System.Drawing.Point(375, 35);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(57, 22);
+			this.label12.TabIndex = 3;
+			this.label12.Text = "Ölçü:";
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(54, 35);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(40, 22);
+			this.label11.TabIndex = 1;
+			this.label11.Text = "Ad:";
+			// 
+			// txtAdAra
+			// 
+			this.txtAdAra.Location = new System.Drawing.Point(100, 32);
+			this.txtAdAra.Name = "txtAdAra";
+			this.txtAdAra.Size = new System.Drawing.Size(144, 28);
+			this.txtAdAra.TabIndex = 0;
+			this.txtAdAra.TextChanged += new System.EventHandler(this.txtAdAra_TextChanged);
+			// 
+			// olcuAra
+			// 
+			this.olcuAra.FormattingEnabled = true;
+			this.olcuAra.Items.AddRange(new object[] {
+            "Kg",
+            "Litre",
+            "Adet"});
+			this.olcuAra.Location = new System.Drawing.Point(439, 31);
+			this.olcuAra.Margin = new System.Windows.Forms.Padding(4);
+			this.olcuAra.Name = "olcuAra";
+			this.olcuAra.Size = new System.Drawing.Size(125, 30);
+			this.olcuAra.TabIndex = 45;
+			this.olcuAra.SelectedIndexChanged += new System.EventHandler(this.olcuAra_SelectedIndexChanged);
 			// 
 			// MalzemeESG
 			// 
@@ -416,10 +526,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1810, 863);
+			this.Controls.Add(this.groupMalzemeFiltre);
 			this.Controls.Add(this.TedarikciPaneli);
-			this.Controls.Add(this.hiddenStokId);
-			this.Controls.Add(this.hiddenTedarikciId);
-			this.Controls.Add(this.hiddenMalzemeId);
 			this.Controls.Add(this.groupMalzeme);
 			this.Controls.Add(this.gridMalzeme);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -432,8 +540,11 @@
 			this.groupMalzeme.ResumeLayout(false);
 			this.groupMalzeme.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridMalzeme)).EndInit();
+			this.TedarikciPaneli.ResumeLayout(false);
+			this.TedarikciPaneli.PerformLayout();
+			this.groupMalzemeFiltre.ResumeLayout(false);
+			this.groupMalzemeFiltre.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -466,5 +577,13 @@
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.Panel TedarikciPaneli;
 		private System.Windows.Forms.ImageList ımageList2;
+		private System.Windows.Forms.GroupBox groupMalzemeFiltre;
+		private System.Windows.Forms.Button button6;
+		private System.Windows.Forms.ComboBox ComboTedarikciAra;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.Label label12;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.TextBox txtAdAra;
+		private System.Windows.Forms.ComboBox olcuAra;
 	}
 }

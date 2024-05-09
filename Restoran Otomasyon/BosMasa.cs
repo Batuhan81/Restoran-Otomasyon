@@ -610,7 +610,7 @@ namespace Restoran_Otomasyon
 					else
 					{
 						MessageBox.Show("Lütfen geçerli bir miktar girin.");
-						textBoxMiktar.Text = 0.ToString();	
+						textBoxMiktar.Text = 0.ToString();
 					}
 				};
 				// GroupBox'a kontrol öğelerini ekle
@@ -663,6 +663,8 @@ namespace Restoran_Otomasyon
 
 		private void button2_Click(object sender, EventArgs e)
 		{
+
+			#region Masaya İlk Kez Sipariş Veriliyorsa
 			// Yeni bir sipariş oluştur
 			Siparis siparis = new Siparis();
 			MasaSiparis masasip = new MasaSiparis();
@@ -867,7 +869,6 @@ namespace Restoran_Otomasyon
 						}
 					}
 				}
-
 			}
 
 			//Sipariş Durumunun Ayarlandığı Kısım
@@ -883,6 +884,8 @@ namespace Restoran_Otomasyon
 				calisanForm.MasaButonlariniGuncelle();
 			}
 			this.Close();
+			#endregion
+
 		}
 
 		void PaneliTemizle()

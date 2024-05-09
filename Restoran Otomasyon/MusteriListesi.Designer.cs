@@ -28,63 +28,150 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.gridMusteriler = new System.Windows.Forms.DataGridView();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.txtTelAra = new System.Windows.Forms.MaskedTextBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.label12 = new System.Windows.Forms.Label();
+			this.txtmailAra = new System.Windows.Forms.TextBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.txtAdAra = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtSoyadAra = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.gridMusteriler)).BeginInit();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.groupBox1.Location = new System.Drawing.Point(15, 13);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.groupBox1.Size = new System.Drawing.Size(1507, 85);
-			this.groupBox1.TabIndex = 0;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Filtre Seçenekleri";
 			// 
 			// gridMusteriler
 			// 
 			this.gridMusteriler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.gridMusteriler.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridMusteriler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridMusteriler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
 			this.gridMusteriler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridMusteriler.DefaultCellStyle = dataGridViewCellStyle2;
-			this.gridMusteriler.Location = new System.Drawing.Point(15, 108);
+			dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridMusteriler.DefaultCellStyle = dataGridViewCellStyle23;
+			this.gridMusteriler.Location = new System.Drawing.Point(15, 89);
 			this.gridMusteriler.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
 			this.gridMusteriler.Name = "gridMusteriler";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridMusteriler.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridMusteriler.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
 			this.gridMusteriler.RowHeadersWidth = 51;
 			this.gridMusteriler.RowTemplate.Height = 24;
 			this.gridMusteriler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridMusteriler.Size = new System.Drawing.Size(1507, 686);
+			this.gridMusteriler.Size = new System.Drawing.Size(1507, 705);
 			this.gridMusteriler.TabIndex = 47;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.label1);
+			this.groupBox1.Controls.Add(this.txtSoyadAra);
+			this.groupBox1.Controls.Add(this.txtTelAra);
+			this.groupBox1.Controls.Add(this.label13);
+			this.groupBox1.Controls.Add(this.label12);
+			this.groupBox1.Controls.Add(this.txtmailAra);
+			this.groupBox1.Controls.Add(this.label11);
+			this.groupBox1.Controls.Add(this.txtAdAra);
+			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.groupBox1.Location = new System.Drawing.Point(15, 12);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(1507, 68);
+			this.groupBox1.TabIndex = 48;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Filtre Seçenekleri";
+			// 
+			// txtTelAra
+			// 
+			this.txtTelAra.Location = new System.Drawing.Point(1311, 27);
+			this.txtTelAra.Margin = new System.Windows.Forms.Padding(4);
+			this.txtTelAra.Mask = "(999) 000-0000";
+			this.txtTelAra.Name = "txtTelAra";
+			this.txtTelAra.Size = new System.Drawing.Size(146, 28);
+			this.txtTelAra.TabIndex = 42;
+			this.txtTelAra.TextChanged += new System.EventHandler(this.txtTelAra_TextChanged);
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold);
+			this.label13.Location = new System.Drawing.Point(1219, 30);
+			this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(84, 22);
+			this.label13.TabIndex = 43;
+			this.label13.Text = "Telefon:";
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Location = new System.Drawing.Point(820, 27);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(87, 22);
+			this.label12.TabIndex = 3;
+			this.label12.Text = "E-Posta:";
+			// 
+			// txtmailAra
+			// 
+			this.txtmailAra.Location = new System.Drawing.Point(913, 24);
+			this.txtmailAra.Name = "txtmailAra";
+			this.txtmailAra.Size = new System.Drawing.Size(144, 28);
+			this.txtmailAra.TabIndex = 2;
+			this.txtmailAra.TextChanged += new System.EventHandler(this.txtmailAra_TextChanged);
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(48, 30);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(40, 22);
+			this.label11.TabIndex = 1;
+			this.label11.Text = "Ad:";
+			// 
+			// txtAdAra
+			// 
+			this.txtAdAra.Location = new System.Drawing.Point(94, 27);
+			this.txtAdAra.Name = "txtAdAra";
+			this.txtAdAra.Size = new System.Drawing.Size(144, 28);
+			this.txtAdAra.TabIndex = 0;
+			this.txtAdAra.TextChanged += new System.EventHandler(this.txtAdAra_TextChanged);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(416, 30);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(72, 22);
+			this.label1.TabIndex = 45;
+			this.label1.Text = "Soyad:";
+			// 
+			// txtSoyadAra
+			// 
+			this.txtSoyadAra.Location = new System.Drawing.Point(494, 27);
+			this.txtSoyadAra.Name = "txtSoyadAra";
+			this.txtSoyadAra.Size = new System.Drawing.Size(144, 28);
+			this.txtSoyadAra.TabIndex = 44;
+			this.txtSoyadAra.TextChanged += new System.EventHandler(this.txtSoyadAra_TextChanged);
 			// 
 			// MusteriListesi
 			// 
@@ -92,10 +179,10 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1924, 909);
-			this.Controls.Add(this.gridMusteriler);
 			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.gridMusteriler);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "MusteriListesi";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -103,13 +190,22 @@
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.Load += new System.EventHandler(this.MusteriListesi_Load);
 			((System.ComponentModel.ISupportInitialize)(this.gridMusteriler)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.DataGridView gridMusteriler;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.MaskedTextBox txtTelAra;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Label label12;
+		private System.Windows.Forms.TextBox txtmailAra;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.TextBox txtAdAra;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox txtSoyadAra;
 	}
 }

@@ -120,8 +120,11 @@ namespace Restoran_Otomasyon.Paneller
 		private void bakiyeHesapla()
 		{
 			var kasa = db.Kasalar.Find(1);
-			bakiye = kasa.Bakiye.ToString();
-			Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
+			if(kasa != null)
+			{
+				bakiye = kasa.Bakiye.ToString();
+				Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
+			}
 		}
 
 		public void grafikleriGuncelle()

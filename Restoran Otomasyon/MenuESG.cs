@@ -77,7 +77,7 @@ namespace Restoran_Otomasyon.Paneller
 				Checkİndirim.Checked = false;
 				Yardimcilar.Menulist(gridMenu);
 			}
-			else if(txtindirimli.Text.Length> 0)
+			else if (txtindirimli.Text.Length > 0)
 			{
 				timer1.Start();
 				MessageBox.Show("Kayıt Eklenirken İndirim Uygulanacaktır", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -94,6 +94,15 @@ namespace Restoran_Otomasyon.Paneller
 			comboKategori.DataSource = kategoriler;
 			comboKategori.DisplayMember = "Ad";
 			comboKategori.ValueMember = "Id";
+			comboKategori.DataSource = null;
+			var kategoriler2 = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Menü").Select(o => new
+			{
+				Id = o.Id,
+				Ad = o.Ad,
+			}).ToList();
+			KategoriAra.DataSource = kategoriler2;
+			KategoriAra.DisplayMember = "Ad";
+			KategoriAra.ValueMember = "Id";
 		}
 		void UrunListe()
 		{
@@ -104,7 +113,7 @@ namespace Restoran_Otomasyon.Paneller
 
 			checkedListMalzeme.DataSource = Uruns;
 		}
-		
+
 		#endregion
 		#region Butonlar
 		private void button1_Click(object sender, EventArgs e)
@@ -133,7 +142,7 @@ namespace Restoran_Otomasyon.Paneller
 
 								menu1.Fiyat = formatsizFiyat;
 								menu1.Fotograf = uzanti.Text;
-								if (Aktiflik.Checked)
+								if (checkAktiflik.Checked)
 								{
 									menu1.Akitf = true;
 								}
@@ -159,7 +168,7 @@ namespace Restoran_Otomasyon.Paneller
 								menu1.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 
 								menu1.KategoriId = (int)comboKategori.SelectedValue;
-								menu1.Gorunurluk = Gorunurluk.Checked;
+								menu1.Gorunurluk = CheckGorunurluk.Checked;
 								db.Menuler.Add(menu1);
 								timer1.Start();
 								MessageBox.Show("Yeni Ürün Kayıt Edildi");
@@ -181,7 +190,7 @@ namespace Restoran_Otomasyon.Paneller
 										menuUrun.Miktar = miktar;
 										menuUrun.MenuId = id; // Burada ürün ID'si olacak
 										menuUrun.UrunId = UrunID;
-										menuUrun.Gorunurluk = Gorunurluk.Checked;
+										menuUrun.Gorunurluk = CheckGorunurluk.Checked;
 										db.MenuUrunler.Add(menuUrun);
 										db.SaveChanges();
 									}
@@ -204,8 +213,8 @@ namespace Restoran_Otomasyon.Paneller
 
 								x.Fiyat = formatsizFiyat;
 								x.Fotograf = uzanti.Text;
-								x.Gorunurluk = Gorunurluk.Checked;
-								if (Aktiflik.Checked)
+								x.Gorunurluk = CheckGorunurluk.Checked;
+								if (checkAktiflik.Checked)
 								{
 									x.Akitf = true;
 								}
@@ -280,7 +289,7 @@ namespace Restoran_Otomasyon.Paneller
 							Yardimcilar.Temizle(groupMenu);
 							db.SaveChanges();
 							Yardimcilar.Menulist(gridMenu);
-							Aktiflik.Checked = true;
+							checkAktiflik.Checked = true;
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;
@@ -384,8 +393,8 @@ namespace Restoran_Otomasyon.Paneller
 			Yardimcilar.Menulist(gridMenu);
 			Yardimcilar.GridRenklendir(gridMenu);
 			Yardimcilar.GridRenklendir(gridSecilenUrunler);
-			Aktiflik.Checked=true;
-			Gorunurluk.Checked=true;
+			checkAktiflik.Checked = true;
+			CheckGorunurluk.Checked = true;
 			if (gridSecilenUrunler.Columns.Count == 0)
 			{
 				gridSecilenUrunler.Columns.Add("MalzemeAdi", "Malzeme Adı");
@@ -496,16 +505,16 @@ namespace Restoran_Otomasyon.Paneller
 				txtaciklama.Text = row.Cells["Aciklama"].Value.ToString();
 				txtdetay.Text = row.Cells["Detay"].Value.ToString();
 				uzanti.Text = row.Cells["Fotoğraf"].Value.ToString();
-				Aktiflik.Checked = row.Cells["Aktiflik"].Value.ToString() == "Aktif" ? true : false;
-				Gorunurluk.Checked = row.Cells["Görünürlük"].Value.ToString() == "Görünür" ? true : false;
+				checkAktiflik.Checked = row.Cells["Aktiflik"].Value.ToString() == "Aktif" ? true : false;
+				CheckGorunurluk.Checked = row.Cells["Görünürlük"].Value.ToString() == "Görünür" ? true : false;
 				txtyuzde.Text = row.Cells["Yüzde"].Value.ToString();
 				comboKategori.Text = row.Cells["Kategori"].Value.ToString();
 				DateTime indirimTarihi = Convert.ToDateTime(row.Cells["İndirimTarihi"].Value.ToString());
 
-				formatsizFiyat=Convert.ToDecimal( row.Cells["Fiyat"].Value.ToString());
+				formatsizFiyat = Convert.ToDecimal(row.Cells["Fiyat"].Value.ToString());
 				txtfiyat.Text = Yardimcilar.FormatliDeger(formatsizFiyat.ToString());
 
-				indirimliFiyat= Convert.ToDecimal(row.Cells["İndirimliFiyat"].Value.ToString());
+				indirimliFiyat = Convert.ToDecimal(row.Cells["İndirimliFiyat"].Value.ToString());
 				txtindirimli.Text = Yardimcilar.FormatliDeger(indirimliFiyat.ToString());
 
 				formatsizFiyat = Yardimcilar.TemizleVeDondur(txtfiyat, "");
@@ -638,22 +647,22 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				//if (hiddenMenuId.Text != "")
 				//{
-					if (Checkİndirim.Checked == true)
-					{
-						panelİndirim.Visible = true;
-						//foreach (Control item in MalzemeSecPaneli.Controls)//tek panelde 2 farklı alan açıyordum boyut farkından dolayı kaldırdım
-						//{
-						//	if (!(item is Panel))
-						//	{
-						//		item.Visible = false;
-						//	}
-						//}
-						panelİndirim.Visible = true;
-					}
-					else
-					{
-						panelİndirim.Visible = false;
-					}
+				if (Checkİndirim.Checked == true)
+				{
+					panelİndirim.Visible = true;
+					//foreach (Control item in MalzemeSecPaneli.Controls)//tek panelde 2 farklı alan açıyordum boyut farkından dolayı kaldırdım
+					//{
+					//	if (!(item is Panel))
+					//	{
+					//		item.Visible = false;
+					//	}
+					//}
+					panelİndirim.Visible = true;
+				}
+				else
+				{
+					panelİndirim.Visible = false;
+				}
 				//}
 				//else
 				//{
@@ -693,7 +702,7 @@ namespace Restoran_Otomasyon.Paneller
 					newRow.Cells[2].Value = 1; // Başlangıçta miktarı 1 olarak ayarla
 					newRow.Cells[3].Value = "+";
 					newRow.Cells[4].Value = "-";
-					
+
 					gridSecilenUrunler.Rows.Add(newRow);
 					txtdetay.Text += secilenurunAdi + ",";
 				}
@@ -775,12 +784,125 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtyuzde_KeyDown(object sender, KeyEventArgs e)
 		{
-			Yardimcilar.Kopyalama(txtyuzde,sender,e);
+			Yardimcilar.Kopyalama(txtyuzde, sender, e);
 		}
 
 		private void txtyuzde_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(txtyuzde, e);
+		}
+
+		string Ad;
+		bool? Aktiflik;
+		bool? Gorunurluk;
+		int? KategoriId;
+		private void txtAdAra_TextChanged(object sender, EventArgs e)
+		{
+			Ad = txtAdAra.Text;
+			GorunurlukAra.Text = "";
+			KategoriAra.Text = "";
+			AktiflikAra.Text = "";
+			KategoriId = null;
+			Aktiflik = null;
+			Gorunurluk = null;
+			Filtrele();
+		}
+
+		private void AktiflikAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Aktiflik = AktiflikAra.SelectedIndex == 0;
+			txtAdAra.Text = "";
+			Ad = null;
+			GorunurlukAra.Text = "";
+			KategoriAra.Text = "";
+			KategoriId = null;
+			Gorunurluk=null;
+			Filtrele();
+		}
+
+		private void GorunurlukAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Gorunurluk = GorunurlukAra.SelectedIndex == 0;
+			txtAdAra.Text = "";
+			Ad = null;
+			KategoriAra.Text = "";
+			AktiflikAra.Text = "";
+			KategoriId = null;
+			Aktiflik = null;
+			Filtrele();
+		}
+
+		private void KategoriAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			KategoriId = KategoriAra.SelectedValue as int?;
+			txtAdAra.Text = "";
+			Ad = null;
+			AktiflikAra.Text = "";
+			GorunurlukAra.Text = "";
+			Gorunurluk = null;
+			Aktiflik = null;
+			Filtrele();
+		}
+
+		private void Filtrele()
+		{
+			// Tüm filtreleme kriterlerini burada topla
+			IQueryable<Data.Menu> query = db.Menuler.OrderByDescending(o => o.Id);
+
+			if (!string.IsNullOrEmpty(Ad))
+			{
+				query = query.Where(p => p.Ad.Contains(Ad));
+			}
+
+			if (Aktiflik != null)
+			{
+				query = query.Where(p => p.Akitf == Aktiflik);
+			}
+
+			if (Gorunurluk != null)
+			{
+				query = query.Where(p => p.Gorunurluk == Gorunurluk);
+			}
+
+			if (KategoriId != null)
+			{
+				query = query.Where(p => p.KategoriId == KategoriId);
+			}
+
+			var Menuler = query.Select(o => new
+			{
+				Id = o.Id,
+				Ad = o.Ad,
+				Aciklama = o.Aciklama,
+				Detay = o.Detay,
+				Fiyat = o.Fiyat,
+				Fotoğraf = o.Fotograf,
+				Aktiflik = o.Akitf ? "Aktif" : "Pasif",
+				Görünürlük = o.Gorunurluk ? "Görünür" : "Görünmez",
+				İndirimliFiyat = o.IndirimliFiyat,
+				İndirimTarihi = o.IndirimTarihi,
+				Yüzde = o.IndirimYuzdesi,
+				Kategori = db.Kategoriler.FirstOrDefault(x => x.Id == o.KategoriId).Ad,
+			}).ToList();
+
+			// Grid'in veri kaynağını güncelle
+			gridMenu.DataSource = Menuler;
+			// Bazı sütunları gizle
+			gridMenu.Columns["Fotoğraf"].Visible = false;
+			gridMenu.Columns["Id"].Visible = false;
+		}
+
+		private void button8_Click(object sender, EventArgs e)
+		{
+			Yardimcilar.Temizle(groupMenuFiltre);
+			Yardimcilar.Menulist(gridMenu);
+		}
+		
+	
+
+		private void groupMenu_Enter(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

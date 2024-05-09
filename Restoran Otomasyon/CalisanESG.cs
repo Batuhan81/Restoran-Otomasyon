@@ -138,14 +138,22 @@ namespace Restoran_Otomasyon.Paneller
 			MessageBox.Show("Yeni Personel Kayıt Edildi");
 		}
 
-		public void RolleriDoldur()//Comboboxa Vtdeki Rolleri yükleme
+		public void RolleriDoldur()
 		{
 			var Roller = db.Roller.Where(r => r.Gorunurluk == true).ToList();
+
+			// ComboRol için veri kaynağı ayarla
 			ComboRol.DisplayMember = "Ad";
 			ComboRol.ValueMember = "Id";
 			ComboRol.DataSource = Roller;
 
+			// txtRolAra için ayrı bir veri kaynağı oluştur
+			var txtRolAraVeriKaynagi = new List<Rol>(Roller);
+			txtRolAra.DisplayMember = "Ad";
+			txtRolAra.ValueMember = "Id";
+			txtRolAra.DataSource = txtRolAraVeriKaynagi;
 		}
+
 
 		void PersonelList()
 		{
@@ -169,6 +177,8 @@ namespace Restoran_Otomasyon.Paneller
 			gridPersonel.DataSource = personeller;
 		}
 		string gününT;
+
+		
 		private void CalisanESG_Load(object sender, EventArgs e)
 		{
 			RolleriDoldur();
@@ -215,7 +225,15 @@ namespace Restoran_Otomasyon.Paneller
 				txteposta.Text = row.Cells["Eposta"].Value.ToString();
 				txttelefon.Text = row.Cells["Telefon"].Value.ToString();
 				txtdogumT.Text = row.Cells["Doğum_Tarihi"].Value.ToString();
+				if (txtdogumT.Text.Length < 10)
+				{
+					txtdogumT.Text = "0" + txtdogumT.Text;
+				}
 				txtbaslamaT.Text = row.Cells["Baslangıç_Tarihi"].Value.ToString();
+				if (txtbaslamaT.Text.Length < 10)
+				{
+					txtbaslamaT.Text = "0" + txtbaslamaT.Text;
+				}
 				comboCinsiyet.Text = row.Cells["Cinsiyet"].Value.ToString();
 				ComboRol.Text = row.Cells["Rol"].Value.ToString();
 				txtAdres.Text = row.Cells["Adres"].Value.ToString();
@@ -350,6 +368,78 @@ namespace Restoran_Otomasyon.Paneller
 				txtmaas.Text = maasformatsız.ToString();
 				txtmaas.Text = Yardimcilar.FormatliDeger(txtmaas.Text);
 			}
+		}
+
+		private void txtAdAra_TextChanged(object sender, EventArgs e)
+		{
+			FiltreleVeYukle();
+		}
+
+		private void txtmailAra_TextChanged(object sender, EventArgs e)
+		{
+			FiltreleVeYukle();
+		}
+		private void FiltreleVeYukle()
+		{
+			string ad = txtAdAra.Text;
+			string mail = txtmailAra.Text;
+			string telefon = txtTelAra.Text;
+			bool cinsiyet;
+			if (TxtCinsiyetAra.SelectedIndex == 0)
+			{
+				cinsiyet = false;
+			}
+			else
+			{
+				cinsiyet=true;
+			}
+			int rol =(int)txtRolAra.SelectedValue;
+
+			// Kullanıcı tarafından girilen telefon numarasından gereksiz karakterleri ve boşlukları kaldırma
+			telefon = new string(telefon.Where(char.IsDigit).ToArray());
+
+			// LINQ sorgusu ile filtreleme yapıyoruz
+			var filtrelenmisPersoneller = db.Personeller
+				.Where(p => p.Ad.Contains(ad) && p.Eposta.Contains(mail) && p.Telefon.Contains(telefon) && p.Cinsiyet==cinsiyet&&p.RolId==rol) // Telefon numarasının içerisinde belirtilen rakamların geçtiği kayıtları al
+				.Select(o => new
+				{
+					Id = o.Id,
+					Ad = o.Ad,
+					Soyad = o.Soyad,
+					Eposta = o.Eposta,
+					Telefon = o.Telefon,
+					Maas = o.Maas,
+					Doğum_Tarihi = o.DogumTarihi,
+					Baslangıç_Tarihi = o.BaslamaTarihi,
+					Cinsiyet = o.Cinsiyet ? "Erkek" : "Kadın",
+					Rol = db.Roller.FirstOrDefault(r => r.Id == o.RolId).Ad,
+					Adres = o.Adres,
+					Foto = o.fotograf,
+				}).ToList();
+
+			// BindingSource'un DataSource'ını filtrelenmiş personel listesi olarak ayarlıyoruz
+			gridPersonel.DataSource = filtrelenmisPersoneller;
+		}
+
+		private void txtTelAra_TextChanged(object sender, EventArgs e)
+		{
+			FiltreleVeYukle();
+		}
+
+		private void TxtCinsiyetAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			FiltreleVeYukle();
+		}
+
+		private void txtRolAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			FiltreleVeYukle(); 
+		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			Yardimcilar.Temizle(groupCalisanFiltre);
+			PersonelList();
 		}
 	}
 }

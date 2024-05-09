@@ -1,4 +1,5 @@
-﻿using Restoran_Otomasyon.Data;
+﻿using Org.BouncyCastle.Asn1.X509;
+using Restoran_Otomasyon.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,11 +23,15 @@ namespace Restoran_Otomasyon.Paneller
 		Stok stok = new Stok();
 		public void TedarikciDoldur()//Combobox üzerinde Tedarikçi firma adı yer alacak ama seçim işlemi yapıldığında değer olarak Tedarikçi Idsi olacak
 		{
-			comboTedarik.DataSource =null;
-			var tedarikciFirma = db.Tedarikciler.Where(o=>o.Gorunurluk==true).ToList();
+			comboTedarik.DataSource = null;
+			var tedarikciFirma = db.Tedarikciler.Where(o => o.Gorunurluk == true).ToList();
 			comboTedarik.DisplayMember = "Firma";
 			comboTedarik.ValueMember = "Id";
 			comboTedarik.DataSource = tedarikciFirma;
+			var txtRolAraVeriKaynagi = new List<Tedarikci>(tedarikciFirma);
+			ComboTedarikciAra.DisplayMember = "Firma";
+			ComboTedarikciAra.ValueMember = "Id";
+			ComboTedarikciAra.DataSource = txtRolAraVeriKaynagi;
 		}
 		private void button1_Click(object sender, EventArgs e)
 		{
@@ -118,7 +123,7 @@ namespace Restoran_Otomasyon.Paneller
 			var malzemeStokBilgileri = from malzeme in db.Malzemeler
 									   join stok in db.Stoklar on malzeme.Id equals stok.MalzemeId
 									   join tedarikci in db.Tedarikciler on stok.TedarikciId equals tedarikci.Id
-									   where malzeme.Gorunurluk == true //Yalnızca Görünür olan malzemeleri listeler
+									   where malzeme.Gorunurluk == true orderby malzeme.Id //Yalnızca Görünür olan malzemeleri listeler
 									   select new
 									   {
 										   MalzemeId = malzeme.Id,
@@ -184,9 +189,9 @@ namespace Restoran_Otomasyon.Paneller
 				}
 				else
 				{
-					formatsizStok = Convert.ToDecimal(stok) ;
-					formatsizMin = Convert.ToDecimal(minstok) ;
-					formatsizMax = Convert.ToDecimal(maxstok) ;
+					formatsizStok = Convert.ToDecimal(stok);
+					formatsizMin = Convert.ToDecimal(minstok);
+					formatsizMax = Convert.ToDecimal(maxstok);
 				}
 				txtmax.Text = Yardimcilar.BirimFormatı(formatsizMax, olcu);
 				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
@@ -257,7 +262,7 @@ namespace Restoran_Otomasyon.Paneller
 				txtfiyat.Text = Yardimcilar.FormatliDeger(txtfiyat.Text);
 			}
 		}
-		
+
 		private void txtmin_Leave(object sender, EventArgs e)
 		{
 			if (txtmin.Text != "")
@@ -267,7 +272,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 
-		
+
 
 		private void txtmax_Leave(object sender, EventArgs e)
 		{
@@ -311,7 +316,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtfiyat_KeyDown(object sender, KeyEventArgs e)
 		{
-			Yardimcilar.Kopyalama(txtfiyat,sender,e);
+			Yardimcilar.Kopyalama(txtfiyat, sender, e);
 		}
 
 		private void txtfiyat_KeyPress(object sender, KeyPressEventArgs e)
@@ -337,6 +342,74 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtmax_KeyDown(object sender, KeyEventArgs e)
 		{
 			Yardimcilar.Kopyalama(txtmax, sender, e);
+		}
+
+		private void txtAdAra_TextChanged(object sender, EventArgs e)
+		{
+			Filtrele();
+		}
+
+		private void ComboTedarikciAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Filtrele();
+		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			Yardimcilar.Temizle(groupMalzemeFiltre);
+			MalzemeList();
+		}
+		void Filtrele()
+		{
+			string MalzemeAd = txtAdAra.Text;
+			string Olcu = olcuAra.Text;
+			string Firma = ComboTedarikciAra.Text;
+
+			var malzemeStokBilgileri = from malzeme in db.Malzemeler
+									   join stok in db.Stoklar on malzeme.Id equals stok.MalzemeId
+									   join tedarikci in db.Tedarikciler on stok.TedarikciId equals tedarikci.Id
+									   where malzeme.Gorunurluk == true orderby malzeme.Id
+									   select new
+									   {
+										   MalzemeId = malzeme.Id,
+										   MalzemeAd = malzeme.Ad,
+										   MalzemeTur = malzeme.Tur,
+										   MalzemeFiyat = malzeme.Fiyat,
+										   StokMiktar = stok.Miktar,
+										   StokMin = stok.MinStok,
+										   StokMax = stok.MaxStok,
+										   TedarikciFirma = tedarikci.Firma,
+										   TedarikciAd = tedarikci.AdSoyad,
+										   TedarikciId = tedarikci.Id, // Tedarikçi ID'sini gösteriyoruz
+										   StokId = stok.Id,
+									   };
+
+			if (!string.IsNullOrEmpty(MalzemeAd))
+			{
+				malzemeStokBilgileri = malzemeStokBilgileri.Where(p => p.MalzemeAd.Contains(MalzemeAd));
+			}
+
+			if (!string.IsNullOrEmpty(Olcu))
+			{
+				malzemeStokBilgileri = malzemeStokBilgileri.Where(p => p.MalzemeTur == Olcu);
+			}
+
+			if (!string.IsNullOrEmpty(Firma))
+			{
+				malzemeStokBilgileri = malzemeStokBilgileri.Where(p => p.TedarikciFirma == Firma);
+			}
+
+			gridMalzeme.DataSource = malzemeStokBilgileri.ToList();
+
+			// DataGridView'da Id sütunlarını gizli hale getiriyorum
+			gridMalzeme.Columns["TedarikciId"].Visible = false;
+			gridMalzeme.Columns["StokId"].Visible = false;
+			gridMalzeme.Columns["MalzemeId"].Visible = false;
+		}
+
+		private void olcuAra_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Filtrele();
 		}
 	}
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restoran_Otomasyon.Data
 {
-	public  class Kasa
+	public partial class Kasa
 	{
 		public int Id { get; set; }
 
