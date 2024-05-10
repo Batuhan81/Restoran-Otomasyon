@@ -27,19 +27,49 @@ namespace Restoran_Otomasyon
 			{
 				if (Restoran_Otomasyon.Yardimcilar.MailKontrol(txteposta.Text))
 				{
+					var eslesenmail=db.Tedarikciler.Where(o=>o.Eposta==txteposta.Text);
+					var eslesentel = db.Tedarikciler.Where(o => o.Telefon == txttelefon.Text);
+					var eslesenFirma = db.Tedarikciler.Where(o => o.Firma == txtfirma.Text);
 					if (hiddenTedarikciId.Text == "")
 					{
-						tedarikci.AdSoyad = txtad.Text;
-						tedarikci.Firma = txtfirma.Text;
-						tedarikci.Telefon = txttelefon.Text;
-						tedarikci.Eposta = txteposta.Text;
-						tedarikci.KayitTarihi = DateTime.Now;
-						tedarikci.Gorunurluk = true;
-						tedarikci.AdresBİlgisi = txtAdres.Text;
-						//tedarikci.AdresId = Convert.ToInt32(hiddenAdresID.Text)
-						db.Tedarikciler.Add(tedarikci);
-						timer1.Start();
-						MessageBox.Show("Yeni Tedarikçi Kayıt Edildi");
+						if (eslesenFirma == null)
+						{
+							if(eslesentel == null)
+							{
+								if(eslesenmail == null)
+								{
+									tedarikci.AdSoyad = txtad.Text;
+									tedarikci.Firma = txtfirma.Text;
+									tedarikci.Telefon = txttelefon.Text;
+									tedarikci.Eposta = txteposta.Text;
+									tedarikci.KayitTarihi = DateTime.Now;
+									tedarikci.Gorunurluk = true;
+									tedarikci.AdresBİlgisi = txtAdres.Text;
+									//tedarikci.AdresId = Convert.ToInt32(hiddenAdresID.Text)
+									db.Tedarikciler.Add(tedarikci);
+									timer1.Start();
+									MessageBox.Show("Yeni Tedarikçi Kayıt Edildi");
+								}
+								else
+								{
+									timer1.Start();
+									MessageBox.Show("Tedarikçi Maili Daha Önceden Kullanılıyor", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+									return;
+								}
+							}
+							else
+							{
+								timer1.Start();
+								MessageBox.Show("Tedarikçi Telefon Numarası Daha Önceden Kullanılıyor", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								return;
+							}
+						}
+						else
+						{
+							timer1.Start();
+							MessageBox.Show("Firma Adı Daha Önce Kullanulmış", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							return;
+						}
 					}
 					else
 					{

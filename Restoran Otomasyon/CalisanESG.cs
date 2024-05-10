@@ -43,10 +43,12 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (Yardimcilar.HepsiDoluMu(groupPersonel))//Tüm Alanlar Dolumu Kontrolü
 			{
+			
 				fotouzanti = uzanti.Text;
 				if (fotouzanti != "")//Foto seçildi mi kontrolü
 				{
-					if (!Yardimcilar.GecerliTarihMi(txtdogumT.Text) && !Yardimcilar.GecerliTarihMi(txtbaslamaT.Text))//Girilen tarihler geçerli bir tarih mi?
+					//Girilen tarihler geçerli bir tarih mi?
+					if (!Yardimcilar.GecerliTarihMi(txtdogumT.Text) && !Yardimcilar.GecerliTarihMi(txtbaslamaT.Text))
 					{
 						if (Restoran_Otomasyon.Yardimcilar.MailKontrol(txteposta.Text))//Mail geçrli mi kontorlü
 						{
@@ -62,7 +64,28 @@ namespace Restoran_Otomasyon.Paneller
 							int rolId = (int)ComboRol.SelectedValue;//Comboboxtan Seçilendeğerin Idsi
 							if (hiddenPersonelId.Text == "")
 							{
-								PersonelEkle(cinsiyet, rolId);
+								var EslesenMail = db.Personeller.FirstOrDefault(x => x.Eposta == txteposta.Text && x.Gorunurluk==true);
+								var EslesenTel = db.Personeller.FirstOrDefault(x => x.Telefon == txttelefon.Text && x.Gorunurluk == true);
+								if (EslesenMail == null)
+								{
+									if(EslesenTel == null)
+									{
+										PersonelEkle(cinsiyet, rolId);
+
+									}
+									else
+									{
+										timer1.Start();
+										MessageBox.Show("Personel Telefon Numarsası Daha Önceden Kullanılmış !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										return;
+									}
+								}
+								else
+								{
+									timer1.Start();
+									MessageBox.Show("Personel Maili Daha Önceden Kullanılmış !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+									return;
+								}
 							}
 							else
 							{
@@ -79,24 +102,28 @@ namespace Restoran_Otomasyon.Paneller
 						{
 							timer1.Start();
 							MessageBox.Show("Girdiğiniz E-Posta Geçersizdir");
+							return;
 						}
 					}
 					else
 					{
 						timer1.Start();
 						MessageBox.Show("Geçerli Bir Tarih Girdiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
 					}
 				}
 				else
 				{
 					timer1.Start();
 					MessageBox.Show("Personele Bir Fotoğraf Seçtiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
 				}
 			}
 			else
 			{
 				timer1.Start();
 				MessageBox.Show("Personele Ait tüm Alanları Doldurduğunuza Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
 			}
 		}
 

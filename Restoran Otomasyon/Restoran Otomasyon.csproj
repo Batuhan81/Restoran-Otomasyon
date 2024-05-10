@@ -215,6 +215,12 @@
     <Compile Include="Data\MenuUrun.cs" />
     <Compile Include="Data\Musteri.cs" />
     <Compile Include="Data\Mutfak.cs" />
+    <Compile Include="MasaOzellikleri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasaOzellikleri.Designer.cs">
+      <DependentUpon>MasaOzellikleri.cs</DependentUpon>
+    </Compile>
     <Compile Include="Paneller\MutfakPaneli.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -436,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MasaBilgiGuncelle.resx">
       <DependentUpon>MasaBilgiGuncelle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasaOzellikleri.resx">
+      <DependentUpon>MasaOzellikleri.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MasaQr.resx">
       <DependentUpon>MasaQr.cs</DependentUpon>

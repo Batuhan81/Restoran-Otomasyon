@@ -19,12 +19,12 @@ namespace Restoran_Otomasyon.Paneller
 			kullaniciId = kullaniID;
 		}
 		int kullaniciId;
-		Context db=new Context();
+		Context db = new Context();
 		private void BilgileriGuncelle_Load(object sender, EventArgs e)
 		{
-			var x=db.Kullanicilar.Find(kullaniciId);
-			txtAd.Text= x.Ad;
-			txtmail.Text= x.Mail;
+			var x = db.Kullanicilar.Find(kullaniciId);
+			txtAd.Text = x.Ad;
+			txtmail.Text = x.Mail;
 			mevcutSifre = x.Sifre;
 		}
 		void SifreTuru(string sifre)
@@ -118,7 +118,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtAd_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			
+
 		}
 	}
 }

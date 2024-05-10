@@ -56,7 +56,7 @@ namespace Restoran_Otomasyon
 						x.Rezervasyon.Onay == 4 ? "İptal Edildi" :
 						x.Rezervasyon.Onay == 5 ? "Onaylanmadı" :
 						x.Rezervasyon.Onay == 6 ? "Gelmedi" : "Bilinmeyen",
-				Telefon = x.Rezervasyon.musteri!=null? x.Rezervasyon.musteri.Telefon:x.Rezervasyon.kayitsizMusteri.Telefon,
+				Telefon = x.Rezervasyon.musteri != null ? x.Rezervasyon.musteri.Telefon : x.Rezervasyon.kayitsizMusteri.Telefon,
 			})
 			.ToList();
 			// Verileri datagridview'e yükle
@@ -164,77 +164,104 @@ namespace Restoran_Otomasyon
 			if (ComboSaat.SelectedIndex != -1 && ComboDakika.SelectedIndex != -1 && CombobitisSaat.SelectedIndex != -1 && bitisDakika.SelectedIndex != -1 && txtkisiSayisi.Text != "")
 			{
 				if (musteriId != 0 || kayitsizMusteriId != 0)
-				{
-					// Seçilen saat ve dakikayı birleştirerek başlangıç saatini oluştur
+				{// Seçilen saat ve dakikayı birleştirerek başlangıç ve bitiş saatlerini oluştur
 					TimeSpan baslangicSaat = new TimeSpan(secilenSaat, secilendakika, 0);
 					TimeSpan bitisSaat = new TimeSpan(bitisSaati, bitisDakikasi, 0);
 
-					if (hiddenID.Text == "")
-					{
-						// Rezervasyonun tarihini seçilen tarih olarak ayarla
-						rezervasyon.Tarih = secilentarih.Date;
-						rezervasyon.BaslangicSaat = baslangicSaat;
-						rezervasyon.BitisSaat = bitisSaat;
-						rezervasyon.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
-						rezervasyon.Talep = txttalep.Text;
-						rezervasyon.Onay = comboOnay.SelectedIndex + 1;
-						rezervasyon.Gorunurluk = true;
+					// Yeni rezervasyonun zaman aralığını oluştur
+					DateTime yeniRezervasyonBaslangic = secilentarih.Date + baslangicSaat;
+					DateTime yeniRezervasyonBitis = secilentarih.Date + bitisSaat;
+					var mevcutRezervasyonlar = db.MasaRezervasyonlar.Where(mr => mr.MasaId == masaId).ToList();
 
-						if (musteriId != 0)
+					// Yeni rezervasyonun zaman aralığını kontrol et
+					bool zamanUygun = true;
+					foreach (var rezervasyon in mevcutRezervasyonlar)
+					{
+						DateTime mevcutRezervasyonBaslangic = rezervasyon.Rezervasyon.Tarih + rezervasyon.Rezervasyon.BaslangicSaat;
+						DateTime mevcutRezervasyonBitis = rezervasyon.Rezervasyon.Tarih + rezervasyon.Rezervasyon.BitisSaat;
+
+						// Yeni rezervasyonun zaman aralığı mevcut rezervasyonlarla çakışıyor mu kontrol et
+						if ((yeniRezervasyonBaslangic >= mevcutRezervasyonBaslangic && yeniRezervasyonBaslangic < mevcutRezervasyonBitis) ||
+							(yeniRezervasyonBitis > mevcutRezervasyonBaslangic && yeniRezervasyonBitis <= mevcutRezervasyonBitis) ||
+							(yeniRezervasyonBaslangic <= mevcutRezervasyonBaslangic && yeniRezervasyonBitis >= mevcutRezervasyonBitis))
 						{
-							rezervasyon.MusteriId = musteriId;
-							rezervasyon.KayitsizMusteriId = null;
+							zamanUygun = false;
+							break;
 						}
-						else if (kayitsizMusteriId != 0)
+					}
+					if (zamanUygun)
+					{
+						if (hiddenID.Text == "")
 						{
-							rezervasyon.MusteriId = null;
-							rezervasyon.KayitsizMusteriId = kayitsizMusteriId;
+							// Rezervasyonun tarihini seçilen tarih olarak ayarla
+							rezervasyon.Tarih = secilentarih.Date;
+							rezervasyon.BaslangicSaat = baslangicSaat;
+							rezervasyon.BitisSaat = bitisSaat;
+							rezervasyon.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
+							rezervasyon.Talep = txttalep.Text;
+							rezervasyon.Onay = comboOnay.SelectedIndex + 1;
+							rezervasyon.Gorunurluk = true;
+
+							if (musteriId != 0)
+							{
+								rezervasyon.MusteriId = musteriId;
+								rezervasyon.KayitsizMusteriId = null;
+							}
+							else if (kayitsizMusteriId != 0)
+							{
+								rezervasyon.MusteriId = null;
+								rezervasyon.KayitsizMusteriId = kayitsizMusteriId;
+							}
+							rezervasyon.TalepTarihi = DateTime.Now;
+							db.Rezervasyonlar.Add(rezervasyon);
+							db.SaveChanges();
+							// Masanın rezervasyon bilgilerini ayarla
+							masarezervasyon.RezervasyonId = rezervasyon.Id;
+							masarezervasyon.MasaId = masaId;
+							masarezervasyon.Gorunurluk = true;
+							db.MasaRezervasyonlar.Add(masarezervasyon);
+							db.SaveChanges();
+							MessageBox.Show("Rezarvasyon Başarı İle Oluşturuldu.");
 						}
-						rezervasyon.TalepTarihi = DateTime.Now;
-						db.Rezervasyonlar.Add(rezervasyon);
-						db.SaveChanges();
-						// Masanın rezervasyon bilgilerini ayarla
-						masarezervasyon.RezervasyonId = rezervasyon.Id;
-						masarezervasyon.MasaId = masaId;
-						masarezervasyon.Gorunurluk = true;
-						db.MasaRezervasyonlar.Add(masarezervasyon);
-						db.SaveChanges();
-						MessageBox.Show("Rezarvasyon Başarı İle Oluşturuldu.");
+						else
+						{
+							var y = db.MasaRezervasyonlar.Find(ıd);
+							y.RezervasyonId = rezervasyon.Id;
+							y.MasaId = masaId;
+							y.Gorunurluk = true;
+							var x = db.Rezervasyonlar.Find(y.RezervasyonId);
+							// Rezervasyonun tarihini seçilen tarih olarak ayarla
+							x.Tarih = secilentarih.Date;
+							x.BaslangicSaat = baslangicSaat;
+							x.BitisSaat = bitisSaat;
+							x.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
+							x.Talep = txttalep.Text;
+
+							if (musteriId != 0)
+							{
+								x.MusteriId = musteriId;
+								x.KayitsizMusteriId = null;
+							}
+							else if (kayitsizMusteriId != 0)
+							{
+								x.MusteriId = null;
+								x.KayitsizMusteriId = kayitsizMusteriId;
+							}
+
+							x.Onay = comboOnay.SelectedIndex + 1;
+							x.Gorunurluk = true;
+							x.TalepTarihi = DateTime.Now;
+							MessageBox.Show("Rezarvasyon Başarı İle Güncellendi.");
+							db.SaveChanges();
+						}
+						temizle();
+						RandevulariYukle();
+						GUnlereRenkVerme(masaId);
 					}
 					else
 					{
-						var y = db.MasaRezervasyonlar.Find(ıd);
-						y.RezervasyonId = rezervasyon.Id;
-						y.MasaId = masaId;
-						y.Gorunurluk = true;
-						var x = db.Rezervasyonlar.Find(y.RezervasyonId);
-						// Rezervasyonun tarihini seçilen tarih olarak ayarla
-						x.Tarih = secilentarih.Date;
-						x.BaslangicSaat = baslangicSaat;
-						x.BitisSaat = bitisSaat;
-						x.KisiSayisi = Convert.ToInt32(txtkisiSayisi.Text);
-						x.Talep = txttalep.Text;
-
-						if (musteriId != 0)
-						{
-							x.MusteriId = musteriId;
-							x.KayitsizMusteriId = null;
-						}
-						else if (kayitsizMusteriId != 0)
-						{
-							x.MusteriId = null;
-							x.KayitsizMusteriId = kayitsizMusteriId;
-						}
-
-						x.Onay = comboOnay.SelectedIndex + 1;
-						x.Gorunurluk = true;
-						x.TalepTarihi = DateTime.Now;
-						MessageBox.Show("Rezarvasyon Başarı İle Güncellendi.");
-						db.SaveChanges();
+						MessageBox.Show("Seçilen saatlerde başka bir rezervasyon var, lütfen farklı bir saat seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					}
-					temizle();
-					RandevulariYukle();
-					GUnlereRenkVerme(masaId);
 				}
 				else
 				{
@@ -246,6 +273,7 @@ namespace Restoran_Otomasyon
 				MessageBox.Show("Rezervasyon İçin Gerekli Tüm Bilgileri Girdiğinizden Emin Olunuz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
+
 		int bitisSaati;
 		int bitisDakikasi;
 		private void bitisSaat_SelectedIndexChanged(object sender, EventArgs e)
@@ -414,7 +442,7 @@ namespace Restoran_Otomasyon
 
 		private void txtkisiSayisi_KeyDown(object sender, KeyEventArgs e)
 		{
-			Yardimcilar.Kopyalama(txtkisiSayisi,sender,e);
+			Yardimcilar.Kopyalama(txtkisiSayisi, sender, e);
 		}
 	}
 }

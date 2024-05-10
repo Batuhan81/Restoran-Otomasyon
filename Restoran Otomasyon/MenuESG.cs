@@ -126,74 +126,82 @@ namespace Restoran_Otomasyon.Paneller
 					{
 						if (checkedListMalzeme.CheckedItems.Count != 0)
 						{
-
 							if (hiddenMenuId.Text == "")//Kayıt Ekleme İşlemi
 							{
-								menu1.Ad = txtad.Text;
-								menu1.Aciklama = txtaciklama.Text;
-								if (txtdetay.Text.EndsWith(","))
+								var eslesen = db.Menuler.FirstOrDefault(o => o.Ad == txtad.Text && o.Gorunurluk==true);
+								if (eslesen == null)
 								{
-									menu1.Detay = txtdetay.Text.Remove(txtdetay.Text.Length - 1);
-								}
-								else
-								{
-									menu1.Detay = txtdetay.Text;
-								}
-
-								menu1.Fiyat = formatsizFiyat;
-								menu1.Fotograf = uzanti.Text;
-								if (checkAktiflik.Checked)
-								{
-									menu1.Akitf = true;
-								}
-								else
-								{
-									menu1.Akitf = false;
-								}
-								//İlk Kayıt edilirken inidirim yok Şimdilik
-								if (txtindirimTarihi.Text == "  .  .")
-								{
-									menu1.IndirimTarihi = DateTime.MinValue;
-								}
-								else
-								{
-									menu1.IndirimTarihi = DateTime.Parse(txtindirimTarihi.Text);
-
-								}
-								menu1.IndirimliFiyat = indirimliFiyat;
-								if (txtyuzde.Text == "")
-								{
-									txtyuzde.Text = 0.ToString();
-								}
-								menu1.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
-
-								menu1.KategoriId = (int)comboKategori.SelectedValue;
-								menu1.Gorunurluk = CheckGorunurluk.Checked;
-								db.Menuler.Add(menu1);
-								timer1.Start();
-								MessageBox.Show("Yeni Ürün Kayıt Edildi");
-								db.SaveChanges();
-								id = db.Menuler.Max(o => o.Id);
-								// Her bir seçilen malzeme için işlem yap
-								foreach (DataGridViewRow row in gridSecilenUrunler.Rows)
-								{
-									if (row.Cells["Miktar"].Value != null && Convert.ToInt32(row.Cells["Miktar"].Value) > 0)
+									menu1.Ad = txtad.Text;
+									menu1.Aciklama = txtaciklama.Text;
+									if (txtdetay.Text.EndsWith(","))
 									{
-										// Seçilen malzemenin miktarını al
-										int miktar = Convert.ToInt32(row.Cells["Miktar"].Value.ToString());
-
-										// Seçilen malzemenin ID'sini al
-										int UrunID = Convert.ToInt32(row.Cells["MalzemeID"].Value.ToString());
-
-										// UrunMalzeme nesnesi oluştur
-										MenuUrun menuUrun = new MenuUrun();
-										menuUrun.Miktar = miktar;
-										menuUrun.MenuId = id; // Burada ürün ID'si olacak
-										menuUrun.UrunId = UrunID;
-										menuUrun.Gorunurluk = CheckGorunurluk.Checked;
-										db.MenuUrunler.Add(menuUrun);
-										db.SaveChanges();
+										menu1.Detay = txtdetay.Text.Remove(txtdetay.Text.Length - 1);
 									}
+									else
+									{
+										menu1.Detay = txtdetay.Text;
+									}
+
+									menu1.Fiyat = formatsizFiyat;
+									menu1.Fotograf = uzanti.Text;
+									if (checkAktiflik.Checked)
+									{
+										menu1.Akitf = true;
+									}
+									else
+									{
+										menu1.Akitf = false;
+									}
+									//İlk Kayıt edilirken inidirim yok Şimdilik
+									if (txtindirimTarihi.Text == "  .  .")
+									{
+										menu1.IndirimTarihi = DateTime.MinValue;
+									}
+									else
+									{
+										menu1.IndirimTarihi = DateTime.Parse(txtindirimTarihi.Text);
+
+									}
+									menu1.IndirimliFiyat = indirimliFiyat;
+									if (txtyuzde.Text == "")
+									{
+										txtyuzde.Text = 0.ToString();
+									}
+									menu1.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
+
+									menu1.KategoriId = (int)comboKategori.SelectedValue;
+									menu1.Gorunurluk = CheckGorunurluk.Checked;
+									db.Menuler.Add(menu1);
+									timer1.Start();
+									MessageBox.Show("Yeni Ürün Kayıt Edildi");
+									db.SaveChanges();
+									id = db.Menuler.Max(o => o.Id);
+									// Her bir seçilen malzeme için işlem yap
+									foreach (DataGridViewRow row in gridSecilenUrunler.Rows)
+									{
+										if (row.Cells["Miktar"].Value != null && Convert.ToInt32(row.Cells["Miktar"].Value) > 0)
+										{
+											// Seçilen malzemenin miktarını al
+											int miktar = Convert.ToInt32(row.Cells["Miktar"].Value.ToString());
+
+											// Seçilen malzemenin ID'sini al
+											int UrunID = Convert.ToInt32(row.Cells["MalzemeID"].Value.ToString());
+
+											// UrunMalzeme nesnesi oluştur
+											MenuUrun menuUrun = new MenuUrun();
+											menuUrun.Miktar = miktar;
+											menuUrun.MenuId = id; // Burada ürün ID'si olacak
+											menuUrun.UrunId = UrunID;
+											menuUrun.Gorunurluk = CheckGorunurluk.Checked;
+											db.MenuUrunler.Add(menuUrun);
+											db.SaveChanges();
+										}
+									}
+								}
+								else
+								{
+									timer1.Start();
+									MessageBox.Show("Menü İçin Bu Ad Hali Hazırda Kullanımda", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 								}
 							}
 							else//Güncelleme İşlemi
@@ -421,7 +429,9 @@ namespace Restoran_Otomasyon.Paneller
 			// Malzeme ID'sini saklamak için gizli bir sütun ekle
 			gridSecilenUrunler.Columns["MalzemeID"].Visible = false;
 			gridMenu.Columns["Id"].Visible = false;
+			FiltreKaldır();
 		}
+
 		private void btnresim_Click(object sender, EventArgs e)
 		{
 			// Resim seçme işlemi için Yardimcilar.ResimBoyutlandir.DosyaSec metodunu kullan
@@ -799,48 +809,24 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtAdAra_TextChanged(object sender, EventArgs e)
 		{
 			Ad = txtAdAra.Text;
-			GorunurlukAra.Text = "";
-			KategoriAra.Text = "";
-			AktiflikAra.Text = "";
-			KategoriId = null;
-			Aktiflik = null;
-			Gorunurluk = null;
 			Filtrele();
 		}
 
 		private void AktiflikAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Aktiflik = AktiflikAra.SelectedIndex == 0;
-			txtAdAra.Text = "";
-			Ad = null;
-			GorunurlukAra.Text = "";
-			KategoriAra.Text = "";
-			KategoriId = null;
-			Gorunurluk=null;
 			Filtrele();
 		}
 
 		private void GorunurlukAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Gorunurluk = GorunurlukAra.SelectedIndex == 0;
-			txtAdAra.Text = "";
-			Ad = null;
-			KategoriAra.Text = "";
-			AktiflikAra.Text = "";
-			KategoriId = null;
-			Aktiflik = null;
 			Filtrele();
 		}
 
 		private void KategoriAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			KategoriId = KategoriAra.SelectedValue as int?;
-			txtAdAra.Text = "";
-			Ad = null;
-			AktiflikAra.Text = "";
-			GorunurlukAra.Text = "";
-			Gorunurluk = null;
-			Aktiflik = null;
 			Filtrele();
 		}
 
@@ -894,11 +880,19 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void button8_Click(object sender, EventArgs e)
 		{
-			Yardimcilar.Temizle(groupMenuFiltre);
+			FiltreKaldır();
+		}
+		private void FiltreKaldır()
+		{
+			Ad = "";
+			Aktiflik = null;
+			KategoriId = null;
+			txtAdAra.Text = "";
+			KategoriAra.Text = "";
+			AktiflikAra.Text = "";
 			Yardimcilar.Menulist(gridMenu);
 		}
-		
-	
+
 
 		private void groupMenu_Enter(object sender, EventArgs e)
 		{

@@ -25,7 +25,12 @@ namespace Restoran_Otomasyon
 		Context db = new Context();
 		private void MasaBilgiGuncelle_Load(object sender, EventArgs e)
 		{
-			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori,txtsiparisDurum, db);
+			Yukle();
+		}
+
+		private void Yukle()
+		{
+			Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, txtsiparisDurum, db);
 			if (txtDurum.Text == "Kapalı")
 			{
 				button3.ImageKey = "Aç.png";
@@ -34,40 +39,73 @@ namespace Restoran_Otomasyon
 			{
 				button3.ImageKey = "Kapalı.png";
 			}
+			ilkAd = txtmasaadi.Text;
 		}
 
+		string ilkAd;
 		private void button1_Click(object sender, EventArgs e)
 		{
-			DialogResult result = MessageBox.Show("Masa Bilgileri Güncellemek İstediğinize Emin Misiniz?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes)
+			bool eslesti = false;
+			if (ilkAd != txtmasaadi.Text)
 			{
-				var masa = db.Masalar.Find(masaId);
-
-				var masasiparis = db.MasaSiparisler.Where(s => s.MasaId == masaId)
-									 .OrderByDescending(s => s.Id)
-									 .FirstOrDefault();
-
-				masa.Kod = txtmasaadi.Text;
-				masa.Kapasite = Convert.ToInt32(txtkapasite.Text);
-				string dosyaYolu = Yardimcilar.KareKodOlustur(masa.Kod);
-				masa.Qr = dosyaYolu;
-				masasiparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
-				masasiparis.OdenenTutar = Yardimcilar.TemizleVeDondur(txtodenen, "");
-				if (personelId == 0)
+				var eslesen = db.Masalar.FirstOrDefault(o => o.Kod == txtmasaadi.Text);
+				if (eslesen == null)
 				{
-					masa.PersonelId = null;
+					eslesti = false;
 				}
 				else
 				{
-					masa.PersonelId = personelId;
+					eslesti = true;
 				}
-				db.SaveChanges();
-				MessageBox.Show("Güncelleme İşlemi Başarılı");
+			}
+
+			if (eslesti == false)
+			{
+				DialogResult result = MessageBox.Show("Masa Bilgileri Güncellemek İstediğinize Emin Misiniz?", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (result == DialogResult.Yes)
+				{
+
+
+					var masa = db.Masalar.Find(masaId);
+
+					var masasiparis = db.MasaSiparisler.Where(s => s.MasaId == masaId)
+										 .OrderByDescending(s => s.Id)
+										 .FirstOrDefault();
+
+					masa.Kod = txtmasaadi.Text;
+					masa.Kapasite = Convert.ToInt32(txtkapasite.Text);
+					string dosyaYolu = Yardimcilar.KareKodOlustur(masa.Kod);
+					masa.Qr = dosyaYolu;
+					if (masasiparis != null)//Masaya Sipariş Verilmediysee es geç
+					{
+						masasiparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+						masasiparis.OdenenTutar = Yardimcilar.TemizleVeDondur(txtodenen, "");
+					}
+					if (personelId == 0)
+					{
+						masa.PersonelId = null;
+					}
+					else
+					{
+						masa.PersonelId = personelId;
+					}
+					db.SaveChanges();
+					MessageBox.Show("Güncelleme İşlemi Başarılı");
+
+				}
+				else
+				{
+					Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, txtsiparisDurum, db);
+				}
 			}
 			else
 			{
-				Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori,txtsiparisDurum, db);
+				MessageBox.Show("Bu Masa Adına Sahip Bir Masa Zaten Kayıtlı !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				eslesti = false;
+				Yukle();
+				return;
 			}
+			
 		}
 
 		private void button2_Click(object sender, EventArgs e)
@@ -173,7 +211,7 @@ namespace Restoran_Otomasyon
 
 		private void txtodenen_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			Yardimcilar.KontrolEt(txtodenen,e);
+			Yardimcilar.KontrolEt(txtodenen, e);
 		}
 
 		private void txttutar_KeyDown(object sender, KeyEventArgs e)
@@ -184,6 +222,15 @@ namespace Restoran_Otomasyon
 		private void txttutar_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(txttutar, e);
+		}
+
+		private void MasaBilgiGuncelle_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
+			if (calisanForm != null)
+			{
+				calisanForm.MasaButonlariniGuncelle();
+			}
 		}
 	}
 }

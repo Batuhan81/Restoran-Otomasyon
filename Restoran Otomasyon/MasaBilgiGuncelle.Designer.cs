@@ -304,6 +304,7 @@
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Masa İşlemleri";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MasaBilgiGuncelle_FormClosed);
 			this.Load += new System.EventHandler(this.MasaBilgiGuncelle_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();

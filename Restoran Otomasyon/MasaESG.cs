@@ -177,6 +177,10 @@ namespace Restoran_Otomasyon.Paneller
 			masaTemizle.Click += MenuItemMasaTemizle_Click;
 			contextMenuStrip1.Items.Add(masaTemizle);
 
+			ToolStripMenuItem MasaOzellik = new ToolStripMenuItem("Özellikleri Görüntüle");
+			MasaOzellik.Click += MenuItemMasaOzellik_Click;
+			contextMenuStrip1.Items.Add(MasaOzellik);
+
 			TemizleMasaButonlari();
 			ButonlarıGetir(secilenKategoriId);
 		}
@@ -193,6 +197,19 @@ namespace Restoran_Otomasyon.Paneller
 
 			// Masa bilgi güncelleme formunu açın
 			MasaBilgiGuncelle git = new MasaBilgiGuncelle(masaId);
+			git.Show();
+		}
+		private void MenuItemMasaOzellik_Click(object sender, EventArgs e)
+		{
+			ToolStripMenuItem item = (ToolStripMenuItem)sender;
+			ContextMenuStrip menu = (ContextMenuStrip)item.Owner;
+			Control sourceControl = menu.SourceControl;
+
+			// Sağ tıklanan butonun adından masa ID'sini çıkarın
+			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
+
+			// Masa bilgi güncelleme formunu açın
+			MasaOzellikleri git = new MasaOzellikleri(masaId,kullaniciId);
 			git.Show();
 		}
 
@@ -246,52 +263,65 @@ namespace Restoran_Otomasyon.Paneller
 			if (txtkapasite.Text != "" && txtkod.Text != "")
 			{
 				string masakodu = txtkod.Text;
-				masa.Kapasite = Convert.ToInt32(txtkapasite.Text);
-				masa.Kod = masakodu;
-				masa.PersonelId = null;
-				masa.Gorunurluk = true;
-				secilenKategoriId = (int)comboKat.SelectedValue;
-				masa.KategoriId = secilenKategoriId;
-				masa.Durum = 1;
-				string dosyaYolu = Yardimcilar.KareKodOlustur(masakodu);
 
-				// Masa kaydına QR kodunun dosya yolunu ekleyerek veritabanına kaydet
-				masa.Qr = dosyaYolu;
-
-				// Masa nesnesini veritabanına kaydet
-				db.Masalar.Add(masa);
-				db.SaveChanges();
-				// Masa özelliklerini kaydet
-				foreach (var ozellikAdiObj in MasaOzellik.SelectedItems)
+				var eslesen = db.Masalar.FirstOrDefault(o => o.Kod == masakodu);
+				if(eslesen == null)
 				{
-					if (ozellikAdiObj is string ozellikAdi)
+					masa.Kapasite = Convert.ToInt32(txtkapasite.Text);
+					masa.Kod = masakodu;
+					masa.PersonelId = null;
+					masa.Gorunurluk = true;
+					secilenKategoriId = (int)comboKat.SelectedValue;
+					masa.KategoriId = secilenKategoriId;
+					masa.Durum = 1;
+					string dosyaYolu = Yardimcilar.KareKodOlustur(masakodu);
+
+					// Masa kaydına QR kodunun dosya yolunu ekleyerek veritabanına kaydet
+					masa.Qr = dosyaYolu;
+
+					// Masa nesnesini veritabanına kaydet
+					db.Masalar.Add(masa);
+					db.SaveChanges();
+					// Masa özelliklerini kaydet
+					foreach (var ozellikAdiObj in MasaOzellik.SelectedItems)
 					{
-						var ozellik = db.Ozellikler.FirstOrDefault(o => o.Ad == ozellikAdi);
-						if (ozellik != null)
+						if (ozellikAdiObj is string ozellikAdi)
 						{
-							MasaOzellik masaOzellik = new MasaOzellik();
-							masaOzellik.MasaId = masa.Id;
-							masaOzellik.OzellikId = ozellik.Id;
-							masaOzellik.Gorunurluk = true; // Özellik başlangıçta görünür olarak ayarlanıyor
-							db.MasaOzellikler.Add(masaOzellik);
+							var ozellik = db.Ozellikler.FirstOrDefault(o => o.Ad == ozellikAdi);
+							if (ozellik != null)
+							{
+								MasaOzellik masaOzellik = new MasaOzellik();
+								masaOzellik.MasaId = masa.Id;
+								masaOzellik.OzellikId = ozellik.Id;
+								masaOzellik.Gorunurluk = true; // Özellik başlangıçta görünür olarak ayarlanıyor
+								db.MasaOzellikler.Add(masaOzellik);
+							}
 						}
 					}
+					//Gerek yok
+					//MasaSiparis siparis = new MasaSiparis();
+					//siparis.MasaId = masaId;
+					//siparis.Tutar = 0;
+					//siparis.OdenenTutar = 0;
+					//db.MasaSiparisler.Add(siparis);
+					db.SaveChanges();
+
+					MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					ButonlarıGetir(secilenKategoriId);
 				}
-				//Gerek yok
-				//MasaSiparis siparis = new MasaSiparis();
-				//siparis.MasaId = masaId;
-				//siparis.Tutar = 0;
-				//siparis.OdenenTutar = 0;
-				//db.MasaSiparisler.Add(siparis);
-				db.SaveChanges();
-
-				MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-				ButonlarıGetir(secilenKategoriId);
+				else
+				{
+					timer1.Start();
+					MessageBox.Show("Bu Masa Kodu Hali Hazırda Kullanımda !", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				}
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Masayla ilgili tüm alanları doldurmalısınız!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
 			}
 			txtkod.Text = "";
 			txtkapasite.Text = "";

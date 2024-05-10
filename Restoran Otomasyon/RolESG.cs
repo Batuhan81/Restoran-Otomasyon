@@ -25,15 +25,24 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (txtad.Text != "")
 			{
+				var eslesen = db.Roller.Where(o => o.Ad == txtad.Text && o.Gorunurluk==true);
 				if (hiddenRolId.Text == "")//Rol Ekle
 				{
-					rol.Ad = txtad.Text;
-					rol.Gorunurluk = true;
-					rol.KayitT = DateTime.Today;
-					db.Roller.Add(rol);
-					timer1.Start();
+					if (eslesen == null)
+					{
+						rol.Ad = txtad.Text;
+						rol.Gorunurluk = true;
+						rol.KayitT = DateTime.Today;
+						db.Roller.Add(rol);
+						timer1.Start();
 
-					MessageBox.Show("Yeni Rol Kayıt Edildi");
+						MessageBox.Show("Yeni Rol Kayıt Edildi");
+					}
+					else
+					{
+						MessageBox.Show("Girilen Ad Zaten Kullanımda", "Rol Eklenemiyor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						return;
+					}
 				}
 				else//Rol Güncelle
 				{

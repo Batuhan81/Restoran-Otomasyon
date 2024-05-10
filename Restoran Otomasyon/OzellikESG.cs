@@ -23,11 +23,20 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (txtAd.Text != "")
 			{
+				var eslesen=db.Ozellikler.FirstOrDefault(o=>o.Ad==txtAd.Text && o.Gorunurluk==true);
 				if (hiddenId.Text == "")
 				{
-					o.Ad=txtAd.Text;
-					o.Gorunurluk = true;
-					db.Ozellikler.Add(o);
+					if (eslesen == null)
+					{
+						o.Ad = txtAd.Text;
+						o.Gorunurluk = true;
+						db.Ozellikler.Add(o);
+					}
+					else
+					{
+						MessageBox.Show("Bu Özellik Adı Hali Hazırda Kullanımda","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+						return;
+					}
 				}
 				else
 				{

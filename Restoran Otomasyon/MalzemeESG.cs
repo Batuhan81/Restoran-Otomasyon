@@ -41,7 +41,17 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				if (hiddenMalzemeId.Text == "")
 				{
-					MalzemeEkle(mal);
+					var Eslesen = db.Malzemeler.FirstOrDefault(o => o.Ad == txtad.Text && o.Gorunurluk == true);
+					if (Eslesen == null)
+					{
+						MalzemeEkle(mal);
+					}
+					else
+					{
+						timer1.Start();
+						MessageBox.Show("Girilen Malzeme Adına Sahip Bir Malzeme Zaten Bulunuyor", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
+					}
 				}
 				else
 				{
@@ -59,6 +69,7 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				timer1.Start();
 				MessageBox.Show("Malzemeye Ait tüm Alanları Doldurduğunuza Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
 			}
 			TedarikciPaneli.Visible = false;
 		}

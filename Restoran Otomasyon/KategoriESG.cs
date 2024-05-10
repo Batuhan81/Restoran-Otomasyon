@@ -26,12 +26,23 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				if (hiddenKategoriId.Text == "")//Kategori Ekle
 				{
-					kat.Ad = txtad.Text;
-					kat.Gorunurluk = true;
-					kat.Tur = comboTur.Text;
-					db.Kategoriler.Add(kat);
-					timer1.Start();
-					MessageBox.Show("Yeni Kategori Kayıt Edildi");
+					var EslesenAd=db.Kategoriler.FirstOrDefault(o=>o.Ad==txtad.Text && o.Gorunurluk==true);
+					if (EslesenAd == null)
+					{
+						kat.Ad = txtad.Text;
+						kat.Gorunurluk = true;
+						kat.Tur = comboTur.Text;
+						db.Kategoriler.Add(kat);
+						timer1.Start();
+						MessageBox.Show("Yeni Kategori Kayıt Edildi");
+					}
+					else
+					{
+						timer1.Start();
+						MessageBox.Show("Personel Telefon Numarsası Daha Önceden Kullanılmış !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
+					}
+					
 				}
 				else//Kategori Güncelle
 				{

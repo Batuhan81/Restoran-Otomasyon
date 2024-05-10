@@ -15,6 +15,6 @@ namespace Restoran_Otomasyon.Data
 
 		public Masa Masa { get; set; } 
 
-		public Ozellik Ozellik { get; set; }
+		public virtual Ozellik Ozellik { get; set; }
 	}
 }

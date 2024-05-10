@@ -225,6 +225,7 @@ namespace Restoran_Otomasyon.Paneller
 			panelİndirim.Visible = false;
 			gridSecilenMalzemeler.Columns["MalzemeID"].Visible = false;
 			gridUrun.Columns["Id"].Visible = false;
+			FiltreKaldır();
 		}
 
 		private void gridUrun_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -468,71 +469,81 @@ namespace Restoran_Otomasyon.Paneller
 
 							if (hiddenUrunId.Text == "")//Kayıt Ekleme İşlemi
 							{
-								urn.Ad = txtad.Text;
-								urn.Aciklama = txtaciklama.Text;
-								if (txtdetay.Text.EndsWith(","))
+								var eslesen = db.Urunler.FirstOrDefault(o => o.Ad == txtad.Text && o.Gorunurluk == true);
+								if(eslesen == null)
 								{
-									urn.Detay = txtdetay.Text.Remove(txtdetay.Text.Length - 1);
-								}
-								else
-								{
-									urn.Detay = txtdetay.Text;
-								}
-
-								urn.Fiyat = formatsizFiyat;
-								urn.Fotograf = uzanti.Text;
-								if (CheckAktiflik.Checked)
-								{
-									urn.Akitf = true;
-								}
-								else
-								{
-									urn.Akitf = false;
-								}
-								//İlk Kayıt edilirken inidirim yok Şimdilik
-								if (txtindirimTarihi.Text == "  .  .")
-								{
-									urn.IndirimTarihi = DateTime.MinValue;
-								}
-								else
-								{
-									urn.IndirimTarihi = DateTime.Parse(txtindirimTarihi.Text);
-								}
-								urn.IndirimliFiyat = indirimliFiyat;
-								if (txtyuzde.Text == "")
-								{
-									txtyuzde.Text = 0.ToString();
-								}
-								urn.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
-
-								urn.KategorId = (int)comboKategori.SelectedValue;
-								urn.Gorunurluk = CheckGorunurluk.Checked;
-								db.Urunler.Add(urn);
-								timer1.Start();
-								MessageBox.Show("Yeni Ürün Kayıt Edildi");
-								db.SaveChanges();
-								id = db.Urunler.Max(o => o.Id);
-								// Her bir seçilen malzeme için işlem yap
-								foreach (DataGridViewRow row in gridSecilenMalzemeler.Rows)
-								{
-									if (row.Cells["Miktar"].Value != null && Convert.ToInt32(row.Cells["Miktar"].Value) > 0)
+									urn.Ad = txtad.Text;
+									urn.Aciklama = txtaciklama.Text;
+									if (txtdetay.Text.EndsWith(","))
 									{
-										// Seçilen malzemenin miktarını al
-										int miktar = Convert.ToInt32(row.Cells["Miktar"].Value.ToString());
-
-										// Seçilen malzemenin ID'sini al
-										int malzemeID = Convert.ToInt32(row.Cells["MalzemeID"].Value.ToString());
-
-										// UrunMalzeme nesnesi oluştur
-										UrunMalzeme umalzeme = new UrunMalzeme();
-										umalzeme.Miktar = miktar;
-										umalzeme.UrunId = id; // Burada ürün ID'si olacak
-										umalzeme.MalzemeId = malzemeID;
-										umalzeme.Gorunurluk = true;
-
-										db.urunMalzemeler.Add(umalzeme);
-										db.SaveChanges();
+										urn.Detay = txtdetay.Text.Remove(txtdetay.Text.Length - 1);
 									}
+									else
+									{
+										urn.Detay = txtdetay.Text;
+									}
+
+									urn.Fiyat = formatsizFiyat;
+									urn.Fotograf = uzanti.Text;
+									if (CheckAktiflik.Checked)
+									{
+										urn.Akitf = true;
+									}
+									else
+									{
+										urn.Akitf = false;
+									}
+									//İlk Kayıt edilirken inidirim yok Şimdilik
+									if (txtindirimTarihi.Text == "  .  .")
+									{
+										urn.IndirimTarihi = DateTime.MinValue;
+									}
+									else
+									{
+										urn.IndirimTarihi = DateTime.Parse(txtindirimTarihi.Text);
+									}
+									urn.IndirimliFiyat = indirimliFiyat;
+									if (txtyuzde.Text == "")
+									{
+										txtyuzde.Text = 0.ToString();
+									}
+									urn.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
+
+									urn.KategorId = (int)comboKategori.SelectedValue;
+									urn.Gorunurluk = CheckGorunurluk.Checked;
+									db.Urunler.Add(urn);
+									timer1.Start();
+									MessageBox.Show("Yeni Ürün Kayıt Edildi");
+									db.SaveChanges();
+									id = db.Urunler.Max(o => o.Id);
+									// Her bir seçilen malzeme için işlem yap
+									foreach (DataGridViewRow row in gridSecilenMalzemeler.Rows)
+									{
+										if (row.Cells["Miktar"].Value != null && Convert.ToInt32(row.Cells["Miktar"].Value) > 0)
+										{
+											// Seçilen malzemenin miktarını al
+											int miktar = Convert.ToInt32(row.Cells["Miktar"].Value.ToString());
+
+											// Seçilen malzemenin ID'sini al
+											int malzemeID = Convert.ToInt32(row.Cells["MalzemeID"].Value.ToString());
+
+											// UrunMalzeme nesnesi oluştur
+											UrunMalzeme umalzeme = new UrunMalzeme();
+											umalzeme.Miktar = miktar;
+											umalzeme.UrunId = id; // Burada ürün ID'si olacak
+											umalzeme.MalzemeId = malzemeID;
+											umalzeme.Gorunurluk = true;
+
+											db.urunMalzemeler.Add(umalzeme);
+											db.SaveChanges();
+										}
+									}
+								}
+								else
+								{
+									timer1.Start();
+									MessageBox.Show("Ürün İçin Malzeme Bilgilerini Seçtiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+									return;
 								}
 							}
 							else//Güncelleme İşlemi
@@ -640,24 +651,28 @@ namespace Restoran_Otomasyon.Paneller
 						{
 							timer1.Start();
 							MessageBox.Show("Ürün İçin Malzeme Bilgilerini Seçtiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							return;
 						}
 					}
 					else
 					{
 						timer1.Start();
 						MessageBox.Show("Geçerli Bir Tarih Girdiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
 					}
 				}
 				else
 				{
 					timer1.Start();
 					MessageBox.Show("Ürüne Bir Fotoğraf Seçtiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
 				}
 			}
 			else
 			{
 				timer1.Start();
 				MessageBox.Show("Ürüne Ait tüm Alanları Doldurduğunuza Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
 			}
 		}
 		private void button2_Click(object sender, EventArgs e)//Sil butonu
@@ -803,48 +818,24 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtAdAra_TextChanged(object sender, EventArgs e)
 		{
 			Ad = txtAdAra.Text;
-			KategoriAra.Text = "";
-			AktiflikAra.Text=""; 
-			GorunurlukAra.Text="";
-			KategoriId = null;
-			Gorunurluk = null;
-			Aktiflik = null;
 			Filtrele();
 		}
 
 		private void AktiflikAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Aktiflik = AktiflikAra.SelectedIndex == 0;
-			txtAdAra.Text = "";
-			Ad = null;
-			KategoriAra.Text = "";
-			GorunurlukAra.Text = "";
-			KategoriId = null;
-			Gorunurluk = null;
 			Filtrele();
 		}
 
 		private void GorunurlukAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Gorunurluk = GorunurlukAra.SelectedIndex == 0;
-			txtAdAra.Text = "";
-			Ad = null;
-			KategoriAra.Text = "";
-			AktiflikAra.Text = "";
-			KategoriId = null;
-			Aktiflik = null;
 			Filtrele();
 		}
 
 		private void KategoriAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			KategoriId = KategoriAra.SelectedValue as int?;
-			txtAdAra.Text = "";
-			Ad = null;
-			AktiflikAra.Text = "";
-			GorunurlukAra.Text = "";
-			Gorunurluk = null;
-			Aktiflik = null;
 			Filtrele();
 		}
 
@@ -898,8 +889,17 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void button8_Click(object sender, EventArgs e)
 		{
-			Yardimcilar.Temizle(groupUrunFiltre);
-			Urunlist(gridUrun);
+			FiltreKaldır();
+		}
+		private void FiltreKaldır()
+		{
+			Ad = "";
+			Aktiflik = null;
+			KategoriId = null;
+			txtAdAra.Text = "";
+			KategoriAra.Text = "";
+			AktiflikAra.Text = "";
+			Yardimcilar.Urunlist(gridUrun);
 		}
 	}
 }
