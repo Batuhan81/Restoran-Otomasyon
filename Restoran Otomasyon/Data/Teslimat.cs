@@ -6,13 +6,14 @@ namespace Restoran_Otomasyon.Data
 	public partial class Teslimat
 	{
 		public int Id { get; set; }
-
+		//Türkçe Karakter kaldır
 		public DateTime Cıkıs { get; set; }
 
 		public DateTime Varis { get; set; }
 
 		public bool OdemeDurum { get; set; }
 
+		//Kaldırılacak
 		public bool TeslimDurum { get; set; }
 
 		public int PersonelId { get; set; }

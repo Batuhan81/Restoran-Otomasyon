@@ -13,12 +13,15 @@ namespace Restoran_Otomasyon.Paneller
 {
 	public partial class KategoriESG : Form
 	{
-		public KategoriESG()
+		public KategoriESG(int Deger)
 		{
 			InitializeComponent();
+			//Burada bir değer almasını sağliyim örn 1 gelirse ürün sayfasında görünmesi gereken 0 da genel
+			deger = Deger;
 		}
-		Kategori kat=new Kategori();
-		Context db=new Context();
+		int deger;
+		Kategori kat = new Kategori();
+		Context db = new Context();
 		int id;
 		private void button1_Click(object sender, EventArgs e)
 		{
@@ -26,7 +29,7 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				if (hiddenKategoriId.Text == "")//Kategori Ekle
 				{
-					var EslesenAd=db.Kategoriler.FirstOrDefault(o=>o.Ad==txtad.Text && o.Gorunurluk==true);
+					var EslesenAd = db.Kategoriler.FirstOrDefault(o => o.Ad == txtad.Text && o.Gorunurluk == true);
 					if (EslesenAd == null)
 					{
 						kat.Ad = txtad.Text;
@@ -42,7 +45,7 @@ namespace Restoran_Otomasyon.Paneller
 						MessageBox.Show("Personel Telefon Numarsası Daha Önceden Kullanılmış !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						return;
 					}
-					
+
 				}
 				else//Kategori Güncelle
 				{
@@ -87,25 +90,61 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void KategoriESG_Load(object sender, EventArgs e)
 		{
+			if (deger == 0)//0 olduğunda tüm bilgiler yer alacak
+			{
+				Tur = "";//Bu sayede null olacak ve filtreye girmeyecek
+				comboTur.Items.Clear();
+				comboTur.Items.Add("Masa");
+				comboTur.Items.Add("Ürün");
+				comboTur.Items.Add("Menü");
+			}
+			if (deger == 1)//Burada sadece Masa
+			{
+				Tur = "Masa";
+				comboTur.Items.Clear();
+				comboTur.Items.Add("Masa");
+				comboTur.SelectedIndex = 0;
+			}
+			if (deger == 2)//Sadece Ürün
+			{
+				Tur = "Ürün";
+				comboTur.Items.Clear();
+				comboTur.Items.Add("Ürün");
+				comboTur.SelectedIndex = 0;
+			}
+			if (deger == 3)//sadece Menü
+			{
+				Tur = "Menü";
+				comboTur.Items.Clear();
+				comboTur.Items.Add("Menü");
+				comboTur.SelectedIndex = 0;
+			}
 			Listele();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridKategori);//grid renklendirme
 			gridKategori.Columns["Id"].Visible = false;//Id sütununu sakla
 		}
+
 		void Temizle()
 		{
 			hiddenKategoriId.Text = "";
 			txtad.Text = "";
 		}
-
+		string Tur;
 		void Listele()
 		{
-			var kategoriler = db.Kategoriler
+			IQueryable<Kategori> query = db.Kategoriler.OrderByDescending(o => o.Id);
+
+			if (!string.IsNullOrEmpty(Tur))
+			{
+				query = query.Where(o => o.Tur == Tur);
+			}
+			var kategoriler = query
 						   .Where(r => r.Gorunurluk == true)
 						   .Select(kategori => new
 						   {
 							   Id = kategori.Id,
 							   Ad = kategori.Ad,
-							   Tür=kategori.Tur,
+							   Tür = kategori.Tur,
 						   })
 						   .ToList();
 			gridKategori.DataSource = kategoriler;

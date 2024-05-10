@@ -14,7 +14,7 @@ namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
-		public static void KontrolEt(Control control, KeyPressEventArgs e )
+		public static void KontrolEt(Control control, KeyPressEventArgs e)
 		{
 			TextBoxBase textBox = control as TextBoxBase;
 			MaskedTextBox maskedTextBox = control as MaskedTextBox;
@@ -29,7 +29,8 @@ namespace Restoran_Otomasyon
 					e.Handled = true; // Karakteri engelle
 					textBox.BackColor = Color.Red; // Arkaplan rengini kırmızı yap
 				}
-			}else if(maskedTextBox != null)
+			}
+			else if (maskedTextBox != null)
 			{
 				if (char.IsDigit(e.KeyChar) || e.KeyChar == 8)  // Eğer bir rakam veya BACKSPACE tuşu ise
 				{
@@ -178,7 +179,7 @@ namespace Restoran_Otomasyon
 			return dosyaYolu;
 		}
 
-		public static bool StoklariKontrolEt(Urun urun, int miktar,Context db)
+		public static bool StoklariKontrolEt(Urun urun, int miktar, Context db)
 		{
 			// Ürünün gerekli malzemelerini bul
 			var gerekliMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == urun.Id).ToList();
@@ -227,7 +228,7 @@ namespace Restoran_Otomasyon
 					}
 				}
 			}
-		
+
 			// x.Durum'a göre durumu belirleyin
 			txtMasaAdi.Text = x.Kod;
 			string durumMetni = "";

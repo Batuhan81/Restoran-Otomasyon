@@ -11,7 +11,7 @@ namespace Restoran_Otomasyon.Data
 
 		public DateTime Zaman { get; set; }
 
-		public int Yer { get; set; }//1 Müşteri /2Mutfak /3 Kasa
+		public int Yer { get; set; }//1 Müşteri /2Mutfak /3 Kasa/4 kurye?
 
 		public int SiparisId { get; set; }
 

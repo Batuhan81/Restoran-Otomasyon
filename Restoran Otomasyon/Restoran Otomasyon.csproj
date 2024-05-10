@@ -215,6 +215,12 @@
     <Compile Include="Data\MenuUrun.cs" />
     <Compile Include="Data\Musteri.cs" />
     <Compile Include="Data\Mutfak.cs" />
+    <Compile Include="DisariSiparis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisariSiparis.Designer.cs">
+      <DependentUpon>DisariSiparis.cs</DependentUpon>
+    </Compile>
     <Compile Include="MasaOzellikleri.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +343,8 @@
     <Compile Include="MusteriListesi.Designer.cs">
       <DependentUpon>MusteriListesi.cs</DependentUpon>
     </Compile>
+    <Compile Include="SiparisleriGetir.cs" />
+    <Compile Include="UrunleriGoster.cs" />
     <Compile Include="UrunList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -427,6 +435,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BosMasa.resx">
       <DependentUpon>BosMasa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisariSiparis.resx">
+      <DependentUpon>DisariSiparis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DoluMasa.resx">
       <DependentUpon>DoluMasa.cs</DependentUpon>

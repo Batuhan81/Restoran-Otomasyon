@@ -15,6 +15,9 @@ namespace Restoran_Otomasyon.Data
 
 		public int MusteriId { get; set; }
 
+		//Teslimat siparişinin hazırlanma durumu için
+		//public int DurumId {  get; set; }
+
 		public bool Gorunurluk { get; set; }
 
 		public Musteri Musteri { get; set; }

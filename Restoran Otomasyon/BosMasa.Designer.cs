@@ -112,14 +112,14 @@
 			this.UrunPaneli.Controls.Add(this.DetayPaneli);
 			this.UrunPaneli.Location = new System.Drawing.Point(12, 48);
 			this.UrunPaneli.Name = "UrunPaneli";
-			this.UrunPaneli.Size = new System.Drawing.Size(1226, 760);
+			this.UrunPaneli.Size = new System.Drawing.Size(1244, 760);
 			this.UrunPaneli.TabIndex = 14;
 			// 
 			// DetayPaneli
 			// 
 			this.DetayPaneli.Location = new System.Drawing.Point(3, 3);
 			this.DetayPaneli.Name = "DetayPaneli";
-			this.DetayPaneli.Size = new System.Drawing.Size(1223, 581);
+			this.DetayPaneli.Size = new System.Drawing.Size(1241, 581);
 			this.DetayPaneli.TabIndex = 0;
 			this.DetayPaneli.Visible = false;
 			// 
@@ -137,6 +137,7 @@
 			// gridSiparisler
 			// 
 			this.gridSiparisler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.gridSiparisler.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
 			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
 			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -154,7 +155,7 @@
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.gridSiparisler.DefaultCellStyle = dataGridViewCellStyle2;
-			this.gridSiparisler.Location = new System.Drawing.Point(1245, 488);
+			this.gridSiparisler.Location = new System.Drawing.Point(1263, 488);
 			this.gridSiparisler.Margin = new System.Windows.Forms.Padding(4);
 			this.gridSiparisler.Name = "gridSiparisler";
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -168,7 +169,7 @@
 			this.gridSiparisler.RowHeadersWidth = 51;
 			this.gridSiparisler.RowTemplate.Height = 24;
 			this.gridSiparisler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridSiparisler.Size = new System.Drawing.Size(284, 307);
+			this.gridSiparisler.Size = new System.Drawing.Size(266, 307);
 			this.gridSiparisler.TabIndex = 47;
 			// 
 			// ımageList1
@@ -183,9 +184,9 @@
 			this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.button2.ImageKey = "siparisOnayla2.png";
 			this.button2.ImageList = this.ımageList1;
-			this.button2.Location = new System.Drawing.Point(1262, 380);
+			this.button2.Location = new System.Drawing.Point(1263, 380);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(266, 89);
+			this.button2.Size = new System.Drawing.Size(265, 89);
 			this.button2.TabIndex = 48;
 			this.button2.Text = "Sipariş Onayla";
 			this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -210,9 +211,9 @@
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.txtmasaadi);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Location = new System.Drawing.Point(1245, 16);
+			this.groupBox1.Location = new System.Drawing.Point(1263, 16);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(284, 358);
+			this.groupBox1.Size = new System.Drawing.Size(265, 358);
 			this.groupBox1.TabIndex = 50;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Masa Bilgileri";
@@ -222,7 +223,7 @@
 			this.txtsiparisDurum.Location = new System.Drawing.Point(135, 322);
 			this.txtsiparisDurum.Name = "txtsiparisDurum";
 			this.txtsiparisDurum.ReadOnly = true;
-			this.txtsiparisDurum.Size = new System.Drawing.Size(142, 24);
+			this.txtsiparisDurum.Size = new System.Drawing.Size(123, 24);
 			this.txtsiparisDurum.TabIndex = 15;
 			// 
 			// label14
@@ -240,7 +241,7 @@
 			this.txtkategori.Location = new System.Drawing.Point(135, 285);
 			this.txtkategori.Name = "txtkategori";
 			this.txtkategori.ReadOnly = true;
-			this.txtkategori.Size = new System.Drawing.Size(142, 24);
+			this.txtkategori.Size = new System.Drawing.Size(123, 24);
 			this.txtkategori.TabIndex = 13;
 			// 
 			// label9
@@ -258,7 +259,7 @@
 			this.txtpersonel.Location = new System.Drawing.Point(135, 241);
 			this.txtpersonel.Name = "txtpersonel";
 			this.txtpersonel.ReadOnly = true;
-			this.txtpersonel.Size = new System.Drawing.Size(142, 24);
+			this.txtpersonel.Size = new System.Drawing.Size(123, 24);
 			this.txtpersonel.TabIndex = 11;
 			// 
 			// label6
@@ -276,7 +277,7 @@
 			this.txtodenen.Location = new System.Drawing.Point(135, 197);
 			this.txtodenen.Name = "txtodenen";
 			this.txtodenen.ReadOnly = true;
-			this.txtodenen.Size = new System.Drawing.Size(142, 24);
+			this.txtodenen.Size = new System.Drawing.Size(123, 24);
 			this.txtodenen.TabIndex = 9;
 			// 
 			// label5
@@ -294,7 +295,7 @@
 			this.txttutar.Location = new System.Drawing.Point(135, 153);
 			this.txttutar.Name = "txttutar";
 			this.txttutar.ReadOnly = true;
-			this.txttutar.Size = new System.Drawing.Size(142, 24);
+			this.txttutar.Size = new System.Drawing.Size(123, 24);
 			this.txttutar.TabIndex = 7;
 			// 
 			// label4
@@ -312,7 +313,7 @@
 			this.txtkapasite.Location = new System.Drawing.Point(135, 109);
 			this.txtkapasite.Name = "txtkapasite";
 			this.txtkapasite.ReadOnly = true;
-			this.txtkapasite.Size = new System.Drawing.Size(142, 24);
+			this.txtkapasite.Size = new System.Drawing.Size(123, 24);
 			this.txtkapasite.TabIndex = 5;
 			// 
 			// label3
@@ -330,7 +331,7 @@
 			this.txtDurum.Location = new System.Drawing.Point(135, 65);
 			this.txtDurum.Name = "txtDurum";
 			this.txtDurum.ReadOnly = true;
-			this.txtDurum.Size = new System.Drawing.Size(142, 24);
+			this.txtDurum.Size = new System.Drawing.Size(123, 24);
 			this.txtDurum.TabIndex = 3;
 			// 
 			// label2
@@ -348,7 +349,7 @@
 			this.txtmasaadi.Location = new System.Drawing.Point(135, 21);
 			this.txtmasaadi.Name = "txtmasaadi";
 			this.txtmasaadi.ReadOnly = true;
-			this.txtmasaadi.Size = new System.Drawing.Size(142, 24);
+			this.txtmasaadi.Size = new System.Drawing.Size(123, 24);
 			this.txtmasaadi.TabIndex = 1;
 			// 
 			// label1

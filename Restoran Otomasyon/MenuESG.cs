@@ -457,7 +457,7 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					item.Visible = false;
 				}
-				kategoriESGForm = new KategoriESG();
+				kategoriESGForm = new KategoriESG(3);
 				Yardimcilar.OpenForm(kategoriESGForm, PanelKategori);
 				comboKategori.Text = "";
 			}

@@ -47,7 +47,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void KategoriESG(object sender, EventArgs e)
 		{
-			KategoriESG git = new KategoriESG();
+			KategoriESG git = new KategoriESG(0);
 			git.Show();
 		}
 
@@ -182,6 +182,12 @@ namespace Restoran_Otomasyon.Paneller
 		private void MutfakBilgiGuncelle(object sender, EventArgs e)
 		{
 			BilgileriGuncelle git = new BilgileriGuncelle(3);//3 nolu kullanıcı Mutfak oluyor
+			git.Show();
+		}
+
+		private void DisariyaSiparis(object sender, EventArgs e)
+		{
+			DisariSiparis git = new DisariSiparis();
 			git.Show();
 		}
 	}

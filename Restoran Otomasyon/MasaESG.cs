@@ -122,7 +122,7 @@ namespace Restoran_Otomasyon.Paneller
 			if (PanelKategori.Visible != true)
 			{
 				PanelKategori.Visible = true;
-				kategoriESGForm = new KategoriESG();
+				kategoriESGForm = new KategoriESG(1);
 				Yardimcilar.OpenForm(kategoriESGForm, PanelKategori);
 				MasaKategoriler();
 			}
@@ -451,8 +451,7 @@ namespace Restoran_Otomasyon.Paneller
 								break;
 						}
 					};
-					masaButton.Margin = new Padding(15, 15, 15, 15); // Sol: 20, Üst: 30, Sağ: 20, Alt: 30 piksel boşluk bırakır
-
+					masaButton.Margin = new Padding(23, 23, 23, 23); // Sol: 20, Üst: 30, Sağ: 20, Alt: 30 piksel boşluk bırakır
 					masaPanel.Controls.Add(masaButton);
 				}
 			}
