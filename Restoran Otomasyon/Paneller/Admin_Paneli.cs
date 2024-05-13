@@ -120,7 +120,7 @@ namespace Restoran_Otomasyon.Paneller
 		private void bakiyeHesapla()
 		{
 			var kasa = db.Kasalar.Find(1);
-			if(kasa != null)
+			if (kasa != null)
 			{
 				bakiye = kasa.Bakiye.ToString();
 				Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
@@ -130,11 +130,9 @@ namespace Restoran_Otomasyon.Paneller
 		public void grafikleriGuncelle()
 		{
 			bakiyeHesapla();
-			Grafikler.MasaYogunluk(MasaYogunluk, db);
-			Grafikler.OdemeYuzdesi(OdemeYuzde, db);
-			Grafikler.GunlereGoreGrafik(GunlereGore, db);
-			Grafikler.EnCokSiparisUrun(EnCokSiparisUrun, db);
-			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db);
+
+			ComboFiltre.SelectedIndex = 0;
+
 			Grafikler.DolulukGrafik(DolulukOranlari, db);
 		}
 
@@ -152,13 +150,13 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void BilgilerimiGuncelle(object sender, EventArgs e)
 		{
-			BilgileriGuncelle git = new BilgileriGuncelle(KullaniciId) ;
+			BilgileriGuncelle git = new BilgileriGuncelle(KullaniciId);
 			git.Show();
 		}
 
 		private void Musteriİslemleri(object sender, EventArgs e)
 		{
-			
+
 		}
 
 		private void MusteriList(object sender, EventArgs e)
@@ -175,7 +173,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void KasaGuncelle(object sender, EventArgs e)
 		{
-			BilgileriGuncelle git=new BilgileriGuncelle(2);//2 nolu kullanıcı Kasa oluyor
+			BilgileriGuncelle git = new BilgileriGuncelle(2);//2 nolu kullanıcı Kasa oluyor
 			git.Show();
 		}
 
@@ -189,6 +187,16 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			DisariSiparis git = new DisariSiparis();
 			git.Show();
+		}
+
+		private void ComboFiltre_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string filteAd = ComboFiltre.Text;
+			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db, filteAd);
+			Grafikler.EnCokSiparisUrun(EnCokSiparisUrun, db, filteAd);
+			Grafikler.MasaYogunluk(MasaYogunluk, db, filteAd);
+			Grafikler.GunlereGoreGrafik(GunlereGore, db, filteAd);
+			Grafikler.OdemeYuzdesi(OdemeYuzde, db, filteAd);
 		}
 	}
 }

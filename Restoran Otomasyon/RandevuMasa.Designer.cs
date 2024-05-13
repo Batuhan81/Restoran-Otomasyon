@@ -547,6 +547,7 @@
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Masa Randevu";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RandevuMasa_FormClosed);
 			this.Load += new System.EventHandler(this.RandevuMasa_Load);
 			this.groupBaslangic.ResumeLayout(false);
 			this.groupBaslangic.PerformLayout();

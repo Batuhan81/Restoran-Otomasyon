@@ -152,7 +152,7 @@ namespace Restoran_Otomasyon
 		{
 			// QR kodunu oluştur
 			QRCodeGenerator qrGenerator = new QRCodeGenerator();
-			QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://www.google.com/" + masakodu, QRCodeGenerator.ECCLevel.Q);
+			QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://192.168.137.1:5001/Masas/MasaMenu/Menu/" + masakodu, QRCodeGenerator.ECCLevel.Q);
 			QRCode qrCode = new QRCode(qrCodeData);
 			Bitmap qrCodeImage = qrCode.GetGraphic(20); // 20: piksel başına ölçek faktörü
 
@@ -282,21 +282,36 @@ namespace Restoran_Otomasyon
 		public static bool GecerliTarihMi(string tarih)
 		{
 			DateTime sonuc;
-			return DateTime.TryParseExact(tarih, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out sonuc);
+			if (DateTime.TryParseExact(tarih, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out sonuc))
+			{
+				// Ayın 1 ile 12 arasında, günün de 1 ile ayın gün sayısı arasında olup olmadığını kontrol ediyoruz
+				if (sonuc.Month >= 1 && sonuc.Month <= 12 && sonuc.Day >= 1 && sonuc.Day <= DateTime.DaysInMonth(sonuc.Year, sonuc.Month))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
+
 
 		public static bool MailKontrol(string mail)
 		{
 			try
 			{
 				MailAddress mailAddress = new MailAddress(mail);
-				return true;
+				// Ek kontroller yapabiliriz, örneğin domain kısmını kontrol etmek
+				if (mailAddress.Host.Contains('.'))
+				{
+					return true;
+				}
+				return false;
 			}
 			catch
 			{
 				return false;
 			}
 		}
+
 
 		public static void Temizle(GroupBox group)
 		{
@@ -445,9 +460,15 @@ namespace Restoran_Otomasyon
 			{
 				deger = deger.Replace("₺", "");
 			}
-			else if (deger.EndsWith("."))
+			// Sondaki noktayı kaldır
+			if (deger.EndsWith("."))
 			{
-				deger = deger.Remove(deger.Length - 1); // Sondaki noktayı kaldır
+				deger = deger.Substring(0, deger.Length - 1);
+			}
+			// Başındaki noktayı kaldır
+			if (deger.StartsWith("."))
+			{
+				deger = deger.Substring(1);
 			}
 			else if (deger.Contains(".") && deger.LastIndexOf(".") < deger.LastIndexOf("₺"))
 			{

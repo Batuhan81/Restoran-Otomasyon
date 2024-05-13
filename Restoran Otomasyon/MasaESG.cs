@@ -152,11 +152,19 @@ namespace Restoran_Otomasyon.Paneller
 				MasaPanel.Location = new Point(20, 30); // MasaPanel'i biraz aşağı kaydır
 
 				// Label2 ve ComboKat'ı formun üstüne taşınması
-				label2.Location = new Point(680, 8);
-				this.Controls.Add(label2); 
-				comboKat.Location = new Point(720, 8);
+				label2.Location = new Point(520, 5);
+				this.Controls.Add(label2);
+				comboKat.Location = new Point(570, 5);
 				this.Controls.Add(comboKat);
+
+				label5.Location = new Point(750, 5);
+				this.Controls.Add(label5);
+				
+				MasaFiltre.Location = new Point(870, 5);
+				this.Controls.Add(MasaFiltre);
+
 				MasaPanel.Size = new Size(1500, 781);
+
 			}
 			// ContextMenuStrip'i oluşturun
 			// "Masa Güncelle" öğesini ekle
@@ -181,8 +189,9 @@ namespace Restoran_Otomasyon.Paneller
 			MasaOzellik.Click += MenuItemMasaOzellik_Click;
 			contextMenuStrip1.Items.Add(MasaOzellik);
 
+			RezarvasyonKontrol();
 			TemizleMasaButonlari();
-			ButonlarıGetir(secilenKategoriId);
+			MasaFiltre.SelectedIndex = 0;
 		}
 
 		// "Masa Güncelle" öğesine tıklama olayı
@@ -209,7 +218,7 @@ namespace Restoran_Otomasyon.Paneller
 			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
 
 			// Masa bilgi güncelleme formunu açın
-			MasaOzellikleri git = new MasaOzellikleri(masaId,kullaniciId);
+			MasaOzellikleri git = new MasaOzellikleri(masaId, kullaniciId);
 			git.Show();
 		}
 
@@ -223,7 +232,7 @@ namespace Restoran_Otomasyon.Paneller
 			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
 
 			// Masa bilgi güncelleme formunu açın
-			var masa=db.Masalar.Find(masaId);
+			var masa = db.Masalar.Find(masaId);
 			masa.Durum = 1;
 			db.SaveChanges();
 			MasaButonlariniGuncelle();
@@ -264,8 +273,8 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				string masakodu = txtkod.Text;
 
-				var eslesen = db.Masalar.FirstOrDefault(o => o.Kod == masakodu && o.Gorunurluk==true);
-				if(eslesen == null)
+				var eslesen = db.Masalar.FirstOrDefault(o => o.Kod == masakodu && o.Gorunurluk == true);
+				if (eslesen == null)
 				{
 					masa.Kapasite = Convert.ToInt32(txtkapasite.Text);
 					masa.Kod = masakodu;
@@ -343,6 +352,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			return null;
 		}
+
 		public void ButonlarıGetir(int secilenKategoriId)
 		{
 			// MasaPanel'i alın
@@ -358,8 +368,8 @@ namespace Restoran_Otomasyon.Paneller
 			db.Dispose();
 			db = new Context();
 
-			// Veritabanından seçilen kategoriye ait tüm masaları alın
-			var tumMasalar = db.Masalar.Where(m => m.Gorunurluk == true && m.KategoriId == secilenKategoriId).ToList();
+
+			var tumMasalar = query.ToList();
 
 			if (tumMasalar.Count != 0)
 			{
@@ -450,8 +460,17 @@ namespace Restoran_Otomasyon.Paneller
 								break;
 						}
 					};
-					masaButton.Margin = new Padding(23, 23, 23, 23); // Sol: 20, Üst: 30, Sağ: 20, Alt: 30 piksel boşluk bırakır
+					if(kullaniciId != 1)
+					{
+						masaButton.Margin = new Padding(16, 16, 16, 16);
+					}
+					else
+					{
+						masaButton.Margin = new Padding(23, 23, 23, 23); // Sol: 20, Üst: 30, Sağ: 20, Alt: 30 piksel boşluk bırakır
+
+					}
 					masaPanel.Controls.Add(masaButton);
+					masaPanel.AutoScroll = true;
 				}
 			}
 		}
@@ -471,6 +490,7 @@ namespace Restoran_Otomasyon.Paneller
 			var kat = db.Kategoriler.FirstOrDefault(o => o.Tur == "Masa");
 			int secilenKategoriId = kat.Id;
 			TemizleMasaButonlari(); // Mevcut butonları temizle
+			RezarvasyonKontrol();
 			ButonlarıGetir(secilenKategoriId);
 		}
 
@@ -536,7 +556,6 @@ namespace Restoran_Otomasyon.Paneller
 						{
 							digerMasa.Durum = 4;
 							db.SaveChanges();
-							MasaButonlariniGuncelle();
 						}
 						// Eğer rezervasyonun başlangıç saati, şu anki zamandan yarım saat sonrasından fazla ise ve onaylanmışsa, rezervasyon onayını 4 yap
 						else if (baslangicZamani > yarimSaatSonrasininZamani && rezervasyon.Rezervasyon.Onay == 1)
@@ -587,6 +606,51 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtkapasite_KeyDown(object sender, KeyEventArgs e)
 		{
 			Yardimcilar.Kopyalama(txtkapasite, sender, e);
+		}
+		List<Masa> query = new List<Masa>();
+
+		private void MasaFiltre_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			int Filtre = MasaFiltre.SelectedIndex;
+			query = db.Masalar.ToList();
+			// Veritabanından seçilen kategoriye ait tüm masaları alın
+			if (kullaniciId == 1 && Filtre == 0)
+			{
+				query = query.ToList();
+				MasaFiltre.Items.Add("Kapalı");
+			}
+			else if (kullaniciId != 1 && Filtre == 0)
+			{
+				query = query.Where(m => m.Durum != 5).ToList();
+			}
+
+			if (Filtre == 1)
+			{
+				query = query.Where(m => m.Durum == 1).ToList();
+			}
+
+			if (Filtre == 2)
+			{
+				query = query.Where(m => m.Durum == 2).ToList();
+			}
+			if (Filtre == 3)
+			{
+				query = query.Where(m => m.Durum == 3).ToList();
+			}
+			if (Filtre == 4)
+			{
+				query = query.Where(m => m.Durum == 4).ToList();
+			}
+			if (Filtre == 5)
+			{
+				query = query.Where(m => m.Durum == 5).ToList();
+			}
+			if (Filtre == 6)
+			{
+				query = query.Where(m => m.Durum == 6).ToList();
+			}
+			TemizleMasaButonlari();
+			ButonlarıGetir(secilenKategoriId);
 		}
 	}
 }

@@ -47,8 +47,9 @@ namespace Restoran_Otomasyon.Paneller
 				if (fotouzanti != "")//Foto seçildi mi kontrolü
 				{
 					//Girilen tarihler geçerli bir tarih mi?
-					if (!Yardimcilar.GecerliTarihMi(txtdogumT.Text) && !Yardimcilar.GecerliTarihMi(txtbaslamaT.Text))
+					if (Yardimcilar.GecerliTarihMi(txtdogumT.Text) && Yardimcilar.GecerliTarihMi(txtbaslamaT.Text))
 					{
+
 						if (Restoran_Otomasyon.Yardimcilar.MailKontrol(txteposta.Text))//Mail geçrli mi kontorlü
 						{
 							bool cinsiyet = false;//Kadın
@@ -69,16 +70,25 @@ namespace Restoran_Otomasyon.Paneller
 								{
 									if(EslesenTel == null)
 									{
-										int uzunluk = txttelefon.Text.Length;
-										if (uzunluk == 14)
+										if(maasformatsız< 2147483647)
 										{
-											PersonelEkle(cinsiyet, rolId);
+											int uzunluk = txttelefon.Text.Length;
+											if (uzunluk == 14)
+											{
+												PersonelEkle(cinsiyet, rolId);
 
+											}
+											else
+											{
+												timer1.Start();
+												MessageBox.Show("Telefon Numarasının Doğruluğundan Emin Olunuz!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+												return;
+											}
 										}
 										else
 										{
 											timer1.Start();
-											MessageBox.Show("Telefon Numarasının Doğruluğundan Emin Olunuz!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+											MessageBox.Show("Girilen Değer Veritabanı Hafızasını Aşıyor!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 											return;
 										}
 									}

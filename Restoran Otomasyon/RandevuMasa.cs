@@ -1,4 +1,5 @@
 ﻿using Restoran_Otomasyon.Data;
+using Restoran_Otomasyon.Paneller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -450,6 +451,16 @@ namespace Restoran_Otomasyon
 		private void txtkisiSayisi_KeyDown(object sender, KeyEventArgs e)
 		{
 			Yardimcilar.Kopyalama(txtkisiSayisi, sender, e);
+		}
+
+		private void RandevuMasa_FormClosed(object sender, FormClosedEventArgs e)
+		{
+				// Masa butonlarını güncelle
+			MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
+			if (calisanForm != null)
+			{
+				calisanForm.MasaButonlariniGuncelle();
+			}
 		}
 	}
 }

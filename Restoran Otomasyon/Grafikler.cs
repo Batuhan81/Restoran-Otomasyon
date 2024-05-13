@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms.DataVisualization.Charting; // Chart kullanacağımız için bu namespace'i ekliyoruz
 
 namespace Restoran_Otomasyon
@@ -28,19 +29,19 @@ namespace Restoran_Otomasyon
 			{
 				switch (durum)
 				{
-					case 1:
+					case 1: // Boş
 						bosSayac++;
 						break;
-					case 2:
+					case 2: // Dolu
 						doluSayac++;
 						break;
-					case 3:
+					case 3: // Kirli
 						kirliSayac++;
 						break;
-					case 4:
+					case 4: // Rezerve
 						rezerveSayac++;
 						break;
-					case 5:
+					case 5: // Kapalı
 						kapaliSayac++;
 						break;
 				}
@@ -72,9 +73,43 @@ namespace Restoran_Otomasyon
 			chart.Series.Add("Doluluk Oranları");
 			chart.Series["Doluluk Oranları"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
 
+			// Renklerin sabit olarak tanımlanması
+			Color bosRenk = Color.Green;
+			Color doluRenk = Color.Red;
+			Color kirliRenk = Color.Brown;
+			Color rezerveRenk = Color.Yellow;
+			Color kapaliRenk = Color.Gray;
+
 			foreach (var kvp in veriNoktalari)
 			{
+				// Her bir veri noktası için sabit renk ataması yap
+				string durumAdi = kvp.Key.Split(' ')[0]; // Durum adını al
+				Color renk;
+
+				switch (durumAdi)
+				{
+					case "Boş":
+						renk = bosRenk;
+						break;
+					case "Dolu":
+						renk = doluRenk;
+						break;
+					case "Kirli":
+						renk = kirliRenk;
+						break;
+					case "Rezerve":
+						renk = rezerveRenk;
+						break;
+					case "Kapalı":
+						renk = kapaliRenk;
+						break;
+					default:
+						renk = Color.White; // Varsayılan renk
+						break;
+				}
+
 				chart.Series["Doluluk Oranları"].Points.AddXY(kvp.Key, kvp.Value);
+				chart.Series["Doluluk Oranları"].Points.Last().Color = renk;
 			}
 
 			// Grafiğin başlığını ayarla
@@ -88,7 +123,7 @@ namespace Restoran_Otomasyon
 		}
 
 
-		public static void EnCokSiparisMenu(Chart EnCokSiparisMenu, Context db)
+		public static void EnCokSiparisMenu(Chart EnCokSiparisMenu, Context db, string zamanAraligi)
 		{
 			// Ürünlerin sipariş sayılarını hesapla
 			Dictionary<string, int> menuSiparisSayilari = new Dictionary<string, int>();
@@ -123,6 +158,32 @@ namespace Restoran_Otomasyon
 					toplamSiparisSayisi += siparisMenu.Miktar;
 				}
 			}
+
+			// Zaman aralığına göre siparişleri filtrele
+			IQueryable<Siparis> siparisler;
+
+			switch (zamanAraligi)
+			{
+				case "Bugün":
+					// Bugünün siparişlerini al
+					siparisler = db.Siparisler.Where(s => s.Tarih.Date == DateTime.Today.Date);
+					break;
+				case "Bu Hafta":
+					// Bu haftanın siparişlerini al
+					DateTime baslangicHafta = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+					DateTime bitisHafta = baslangicHafta.AddDays(7);
+					siparisler = db.Siparisler.Where(s => s.Tarih.Date >= baslangicHafta.Date && s.Tarih.Date < bitisHafta.Date);
+					break;
+				case "Bu Ay":
+					// Bu ayın siparişlerini al
+					siparisler = db.Siparisler.Where(s => s.Tarih.Month == DateTime.Today.Month && s.Tarih.Year == DateTime.Today.Year);
+					break;
+				default:
+					// Tüm siparişleri al
+					siparisler = db.Siparisler;
+					break;
+			}
+
 			// En çok sipariş edilen 5 ürünü seç
 			var enCokSiparisEdilenMenuler = menuSiparisSayilari.OrderByDescending(x => x.Value).Take(5);
 
@@ -131,7 +192,7 @@ namespace Restoran_Otomasyon
 			EnCokSiparisMenu.Series.Add("Siparişler");
 			EnCokSiparisMenu.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
 			EnCokSiparisMenu.Titles.Clear();
-			EnCokSiparisMenu.Titles.Add("En Çok Sipariş Edilen Menüler").Font = new Font("Arial", 12, FontStyle.Bold); // Başlık ekleme, fontu büyük ve kalın yapma
+			EnCokSiparisMenu.Titles.Add($"En Çok Sipariş Edilen Menüler {"- "+zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold); // Başlık ekleme, fontu büyük ve kalın yapma
 			EnCokSiparisMenu.Legends.Clear();
 
 			// Grafiğe veri ekleme
@@ -141,7 +202,9 @@ namespace Restoran_Otomasyon
 				EnCokSiparisMenu.Series["Siparişler"].Points.AddXY($"{Menu.Key}- {Menu.Value} Adet", Menu.Value);
 			}
 		}
-		public static void EnCokSiparisUrun(Chart chartEnCokSiparisEdilenUrunler, Context db)
+
+
+		public static void EnCokSiparisUrun(Chart chart, Context db, string zamanAraligi)
 		{
 			// Ürünlerin sipariş sayılarını hesapla
 			Dictionary<string, int> urunSiparisSayilari = new Dictionary<string, int>();
@@ -151,11 +214,37 @@ namespace Restoran_Otomasyon
 
 			// Tüm sipariş ürünlerini al
 			var siparisUrunler = db.SiparisUrunler.ToList();
+
+			// Zaman aralığına göre siparişleri filtrele
+			IQueryable<Siparis> siparisler;
+
+			switch (zamanAraligi)
+			{
+				case "Bugün":
+					// Bugünün siparişlerini al
+					siparisler = db.Siparisler.Where(s => s.Tarih.Day == DateTime.Today.Day);
+					break;
+				case "Bu Hafta":
+					// Bu haftanın siparişlerini al
+					DateTime baslangicHafta = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+					DateTime bitisHafta = baslangicHafta.AddDays(7);
+					siparisler = db.Siparisler.Where(s => s.Tarih.Day >= baslangicHafta.Day && s.Tarih.Day < bitisHafta.Day);
+					break;
+				case "Bu Ay":
+					// Bu ayın siparişlerini al
+					siparisler = db.Siparisler.Where(s => s.Tarih.Month == DateTime.Today.Month && s.Tarih.Year == DateTime.Today.Year);
+					break;
+				default:
+					// Tüm siparişleri al
+					siparisler = db.Siparisler;
+					break;
+			}
+
 			// Sipariş ürünlerindeki her bir ürünü ve miktarını hesapla
 			foreach (var siparisUrun in siparisUrunler)
 			{
 				// İlgili siparişin bilgilerini al
-				var siparis = db.Siparisler.Find(siparisUrun.SiparisId);
+				var siparis = siparisler.FirstOrDefault(s => s.Id == siparisUrun.SiparisId);
 				if (siparis != null)
 				{
 					int urunID = siparisUrun.UrunId;
@@ -175,43 +264,70 @@ namespace Restoran_Otomasyon
 					toplamSiparisSayisi += siparisUrun.Miktar;
 				}
 			}
+
 			// En çok sipariş edilen 5 ürünü seç
 			var enCokSiparisEdilenUrunler = urunSiparisSayilari.OrderByDescending(x => x.Value).Take(5);
 
 			// Pasta grafiği oluşturma
-			chartEnCokSiparisEdilenUrunler.Series.Clear();
-			chartEnCokSiparisEdilenUrunler.Series.Add("Siparişler");
-			chartEnCokSiparisEdilenUrunler.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
-			chartEnCokSiparisEdilenUrunler.Titles.Clear();
-			chartEnCokSiparisEdilenUrunler.Titles.Add("En Çok Sipariş Edilen Ürünler").Font = new Font("Arial", 12, FontStyle.Bold);  // Başlık ekleme
-			chartEnCokSiparisEdilenUrunler.Legends.Clear();
+			chart.Series.Clear();
+			chart.Series.Add("Siparişler");
+			chart.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
+			chart.Titles.Clear();
+			chart.Titles.Add($"En Çok Sipariş Edilen Ürünler {"- " + zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold);  // Başlık ekleme
+
+
+			chart.Legends.Clear();
 			// Grafiğe veri ekleme
 			foreach (var urun in enCokSiparisEdilenUrunler)
 			{
 				double yuzde = (double)urun.Value / toplamSiparisSayisi * 100; // Yüzde hesaplama
-				chartEnCokSiparisEdilenUrunler.Series["Siparişler"].Points.AddXY($"{urun.Key}- {urun.Value} Adet", urun.Value);
+				chart.Series["Siparişler"].Points.AddXY($"{urun.Key}- {urun.Value} Adet", urun.Value);
 			}
+			chart.Series["Siparişler"]["PieLineColor"] = "Black";
+
 		}
 
-		public static void MasaYogunluk(Chart chart, Context db)
+		public static void MasaYogunluk(Chart chart, Context db, string zamanAraligi)
 		{
 			// Masaların kullanım oranlarını hesapla
 			var masaKullanimOranlari = new Dictionary<string, int>();
 
-			foreach (var masa in db.Masalar)
+			// Zaman aralığına göre siparişleri filtrele
+			IQueryable<MasaSiparis> masaSiparisler;
+			switch (zamanAraligi)
 			{
-				using (var dbContext = new Context())
-				{
-					int masaID = masa.Id;
-					// Masanın toplam sipariş sayısını al
-					int toplamSiparisSayisi = dbContext.MasaSiparisler.Where(o => o.MasaId == masaID).Count();
-
-					if (toplamSiparisSayisi != 0)
-					{
-						masaKullanimOranlari.Add(masa.Kod, toplamSiparisSayisi);
-					}
-				}
+				case "Bugün":
+					masaSiparisler = db.MasaSiparisler
+						.Where(s => s.Siparis.Tarih.Day == DateTime.Today.Day);
+					break;
+				case "Bu Hafta":
+					DateTime baslangicHafta = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+					DateTime bitisHafta = baslangicHafta.AddDays(7);
+					masaSiparisler = db.MasaSiparisler
+						.Where(s => s.Siparis.Tarih >= baslangicHafta && s.Siparis.Tarih < bitisHafta);
+					break;
+				case "Bu Ay":
+					masaSiparisler = db.MasaSiparisler
+						.Where(s => s.Siparis.Tarih.Month == DateTime.Today.Month && s.Siparis.Tarih.Year == DateTime.Today.Year);
+					break;
+				default:
+					masaSiparisler = db.MasaSiparisler;
+					break;
 			}
+
+			// Siparişlerin toplam sayısını hesapla
+			var toplamSiparisSayilari = masaSiparisler
+				.GroupBy(s => s.MasaId)
+				.Select(g => new { MasaId = g.Key, ToplamSiparis = g.Count() })
+				.ToList();
+
+			// Masaların kodlarına göre sipariş sayılarını ekle
+			foreach (var siparis in toplamSiparisSayilari)
+			{
+				Masa masa = db.Masalar.Find(siparis.MasaId);
+				masaKullanimOranlari.Add(masa.Kod, siparis.ToplamSiparis);
+			}
+
 			// Grafik veri bağlama
 			chart.Series.Clear();
 			chart.Series.Add("Sipariş Sayısı");
@@ -224,10 +340,12 @@ namespace Restoran_Otomasyon
 			chart.ChartAreas[0].AxisX.Interval = 1;
 			chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
 			chart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+			chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+			chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
 			chart.ChartAreas[0].AxisX.Title = "Masa Kodu";
 			chart.ChartAreas[0].AxisY.Title = "Sipariş Sayısı";
 			chart.Titles.Clear();
-			chart.Titles.Add("Masa Kullanım Oranları").Font = new Font("Arial", 12, FontStyle.Bold);
+			chart.Titles.Add($"Masa Kullanım Oranları {"- " + zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold);
 
 			// Eksenlerin tamsayı değerlerine uygun hale getirilmesi
 			chart.ChartAreas[0].AxisY.Interval = 1; // Y eksenindeki tamsayılar arası aralık
@@ -235,14 +353,32 @@ namespace Restoran_Otomasyon
 			chart.Legends.Clear();
 		}
 
-		public static void GunlereGoreGrafik(Chart chartGunlereGoreSiparis, Context db)
+
+		public static void GunlereGoreGrafik(Chart chart, Context db, string zamanAraligi)
 		{
 			// Haftanın günlerine göre sipariş sayılarını hesapla ve sıralı bir şekilde tutmak için bir dizi kullan
 			string[] gunler = { "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar" };
 			Dictionary<string, int> gunlereGoreSiparisSayilari = new Dictionary<string, int>();
 
-			// Tüm siparişleri al
-			var siparisler = db.Siparisler.ToList();
+			// Zaman aralığına göre siparişleri filtrele
+			IQueryable<Siparis> siparisler;
+			switch (zamanAraligi)
+			{
+				case "Bugün":
+					siparisler = db.Siparisler.Where(s => s.Tarih.Day == DateTime.Today.Day);
+					break;
+				case "Bu Hafta":
+					DateTime baslangicHafta = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+					DateTime bitisHafta = baslangicHafta.AddDays(7);
+					siparisler = db.Siparisler.Where(s => s.Tarih >= baslangicHafta && s.Tarih < bitisHafta);
+					break;
+				case "Bu Ay":
+					siparisler = db.Siparisler.Where(s => s.Tarih.Month == DateTime.Today.Month && s.Tarih.Year == DateTime.Today.Year);
+					break;
+				default:
+					siparisler = db.Siparisler;
+					break;
+			}
 
 			// Siparişlerin günlerine göre sayısını hesapla
 			foreach (var siparis in siparisler)
@@ -264,8 +400,8 @@ namespace Restoran_Otomasyon
 			}
 
 			// Grafik oluşturma
-			chartGunlereGoreSiparis.Series.Clear();
-			chartGunlereGoreSiparis.Series.Add("Sipariş Sayısı");
+			chart.Series.Clear();
+			chart.Series.Add("Sipariş Sayısı");
 
 			// Her günün sipariş sayısını grafiğe ekle, günlerin sırasını koru
 			foreach (var gun in gunler)
@@ -276,25 +412,28 @@ namespace Restoran_Otomasyon
 				{
 					siparisSayisi = gunlereGoreSiparisSayilari[gun];
 				}
-				chartGunlereGoreSiparis.Series["Sipariş Sayısı"].Points.AddXY(gun, siparisSayisi);
+				chart.Series["Sipariş Sayısı"].Points.AddXY(gun, siparisSayisi);
 			}
 
 			// Grafik görünüm ayarları
-			chartGunlereGoreSiparis.ChartAreas[0].AxisX.Interval = 1;
-			chartGunlereGoreSiparis.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-			chartGunlereGoreSiparis.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-			chartGunlereGoreSiparis.ChartAreas[0].AxisX.Title = "Günler";
-			chartGunlereGoreSiparis.ChartAreas[0].AxisY.Title = "Sipariş Sayısı";
+			chart.ChartAreas[0].AxisX.Interval = 1;
+			chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+			chart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+			chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+			chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+			chart.ChartAreas[0].AxisX.Title = "Günler";
+			chart.ChartAreas[0].AxisY.Title = "Sipariş Sayısı";
 
 			// Grafik renkleri ve stil ayarları
-			chartGunlereGoreSiparis.BackColor = Color.FromArgb(255, 255, 255);
-			chartGunlereGoreSiparis.ChartAreas[0].BackColor = Color.FromArgb(243, 243, 243);
-			chartGunlereGoreSiparis.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
-			chartGunlereGoreSiparis.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
-			chartGunlereGoreSiparis.Series[0].Color = Color.FromArgb(0, 102, 204);
+			chart.BackColor = Color.FromArgb(255, 255, 255);
+			chart.ChartAreas[0].BackColor = Color.FromArgb(243, 243, 243);
+			chart.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
+			chart.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
+			chart.Series[0].Color = Color.FromArgb(0, 102, 204);
 			// Legend'i devre dışı bırak
-			chartGunlereGoreSiparis.Legends.Clear();
+			chart.Legends.Clear();
 		}
+
 
 		private static string GunTuruTercihininTercihineGoreCevir(string gunTuru)
 		{
@@ -320,15 +459,41 @@ namespace Restoran_Otomasyon
 		}
 
 
-		public static void OdemeYuzdesi(Chart chart, Context db)
+		public static void OdemeYuzdesi(Chart chart, Context db, string zamanAraligi)
 		{
-			if (db.Odemeler.Any())
+			IQueryable<Odeme> odemeler;
+			switch (zamanAraligi)
+			{
+				case "Bugün":
+					odemeler = db.Odemeler.Where(o => o.OdemeTarih.Year == DateTime.Today.Year &&
+													   o.OdemeTarih.Month == DateTime.Today.Month &&
+													   o.OdemeTarih.Day == DateTime.Today.Day);
+					break;
+
+				case "Bu Hafta":
+					DateTime baslangicHafta = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+					DateTime bitisHafta = baslangicHafta.AddDays(7);
+					odemeler = db.Odemeler.Where(o => o.OdemeTarih >= baslangicHafta && o.OdemeTarih < bitisHafta);
+					break;
+
+				case "Bu Ay":
+					odemeler = db.Odemeler.Where(o => o.OdemeTarih.Month == DateTime.Today.Month &&
+													   o.OdemeTarih.Year == DateTime.Today.Year);
+					break;
+
+				default:
+					odemeler = db.Odemeler;
+					break;
+			}
+
+			int sayi = odemeler.Count();
+			if (odemeler.Any())
 			{
 				// Nakit ve Kart ödemelerinin tutarlarını hesapla
-				decimal? nakitToplamNullable = db.Odemeler.Where(o => o.Tur == 1).Sum(o => (decimal?)o.Tutar);
+				decimal? nakitToplamNullable = odemeler.Where(o => o.Tur == 1).Sum(o => (decimal?)o.Tutar);
 				decimal nakitToplam = nakitToplamNullable ?? 0;
 
-				decimal? kartToplamNullable = db.Odemeler.Where(o => o.Tur == 2).Sum(o => (decimal?)o.Tutar);
+				decimal? kartToplamNullable = odemeler.Where(o => o.Tur == 2).Sum(o => (decimal?)o.Tutar);
 				decimal kartToplam = kartToplamNullable ?? 0;
 
 				// Toplam ödeme tutarı
@@ -357,13 +522,14 @@ namespace Restoran_Otomasyon
 				chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
 				chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
 
-				chart.ChartAreas[0].AxisX.Interval = 1;
+				chart.ChartAreas[0].AxisX.Interval = 10;
+				chart.ChartAreas[0].AxisY.Minimum = 0; // Y ekseni minimum değeri
+				chart.ChartAreas[0].AxisY.Maximum = 100; // Y ekseni maksimum değeri
+
 				chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
 				chart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 				chart.ChartAreas[0].AxisX.Title = "Ödeme Yöntemi";
 				chart.ChartAreas[0].AxisY.Title = "Yüzde";
-				chart.Series["Ödeme Yöntemi"].IsValueShownAsLabel = true;
-				chart.Series["Ödeme Yöntemi"].Label = "#PERCENT{P0}";
 				chart.ChartAreas[0].BackColor = Color.LightGray;
 
 				// Pasta dilimlerinin üzerine gelindiğinde toplam tutarı gösterme

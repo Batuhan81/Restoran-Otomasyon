@@ -51,6 +51,8 @@
 			this.btnKatEkle = new System.Windows.Forms.Button();
 			this.MasaEkle = new System.Windows.Forms.Button();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.MasaFiltre = new System.Windows.Forms.ComboBox();
+			this.label5 = new System.Windows.Forms.Label();
 			this.MasaPanel.SuspendLayout();
 			this.MasaEklePanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -81,7 +83,7 @@
 			this.comboKat.FormattingEnabled = true;
 			this.comboKat.Location = new System.Drawing.Point(1325, 183);
 			this.comboKat.Name = "comboKat";
-			this.comboKat.Size = new System.Drawing.Size(105, 26);
+			this.comboKat.Size = new System.Drawing.Size(137, 26);
 			this.comboKat.TabIndex = 24;
 			this.comboKat.SelectedIndexChanged += new System.EventHandler(this.comboKat_SelectedIndexChanged);
 			// 
@@ -288,12 +290,41 @@
 			this.timer1.Interval = 600000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
+			// MasaFiltre
+			// 
+			this.MasaFiltre.FormattingEnabled = true;
+			this.MasaFiltre.Items.AddRange(new object[] {
+            "Tümü",
+            "Boş",
+            "Dolu",
+            "Kirli",
+            "Rezerve"});
+			this.MasaFiltre.Location = new System.Drawing.Point(1325, 226);
+			this.MasaFiltre.Name = "MasaFiltre";
+			this.MasaFiltre.Size = new System.Drawing.Size(137, 26);
+			this.MasaFiltre.TabIndex = 31;
+			this.MasaFiltre.SelectedIndexChanged += new System.EventHandler(this.MasaFiltre_SelectedIndexChanged);
+			// 
+			// label5
+			// 
+			this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+			this.label5.AutoSize = true;
+			this.label5.BackColor = System.Drawing.Color.Transparent;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label5.Location = new System.Drawing.Point(1182, 226);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(126, 22);
+			this.label5.TabIndex = 32;
+			this.label5.Text = "Durum Filtre:";
+			// 
 			// MasaESG
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1541, 796);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.MasaFiltre);
 			this.Controls.Add(this.MasaOzellikPanel);
 			this.Controls.Add(this.MasaPanel);
 			this.Controls.Add(this.btnKatSil);
@@ -341,5 +372,7 @@
 		private System.Windows.Forms.Button MasaKaydet;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.ComboBox MasaFiltre;
+		private System.Windows.Forms.Label label5;
 	}
 }

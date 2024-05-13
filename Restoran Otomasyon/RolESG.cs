@@ -25,7 +25,7 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (txtad.Text != "")
 			{
-				var eslesen = db.Roller.Where(o => o.Ad == txtad.Text && o.Gorunurluk==true);
+				var eslesen = db.Roller.FirstOrDefault(o => o.Ad == txtad.Text && o.Gorunurluk==true);
 				if (hiddenRolId.Text == "")//Rol Ekle
 				{
 					if (eslesen == null)
@@ -35,7 +35,6 @@ namespace Restoran_Otomasyon.Paneller
 						rol.KayitT = DateTime.Today;
 						db.Roller.Add(rol);
 						timer1.Start();
-
 						MessageBox.Show("Yeni Rol Kayıt Edildi");
 					}
 					else

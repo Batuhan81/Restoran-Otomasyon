@@ -19,7 +19,7 @@ namespace Restoran_Otomasyon.Paneller
 			KullaniciId = KullaniciID;
 		}
 		int KullaniciId;
-		Context db=new Context();
+		Context db = new Context();
 		string kullaniciAdi;
 		string bakiye;
 
@@ -40,7 +40,7 @@ namespace Restoran_Otomasyon.Paneller
 		private void BakiyeHesapla()
 		{
 			db.Dispose();
-			db=new Context();
+			db = new Context();
 			var kasabakiye = db.Kasalar.Find(1);
 			bakiye = kasabakiye.Bakiye.ToString();
 			Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
@@ -61,7 +61,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void CalisanCRUD_Click(object sender, EventArgs e)
 		{
-			CalisanESG git=new CalisanESG(KullaniciId);
+			CalisanESG git = new CalisanESG(KullaniciId);
 			git.Show();
 		}
 
@@ -73,38 +73,45 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void menüOluşturToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MenuListe git=new MenuListe();
+			MenuListe git = new MenuListe();
 			git.Show();
 		}
 
 		private void masaOluşturToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MasaESG git=new MasaESG(KullaniciId);
+			MasaESG git = new MasaESG(KullaniciId);
 			git.Show();
 		}
 
 		private void kasaToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			KasaFormu git=new KasaFormu();
+			KasaFormu git = new KasaFormu();
 			git.Show();
 		}
 
 		public void grafikleriGuncelle()
 		{
-			Grafikler.MasaYogunluk(MasaYogunluk, db);
-			Grafikler.OdemeYuzdesi(OdemeYuzde, db);
-			Grafikler.GunlereGoreGrafik(GunlereGore, db);
-			Grafikler.EnCokSiparisUrun(EnCokSiparisUrun, db);
-			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db);
+
+			ComboFiltre.SelectedIndex = 0;
 			Grafikler.DolulukGrafik(DolulukOranlari, db);
 			BakiyeHesapla();
-			Invalidate(); 
+			Invalidate();
 		}
 
 		private void bilgilerimiGüncelleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			BilgileriGuncelle git = new BilgileriGuncelle(KullaniciId);
 			git.Show();
+		}
+
+		private void ComboFiltre_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string filteAd = ComboFiltre.Text;
+			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db, filteAd);
+			Grafikler.EnCokSiparisUrun(EnCokSiparisUrun, db, filteAd);
+			Grafikler.MasaYogunluk(MasaYogunluk, db, filteAd);
+			Grafikler.GunlereGoreGrafik(GunlereGore, db, filteAd);
+			Grafikler.OdemeYuzdesi(OdemeYuzde, db, filteAd);
 		}
 	}
 }

@@ -29,9 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalisanESG));
 			this.gridPersonel = new System.Windows.Forms.DataGridView();
 			this.label1 = new System.Windows.Forms.Label();
@@ -90,34 +90,34 @@
 			// 
 			this.gridPersonel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.gridPersonel.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridPersonel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridPersonel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.gridPersonel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.gridPersonel.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.gridPersonel.DefaultCellStyle = dataGridViewCellStyle2;
 			this.gridPersonel.Location = new System.Drawing.Point(375, 80);
 			this.gridPersonel.Margin = new System.Windows.Forms.Padding(4);
 			this.gridPersonel.Name = "gridPersonel";
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.gridPersonel.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.gridPersonel.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.gridPersonel.RowHeadersWidth = 51;
 			this.gridPersonel.RowTemplate.Height = 24;
 			this.gridPersonel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -548,7 +548,7 @@
 			// txtRolAra
 			// 
 			this.txtRolAra.FormattingEnabled = true;
-			this.txtRolAra.Location = new System.Drawing.Point(958, 31);
+			this.txtRolAra.Location = new System.Drawing.Point(958, 30);
 			this.txtRolAra.Margin = new System.Windows.Forms.Padding(4);
 			this.txtRolAra.Name = "txtRolAra";
 			this.txtRolAra.Size = new System.Drawing.Size(131, 30);
@@ -559,7 +559,7 @@
 			// 
 			this.label15.AutoSize = true;
 			this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label15.Location = new System.Drawing.Point(903, 37);
+			this.label15.Location = new System.Drawing.Point(903, 36);
 			this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(39, 18);
@@ -572,7 +572,7 @@
 			this.TxtCinsiyetAra.Items.AddRange(new object[] {
             "Kadın",
             "Erkek"});
-			this.TxtCinsiyetAra.Location = new System.Drawing.Point(771, 33);
+			this.TxtCinsiyetAra.Location = new System.Drawing.Point(771, 30);
 			this.TxtCinsiyetAra.Margin = new System.Windows.Forms.Padding(4);
 			this.TxtCinsiyetAra.Name = "TxtCinsiyetAra";
 			this.TxtCinsiyetAra.Size = new System.Drawing.Size(125, 30);
@@ -583,7 +583,7 @@
 			// 
 			this.label14.AutoSize = true;
 			this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label14.Location = new System.Drawing.Point(682, 39);
+			this.label14.Location = new System.Drawing.Point(682, 36);
 			this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(73, 18);
@@ -592,7 +592,7 @@
 			// 
 			// txtTelAra
 			// 
-			this.txtTelAra.Location = new System.Drawing.Point(527, 33);
+			this.txtTelAra.Location = new System.Drawing.Point(527, 31);
 			this.txtTelAra.Margin = new System.Windows.Forms.Padding(4);
 			this.txtTelAra.Mask = "(999) 000-0000";
 			this.txtTelAra.Name = "txtTelAra";
@@ -604,7 +604,7 @@
 			// 
 			this.label13.AutoSize = true;
 			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label13.Location = new System.Drawing.Point(442, 38);
+			this.label13.Location = new System.Drawing.Point(442, 36);
 			this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(69, 18);
@@ -614,7 +614,7 @@
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(200, 36);
+			this.label12.Location = new System.Drawing.Point(200, 34);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(87, 22);
 			this.label12.TabIndex = 3;
@@ -622,7 +622,7 @@
 			// 
 			// txtmailAra
 			// 
-			this.txtmailAra.Location = new System.Drawing.Point(293, 33);
+			this.txtmailAra.Location = new System.Drawing.Point(293, 31);
 			this.txtmailAra.Name = "txtmailAra";
 			this.txtmailAra.Size = new System.Drawing.Size(144, 28);
 			this.txtmailAra.TabIndex = 2;
@@ -631,7 +631,7 @@
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(5, 36);
+			this.label11.Location = new System.Drawing.Point(5, 34);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(40, 22);
 			this.label11.TabIndex = 1;
@@ -639,7 +639,7 @@
 			// 
 			// txtAdAra
 			// 
-			this.txtAdAra.Location = new System.Drawing.Point(51, 32);
+			this.txtAdAra.Location = new System.Drawing.Point(51, 31);
 			this.txtAdAra.Name = "txtAdAra";
 			this.txtAdAra.Size = new System.Drawing.Size(144, 28);
 			this.txtAdAra.TabIndex = 0;

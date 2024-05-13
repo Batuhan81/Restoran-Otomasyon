@@ -28,24 +28,24 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.Bakiyee = new System.Windows.Forms.ToolStripMenuItem();
 			this.Karsilama = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,7 @@
 			this.GunlereGore = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.OdemeYuzde = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.MasaYogunluk = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.ComboFiltre = new System.Windows.Forms.ComboBox();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DolulukOranlari)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisMenu)).BeginInit();
@@ -237,17 +238,17 @@
 			this.DolulukOranlari.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.DolulukOranlari.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.DolulukOranlari.BorderlineWidth = 5;
-			chartArea1.Name = "ChartArea1";
-			this.DolulukOranlari.ChartAreas.Add(chartArea1);
-			legend1.Name = "Legend1";
-			this.DolulukOranlari.Legends.Add(legend1);
-			this.DolulukOranlari.Location = new System.Drawing.Point(1044, 416);
+			chartArea7.Name = "ChartArea1";
+			this.DolulukOranlari.ChartAreas.Add(chartArea7);
+			legend7.Name = "Legend1";
+			this.DolulukOranlari.Legends.Add(legend7);
+			this.DolulukOranlari.Location = new System.Drawing.Point(1042, 443);
 			this.DolulukOranlari.Name = "DolulukOranlari";
 			this.DolulukOranlari.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			series1.ChartArea = "ChartArea1";
-			series1.Legend = "Legend1";
-			series1.Name = "Series1";
-			this.DolulukOranlari.Series.Add(series1);
+			series7.ChartArea = "ChartArea1";
+			series7.Legend = "Legend1";
+			series7.Name = "Series1";
+			this.DolulukOranlari.Series.Add(series7);
 			this.DolulukOranlari.Size = new System.Drawing.Size(383, 333);
 			this.DolulukOranlari.SuppressExceptions = true;
 			this.DolulukOranlari.TabIndex = 13;
@@ -258,16 +259,16 @@
 			this.EnCokSiparisMenu.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.EnCokSiparisMenu.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.EnCokSiparisMenu.BorderlineWidth = 5;
-			chartArea2.Name = "ChartArea1";
-			this.EnCokSiparisMenu.ChartAreas.Add(chartArea2);
-			legend2.Name = "Legend1";
-			this.EnCokSiparisMenu.Legends.Add(legend2);
-			this.EnCokSiparisMenu.Location = new System.Drawing.Point(560, 416);
+			chartArea8.Name = "ChartArea1";
+			this.EnCokSiparisMenu.ChartAreas.Add(chartArea8);
+			legend8.Name = "Legend1";
+			this.EnCokSiparisMenu.Legends.Add(legend8);
+			this.EnCokSiparisMenu.Location = new System.Drawing.Point(558, 443);
 			this.EnCokSiparisMenu.Name = "EnCokSiparisMenu";
-			series2.ChartArea = "ChartArea1";
-			series2.Legend = "Legend1";
-			series2.Name = "Series1";
-			this.EnCokSiparisMenu.Series.Add(series2);
+			series8.ChartArea = "ChartArea1";
+			series8.Legend = "Legend1";
+			series8.Name = "Series1";
+			this.EnCokSiparisMenu.Series.Add(series8);
 			this.EnCokSiparisMenu.Size = new System.Drawing.Size(383, 333);
 			this.EnCokSiparisMenu.TabIndex = 12;
 			this.EnCokSiparisMenu.Text = "chart2";
@@ -277,16 +278,16 @@
 			this.EnCokSiparisUrun.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.EnCokSiparisUrun.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.EnCokSiparisUrun.BorderlineWidth = 5;
-			chartArea3.Name = "ChartArea1";
-			this.EnCokSiparisUrun.ChartAreas.Add(chartArea3);
-			legend3.Name = "Legend1";
-			this.EnCokSiparisUrun.Legends.Add(legend3);
-			this.EnCokSiparisUrun.Location = new System.Drawing.Point(76, 416);
+			chartArea9.Name = "ChartArea1";
+			this.EnCokSiparisUrun.ChartAreas.Add(chartArea9);
+			legend9.Name = "Legend1";
+			this.EnCokSiparisUrun.Legends.Add(legend9);
+			this.EnCokSiparisUrun.Location = new System.Drawing.Point(74, 443);
 			this.EnCokSiparisUrun.Name = "EnCokSiparisUrun";
-			series3.ChartArea = "ChartArea1";
-			series3.Legend = "Legend1";
-			series3.Name = "Series1";
-			this.EnCokSiparisUrun.Series.Add(series3);
+			series9.ChartArea = "ChartArea1";
+			series9.Legend = "Legend1";
+			series9.Name = "Series1";
+			this.EnCokSiparisUrun.Series.Add(series9);
 			this.EnCokSiparisUrun.Size = new System.Drawing.Size(383, 333);
 			this.EnCokSiparisUrun.TabIndex = 11;
 			this.EnCokSiparisUrun.Text = "chart2";
@@ -296,16 +297,16 @@
 			this.GunlereGore.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.GunlereGore.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.GunlereGore.BorderlineWidth = 5;
-			chartArea4.Name = "ChartArea1";
-			this.GunlereGore.ChartAreas.Add(chartArea4);
-			legend4.Name = "Legend1";
-			this.GunlereGore.Legends.Add(legend4);
-			this.GunlereGore.Location = new System.Drawing.Point(1044, 52);
+			chartArea10.Name = "ChartArea1";
+			this.GunlereGore.ChartAreas.Add(chartArea10);
+			legend10.Name = "Legend1";
+			this.GunlereGore.Legends.Add(legend10);
+			this.GunlereGore.Location = new System.Drawing.Point(1042, 79);
 			this.GunlereGore.Name = "GunlereGore";
-			series4.ChartArea = "ChartArea1";
-			series4.Legend = "Legend1";
-			series4.Name = "Series1";
-			this.GunlereGore.Series.Add(series4);
+			series10.ChartArea = "ChartArea1";
+			series10.Legend = "Legend1";
+			series10.Name = "Series1";
+			this.GunlereGore.Series.Add(series10);
 			this.GunlereGore.Size = new System.Drawing.Size(383, 333);
 			this.GunlereGore.TabIndex = 10;
 			this.GunlereGore.Text = "chart2";
@@ -315,16 +316,16 @@
 			this.OdemeYuzde.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.OdemeYuzde.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.OdemeYuzde.BorderlineWidth = 5;
-			chartArea5.Name = "ChartArea1";
-			this.OdemeYuzde.ChartAreas.Add(chartArea5);
-			legend5.Name = "Legend1";
-			this.OdemeYuzde.Legends.Add(legend5);
-			this.OdemeYuzde.Location = new System.Drawing.Point(560, 52);
+			chartArea11.Name = "ChartArea1";
+			this.OdemeYuzde.ChartAreas.Add(chartArea11);
+			legend11.Name = "Legend1";
+			this.OdemeYuzde.Legends.Add(legend11);
+			this.OdemeYuzde.Location = new System.Drawing.Point(558, 79);
 			this.OdemeYuzde.Name = "OdemeYuzde";
-			series5.ChartArea = "ChartArea1";
-			series5.Legend = "Legend1";
-			series5.Name = "Series1";
-			this.OdemeYuzde.Series.Add(series5);
+			series11.ChartArea = "ChartArea1";
+			series11.Legend = "Legend1";
+			series11.Name = "Series1";
+			this.OdemeYuzde.Series.Add(series11);
 			this.OdemeYuzde.Size = new System.Drawing.Size(383, 333);
 			this.OdemeYuzde.TabIndex = 9;
 			this.OdemeYuzde.Text = "chart2";
@@ -334,21 +335,35 @@
 			this.MasaYogunluk.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.MasaYogunluk.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.MasaYogunluk.BorderlineWidth = 5;
-			chartArea6.Name = "ChartArea1";
-			this.MasaYogunluk.ChartAreas.Add(chartArea6);
-			legend6.Name = "Legend1";
-			this.MasaYogunluk.Legends.Add(legend6);
-			this.MasaYogunluk.Location = new System.Drawing.Point(76, 52);
+			chartArea12.Name = "ChartArea1";
+			this.MasaYogunluk.ChartAreas.Add(chartArea12);
+			legend12.Name = "Legend1";
+			this.MasaYogunluk.Legends.Add(legend12);
+			this.MasaYogunluk.Location = new System.Drawing.Point(74, 79);
 			this.MasaYogunluk.Name = "MasaYogunluk";
 			this.MasaYogunluk.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			series6.ChartArea = "ChartArea1";
-			series6.Legend = "Legend1";
-			series6.Name = "Series1";
-			this.MasaYogunluk.Series.Add(series6);
+			series12.ChartArea = "ChartArea1";
+			series12.Legend = "Legend1";
+			series12.Name = "Series1";
+			this.MasaYogunluk.Series.Add(series12);
 			this.MasaYogunluk.Size = new System.Drawing.Size(383, 333);
 			this.MasaYogunluk.SuppressExceptions = true;
 			this.MasaYogunluk.TabIndex = 8;
 			this.MasaYogunluk.Text = "chart1";
+			// 
+			// ComboFiltre
+			// 
+			this.ComboFiltre.FormattingEnabled = true;
+			this.ComboFiltre.Items.AddRange(new object[] {
+            "Genel",
+            "Bugün",
+            "Bu Hafta",
+            "Bu Ay"});
+			this.ComboFiltre.Location = new System.Drawing.Point(648, 39);
+			this.ComboFiltre.Name = "ComboFiltre";
+			this.ComboFiltre.Size = new System.Drawing.Size(172, 26);
+			this.ComboFiltre.TabIndex = 14;
+			this.ComboFiltre.SelectedIndexChanged += new System.EventHandler(this.ComboFiltre_SelectedIndexChanged);
 			// 
 			// KasaPaneli
 			// 
@@ -356,6 +371,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1914, 906);
+			this.Controls.Add(this.ComboFiltre);
 			this.Controls.Add(this.DolulukOranlari);
 			this.Controls.Add(this.EnCokSiparisMenu);
 			this.Controls.Add(this.EnCokSiparisUrun);
@@ -410,5 +426,6 @@
 		private System.Windows.Forms.DataVisualization.Charting.Chart OdemeYuzde;
 		private System.Windows.Forms.DataVisualization.Charting.Chart MasaYogunluk;
 		private System.Windows.Forms.ToolStripMenuItem bilgilerimiGüncelleToolStripMenuItem;
+		private System.Windows.Forms.ComboBox ComboFiltre;
 	}
 }

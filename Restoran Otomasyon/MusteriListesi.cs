@@ -22,6 +22,7 @@ namespace Restoran_Otomasyon.Paneller
 		private void MusteriListesi_Load(object sender, EventArgs e)
 		{
 			Musteriler();
+			FiltreKaldır();
 		}
 		Context db = new Context();
 		void Musteriler()
@@ -68,20 +69,18 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtAdAra_TextChanged(object sender, EventArgs e)
 		{
+			Ad = txtAdAra.Text;
 			FiltrelerveGetir();
 		}
 		void FiltrelerveGetir()
 		{
-			string ad = txtAdAra.Text;
-			string soyad = txtSoyadAra.Text;
-			string mail = txtmailAra.Text;
-			string telefon = txtTelAra.Text;
+			
 			telefon = new string(telefon.Where(char.IsDigit).ToArray());
 			if (deger == 1)//Kayıtlı müşterilerin Filtreleme işlemi
 			{
 				
 				var Musteriler = db.Musteriler
-						.Where(p => p.Gorunurluk == true && p.Ad.Contains(ad) && p.Soyad.Contains(soyad) && p.Eposta.Contains(mail) && p.Telefon.Contains(telefon))
+						.Where(p => p.Gorunurluk == true && p.Ad.Contains(Ad) && p.Soyad.Contains(soyad) && p.Eposta.Contains(mail) && p.Telefon.Contains(telefon))
 						.OrderByDescending(o => o.Id)
 						.Select(x => new
 						{
@@ -100,7 +99,7 @@ namespace Restoran_Otomasyon.Paneller
 			else
 			{
 				var KayitsizMusteri = db.KayitsizMusteriler
-						.Where(p => p.Gorunurluk == true && p.Ad.Contains(ad) && p.Telefon.Contains(telefon))
+						.Where(p => p.Gorunurluk == true && p.Ad.Contains(Ad) && p.Telefon.Contains(telefon))
 						.OrderByDescending(o => o.Id)
 						.Select(x => new
 						{
@@ -117,22 +116,40 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtSoyadAra_TextChanged(object sender, EventArgs e)
 		{
+			soyad=txtSoyadAra.Text;
 			FiltrelerveGetir();
 		}
 
 		private void txtmailAra_TextChanged(object sender, EventArgs e)
 		{
+			mail = txtmailAra.Text;
 			FiltrelerveGetir();
 		}
 
 		private void txtTelAra_TextChanged(object sender, EventArgs e)
 		{
+			telefon = txtTelAra.Text;
 			FiltrelerveGetir();
 		}
 
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		private void button8_Click(object sender, EventArgs e)
 		{
-			FiltrelerveGetir();
+			FiltreKaldır();
+		}
+		string Ad;
+		string soyad ;
+		string mail;
+		string telefon;
+		private void FiltreKaldır()
+		{
+			Ad = "";
+			soyad = "";
+			mail = "";
+			telefon = "";
+			txtAdAra.Text = "";
+			txtSoyadAra.Text = "";
+			txtmailAra.Text = "";
+			txtTelAra.Text = "";
 		}
 	}
 }
