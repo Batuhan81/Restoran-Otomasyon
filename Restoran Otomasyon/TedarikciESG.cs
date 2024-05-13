@@ -38,17 +38,27 @@ namespace Restoran_Otomasyon
 							{
 								if(eslesenmail == null)
 								{
-									tedarikci.AdSoyad = txtad.Text;
-									tedarikci.Firma = txtfirma.Text;
-									tedarikci.Telefon = txttelefon.Text;
-									tedarikci.Eposta = txteposta.Text;
-									tedarikci.KayitTarihi = DateTime.Now;
-									tedarikci.Gorunurluk = true;
-									tedarikci.AdresBİlgisi = txtAdres.Text;
-									//tedarikci.AdresId = Convert.ToInt32(hiddenAdresID.Text)
-									db.Tedarikciler.Add(tedarikci);
-									timer1.Start();
-									MessageBox.Show("Yeni Tedarikçi Kayıt Edildi");
+									int uzunluk=txttelefon.Text.Length;
+									if(uzunluk == 14)
+									{
+										tedarikci.AdSoyad = txtad.Text;
+										tedarikci.Firma = txtfirma.Text;
+										tedarikci.Telefon = txttelefon.Text;
+										tedarikci.Eposta = txteposta.Text;
+										tedarikci.KayitTarihi = DateTime.Now;
+										tedarikci.Gorunurluk = true;
+										tedarikci.AdresBİlgisi = txtAdres.Text;
+										//tedarikci.AdresId = Convert.ToInt32(hiddenAdresID.Text)
+										db.Tedarikciler.Add(tedarikci);
+										timer1.Start();
+										MessageBox.Show("Yeni Tedarikçi Kayıt Edildi");
+									}
+									else
+									{
+										timer1.Start();
+										MessageBox.Show("Telefon Numarasını Kontrol Edinizé", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										return;
+									}
 								}
 								else
 								{

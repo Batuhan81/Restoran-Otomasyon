@@ -89,7 +89,7 @@ namespace Restoran_Otomasyon.Data
 		private void button1_Click(object sender, EventArgs e)
 		{
 			// Seçilen satırın ID'sini al
-			if(gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value.ToString() != null)
+			if(gridOnaylananlar.CurrentRow != null && gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value!= null)
 			{
 				int selectedSiparisId = (int)gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value;
 				// Yeni bir Durum oluştur
@@ -122,7 +122,7 @@ namespace Restoran_Otomasyon.Data
 		private void button2_Click(object sender, EventArgs e)
 		{
 			// Seçilen satırın ID'sini al
-			if (gridHazirlananlar.CurrentRow.Cells["SiparisId"].Value.ToString() != null)
+			if (gridHazirlananlar.CurrentRow != null && gridHazirlananlar.CurrentRow.Cells["SiparisId"].Value.ToString() != null)
 			{
 				int selectedSiparisId = (int)gridHazirlananlar.CurrentRow.Cells["SiparisId"].Value;
 

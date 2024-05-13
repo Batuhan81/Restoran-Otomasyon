@@ -393,12 +393,19 @@ namespace Restoran_Otomasyon
 			{
 				if (txthiddenId.Text == "")
 				{
-					kayitsiz.Ad = txtAd.Text;
-					kayitsiz.Telefon = maskedTel.Text;
-					kayitsiz.KayitTarihi = DateTime.Now;
-					kayitsiz.Gorunurluk = true;
-					db.KayitsizMusteriler.Add(kayitsiz);
-					MessageBox.Show("Bilgiler Kayıt Edildi");
+					if (maskedTel.Text.Length == 14)
+					{
+						kayitsiz.Ad = txtAd.Text;
+						kayitsiz.Telefon = maskedTel.Text;
+						kayitsiz.KayitTarihi = DateTime.Now;
+						kayitsiz.Gorunurluk = true;
+						db.KayitsizMusteriler.Add(kayitsiz);
+						MessageBox.Show("Bilgiler Kayıt Edildi");
+					}
+					else
+					{
+						MessageBox.Show("Telefon Numarasını Kontrol Ediniz!","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+					}
 				}
 				else
 				{

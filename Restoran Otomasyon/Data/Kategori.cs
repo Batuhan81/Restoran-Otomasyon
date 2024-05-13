@@ -9,7 +9,7 @@ namespace Restoran_Otomasyon.Data
 
 		public string Ad { get; set; }
 
-		public string Tur { get; set; }
+		public string Tur { get; set; }//Masa/Ürün/Menü
 
 		public bool Gorunurluk { get; set; }
 	}

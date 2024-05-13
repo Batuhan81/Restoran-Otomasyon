@@ -13,6 +13,7 @@ namespace Restoran_Otomasyon.Data
 
 		public int Yer { get; set; }//1 Müşteri /2Mutfak /3 Kasa/4 kurye?
 
+		//Bu sanki masaSiparişin durumu olsa daha mantıklı gibi bu sayede bir sipariş hazırlanırken bir diğeri çoktan teslim edilmiş olabilir.
 		public int SiparisId { get; set; }
 
 		public virtual Siparis Siparis { get; set; }

@@ -264,7 +264,7 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				string masakodu = txtkod.Text;
 
-				var eslesen = db.Masalar.FirstOrDefault(o => o.Kod == masakodu);
+				var eslesen = db.Masalar.FirstOrDefault(o => o.Kod == masakodu && o.Gorunurluk==true);
 				if(eslesen == null)
 				{
 					masa.Kapasite = Convert.ToInt32(txtkapasite.Text);
@@ -275,7 +275,6 @@ namespace Restoran_Otomasyon.Paneller
 					masa.KategoriId = secilenKategoriId;
 					masa.Durum = 1;
 					string dosyaYolu = Yardimcilar.KareKodOlustur(masakodu);
-
 					// Masa kaydına QR kodunun dosya yolunu ekleyerek veritabanına kaydet
 					masa.Qr = dosyaYolu;
 

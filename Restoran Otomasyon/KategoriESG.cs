@@ -45,7 +45,6 @@ namespace Restoran_Otomasyon.Paneller
 						MessageBox.Show("Personel Telefon Numarsası Daha Önceden Kullanılmış !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						return;
 					}
-
 				}
 				else//Kategori Güncelle
 				{

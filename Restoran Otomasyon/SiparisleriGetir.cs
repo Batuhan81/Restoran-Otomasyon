@@ -43,7 +43,7 @@ namespace Restoran_Otomasyon
 				var menuler = db.Menuler.Where(o => o.Gorunurluk && siparisMenuler.Contains(o.Id)).ToList();
 
 				int groupBoxHeight = 400;
-				int groupBoxWidth = 300;
+				int groupBoxWidth = 280;
 				int pictureBoxWidth = 200;
 				int pictureBoxHeight = 200;
 				int textBoxMiktarWidth = 100;
@@ -52,6 +52,9 @@ namespace Restoran_Otomasyon
 				int y = spacing;
 
 				urunPaneli.AutoScroll = true;
+				urunPaneli.HorizontalScroll.Enabled = false;
+				urunPaneli.HorizontalScroll.Visible = false;
+
 
 				foreach (var urun in urunler)
 				{
@@ -114,7 +117,7 @@ namespace Restoran_Otomasyon
 				groupBox.Location = new Point(x, y);
 				groupBox.BackColor = Color.FromArgb(170, 198, 227);
 				groupBox.Padding = new Padding(spacing);
-				groupBox.Margin = new Padding(15, 15, 15, 15);
+				groupBox.Margin = new Padding(10, 10,10, 10);
 				return groupBox;
 			}
 

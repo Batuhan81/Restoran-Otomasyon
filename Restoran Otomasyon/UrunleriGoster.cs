@@ -61,6 +61,9 @@ namespace Restoran_Otomasyon
 
 				// Panel'e bir AutoScroll özelliği ekle
 				_panel.AutoScroll = true;
+				_panel.HorizontalScroll.Enabled = false;
+				_panel.HorizontalScroll.Visible = false;
+
 
 				// Her bir ürün için işlem yap
 				foreach (var urun in urunler)
@@ -476,6 +479,7 @@ namespace Restoran_Otomasyon
 			{
 				if (gridSiparisler != null && txttutar != null)
 				{
+					decimal tutar= Yardimcilar.TemizleVeDondur(txttutar, "");
 					// Toplam tutarı hesapla ve txttutar.Text'e yaz
 					decimal toplamTutar = 0;
 					foreach (DataGridViewRow row in gridSiparisler.Rows)
@@ -490,7 +494,7 @@ namespace Restoran_Otomasyon
 							}
 						}
 					}
-					txttutar.Text = toplamTutar.ToString("C2");
+					txttutar.Text = (toplamTutar+tutar).ToString("C2");
 				}
 				else
 				{

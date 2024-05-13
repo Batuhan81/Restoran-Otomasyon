@@ -103,7 +103,7 @@
 			this.gridSiparisler.RowHeadersWidth = 51;
 			this.gridSiparisler.RowTemplate.Height = 24;
 			this.gridSiparisler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridSiparisler.Size = new System.Drawing.Size(284, 472);
+			this.gridSiparisler.Size = new System.Drawing.Size(284, 574);
 			this.gridSiparisler.TabIndex = 57;
 			// 
 			// button1
@@ -120,7 +120,7 @@
 			// 
 			this.UrunPaneli.Location = new System.Drawing.Point(2, 42);
 			this.UrunPaneli.Name = "UrunPaneli";
-			this.UrunPaneli.Size = new System.Drawing.Size(1252, 682);
+			this.UrunPaneli.Size = new System.Drawing.Size(1252, 718);
 			this.UrunPaneli.TabIndex = 55;
 			// 
 			// label8

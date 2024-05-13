@@ -14,6 +14,10 @@ namespace Restoran_Otomasyon.Data
 
 		public string Telefon { get; set; }
 
+		//Dışarıya giden siparişler için
+		//public string Adres { get; set; }
+
+		//Bunun kalkması gerek birden fazla rezervasyonu olabilir
 		public int RezarvasyonId {  get; set; }
 
 		public bool Gorunurluk {  get; set; }

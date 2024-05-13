@@ -91,9 +91,9 @@
 			this.MasaPanel.Controls.Add(this.MasaEklePanel);
 			this.MasaPanel.Controls.Add(this.PanelKategori);
 			this.MasaPanel.Controls.Add(this.pictureBox1);
-			this.MasaPanel.Location = new System.Drawing.Point(13, 12);
+			this.MasaPanel.Location = new System.Drawing.Point(3, 12);
 			this.MasaPanel.Name = "MasaPanel";
-			this.MasaPanel.Size = new System.Drawing.Size(1142, 781);
+			this.MasaPanel.Size = new System.Drawing.Size(1152, 781);
 			this.MasaPanel.TabIndex = 30;
 			// 
 			// MasaEklePanel
@@ -217,7 +217,7 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.pictureBox1.Location = new System.Drawing.Point(3, 459);
+			this.pictureBox1.Location = new System.Drawing.Point(793, 3);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(345, 323);
 			this.pictureBox1.TabIndex = 2;

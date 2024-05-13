@@ -43,7 +43,6 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			if (Yardimcilar.HepsiDoluMu(groupPersonel))//Tüm Alanlar Dolumu Kontrolü
 			{
-			
 				fotouzanti = uzanti.Text;
 				if (fotouzanti != "")//Foto seçildi mi kontrolü
 				{
@@ -70,8 +69,18 @@ namespace Restoran_Otomasyon.Paneller
 								{
 									if(EslesenTel == null)
 									{
-										PersonelEkle(cinsiyet, rolId);
+										int uzunluk = txttelefon.Text.Length;
+										if (uzunluk == 14)
+										{
+											PersonelEkle(cinsiyet, rolId);
 
+										}
+										else
+										{
+											timer1.Start();
+											MessageBox.Show("Telefon Numarasının Doğruluğundan Emin Olunuz!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+											return;
+										}
 									}
 									else
 									{
