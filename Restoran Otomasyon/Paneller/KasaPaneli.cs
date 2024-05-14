@@ -104,7 +104,7 @@ namespace Restoran_Otomasyon.Paneller
 			git.Show();
 		}
 
-		private void ComboFiltre_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboFiltre_SelectedIndexChanged_1(object sender, EventArgs e)
 		{
 			string filteAd = ComboFiltre.Text;
 			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db, filteAd);

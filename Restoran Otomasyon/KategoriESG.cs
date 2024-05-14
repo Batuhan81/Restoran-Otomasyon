@@ -89,10 +89,11 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void KategoriESG_Load(object sender, EventArgs e)
 		{
+			comboTur.Items.Clear();
+
 			if (deger == 0)//0 olduğunda tüm bilgiler yer alacak
 			{
 				Tur = "";//Bu sayede null olacak ve filtreye girmeyecek
-				comboTur.Items.Clear();
 				comboTur.Items.Add("Masa");
 				comboTur.Items.Add("Ürün");
 				comboTur.Items.Add("Menü");
@@ -100,24 +101,19 @@ namespace Restoran_Otomasyon.Paneller
 			if (deger == 1)//Burada sadece Masa
 			{
 				Tur = "Masa";
-				comboTur.Items.Clear();
 				comboTur.Items.Add("Masa");
-				comboTur.SelectedIndex = 0;
 			}
 			if (deger == 2)//Sadece Ürün
 			{
 				Tur = "Ürün";
-				comboTur.Items.Clear();
 				comboTur.Items.Add("Ürün");
-				comboTur.SelectedIndex = 0;
 			}
 			if (deger == 3)//sadece Menü
 			{
 				Tur = "Menü";
-				comboTur.Items.Clear();
 				comboTur.Items.Add("Menü");
-				comboTur.SelectedIndex = 0;
 			}
+			comboTur.SelectedIndex = 0;
 			Listele();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridKategori);//grid renklendirme
 			gridKategori.Columns["Id"].Visible = false;//Id sütununu sakla

@@ -23,6 +23,7 @@ namespace Restoran_Otomasyon.Paneller
 			bugun = DateTime.Now.Date;
 			haftaninGunleri = DateTime.Now.DayOfWeek;
 			Yardimcilar.GridRenklendir(gridOdemeler);
+			OdemeFiltre.SelectedIndex = 0;
 		}
 
 		public void Odemeler()
@@ -73,7 +74,7 @@ namespace Restoran_Otomasyon.Paneller
 			if (OdemeFiltre.SelectedIndex == 0)
 			{
 				// Bugünün başlangıç ve bitiş saatleri arasındaki ödemeleri al
-				var Gunluk = db.Odemeler.Where(o => o.OdemeTarih >= bugunBaslangic && o.OdemeTarih <= bugunBitis && o.Tur == Filtre).Select(o => new
+				var Gunluk = db.Odemeler.Where(o => o.OdemeTarih >= bugunBaslangic && o.OdemeTarih <= bugunBitis).Select(o => new
 				{
 					Id = o.Id,
 					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
@@ -87,7 +88,7 @@ namespace Restoran_Otomasyon.Paneller
 			else
 			{
 				// Bugünün başlangıç ve bitiş saatleri arasındaki ödemeleri al
-				var Gunluk = db.Odemeler.Where(o => o.OdemeTarih >= bugunBaslangic && o.OdemeTarih <= bugunBitis).Select(o => new
+				var Gunluk = db.Odemeler.Where(o => o.OdemeTarih >= bugunBaslangic && o.OdemeTarih <= bugunBitis && o.Tur == Filtre).Select(o => new
 				{
 					Id = o.Id,
 					Ödeme_Türü = (o.Tur == 1) ? "Nakit" : ((o.Tur == 2) ? "Kart" : "Diğer"),
@@ -170,7 +171,6 @@ namespace Restoran_Otomasyon.Paneller
 				txtBakiye.Text = ayinToplamTutar.ToString();
 				gridOdemeler.DataSource = ayinOdemeleri;
 			}
-			
 		}
 
 		private void txtBakiye_TextChanged(object sender, EventArgs e)

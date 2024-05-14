@@ -152,20 +152,36 @@ namespace Restoran_Otomasyon.Paneller
 				MasaPanel.Location = new Point(20, 30); // MasaPanel'i biraz aşağı kaydır
 
 				// Label2 ve ComboKat'ı formun üstüne taşınması
-				label2.Location = new Point(520, 5);
+				label2.Location = new Point(400, 5);
 				this.Controls.Add(label2);
-				comboKat.Location = new Point(570, 5);
+				comboKat.Location = new Point(440, 5);
 				this.Controls.Add(comboKat);
 
-				label5.Location = new Point(750, 5);
+				label5.Location = new Point(600, 5);
 				this.Controls.Add(label5);
-				
-				MasaFiltre.Location = new Point(870, 5);
+
+				MasaFiltre.Location = new Point(710, 5);
 				this.Controls.Add(MasaFiltre);
 
-				MasaPanel.Size = new Size(1500, 781);
+				label6.Location = new Point(890, 5);
+				this.Controls.Add(label6);
+
+				comboOzellikFiltre.Location = new Point(1000, 5);
+				this.Controls.Add(comboOzellikFiltre);
+
+				MasaPanel.Size = new Size(1500, 760);
 
 			}
+			else
+			{
+				MasaFiltre.Items.Add("Kapalı");
+			}
+			var ozelikler = db.Ozellikler.Where(o => o.Gorunurluk == true).ToList();
+			foreach (var item in ozelikler)
+			{
+				comboOzellikFiltre.Items.Add(item.Ad);
+			}
+			comboOzellikFiltre.SelectedIndex = 0;
 			// ContextMenuStrip'i oluşturun
 			// "Masa Güncelle" öğesini ekle
 			ToolStripMenuItem menuItemMasaGuncelle = new ToolStripMenuItem("Masa Güncelle");
@@ -190,7 +206,6 @@ namespace Restoran_Otomasyon.Paneller
 			contextMenuStrip1.Items.Add(MasaOzellik);
 
 			RezarvasyonKontrol();
-			TemizleMasaButonlari();
 			MasaFiltre.SelectedIndex = 0;
 		}
 
@@ -306,16 +321,8 @@ namespace Restoran_Otomasyon.Paneller
 							}
 						}
 					}
-					//Gerek yok
-					//MasaSiparis siparis = new MasaSiparis();
-					//siparis.MasaId = masaId;
-					//siparis.Tutar = 0;
-					//siparis.OdenenTutar = 0;
-					//db.MasaSiparisler.Add(siparis);
 					db.SaveChanges();
-
 					MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 					ButonlarıGetir(secilenKategoriId);
 				}
 				else
@@ -355,6 +362,80 @@ namespace Restoran_Otomasyon.Paneller
 
 		public void ButonlarıGetir(int secilenKategoriId)
 		{
+			query = db.Masalar.ToList();
+			if (OzellikAd != "Tümü")
+			{
+				// Veritabanından seçilen kategoriye ait tüm masaları alın
+				if (kullaniciId == 1 && Filtre == 0)
+				{
+					query = query.Where(o => o.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+				else if (kullaniciId != 1 && Filtre == 0)
+				{
+					query = query.Where(m => m.Durum != 5 && m.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+				if (Filtre == 1)
+				{
+					query = query.Where(m => m.Durum == 1 && m.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+				if (Filtre == 2)
+				{
+					query = query.Where(m => m.Durum == 2 && m.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+				if (Filtre == 3)
+				{
+					query = query.Where(m => m.Durum == 3 && m.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+				if (Filtre == 4)
+				{
+					query = query.Where(m => m.Durum == 4 && m.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+				if (Filtre == 5)
+				{
+					query = query.Where(m => m.Durum == 5 && m.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+				if (Filtre == 6)
+				{
+					query = query.Where(m => m.Durum == 6 && m.MasaOzellikler.Any(y => y.Ozellik.Ad == OzellikAd)).ToList();
+				}
+			}
+			else
+			{
+				// Veritabanından seçilen kategoriye ait tüm masaları alın
+				if (kullaniciId == 1 && Filtre == 0)
+				{
+					query = query.ToList();
+				}
+				else if (kullaniciId != 1 && Filtre == 0)
+				{
+					query = query.Where(m => m.Durum != 5).ToList();
+				}
+				if (Filtre == 1)
+				{
+					query = query.Where(m => m.Durum == 1).ToList();
+				}
+				if (Filtre == 2)
+				{
+					query = query.Where(m => m.Durum == 2).ToList();
+				}
+				if (Filtre == 3)
+				{
+					query = query.Where(m => m.Durum == 3).ToList();
+				}
+				if (Filtre == 4)
+				{
+					query = query.Where(m => m.Durum == 4).ToList();
+				}
+				if (Filtre == 5)
+				{
+					query = query.Where(m => m.Durum == 5).ToList();
+				}
+				if (Filtre == 6)
+				{
+					query = query.Where(m => m.Durum == 6).ToList();
+				}
+			}
+
 			// MasaPanel'i alın
 			Panel masaPanel = this.Controls.Find("MasaPanel", true).FirstOrDefault() as Panel;
 
@@ -369,7 +450,7 @@ namespace Restoran_Otomasyon.Paneller
 			db = new Context();
 
 
-			var tumMasalar = query.ToList();
+			var tumMasalar = query.Where(o=>o.KategoriId==secilenKategoriId).ToList();
 
 			if (tumMasalar.Count != 0)
 			{
@@ -460,7 +541,7 @@ namespace Restoran_Otomasyon.Paneller
 								break;
 						}
 					};
-					if(kullaniciId != 1)
+					if (kullaniciId != 1)
 					{
 						masaButton.Margin = new Padding(16, 16, 16, 16);
 					}
@@ -608,47 +689,18 @@ namespace Restoran_Otomasyon.Paneller
 			Yardimcilar.Kopyalama(txtkapasite, sender, e);
 		}
 		List<Masa> query = new List<Masa>();
-
+		int Filtre;
+		string OzellikAd;
 		private void MasaFiltre_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			int Filtre = MasaFiltre.SelectedIndex;
-			query = db.Masalar.ToList();
-			// Veritabanından seçilen kategoriye ait tüm masaları alın
-			if (kullaniciId == 1 && Filtre == 0)
-			{
-				query = query.ToList();
-				MasaFiltre.Items.Add("Kapalı");
-			}
-			else if (kullaniciId != 1 && Filtre == 0)
-			{
-				query = query.Where(m => m.Durum != 5).ToList();
-			}
+			Filtre = MasaFiltre.SelectedIndex;
+			TemizleMasaButonlari();
+			ButonlarıGetir(secilenKategoriId);
+		}
 
-			if (Filtre == 1)
-			{
-				query = query.Where(m => m.Durum == 1).ToList();
-			}
-
-			if (Filtre == 2)
-			{
-				query = query.Where(m => m.Durum == 2).ToList();
-			}
-			if (Filtre == 3)
-			{
-				query = query.Where(m => m.Durum == 3).ToList();
-			}
-			if (Filtre == 4)
-			{
-				query = query.Where(m => m.Durum == 4).ToList();
-			}
-			if (Filtre == 5)
-			{
-				query = query.Where(m => m.Durum == 5).ToList();
-			}
-			if (Filtre == 6)
-			{
-				query = query.Where(m => m.Durum == 6).ToList();
-			}
+		private void comboOzellikFiltre_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			OzellikAd = comboOzellikFiltre.Text;
 			TemizleMasaButonlari();
 			ButonlarıGetir(secilenKategoriId);
 		}

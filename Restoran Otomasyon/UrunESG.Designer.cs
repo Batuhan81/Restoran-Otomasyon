@@ -436,7 +436,7 @@
 			this.gridUrun.RowHeadersWidth = 51;
 			this.gridUrun.RowTemplate.Height = 24;
 			this.gridUrun.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.gridUrun.Size = new System.Drawing.Size(1180, 718);
+			this.gridUrun.Size = new System.Drawing.Size(1168, 718);
 			this.gridUrun.TabIndex = 46;
 			this.gridUrun.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridUrun_CellClick);
 			this.gridUrun.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridUrun_CellFormatting);
@@ -444,7 +444,7 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.pictureBox1.Location = new System.Drawing.Point(1175, 446);
+			this.pictureBox1.Location = new System.Drawing.Point(1161, 446);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(350, 350);
 			this.pictureBox1.TabIndex = 55;

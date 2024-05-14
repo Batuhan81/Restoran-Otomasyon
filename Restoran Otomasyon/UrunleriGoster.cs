@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace Restoran_Otomasyon
@@ -92,8 +93,18 @@ namespace Restoran_Otomasyon
 					labelDetay.Text = urun.Detay;
 					labelDetay.AutoSize = true;
 					labelDetay.Font = new Font("Arial", 12, FontStyle.Bold); // Yazı tipi ve boyutunu ayarla
-					labelDetay.Location = new System.Drawing.Point((groupBoxWidth - labelDetay.Width) / 2, pictureBoxHeight + 3 * spacing); // Label'in konumu
 
+					// Label'in konumunu ayarla
+					int labelXPosition = (groupBoxWidth - labelDetay.Width) / 2; // GroupBox'ın genişliğinin yarısı kadar sağa kaydır
+					int labelYPosition = pictureBoxHeight + 3 * spacing; // PictureBox'un altında birkaç boşluk bırakarak başlangıç konumunu belirle
+
+					// Eğer label'ın sol kenarı groupbox'ın sol kenarından daha sola taşınıyorsa, label'ı groupbox'ın sol kenarına hizala
+					if (labelXPosition < 0)
+					{
+						labelXPosition = 20;
+					}
+
+					labelDetay.Location = new System.Drawing.Point(labelXPosition, labelYPosition);
 					// Urun nesnesi oluşturulduğunu varsayalım
 
 					Label labelFiyat = new Label();
@@ -302,12 +313,23 @@ namespace Restoran_Otomasyon
 					pictureBox.Height = pictureBoxHeight;
 					pictureBox.Location = new System.Drawing.Point((groupBoxWidth - pictureBoxWidth) / 2, spacing * 2); // PictureBox'in konumu
 
-					// Label oluştur ve menü detaylarını ekle
+					// Label oluştur ve ürün detaylarını ekle
 					Label labelDetay = new Label();
 					labelDetay.Text = Menu.Detay;
 					labelDetay.AutoSize = true;
 					labelDetay.Font = new Font("Arial", 12, FontStyle.Bold); // Yazı tipi ve boyutunu ayarla
-					labelDetay.Location = new System.Drawing.Point((groupBoxWidth - labelDetay.Width) / 2, pictureBoxHeight + 3 * spacing); // Label'in konumu
+
+					// Label'in konumunu ayarla
+					int labelXPosition = (groupBoxWidth - labelDetay.Width) / 2; // GroupBox'ın genişliğinin yarısı kadar sağa kaydır
+					int labelYPosition = pictureBoxHeight + 3 * spacing; // PictureBox'un altında birkaç boşluk bırakarak başlangıç konumunu belirle
+
+					// Eğer label'ın sol kenarı groupbox'ın sol kenarından daha sola taşınıyorsa, label'ı groupbox'ın sol kenarına hizala
+					if (labelXPosition > 0)
+					{
+						labelXPosition = 20;
+					}
+
+					labelDetay.Location = new System.Drawing.Point(labelXPosition, labelYPosition);
 
 					// Label oluştur ve fiyatı ekle
 					Label labelFiyat = new Label();

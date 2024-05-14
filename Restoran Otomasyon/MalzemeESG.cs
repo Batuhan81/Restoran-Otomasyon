@@ -150,8 +150,6 @@ namespace Restoran_Otomasyon.Paneller
 										   StokId = stok.Id,
 									   };
 
-
-
 			gridMalzeme.DataSource = malzemeStokBilgileri.ToList();
 			// DataGridView'da Id sütunlarını gizli hale getiriyorum
 			gridMalzeme.Columns["TedarikciId"].Visible = false;
@@ -237,6 +235,7 @@ namespace Restoran_Otomasyon.Paneller
 			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMin");
 			Yardimcilar.gridFormatStokMiktari(gridMalzeme, "StokMax");
 		}
+
 		//Seçilen ölçü birimini bir değişkene atıyorum bu sayede alanları ilgili türe göre formatlayabiliyorum
 		private void comboOlcu_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -258,6 +257,7 @@ namespace Restoran_Otomasyon.Paneller
 				txtstok.Text = Yardimcilar.BirimFormatı(formatsizStok, olcu);
 			}
 		}
+
 		decimal fiyatformatsiz;
 		decimal formatsizMin;
 		decimal formatsizMax;
@@ -282,8 +282,6 @@ namespace Restoran_Otomasyon.Paneller
 				txtmin.Text = Yardimcilar.BirimFormatı(formatsizMin, olcu);
 			}
 		}
-
-
 
 		private void txtmax_Leave(object sender, EventArgs e)
 		{
@@ -409,7 +407,6 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				malzemeStokBilgileri = malzemeStokBilgileri.Where(p => p.TedarikciFirma == Firma);
 			}
-
 			gridMalzeme.DataSource = malzemeStokBilgileri.ToList();
 
 			// DataGridView'da Id sütunlarını gizli hale getiriyorum

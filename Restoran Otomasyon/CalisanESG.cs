@@ -238,9 +238,9 @@ namespace Restoran_Otomasyon.Paneller
 				button3.Visible = false;
 				button4.Visible = false;
 				button5.Visible = false;
-				label9.Location = new Point(168, 590);
-				txtAdres.Location = new Point(8, 610);
-				txtAdres.Size = new Size(377, 125);
+				label9.Location = new Point(148, 570);
+				txtAdres.Location = new Point(8, 600);
+				txtAdres.Size = new Size(330, 140);
 				foreach (Control control in groupPersonel.Controls)
 				{
 					control.Location = new Point(control.Location.X, control.Location.Y + 30);

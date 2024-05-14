@@ -53,6 +53,8 @@
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.MasaFiltre = new System.Windows.Forms.ComboBox();
 			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.comboOzellikFiltre = new System.Windows.Forms.ComboBox();
 			this.MasaPanel.SuspendLayout();
 			this.MasaEklePanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -71,7 +73,7 @@
 			this.label2.AutoSize = true;
 			this.label2.BackColor = System.Drawing.Color.Transparent;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(1262, 185);
+			this.label2.Location = new System.Drawing.Point(1264, 185);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(46, 22);
 			this.label2.TabIndex = 25;
@@ -229,7 +231,7 @@
 			// MasaOzellikPanel
 			// 
 			this.MasaOzellikPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.MasaOzellikPanel.Location = new System.Drawing.Point(1161, 256);
+			this.MasaOzellikPanel.Location = new System.Drawing.Point(1161, 301);
 			this.MasaOzellikPanel.Name = "MasaOzellikPanel";
 			this.MasaOzellikPanel.Size = new System.Drawing.Size(368, 387);
 			this.MasaOzellikPanel.TabIndex = 2;
@@ -311,11 +313,34 @@
 			this.label5.AutoSize = true;
 			this.label5.BackColor = System.Drawing.Color.Transparent;
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label5.Location = new System.Drawing.Point(1182, 226);
+			this.label5.Location = new System.Drawing.Point(1184, 226);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(126, 22);
 			this.label5.TabIndex = 32;
 			this.label5.Text = "Durum Filtre:";
+			// 
+			// label6
+			// 
+			this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
+			this.label6.AutoSize = true;
+			this.label6.BackColor = System.Drawing.Color.Transparent;
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label6.Location = new System.Drawing.Point(1182, 269);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(128, 22);
+			this.label6.TabIndex = 34;
+			this.label6.Text = "Özellik Filtre:";
+			// 
+			// comboOzellikFiltre
+			// 
+			this.comboOzellikFiltre.FormattingEnabled = true;
+			this.comboOzellikFiltre.Items.AddRange(new object[] {
+            "Tümü"});
+			this.comboOzellikFiltre.Location = new System.Drawing.Point(1325, 269);
+			this.comboOzellikFiltre.Name = "comboOzellikFiltre";
+			this.comboOzellikFiltre.Size = new System.Drawing.Size(137, 26);
+			this.comboOzellikFiltre.TabIndex = 33;
+			this.comboOzellikFiltre.SelectedIndexChanged += new System.EventHandler(this.comboOzellikFiltre_SelectedIndexChanged);
 			// 
 			// MasaESG
 			// 
@@ -323,6 +348,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1541, 796);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.comboOzellikFiltre);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.MasaFiltre);
 			this.Controls.Add(this.MasaOzellikPanel);
@@ -374,5 +401,7 @@
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.ComboBox MasaFiltre;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.ComboBox comboOzellikFiltre;
 	}
 }

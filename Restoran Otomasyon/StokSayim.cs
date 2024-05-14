@@ -69,7 +69,8 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void BtnEslesti_Click(object sender, EventArgs e)
 		{
-			if (kontrolEdilenStok == stokmik)
+			decimal tolerans = 0.5M;
+			if (Math.Abs(kontrolEdilenStok - stokmik) <= tolerans)
 			{
 				var secilenMalzeme = (Malzeme)malzemeListesi.SelectedItem;
 				if (secilenMalzeme != null)
@@ -78,7 +79,9 @@ namespace Restoran_Otomasyon.Paneller
 					malzemeler.RemoveAt(secilenIndex);
 					malzemeListesi.DataSource = null;
 					malzemeListesi.DataSource = malzemeler;
-					MessageBox.Show("Eşleşti");
+					malzemeListesi.DisplayMember = "Ad";
+					malzemeListesi.ValueMember = "Id";
+					MessageBox.Show("Stoklar Eşleşiyor");
 					Temizle();
 				}
 			}
@@ -95,24 +98,32 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void EldekiStok_Leave(object sender, EventArgs e)
 		{
-			kontrolEdilenStok = decimal.Parse(EldekiStok.Text);
-			if (kontrolEdilenStok > stokmik)//stokgirdisi ekle
+			if (EldekiStok.Text != "")
 			{
-				ComboNeden.Items.Clear();
-				ComboNeden.Items.Add("Stok Uyuşmazlık");
-				ComboNeden.Items.Add("Diğer");
-			}
-			else if (kontrolEdilenStok == stokmik)
-			{
-				ComboNeden.Items.Clear();
+				kontrolEdilenStok = decimal.Parse(EldekiStok.Text);
+				if (kontrolEdilenStok > stokmik)//stokgirdisi ekle
+				{
+					ComboNeden.Items.Clear();
+					ComboNeden.Items.Add("Stok Uyuşmazlık");
+					ComboNeden.Items.Add("Diğer");
+				}
+				else if (kontrolEdilenStok == stokmik)
+				{
+					ComboNeden.Items.Clear();
+				}
+				else
+				{
+					ComboNeden.Items.Clear();
+					ComboNeden.Items.Add("Stok Uyuşmazlık");
+					ComboNeden.Items.Add("Bozuk");
+					ComboNeden.Items.Add("Diğer");
+				}
 			}
 			else
 			{
-				ComboNeden.Items.Clear();
-				ComboNeden.Items.Add("Stok Uyuşmazlık");
-				ComboNeden.Items.Add("Bozuk");
-				ComboNeden.Items.Add("Diğer");
+				MessageBox.Show("Eldeki Stok Miktarını Giriniz !","Stok Girilmeden İşlem Yapılamaz",MessageBoxButtons.OK,MessageBoxIcon.Warning);
 			}
+			
 		}
 
 		private void BtnGuncelle_Click(object sender, EventArgs e)//Burayı kontrol et
@@ -151,6 +162,7 @@ namespace Restoran_Otomasyon.Paneller
 			else if (kontrolEdilenStok == stokmik)
 			{
 				malzemeListesi.Items.Remove(secilenIndex);
+				MessageBox.Show("Stoklar Eşleşiyor");
 			}
 			else//stokçıktısı ekle
 			{
@@ -188,6 +200,8 @@ namespace Restoran_Otomasyon.Paneller
 				malzemeler.RemoveAt(secilenIndex);
 				malzemeListesi.DataSource = null;
 				malzemeListesi.DataSource = malzemeler;
+				malzemeListesi.DisplayMember = "Ad";
+				malzemeListesi.ValueMember = "Id";
 				Temizle();
 			}
 		}

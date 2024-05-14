@@ -27,9 +27,9 @@ namespace Restoran_Otomasyon
 			{
 				if (Restoran_Otomasyon.Yardimcilar.MailKontrol(txteposta.Text))
 				{
-					var eslesenmail=db.Tedarikciler.Where(o=>o.Eposta==txteposta.Text);
-					var eslesentel = db.Tedarikciler.Where(o => o.Telefon == txttelefon.Text);
-					var eslesenFirma = db.Tedarikciler.Where(o => o.Firma == txtfirma.Text);
+					var eslesenmail=db.Tedarikciler.FirstOrDefault(o=>o.Eposta==txteposta.Text);
+					var eslesentel = db.Tedarikciler.FirstOrDefault(o => o.Telefon == txttelefon.Text);
+					var eslesenFirma = db.Tedarikciler.FirstOrDefault(o => o.Firma == txtfirma.Text);
 					if (hiddenTedarikciId.Text == "")
 					{
 						if (eslesenFirma == null)

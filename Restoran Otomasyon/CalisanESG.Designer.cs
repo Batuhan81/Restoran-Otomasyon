@@ -223,7 +223,7 @@
 			this.txtmaas.Location = new System.Drawing.Point(151, 268);
 			this.txtmaas.Name = "txtmaas";
 			this.txtmaas.Size = new System.Drawing.Size(152, 27);
-			this.txtmaas.TabIndex = 41;
+			this.txtmaas.TabIndex = 5;
 			this.txtmaas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtmaas_KeyDown);
 			this.txtmaas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtmaas_KeyPress);
 			this.txtmaas.Leave += new System.EventHandler(this.txtmaas_Leave);
@@ -505,7 +505,7 @@
 			// pictureBox1
 			// 
 			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.pictureBox1.Location = new System.Drawing.Point(375, 436);
+			this.pictureBox1.Location = new System.Drawing.Point(1174, 436);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(350, 350);
 			this.pictureBox1.TabIndex = 40;
@@ -652,9 +652,9 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1536, 815);
+			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.groupCalisanFiltre);
 			this.Controls.Add(this.RolPaneli);
-			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.button4);
 			this.Controls.Add(this.hiddenPersonelId);
 			this.Controls.Add(this.hiddenAdresID);

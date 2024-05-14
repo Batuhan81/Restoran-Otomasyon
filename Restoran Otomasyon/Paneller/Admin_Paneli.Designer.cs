@@ -220,21 +220,21 @@
 			// masaOluşturToolStripMenuItem
 			// 
 			this.masaOluşturToolStripMenuItem.Name = "masaOluşturToolStripMenuItem";
-			this.masaOluşturToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.masaOluşturToolStripMenuItem.Size = new System.Drawing.Size(215, 28);
 			this.masaOluşturToolStripMenuItem.Text = "Masalar";
 			this.masaOluşturToolStripMenuItem.Click += new System.EventHandler(this.MasaESG);
 			// 
 			// masaÖzellikToolStripMenuItem
 			// 
 			this.masaÖzellikToolStripMenuItem.Name = "masaÖzellikToolStripMenuItem";
-			this.masaÖzellikToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.masaÖzellikToolStripMenuItem.Size = new System.Drawing.Size(215, 28);
 			this.masaÖzellikToolStripMenuItem.Text = "Masa Özellik";
 			this.masaÖzellikToolStripMenuItem.Click += new System.EventHandler(this.MasaOzellik);
 			// 
 			// dışarıyaSiparişToolStripMenuItem
 			// 
 			this.dışarıyaSiparişToolStripMenuItem.Name = "dışarıyaSiparişToolStripMenuItem";
-			this.dışarıyaSiparişToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+			this.dışarıyaSiparişToolStripMenuItem.Size = new System.Drawing.Size(215, 28);
 			this.dışarıyaSiparişToolStripMenuItem.Text = "Dışarıya Sipariş";
 			this.dışarıyaSiparişToolStripMenuItem.Click += new System.EventHandler(this.DisariyaSiparis);
 			// 
@@ -512,9 +512,9 @@
             "Bugün",
             "Bu Hafta",
             "Bu Ay"});
-			this.ComboFiltre.Location = new System.Drawing.Point(668, 34);
+			this.ComboFiltre.Location = new System.Drawing.Point(736, 34);
 			this.ComboFiltre.Name = "ComboFiltre";
-			this.ComboFiltre.Size = new System.Drawing.Size(172, 26);
+			this.ComboFiltre.Size = new System.Drawing.Size(107, 26);
 			this.ComboFiltre.TabIndex = 7;
 			this.ComboFiltre.SelectedIndexChanged += new System.EventHandler(this.ComboFiltre_SelectedIndexChanged);
 			// 
@@ -522,7 +522,7 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label1.Location = new System.Drawing.Point(584, 37);
+			this.label1.Location = new System.Drawing.Point(652, 37);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(78, 22);
 			this.label1.TabIndex = 8;
