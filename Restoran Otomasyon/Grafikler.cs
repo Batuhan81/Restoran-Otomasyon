@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting; // Chart kullanacağımız için bu namespace'i ekliyoruz
 
 namespace Restoran_Otomasyon
@@ -117,6 +118,7 @@ namespace Restoran_Otomasyon
 			chart.Titles.Add("Doluluk Oranları").Font = new Font("Arial", 12, FontStyle.Bold);
 			// Legend'i devre dışı bırak
 			chart.Legends.Clear();
+			chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
 
 			// Chart kontrolünün güncellenmesi
 			chart.Update();
@@ -194,6 +196,7 @@ namespace Restoran_Otomasyon
 			EnCokSiparisMenu.Titles.Clear();
 			EnCokSiparisMenu.Titles.Add($"En Çok Sipariş Edilen Menüler {"- "+zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold); // Başlık ekleme, fontu büyük ve kalın yapma
 			EnCokSiparisMenu.Legends.Clear();
+			EnCokSiparisMenu.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
 
 			// Grafiğe veri ekleme
 			foreach (var Menu in enCokSiparisEdilenMenuler)
@@ -274,7 +277,7 @@ namespace Restoran_Otomasyon
 			chart.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
 			chart.Titles.Clear();
 			chart.Titles.Add($"En Çok Sipariş Edilen Ürünler {"- " + zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold);  // Başlık ekleme
-
+			chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
 
 			chart.Legends.Clear();
 			// Grafiğe veri ekleme
@@ -346,7 +349,7 @@ namespace Restoran_Otomasyon
 			chart.ChartAreas[0].AxisY.Title = "Sipariş Sayısı";
 			chart.Titles.Clear();
 			chart.Titles.Add($"Masa Kullanım Oranları {"- " + zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold);
-
+			chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
 			// Eksenlerin tamsayı değerlerine uygun hale getirilmesi
 			chart.ChartAreas[0].AxisY.Interval = 1; // Y eksenindeki tamsayılar arası aralık
 			chart.ChartAreas[0].AxisY.Minimum = 0; // Y ekseninin minimum değeri
@@ -425,8 +428,11 @@ namespace Restoran_Otomasyon
 			chart.ChartAreas[0].AxisY.Title = "Sipariş Sayısı";
 
 			// Grafik renkleri ve stil ayarları
-			chart.BackColor = Color.FromArgb(255, 255, 255);
-			chart.ChartAreas[0].BackColor = Color.FromArgb(243, 243, 243);
+			//chart.BackColor = Color.FromArgb(255, 255, 255);
+			chart.ChartAreas[0].BackColor = Color.FromArgb(195 ,230 ,252);
+
+
+
 			chart.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
 			chart.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
 			chart.Series[0].Color = Color.FromArgb(0, 102, 204);
@@ -530,7 +536,7 @@ namespace Restoran_Otomasyon
 				chart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 				chart.ChartAreas[0].AxisX.Title = "Ödeme Yöntemi";
 				chart.ChartAreas[0].AxisY.Title = "Yüzde";
-				chart.ChartAreas[0].BackColor = Color.LightGray;
+				chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
 
 				// Pasta dilimlerinin üzerine gelindiğinde toplam tutarı gösterme
 				chart.GetToolTipText += (sender, e) =>
