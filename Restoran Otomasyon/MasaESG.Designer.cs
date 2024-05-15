@@ -55,6 +55,7 @@
 			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.comboOzellikFiltre = new System.Windows.Forms.ComboBox();
+			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.MasaPanel.SuspendLayout();
 			this.MasaEklePanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -342,6 +343,12 @@
 			this.comboOzellikFiltre.TabIndex = 33;
 			this.comboOzellikFiltre.SelectedIndexChanged += new System.EventHandler(this.comboOzellikFiltre_SelectedIndexChanged);
 			// 
+			// timer2
+			// 
+			this.timer2.Enabled = true;
+			this.timer2.Interval = 60000;
+			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+			// 
 			// MasaESG
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -403,5 +410,6 @@
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.ComboBox comboOzellikFiltre;
+		private System.Windows.Forms.Timer timer2;
 	}
 }

@@ -60,7 +60,7 @@
 			this.button1.BackColor = System.Drawing.Color.SkyBlue;
 			this.button1.ImageKey = "Güncelle.png";
 			this.button1.ImageList = this.ımageList1;
-			this.button1.Location = new System.Drawing.Point(321, 60);
+			this.button1.Location = new System.Drawing.Point(302, 60);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(144, 58);
 			this.button1.TabIndex = 51;
@@ -84,7 +84,7 @@
 			this.button2.BackColor = System.Drawing.Color.SkyBlue;
 			this.button2.ImageKey = "Sil butonu - Kopya.png";
 			this.button2.ImageList = this.ımageList1;
-			this.button2.Location = new System.Drawing.Point(321, 133);
+			this.button2.Location = new System.Drawing.Point(302, 133);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(144, 58);
 			this.button2.TabIndex = 52;
@@ -98,7 +98,7 @@
 			this.button3.BackColor = System.Drawing.Color.SkyBlue;
 			this.button3.ImageKey = "Aç.png";
 			this.button3.ImageList = this.ımageList1;
-			this.button3.Location = new System.Drawing.Point(321, 206);
+			this.button3.Location = new System.Drawing.Point(302, 208);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(144, 58);
 			this.button3.TabIndex = 53;
@@ -112,7 +112,7 @@
 			this.button4.BackColor = System.Drawing.Color.SkyBlue;
 			this.button4.ImageKey = "Temiz.png";
 			this.button4.ImageList = this.ımageList1;
-			this.button4.Location = new System.Drawing.Point(321, 280);
+			this.button4.Location = new System.Drawing.Point(302, 280);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(144, 58);
 			this.button4.TabIndex = 54;
@@ -293,7 +293,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ClientSize = new System.Drawing.Size(477, 381);
+			this.ClientSize = new System.Drawing.Size(457, 381);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.button4);
 			this.Controls.Add(this.button3);

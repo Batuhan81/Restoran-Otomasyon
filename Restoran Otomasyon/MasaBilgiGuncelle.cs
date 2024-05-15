@@ -15,16 +15,25 @@ namespace Restoran_Otomasyon
 	public partial class MasaBilgiGuncelle : Form
 	{
 		public event EventHandler FormClosedEvent;
-		public MasaBilgiGuncelle(int MasaID)
+		public MasaBilgiGuncelle(int MasaID,int kullaniciID)
 		{
 			InitializeComponent();
 			masaId = MasaID;
+			kullaniciId = kullaniciID;
 		}
 		int masaId;
+		int kullaniciId;
 		int personelId;
 		Context db = new Context();
 		private void MasaBilgiGuncelle_Load(object sender, EventArgs e)
 		{
+			if (kullaniciId != 1)
+			{
+				button2.Visible= false;
+				button3.Visible= false;
+				button1.Location=new Point(321, 100);
+				button4.Location=new Point(321, 200);
+			}
 			Yukle();
 		}
 

@@ -220,7 +220,7 @@ namespace Restoran_Otomasyon.Paneller
 			int masaId = int.Parse(sourceControl.Name.Replace("masaButton", ""));
 
 			// Masa bilgi güncelleme formunu açın
-			MasaBilgiGuncelle git = new MasaBilgiGuncelle(masaId);
+			MasaBilgiGuncelle git = new MasaBilgiGuncelle(masaId,kullaniciId);
 			git.Show();
 		}
 		private void MenuItemMasaOzellik_Click(object sender, EventArgs e)
@@ -703,6 +703,11 @@ namespace Restoran_Otomasyon.Paneller
 			OzellikAd = comboOzellikFiltre.Text;
 			TemizleMasaButonlari();
 			ButonlarıGetir(secilenKategoriId);
+		}
+
+		private void timer2_Tick(object sender, EventArgs e)
+		{
+			//MasaButonlariniGuncelle();//Signal olmayınca bunu koydum buda sayfa yenilenince bunu en öne alıyor
 		}
 	}
 }

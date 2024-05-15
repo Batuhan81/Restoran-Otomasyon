@@ -91,10 +91,10 @@ namespace Restoran_Otomasyon
 		private UrunGosterici urunGosterici;
 		private void BosMasa_Load(object sender, EventArgs e)
 		{
+			MasaBilgileri();
 			// UrunGosterici sınıfından bir örnek oluşturun
 			urunGosterici = new UrunGosterici(UrunPaneli, gridSiparisler, txttutar, db);
 			StokKontrol();
-			MasaBilgileri();
 			UrunKategori(ComboUrun, db);
 			menuKategoriler(ComboMenu, db);
 			urunGosterici.UrunleriGoster(0);
@@ -182,6 +182,10 @@ namespace Restoran_Otomasyon
 					this.Close();
 				}
 			}
+			if (txtDurum.Text == "Kapalı")
+			{
+				MessageBox.Show("Bu Masa Durumu Şuanda Kaplı Durumda Burada Sadece Görüntüleme Yapabilirsiniz Sipariş Alamazsınız !","Bilgilendirme",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+			}
 		}
 
 		public static void menuKategoriler(ComboBox combo, Context db)
@@ -210,159 +214,100 @@ namespace Restoran_Otomasyon
 			Durum Durum = new Durum();
 			//Bu kısımda bir masaya tıklanıldığında eğer masa durumu rezerve ise durumunu gerçekleştiye çeviriyor yani rezerve eden kişinin geldiğini anlamına geliyor.
 			var x = db.Masalar.Find(masaId);
-			if (x.Durum == 1)//mayasa ilk kez sipariş alınıyorsa burası çalışsın
+			if (x.Durum != 5)
 			{
-				if (x.Durum == 4)
+				if (x.Durum == 1)//mayasa ilk kez sipariş alınıyorsa burası çalışsın
 				{
-					var rezervasyon = db.MasaRezervasyonlar.Where(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today).ToList();
-					if (rezervasyon != null)
+					if (x.Durum == 4)
 					{
-						foreach (var item in rezervasyon)
+						var rezervasyon = db.MasaRezervasyonlar.Where(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today).ToList();
+						if (rezervasyon != null)
 						{
-							// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
-							TimeSpan baslangicZamani = item.Rezervasyon.BaslangicSaat;
-							TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
-
-							// Rezervasyonun başlangıç saati şu anki zamandan ileri bir zamansa veya aynı zamandaysa
-							if (baslangicZamani >= DateTime.Now.TimeOfDay && baslangicZamani <= yarimSaatSonrasininZamani)
+							foreach (var item in rezervasyon)
 							{
-								// Rezervasyonun onay durumu henüz 3 değilse
-								if (item.Rezervasyon.Onay != 3)
-								{
-									// Rezervasyonun onay durumunu 3 olarak güncelleyin
-									item.Rezervasyon.Onay = 3;
-									int rezervasyonId = item.Id;
+								// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
+								TimeSpan baslangicZamani = item.Rezervasyon.BaslangicSaat;
+								TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
 
-									// Değişiklikleri veritabanına kaydedin
-									db.SaveChanges();
+								// Rezervasyonun başlangıç saati şu anki zamandan ileri bir zamansa veya aynı zamandaysa
+								if (baslangicZamani >= DateTime.Now.TimeOfDay && baslangicZamani <= yarimSaatSonrasininZamani)
+								{
+									// Rezervasyonun onay durumu henüz 3 değilse
+									if (item.Rezervasyon.Onay != 3)
+									{
+										// Rezervasyonun onay durumunu 3 olarak güncelleyin
+										item.Rezervasyon.Onay = 3;
+										int rezervasyonId = item.Id;
+
+										// Değişiklikleri veritabanına kaydedin
+										db.SaveChanges();
+									}
 								}
 							}
 						}
 					}
-				}
-				x.Durum = 2;//Masa durumu dolu yapıldı.
-				db.SaveChanges();
-				siparis.Tarih = DateTime.Now;
-				siparis.OdemeDurum = false;
-				siparis.Not = null;
-				siparis.YorumId = null;
-				siparis.Gorunurluk = true;
-				siparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
-				masasip.MasaId = masaId;
-				masasip.SiparisId = siparis.Id;
-				masasip.MusteriId = null;
-				masasip.Gorunurluk = true;
-				masasip.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
-				masasip.OdenenTutar = 0;
-				db.MasaSiparisler.Add(masasip);
-				db.Siparisler.Add(siparis);
+					x.Durum = 2;//Masa durumu dolu yapıldı.
+					db.SaveChanges();
+					siparis.Tarih = DateTime.Now;
+					siparis.OdemeDurum = false;
+					siparis.Not = null;
+					siparis.YorumId = null;
+					siparis.Gorunurluk = true;
+					siparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+					masasip.MasaId = masaId;
+					masasip.SiparisId = siparis.Id;
+					masasip.MusteriId = null;
+					masasip.Gorunurluk = true;
+					masasip.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+					masasip.OdenenTutar = 0;
+					db.MasaSiparisler.Add(masasip);
+					db.Siparisler.Add(siparis);
 
-				foreach (DataGridViewRow row in gridSiparisler.Rows)
-				{
-					if (row.Cells["Adet"].Value != null && Convert.ToInt32(row.Cells["Adet"].Value) > 0)
+					foreach (DataGridViewRow row in gridSiparisler.Rows)
 					{
-						int miktar = Convert.ToInt32(row.Cells["Adet"].Value.ToString());
-
-						if (row.Cells["UrunID"].Value != null && row.Cells["UrunID"].Value.ToString() != "")
+						if (row.Cells["Adet"].Value != null && Convert.ToInt32(row.Cells["Adet"].Value) > 0)
 						{
-							int urunId = Convert.ToInt32(row.Cells["UrunID"].Value.ToString());
-							SiparisUrun urun = new SiparisUrun();
-							urun.UrunId = urunId;
-							urun.Miktar = miktar;
-							urun.SiparisId = siparis.Id;
-							urun.Gorunurluk = true;
-							db.SiparisUrunler.Add(urun);
-						}
-						else if (row.Cells["MenuID"].Value != null && row.Cells["MenuID"].Value.ToString() != "")
-						{
-							int menuId = Convert.ToInt32(row.Cells["MenuID"].Value.ToString());
-							SiparisMenu menu = new SiparisMenu();
-							menu.MenuId = menuId;
-							menu.Miktar = miktar;
-							menu.SiparisId = siparis.Id;
-							menu.Gorunurluk = true;
-							db.SiparisMenus.Add(menu);
-						}
-					}
-				}
-				db.SaveChanges();
-				MessageBox.Show("Siparişiniz Onaylanmıştır.");
-				// Seçilen siparişin içindeki ürünleri al
-				var siparisUrunler = db.SiparisUrunler.Where(su => su.SiparisId == siparis.Id).ToList();
-				var siparisMenuUrunler = db.SiparisMenus.Where(su => su.SiparisId == siparis.Id).ToList();
+							int miktar = Convert.ToInt32(row.Cells["Adet"].Value.ToString());
 
-				if (siparisUrunler.Count() > 0)
-				{
-					foreach (var siparisUrun in siparisUrunler)
-					{
-						// Ürünün malzemelerini ve miktarlarını al
-						var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == siparisUrun.UrunId).ToList();
-						// Her bir malzeme için işlem yap
-						foreach (var urunMalzeme in urunMalzemeler)
-						{
-							// Malzemenin stok miktarından düşülecek miktarı belirle
-							int dusulecekMiktar = urunMalzeme.Miktar * siparisUrun.Miktar;
-
-							// İlgili malzemenin stokunu bul
-							var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
-
-							// Eğer stok bulunduysa ve düşülecek miktar stok miktarından fazla değilse
-							if (stok != null && stok.Miktar >= dusulecekMiktar)
+							if (row.Cells["UrunID"].Value != null && row.Cells["UrunID"].Value.ToString() != "")
 							{
-								// Malzemeden stoktan düşüm yap
-								stok.Miktar -= dusulecekMiktar;
-
-								string malzemeAd = db.Malzemeler.FirstOrDefault(s => s.Id == stok.MalzemeId).Ad;
-
-								// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
-								if (stok.Miktar < stok.MinStok)
-								{
-									//Bunu daha sonra Admine bildirim olarak atıcaz
-									MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
-								}
-								else if (stok.Miktar == 0)
-								{
-									MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
-								}
-								// Stok çıkışı kaydını oluştur
-								var stokCikti = new StokCikti
-								{
-									Neden = "Sipariş Hazırlama",
-									Miktar = dusulecekMiktar,
-									SonStok = stok.Miktar,
-									Gorunuluk = true, // Gösterim durumunu belirle
-									TedarikciId = stok.TedarikciId,
-									MalzemeId = stok.MalzemeId,
-									Tarih = DateTime.Now // Şu anki zamanı ata
-								};
-								// Stok çıkışını veritabanına ekle
-								db.stokCiktilar.Add(stokCikti);
+								int urunId = Convert.ToInt32(row.Cells["UrunID"].Value.ToString());
+								SiparisUrun urun = new SiparisUrun();
+								urun.UrunId = urunId;
+								urun.Miktar = miktar;
+								urun.SiparisId = siparis.Id;
+								urun.Gorunurluk = true;
+								db.SiparisUrunler.Add(urun);
 							}
-							else
+							else if (row.Cells["MenuID"].Value != null && row.Cells["MenuID"].Value.ToString() != "")
 							{
-								// Ürünün aktifliğini kapat
-								urunMalzeme.Urun.Akitf = false;
-								MessageBox.Show("Stok yetersiz.");
-								return;
+								int menuId = Convert.ToInt32(row.Cells["MenuID"].Value.ToString());
+								SiparisMenu menu = new SiparisMenu();
+								menu.MenuId = menuId;
+								menu.Miktar = miktar;
+								menu.SiparisId = siparis.Id;
+								menu.Gorunurluk = true;
+								db.SiparisMenus.Add(menu);
 							}
 						}
 					}
-				}
-				else if (siparisMenuUrunler.Count > 0)
-				{
-					foreach (var siparisMenuUrun in siparisMenuUrunler)
+					db.SaveChanges();
+					MessageBox.Show("Siparişiniz Onaylanmıştır.");
+					// Seçilen siparişin içindeki ürünleri al
+					var siparisUrunler = db.SiparisUrunler.Where(su => su.SiparisId == siparis.Id).ToList();
+					var siparisMenuUrunler = db.SiparisMenus.Where(su => su.SiparisId == siparis.Id).ToList();
+
+					if (siparisUrunler.Count() > 0)
 					{
-						// Sipariş menüsündeki her bir ürün için işlem yap
-						var menuUrunler = db.MenuUrunler.Where(mu => mu.MenuId == siparisMenuUrun.MenuId).ToList();
-						foreach (var menuUrun in menuUrunler)
+						foreach (var siparisUrun in siparisUrunler)
 						{
 							// Ürünün malzemelerini ve miktarlarını al
-							var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == menuUrun.UrunId).ToList();
+							var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == siparisUrun.UrunId).ToList();
 							// Her bir malzeme için işlem yap
 							foreach (var urunMalzeme in urunMalzemeler)
 							{
 								// Malzemenin stok miktarından düşülecek miktarı belirle
-								int dusulecekMiktar = urunMalzeme.Miktar * siparisMenuUrun.Miktar;
+								int dusulecekMiktar = urunMalzeme.Miktar * siparisUrun.Miktar;
 
 								// İlgili malzemenin stokunu bul
 								var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
@@ -409,25 +354,91 @@ namespace Restoran_Otomasyon
 							}
 						}
 					}
-				}
-				//Sipariş Durumunun Ayarlandığı Kısım
-				Durum.Ad = 2;//Sipariş Onaylandı
-				Durum.Zaman = DateTime.Now;//Onaylanma Zamanı
-				Durum.Yer = 1;//Bu işlem nerede yapıldı Müşteri Tarafında sipariş alındığında
-				Durum.SiparisId = siparis.Id;
-				db.Durumlar.Add(Durum);
-				db.SaveChanges();
-				MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
-				if (calisanForm != null)
-				{
-					calisanForm.MasaButonlariniGuncelle();
-				}
-				this.Close();
-				#endregion
-			}
-			else//mevcuttaki bir siparişe ekstra sipariş veriliyorsada burası çalışmalı
-			{
+					else if (siparisMenuUrunler.Count > 0)
+					{
+						foreach (var siparisMenuUrun in siparisMenuUrunler)
+						{
+							// Sipariş menüsündeki her bir ürün için işlem yap
+							var menuUrunler = db.MenuUrunler.Where(mu => mu.MenuId == siparisMenuUrun.MenuId).ToList();
+							foreach (var menuUrun in menuUrunler)
+							{
+								// Ürünün malzemelerini ve miktarlarını al
+								var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == menuUrun.UrunId).ToList();
+								// Her bir malzeme için işlem yap
+								foreach (var urunMalzeme in urunMalzemeler)
+								{
+									// Malzemenin stok miktarından düşülecek miktarı belirle
+									int dusulecekMiktar = urunMalzeme.Miktar * siparisMenuUrun.Miktar;
 
+									// İlgili malzemenin stokunu bul
+									var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
+
+									// Eğer stok bulunduysa ve düşülecek miktar stok miktarından fazla değilse
+									if (stok != null && stok.Miktar >= dusulecekMiktar)
+									{
+										// Malzemeden stoktan düşüm yap
+										stok.Miktar -= dusulecekMiktar;
+
+										string malzemeAd = db.Malzemeler.FirstOrDefault(s => s.Id == stok.MalzemeId).Ad;
+
+										// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
+										if (stok.Miktar < stok.MinStok)
+										{
+											//Bunu daha sonra Admine bildirim olarak atıcaz
+											MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
+										}
+										else if (stok.Miktar == 0)
+										{
+											MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
+										}
+										// Stok çıkışı kaydını oluştur
+										var stokCikti = new StokCikti
+										{
+											Neden = "Sipariş Hazırlama",
+											Miktar = dusulecekMiktar,
+											SonStok = stok.Miktar,
+											Gorunuluk = true, // Gösterim durumunu belirle
+											TedarikciId = stok.TedarikciId,
+											MalzemeId = stok.MalzemeId,
+											Tarih = DateTime.Now // Şu anki zamanı ata
+										};
+										// Stok çıkışını veritabanına ekle
+										db.stokCiktilar.Add(stokCikti);
+									}
+									else
+									{
+										// Ürünün aktifliğini kapat
+										urunMalzeme.Urun.Akitf = false;
+										MessageBox.Show("Stok yetersiz.");
+										return;
+									}
+								}
+							}
+						}
+					}
+					//Sipariş Durumunun Ayarlandığı Kısım
+					Durum.Ad = 2;//Sipariş Onaylandı
+					Durum.Zaman = DateTime.Now;//Onaylanma Zamanı
+					Durum.Yer = 1;//Bu işlem nerede yapıldı Müşteri Tarafında sipariş alındığında
+					Durum.SiparisId = siparis.Id;
+					db.Durumlar.Add(Durum);
+					db.SaveChanges();
+					MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
+					if (calisanForm != null)
+					{
+						calisanForm.MasaButonlariniGuncelle();
+					}
+					this.Close();
+					#endregion
+				}
+				else//mevcuttaki bir siparişe ekstra sipariş veriliyorsada burası çalışmalı
+				{
+
+				}
+			}
+			else
+			{
+				MessageBox.Show("Kapalı Masada İşlem Yapamazsınız !","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Error);
 			}
 		}
 

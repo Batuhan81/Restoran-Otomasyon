@@ -112,7 +112,6 @@ namespace Restoran_Otomasyon
 				chart.Series["Doluluk Oranları"].Points.AddXY(kvp.Key, kvp.Value);
 				chart.Series["Doluluk Oranları"].Points.Last().Color = renk;
 			}
-
 			// Grafiğin başlığını ayarla
 			chart.Titles.Clear();
 			chart.Titles.Add("Doluluk Oranları").Font = new Font("Arial", 12, FontStyle.Bold);
@@ -123,7 +122,6 @@ namespace Restoran_Otomasyon
 			// Chart kontrolünün güncellenmesi
 			chart.Update();
 		}
-
 
 		public static void EnCokSiparisMenu(Chart EnCokSiparisMenu, Context db, string zamanAraligi)
 		{
@@ -160,7 +158,6 @@ namespace Restoran_Otomasyon
 					toplamSiparisSayisi += siparisMenu.Miktar;
 				}
 			}
-
 			// Zaman aralığına göre siparişleri filtrele
 			IQueryable<Siparis> siparisler;
 
@@ -185,7 +182,6 @@ namespace Restoran_Otomasyon
 					siparisler = db.Siparisler;
 					break;
 			}
-
 			// En çok sipariş edilen 5 ürünü seç
 			var enCokSiparisEdilenMenuler = menuSiparisSayilari.OrderByDescending(x => x.Value).Take(5);
 
@@ -205,7 +201,6 @@ namespace Restoran_Otomasyon
 				EnCokSiparisMenu.Series["Siparişler"].Points.AddXY($"{Menu.Key}- {Menu.Value} Adet", Menu.Value);
 			}
 		}
-
 
 		public static void EnCokSiparisUrun(Chart chart, Context db, string zamanAraligi)
 		{
@@ -267,7 +262,6 @@ namespace Restoran_Otomasyon
 					toplamSiparisSayisi += siparisUrun.Miktar;
 				}
 			}
-
 			// En çok sipariş edilen 5 ürünü seç
 			var enCokSiparisEdilenUrunler = urunSiparisSayilari.OrderByDescending(x => x.Value).Take(5);
 
@@ -356,7 +350,6 @@ namespace Restoran_Otomasyon
 			chart.Legends.Clear();
 		}
 
-
 		public static void GunlereGoreGrafik(Chart chart, Context db, string zamanAraligi)
 		{
 			// Haftanın günlerine göre sipariş sayılarını hesapla ve sıralı bir şekilde tutmak için bir dizi kullan
@@ -440,7 +433,6 @@ namespace Restoran_Otomasyon
 			chart.Legends.Clear();
 		}
 
-
 		private static string GunTuruTercihininTercihineGoreCevir(string gunTuru)
 		{
 			switch (gunTuru)
@@ -463,7 +455,6 @@ namespace Restoran_Otomasyon
 					return gunTuru;
 			}
 		}
-
 
 		public static void OdemeYuzdesi(Chart chart, Context db, string zamanAraligi)
 		{
