@@ -17,6 +17,7 @@ namespace Restoran_Otomasyon.Data
 
 		public string Qr {  get; set; }
 
+		//MasaSiparişe Taşıdık
 		public int? PersonelId { get; set; }
 
 		public bool Gorunurluk { get; set; }

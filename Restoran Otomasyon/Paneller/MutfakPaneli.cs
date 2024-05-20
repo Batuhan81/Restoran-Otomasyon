@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,40 @@ namespace Restoran_Otomasyon.Data
 {
 	public partial class MutfakPaneli : Form
 	{
+		private IHubProxy _hubProxy;
+		private HubConnection _connection;
+		private bool _isConnectionOpen = true;
 		public MutfakPaneli(int KullaniciID)
 		{
 			InitializeComponent();
 			kullaniciId = KullaniciID;
+			// SignalR bağlantısını oluşturun
+			_connection = new HubConnection(Form1.url);
+			_hubProxy = _connection.CreateHubProxy("OrderHub");
+
+			// Bağlantıyı başlat
+			if (!_isConnectionOpen)
+			{
+				_connection.Start().ContinueWith(task =>
+				{
+					if (task.IsFaulted)
+					{
+						MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + task.Exception.GetBaseException().Message);
+					}
+					else
+					{
+						MessageBox.Show(" SignalR Bağlantısı Açıldı");
+						_isConnectionOpen = true;
+					}
+				});
+			}
+			// Sunucudan mesaj alma
+			_hubProxy.On("ReceiveOrderUpdate", () =>
+			{
+				MessageBox.Show("SignalR ile Tetiklendi");
+				// Sipariş listesini güncellemek için gerekli işlemler burada yapılacak
+				OnaylananSiparisler();
+			});
 		}
 		int kullaniciId;
 		Context db = new Context();

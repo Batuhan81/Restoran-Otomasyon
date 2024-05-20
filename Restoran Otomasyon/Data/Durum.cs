@@ -7,7 +7,7 @@ namespace Restoran_Otomasyon.Data
 	{
 		public int Id { get; set; }
 
-		public int Ad { get; set; }//1 sipariş alındı/2 Sipariş Onaylandı/3 Hazırlanıyor/4 Hazırlandı/5 Ödeme Bekliyor /6 Ödendi/ İptal Edildi/8 Yolda /Teslim Edildi
+		public int Ad { get; set; }//1 sipariş alındı/2 Sipariş Onaylandı/3 Hazırlanıyor/4 Hazırlandı/5 Ödeme Bekliyor /6 Ödendi/7 İptal Edildi/8 Yolda /9Teslim Edildi
 
 		public DateTime Zaman { get; set; }
 

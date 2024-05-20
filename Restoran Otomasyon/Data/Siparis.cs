@@ -15,6 +15,7 @@ namespace Restoran_Otomasyon.Data
 
 		public bool OdemeDurum { get; set; }
 
+		//Bunu Çıkarttık
 		public string Not { get; set; }
 
 		public int? YorumId { get; set; }

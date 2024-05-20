@@ -14,17 +14,74 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using static Restoran_Otomasyon.UrunleriGoster;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using Microsoft.AspNet.SignalR.Client;
+using ConnectionState = Microsoft.AspNet.SignalR.Client.ConnectionState;
 
 namespace Restoran_Otomasyon
 {
 	public partial class BosMasa : Form
 	{
+		bool _isConnectionOpen = false;
 		public BosMasa(int masaID, int kullaniciID)
 		{
 			InitializeComponent();
 			masaId = masaID;
 			kullaniciId = kullaniciID;
+
+
+			if (Form1.connection.State == ConnectionState.Connected)
+			{
+				MessageBox.Show("Bağlı");
+				_isConnectionOpen = true;
+			}
+			if (Form1.connection.State == ConnectionState.Disconnected)
+			{
+				MessageBox.Show("Bağlantı Kapalı");
+				_isConnectionOpen = false;
+			}
+			if (Form1.connection.State == ConnectionState.Connecting)
+			{
+				MessageBox.Show("Bağlanıyor");
+			}
 		}
+
+		private void SignalTetikle()
+		{
+			if (_isConnectionOpen == true)
+			{
+				TetikleSendOrderUpdate();
+			}
+			else
+			{
+				MessageBox.Show("SignalR Bağlantısı Açık Değil");
+			}
+			// Sunucudan mesaj alma
+			Form1.hubProxy.On("SendOrderUpdate", (string orderDetails) =>
+			{
+				MessageBox.Show("SignalR ile Tetiklendi: " + orderDetails);
+				// Sipariş listesini güncellemek için gerekli işlemler burada yapılacak
+				// OnaylananSiparisler();
+			});
+		}
+
+		private async void TetikleSendOrderUpdate()
+		{
+			try
+			{
+				if(_isConnectionOpen == true)
+				{
+					// SendOrderUpdate metodunu tetikle
+					await Form1.hubProxy.Invoke("SendOrderUpdate","Deneme");
+					MessageBox.Show("Tetikleme Başarılı");
+				}
+			}
+			catch (Exception ex)
+			{
+				// Hata yönetimi
+				MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
+			}
+		}
+
 
 		int masaId;
 		int kullaniciId;
@@ -184,7 +241,7 @@ namespace Restoran_Otomasyon
 			}
 			if (txtDurum.Text == "Kapalı")
 			{
-				MessageBox.Show("Bu Masa Durumu Şuanda Kaplı Durumda Burada Sadece Görüntüleme Yapabilirsiniz Sipariş Alamazsınız !","Bilgilendirme",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+				MessageBox.Show("Bu Masa Durumu Şuanda Kaplı Durumda Burada Sadece Görüntüleme Yapabilirsiniz Sipariş Alamazsınız !", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -216,98 +273,157 @@ namespace Restoran_Otomasyon
 			var x = db.Masalar.Find(masaId);
 			if (x.Durum != 5)
 			{
-				if (x.Durum == 1)//mayasa ilk kez sipariş alınıyorsa burası çalışsın
+				if (x.Durum == 4)
 				{
-					if (x.Durum == 4)
+					var rezervasyon = db.MasaRezervasyonlar.Where(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today).ToList();
+					if (rezervasyon != null)
 					{
-						var rezervasyon = db.MasaRezervasyonlar.Where(o => o.MasaId == masaId && o.Rezervasyon.Tarih == DateTime.Today).ToList();
-						if (rezervasyon != null)
+						foreach (var item in rezervasyon)
 						{
-							foreach (var item in rezervasyon)
+							// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
+							TimeSpan baslangicZamani = item.Rezervasyon.BaslangicSaat;
+							TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
+
+							// Rezervasyonun başlangıç saati şu anki zamandan ileri bir zamansa veya aynı zamandaysa
+							if (baslangicZamani >= DateTime.Now.TimeOfDay && baslangicZamani <= yarimSaatSonrasininZamani)
 							{
-								// Rezervasyonun başlangıç saati ile mevcut zamandan yarım saat sonrasının farkını al
-								TimeSpan baslangicZamani = item.Rezervasyon.BaslangicSaat;
-								TimeSpan yarimSaatSonrasininZamani = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(30));
-
-								// Rezervasyonun başlangıç saati şu anki zamandan ileri bir zamansa veya aynı zamandaysa
-								if (baslangicZamani >= DateTime.Now.TimeOfDay && baslangicZamani <= yarimSaatSonrasininZamani)
+								// Rezervasyonun onay durumu henüz 3 değilse
+								if (item.Rezervasyon.Onay != 3)
 								{
-									// Rezervasyonun onay durumu henüz 3 değilse
-									if (item.Rezervasyon.Onay != 3)
-									{
-										// Rezervasyonun onay durumunu 3 olarak güncelleyin
-										item.Rezervasyon.Onay = 3;
-										int rezervasyonId = item.Id;
+									// Rezervasyonun onay durumunu 3 olarak güncelleyin
+									item.Rezervasyon.Onay = 3;
+									int rezervasyonId = item.Id;
 
-										// Değişiklikleri veritabanına kaydedin
-										db.SaveChanges();
-									}
+									// Değişiklikleri veritabanına kaydedin
+									db.SaveChanges();
 								}
 							}
 						}
 					}
-					x.Durum = 2;//Masa durumu dolu yapıldı.
-					db.SaveChanges();
-					siparis.Tarih = DateTime.Now;
-					siparis.OdemeDurum = false;
-					siparis.Not = null;
-					siparis.YorumId = null;
-					siparis.Gorunurluk = true;
-					siparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
-					masasip.MasaId = masaId;
-					masasip.SiparisId = siparis.Id;
-					masasip.MusteriId = null;
-					masasip.Gorunurluk = true;
-					masasip.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
-					masasip.OdenenTutar = 0;
-					db.MasaSiparisler.Add(masasip);
-					db.Siparisler.Add(siparis);
+				}
+				x.Durum = 2;//Masa durumu dolu yapıldı.
+				db.SaveChanges();
+				siparis.Tarih = DateTime.Now;
+				siparis.OdemeDurum = false;
+				siparis.Not = null;
+				siparis.YorumId = null;
+				siparis.Gorunurluk = true;
+				siparis.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+				masasip.MasaId = masaId;
+				masasip.SiparisId = siparis.Id;
+				masasip.MusteriId = null;
+				masasip.Gorunurluk = true;
+				masasip.Tutar = Yardimcilar.TemizleVeDondur(txttutar, "");
+				masasip.OdenenTutar = 0;
+				db.MasaSiparisler.Add(masasip);
+				db.Siparisler.Add(siparis);
 
-					foreach (DataGridViewRow row in gridSiparisler.Rows)
+				foreach (DataGridViewRow row in gridSiparisler.Rows)
+				{
+					if (row.Cells["Adet"].Value != null && Convert.ToInt32(row.Cells["Adet"].Value) > 0)
 					{
-						if (row.Cells["Adet"].Value != null && Convert.ToInt32(row.Cells["Adet"].Value) > 0)
-						{
-							int miktar = Convert.ToInt32(row.Cells["Adet"].Value.ToString());
+						int miktar = Convert.ToInt32(row.Cells["Adet"].Value.ToString());
 
-							if (row.Cells["UrunID"].Value != null && row.Cells["UrunID"].Value.ToString() != "")
+						if (row.Cells["UrunID"].Value != null && row.Cells["UrunID"].Value.ToString() != "")
+						{
+							int urunId = Convert.ToInt32(row.Cells["UrunID"].Value.ToString());
+							SiparisUrun urun = new SiparisUrun();
+							urun.UrunId = urunId;
+							urun.Miktar = miktar;
+							urun.SiparisId = siparis.Id;
+							urun.Gorunurluk = true;
+							db.SiparisUrunler.Add(urun);
+						}
+						else if (row.Cells["MenuID"].Value != null && row.Cells["MenuID"].Value.ToString() != "")
+						{
+							int menuId = Convert.ToInt32(row.Cells["MenuID"].Value.ToString());
+							SiparisMenu menu = new SiparisMenu();
+							menu.MenuId = menuId;
+							menu.Miktar = miktar;
+							menu.SiparisId = siparis.Id;
+							menu.Gorunurluk = true;
+							db.SiparisMenus.Add(menu);
+						}
+					}
+				}
+				db.SaveChanges();
+				MessageBox.Show("Siparişiniz Onaylanmıştır.");
+				// Seçilen siparişin içindeki ürünleri al
+				var siparisUrunler = db.SiparisUrunler.Where(su => su.SiparisId == siparis.Id).ToList();
+				var siparisMenuUrunler = db.SiparisMenus.Where(su => su.SiparisId == siparis.Id).ToList();
+
+				if (siparisUrunler.Count() > 0)
+				{
+					foreach (var siparisUrun in siparisUrunler)
+					{
+						// Ürünün malzemelerini ve miktarlarını al
+						var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == siparisUrun.UrunId).ToList();
+						// Her bir malzeme için işlem yap
+						foreach (var urunMalzeme in urunMalzemeler)
+						{
+							// Malzemenin stok miktarından düşülecek miktarı belirle
+							int dusulecekMiktar = urunMalzeme.Miktar * siparisUrun.Miktar;
+
+							// İlgili malzemenin stokunu bul
+							var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
+
+							// Eğer stok bulunduysa ve düşülecek miktar stok miktarından fazla değilse
+							if (stok != null && stok.Miktar >= dusulecekMiktar)
 							{
-								int urunId = Convert.ToInt32(row.Cells["UrunID"].Value.ToString());
-								SiparisUrun urun = new SiparisUrun();
-								urun.UrunId = urunId;
-								urun.Miktar = miktar;
-								urun.SiparisId = siparis.Id;
-								urun.Gorunurluk = true;
-								db.SiparisUrunler.Add(urun);
+								// Malzemeden stoktan düşüm yap
+								stok.Miktar -= dusulecekMiktar;
+
+								string malzemeAd = db.Malzemeler.FirstOrDefault(s => s.Id == stok.MalzemeId).Ad;
+
+								// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
+								if (stok.Miktar < stok.MinStok)
+								{
+									//Bunu daha sonra Admine bildirim olarak atıcaz
+									MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
+								}
+								else if (stok.Miktar == 0)
+								{
+									MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
+								}
+								// Stok çıkışı kaydını oluştur
+								var stokCikti = new StokCikti
+								{
+									Neden = "Sipariş Hazırlama",
+									Miktar = dusulecekMiktar,
+									SonStok = stok.Miktar,
+									Gorunuluk = true, // Gösterim durumunu belirle
+									TedarikciId = stok.TedarikciId,
+									MalzemeId = stok.MalzemeId,
+									Tarih = DateTime.Now // Şu anki zamanı ata
+								};
+								// Stok çıkışını veritabanına ekle
+								db.stokCiktilar.Add(stokCikti);
 							}
-							else if (row.Cells["MenuID"].Value != null && row.Cells["MenuID"].Value.ToString() != "")
+							else
 							{
-								int menuId = Convert.ToInt32(row.Cells["MenuID"].Value.ToString());
-								SiparisMenu menu = new SiparisMenu();
-								menu.MenuId = menuId;
-								menu.Miktar = miktar;
-								menu.SiparisId = siparis.Id;
-								menu.Gorunurluk = true;
-								db.SiparisMenus.Add(menu);
+								// Ürünün aktifliğini kapat
+								urunMalzeme.Urun.Akitf = false;
+								MessageBox.Show("Stok yetersiz.");
+								return;
 							}
 						}
 					}
-					db.SaveChanges();
-					MessageBox.Show("Siparişiniz Onaylanmıştır.");
-					// Seçilen siparişin içindeki ürünleri al
-					var siparisUrunler = db.SiparisUrunler.Where(su => su.SiparisId == siparis.Id).ToList();
-					var siparisMenuUrunler = db.SiparisMenus.Where(su => su.SiparisId == siparis.Id).ToList();
-
-					if (siparisUrunler.Count() > 0)
+				}
+				else if (siparisMenuUrunler.Count > 0)
+				{
+					foreach (var siparisMenuUrun in siparisMenuUrunler)
 					{
-						foreach (var siparisUrun in siparisUrunler)
+						// Sipariş menüsündeki her bir ürün için işlem yap
+						var menuUrunler = db.MenuUrunler.Where(mu => mu.MenuId == siparisMenuUrun.MenuId).ToList();
+						foreach (var menuUrun in menuUrunler)
 						{
 							// Ürünün malzemelerini ve miktarlarını al
-							var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == siparisUrun.UrunId).ToList();
+							var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == menuUrun.UrunId).ToList();
 							// Her bir malzeme için işlem yap
 							foreach (var urunMalzeme in urunMalzemeler)
 							{
 								// Malzemenin stok miktarından düşülecek miktarı belirle
-								int dusulecekMiktar = urunMalzeme.Miktar * siparisUrun.Miktar;
+								int dusulecekMiktar = urunMalzeme.Miktar * siparisMenuUrun.Miktar;
 
 								// İlgili malzemenin stokunu bul
 								var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
@@ -354,91 +470,28 @@ namespace Restoran_Otomasyon
 							}
 						}
 					}
-					else if (siparisMenuUrunler.Count > 0)
-					{
-						foreach (var siparisMenuUrun in siparisMenuUrunler)
-						{
-							// Sipariş menüsündeki her bir ürün için işlem yap
-							var menuUrunler = db.MenuUrunler.Where(mu => mu.MenuId == siparisMenuUrun.MenuId).ToList();
-							foreach (var menuUrun in menuUrunler)
-							{
-								// Ürünün malzemelerini ve miktarlarını al
-								var urunMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == menuUrun.UrunId).ToList();
-								// Her bir malzeme için işlem yap
-								foreach (var urunMalzeme in urunMalzemeler)
-								{
-									// Malzemenin stok miktarından düşülecek miktarı belirle
-									int dusulecekMiktar = urunMalzeme.Miktar * siparisMenuUrun.Miktar;
-
-									// İlgili malzemenin stokunu bul
-									var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == urunMalzeme.MalzemeId);
-
-									// Eğer stok bulunduysa ve düşülecek miktar stok miktarından fazla değilse
-									if (stok != null && stok.Miktar >= dusulecekMiktar)
-									{
-										// Malzemeden stoktan düşüm yap
-										stok.Miktar -= dusulecekMiktar;
-
-										string malzemeAd = db.Malzemeler.FirstOrDefault(s => s.Id == stok.MalzemeId).Ad;
-
-										// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
-										if (stok.Miktar < stok.MinStok)
-										{
-											//Bunu daha sonra Admine bildirim olarak atıcaz
-											MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
-										}
-										else if (stok.Miktar == 0)
-										{
-											MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
-										}
-										// Stok çıkışı kaydını oluştur
-										var stokCikti = new StokCikti
-										{
-											Neden = "Sipariş Hazırlama",
-											Miktar = dusulecekMiktar,
-											SonStok = stok.Miktar,
-											Gorunuluk = true, // Gösterim durumunu belirle
-											TedarikciId = stok.TedarikciId,
-											MalzemeId = stok.MalzemeId,
-											Tarih = DateTime.Now // Şu anki zamanı ata
-										};
-										// Stok çıkışını veritabanına ekle
-										db.stokCiktilar.Add(stokCikti);
-									}
-									else
-									{
-										// Ürünün aktifliğini kapat
-										urunMalzeme.Urun.Akitf = false;
-										MessageBox.Show("Stok yetersiz.");
-										return;
-									}
-								}
-							}
-						}
-					}
-					//Sipariş Durumunun Ayarlandığı Kısım
-					Durum.Ad = 2;//Sipariş Onaylandı
-					Durum.Zaman = DateTime.Now;//Onaylanma Zamanı
-					Durum.Yer = 1;//Bu işlem nerede yapıldı Müşteri Tarafında sipariş alındığında
-					Durum.SiparisId = siparis.Id;
-					db.Durumlar.Add(Durum);
-					db.SaveChanges();
-					MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
-					if (calisanForm != null)
-					{
-						calisanForm.MasaButonlariniGuncelle();
-					}
-					this.Close();
-					#endregion
 				}
-				else//mevcuttaki bir siparişe ekstra sipariş veriliyorsada burası çalışmalı
+				//Sipariş Durumunun Ayarlandığı Kısım
+				Durum.Ad = 2;//Sipariş Onaylandı
+				Durum.Zaman = DateTime.Now;//Onaylanma Zamanı
+				Durum.Yer = 1;//Bu işlem nerede yapıldı Müşteri Tarafında sipariş alındığında
+				Durum.SiparisId = siparis.Id;
+				db.Durumlar.Add(Durum);
+				db.SaveChanges();
+				MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
+				if (calisanForm != null)
 				{
-
+					calisanForm.MasaButonlariniGuncelle();
 				}
+				this.Close();
+				// SignalR hub'ını tetikleme
+				SignalTetikle();
+				#endregion
+
 			}
 			else
 			{
-				MessageBox.Show("Kapalı Masada İşlem Yapamazsınız !","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Error);
+				MessageBox.Show("Kapalı Masada İşlem Yapamazsınız !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 

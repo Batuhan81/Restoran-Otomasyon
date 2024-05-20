@@ -34,7 +34,6 @@ namespace Restoran_Otomasyon
 		decimal masaOdenen;
 		decimal geriyekalanUcret;
 		decimal Odenecek;
-		decimal ToplamTutar;
 		decimal OdenenTutar;
 		int kisisayisi;
 		decimal kisibasiUcret;
