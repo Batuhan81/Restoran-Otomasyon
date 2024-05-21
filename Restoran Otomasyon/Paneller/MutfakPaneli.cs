@@ -13,45 +13,20 @@ namespace Restoran_Otomasyon.Data
 {
 	public partial class MutfakPaneli : Form
 	{
-		private IHubProxy _hubProxy;
-		private HubConnection _connection;
-		private bool _isConnectionOpen = true;
 		public MutfakPaneli(int KullaniciID)
 		{
 			InitializeComponent();
 			kullaniciId = KullaniciID;
-			// SignalR bağlantısını oluşturun
-			_connection = new HubConnection(Form1.url);
-			_hubProxy = _connection.CreateHubProxy("OrderHub");
-
-			// Bağlantıyı başlat
-			if (!_isConnectionOpen)
-			{
-				_connection.Start().ContinueWith(task =>
-				{
-					if (task.IsFaulted)
-					{
-						MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + task.Exception.GetBaseException().Message);
-					}
-					else
-					{
-						MessageBox.Show(" SignalR Bağlantısı Açıldı");
-						_isConnectionOpen = true;
-					}
-				});
-			}
-			// Sunucudan mesaj alma
-			_hubProxy.On("ReceiveOrderUpdate", () =>
-			{
-				MessageBox.Show("SignalR ile Tetiklendi");
-				// Sipariş listesini güncellemek için gerekli işlemler burada yapılacak
-				OnaylananSiparisler();
-			});
 		}
 		int kullaniciId;
 		Context db = new Context();
 
 		private void MutfakPaneli_Load(object sender, EventArgs e)
+		{
+			Siparisler();
+		}
+
+		public  void Siparisler()
 		{
 			OnaylananSiparisler();
 			HazirlanmaktaOlanSiparisler();
@@ -120,7 +95,7 @@ namespace Restoran_Otomasyon.Data
 		private void button1_Click(object sender, EventArgs e)
 		{
 			// Seçilen satırın ID'sini al
-			if(gridOnaylananlar.CurrentRow != null && gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value!= null)
+			if (gridOnaylananlar.CurrentRow != null && gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value != null)
 			{
 				int selectedSiparisId = (int)gridOnaylananlar.CurrentRow.Cells["SiparisId"].Value;
 				// Yeni bir Durum oluştur
@@ -185,7 +160,7 @@ namespace Restoran_Otomasyon.Data
 
 		private void button3_Click(object sender, EventArgs e)
 		{
-			Giris git= new Giris();
+			Giris git = new Giris();
 			git.Show();
 			this.Close();
 		}

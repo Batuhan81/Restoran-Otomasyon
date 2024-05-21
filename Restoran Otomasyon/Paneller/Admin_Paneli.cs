@@ -110,21 +110,21 @@ namespace Restoran_Otomasyon.Paneller
 				Karsilama.Text = $"Merhaba,{kullaniciAdi}";
 			}
 			grafikleriGuncelle();
-			bakiyeHesapla();
+			
 			if (Bakiyee.Text.Length > 6)
 			{
 				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 5);
 			}
 		}
 
-		private void bakiyeHesapla()
+		public void bakiyeHesapla()
 		{
-			var kasa = db.Kasalar.Find(1);
-			if (kasa != null)
-			{
-				bakiye = kasa.Bakiye.ToString();
-				Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
-			}
+			db.Dispose();
+			db = new Context();
+			var kasabakiye = db.Kasalar.Find(1);
+			bakiye = kasabakiye.Bakiye.ToString();
+			Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
+			this.Refresh();
 		}
 
 		public void grafikleriGuncelle()

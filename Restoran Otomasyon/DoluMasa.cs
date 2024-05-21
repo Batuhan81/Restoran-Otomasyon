@@ -135,7 +135,6 @@ namespace Restoran_Otomasyon
 					db.SaveChanges();
 
 					masaBilgileri();
-
 					MessageBox.Show($"{Odenecek}₺ Ödeme Alındı Geriye Kalan {geriyekalanUcret}₺");
 					if (geriyekalanUcret == 0)
 					{
@@ -148,13 +147,9 @@ namespace Restoran_Otomasyon
 						if (checkFis.Checked)
 						{
 							Yazdır();
-							//fişi burada keseeğiz
 						}
-						MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
-						if (calisanForm != null)
-						{
-							calisanForm.MasaButonlariniGuncelle();
-						}
+						Yardimcilar.SignalTetikleMasaDurum();
+						Yardimcilar.SignalTetikleOdemeAlindi();
 						this.Close();
 					}
 				}

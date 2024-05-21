@@ -82,6 +82,7 @@
 			this.OdemePaneli.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.PanelSiparis.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// txtkategori
@@ -168,9 +169,9 @@
 			// 
 			this.UrunPaneli.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.UrunPaneli.Controls.Add(this.OdemePaneli);
-			this.UrunPaneli.Location = new System.Drawing.Point(17, 47);
+			this.UrunPaneli.Location = new System.Drawing.Point(14, 40);
 			this.UrunPaneli.Name = "UrunPaneli";
-			this.UrunPaneli.Size = new System.Drawing.Size(1210, 760);
+			this.UrunPaneli.Size = new System.Drawing.Size(1210, 740);
 			this.UrunPaneli.TabIndex = 54;
 			// 
 			// OdemePaneli
@@ -500,7 +501,7 @@
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.txtmasaadi);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Location = new System.Drawing.Point(1233, 47);
+			this.groupBox1.Location = new System.Drawing.Point(1230, 31);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(284, 358);
 			this.groupBox1.TabIndex = 49;
@@ -584,6 +585,8 @@
 			// 
 			// PanelSiparis
 			// 
+			this.PanelSiparis.Controls.Add(this.groupBox1);
+			this.PanelSiparis.Controls.Add(this.UrunPaneli);
 			this.PanelSiparis.Location = new System.Drawing.Point(3, 4);
 			this.PanelSiparis.Name = "PanelSiparis";
 			this.PanelSiparis.Size = new System.Drawing.Size(1537, 783);
@@ -615,8 +618,6 @@
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label7);
-			this.Controls.Add(this.UrunPaneli);
-			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.PanelSiparis);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.Name = "DoluMasa";
@@ -632,6 +633,7 @@
 			this.groupBox2.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.PanelSiparis.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

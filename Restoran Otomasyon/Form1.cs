@@ -16,51 +16,14 @@ namespace Restoran_Otomasyon
 {
 	public partial class Form1 : Form
 	{
-		public static IHubProxy hubProxy;
-		public static HubConnection connection;
+
 		public Form1()
 		{
 			InitializeComponent();
-			ConnectToSignalR();
+			Yardimcilar.SignalRSunucuBaslat(); /*Şuanlık otomatik olarak başlatıyor ama bağlanırken sorunlu o yüzden kapattım*/
+			Yardimcilar.ConnectToSignalR();
 		}
-		public static string url = "http://192.168.1.152:8080/signalr/hubs"; // SignalR sunucusunun adresi
-		private async void ConnectToSignalR()
-		{
-			//http://localhost:8080/signalr/hubs
-			//https://192.168.137.1:5001/hubs/mutfakhub
-
-			connection = new HubConnection(url);
-			hubProxy = connection.CreateHubProxy("RestaurantHub");
-
-			hubProxy.On<string>("updateOrderStatus", message =>
-			{
-				Invoke((Action)(() =>
-				{
-					// Mesaj alındığında yapılacak işlemler buraya eklenir
-					// Bu örnekte sadece konsola yazdırılıyor
-					Console.WriteLine(message);
-				}));
-			});
-
-			try
-			{
-				await connection.Start();
-				if (connection.State == ConnectionState.Connected)
-				{
-					MessageBox.Show("SignalR sunucusuna bağlanıldı!", "İşlem Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information); // Bağlantı başarılıysa mesaj göster
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show($"SignalR sunucusuna bağlanılamadı: {ex.Message}"); // Hata varsa mesaj göster
-			}
-
-			if (connection.State == ConnectionState.Disconnected)
-			{
-				MessageBox.Show("Bağlantı kapalı");
-			}
-		}
-
+		
 		private void timer1_Tick(object sender, EventArgs e)//timerın her süresi dolduğunda metnin başındaki harfi sonuna ekleyecek
 		{
 			label1.Text = label1.Text.Substring(1) + label1.Text.Substring(0, 1);
@@ -78,6 +41,7 @@ namespace Restoran_Otomasyon
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			
 			if (!db.Database.Exists())//Projenin bağlı olduğu vt var mı diye kontrol ediyorum yoksa oluşturma Sayfasına yönlendiriyorum
 			{
 				timer1.Stop();

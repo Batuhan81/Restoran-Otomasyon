@@ -134,7 +134,7 @@ namespace Restoran_Otomasyon.Paneller
 			var malzemeStokBilgileri = from malzeme in db.Malzemeler
 									   join stok in db.Stoklar on malzeme.Id equals stok.MalzemeId
 									   join tedarikci in db.Tedarikciler on stok.TedarikciId equals tedarikci.Id
-									   where malzeme.Gorunurluk == true orderby malzeme.Id //Yalnızca Görünür olan malzemeleri listeler
+									   orderby malzeme.Id //Yalnızca Görünür olan malzemeleri listeler
 									   select new
 									   {
 										   MalzemeId = malzeme.Id,

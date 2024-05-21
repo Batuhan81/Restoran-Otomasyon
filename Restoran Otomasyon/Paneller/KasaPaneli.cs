@@ -37,7 +37,7 @@ namespace Restoran_Otomasyon.Paneller
 			grafikleriGuncelle();
 		}
 
-		private void BakiyeHesapla()
+		public void BakiyeHesapla()
 		{
 			db.Dispose();
 			db = new Context();

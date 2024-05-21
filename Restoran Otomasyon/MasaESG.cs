@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using QRCoder;
 using System.Drawing.Imaging;
 using System.IO;
+using Microsoft.AspNet.SignalR.Client;
 
 
 namespace Restoran_Otomasyon.Paneller
@@ -45,6 +46,7 @@ namespace Restoran_Otomasyon.Paneller
 		MasaOzellik ozellik = new MasaOzellik();
 		int masaId;
 		Context db = new Context();
+		bool BaglantiDurum;
 		#endregion
 
 		#region Metodlar
@@ -131,6 +133,7 @@ namespace Restoran_Otomasyon.Paneller
 				PanelKategori.Visible = false;
 			}
 		}
+
 		#endregion
 
 		#region Eventler

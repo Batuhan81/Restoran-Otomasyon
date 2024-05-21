@@ -1,19 +1,224 @@
-﻿using QRCoder;
+﻿using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNet.SignalR.Client.Hubs;
+using QRCoder;
 using Restoran_Otomasyon.Data;
+using Restoran_Otomasyon.Paneller;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using ConnectionState = Microsoft.AspNet.SignalR.Client.ConnectionState;
+
 
 namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
+		//private static Process signalRProcess;
+
+		public static void SignalRSunucuBaslat()
+		{
+			try
+			{
+				Process signalRProcess = new Process();
+				signalRProcess.StartInfo.FileName = @"C:\Users\Batuhan\Desktop\Signal Sunucu\Signal Sunucu\bin\Debug\Signal Sunucu.exe";
+				signalRProcess.StartInfo.CreateNoWindow = true;
+				signalRProcess.StartInfo.UseShellExecute = false;  // Yönetici olarak çalıştırmak için true olmalı
+				signalRProcess.StartInfo.Verb = "runas";  // Yönetici olarak çalıştırmak için
+				signalRProcess.Start();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"SignalR sunucusu başlatılamadı: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		public async static void SignalTetikleMasaDurum()
+		{
+			bool baglantiBasarili = BaglantiDurumu();
+			if (baglantiBasarili == true)
+			{
+				try
+				{
+					await Yardimcilar.hubProxy.Invoke("MasaDurumDegisti");
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
+				}
+			}
+			else
+			{
+				MessageBox.Show("SignalR Bağlantısı Açık Değil");
+			}
+		}
+
+		public async static void SignalTetikleSiparis()
+		{
+			bool baglantiBasarili = BaglantiDurumu();
+			if (baglantiBasarili == true)
+			{
+				try
+				{
+					await Yardimcilar.hubProxy.Invoke("SiparisAlindi");
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
+				}
+			}
+			else
+			{
+				MessageBox.Show("SignalR Bağlantısı Açık Değil");
+			}
+
+		}
+
+		public async static void SignalTetikleOdemeAlindi()
+		{
+			bool baglantiBasarili = BaglantiDurumu();
+			if (baglantiBasarili == true)
+			{
+				try
+				{
+					await Yardimcilar.hubProxy.Invoke("OdemeAlindi");
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
+				}
+			}
+			else
+			{
+				MessageBox.Show("SignalR Bağlantısı Açık Değil");
+			}
+		}
+
+		public static IHubProxy hubProxy;
+		public static HubConnection connection;
+		public static string url = "http://192.168.1.152:8080/signalr/hubs"; // SignalR sunucusunun adresi
+		public static async void ConnectToSignalR()
+		{
+			connection = new HubConnection(url);
+			hubProxy = connection.CreateHubProxy("RestaurantHub");
+			try
+			{
+				await connection.Start();
+				if (Yardimcilar.BaglantiDurumu() == true)
+				{
+					try
+					{
+						hubProxy.On("MasaDurumDegisti", () =>
+						{
+							Console.WriteLine("MasaDurumDegisti olayı alındı.");
+							MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
+							if (calisanForm != null)
+							{
+								calisanForm.BeginInvoke(new Action(() =>
+								{
+									calisanForm.MasaButonlariniGuncelle();
+								}));
+							}
+						});
+
+						hubProxy.On("SiparisAlindi", () =>
+						{
+							Console.WriteLine("SiparisAlindi olayı alındı.");
+
+							// UI iş parçacığında çalıştır
+							KasaPaneli calisanForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
+							if (calisanForm != null)
+							{
+								calisanForm.BeginInvoke(new Action(() =>
+								{
+									calisanForm.grafikleriGuncelle();
+								}));
+							}
+							Admin_Paneli calisanForm2 = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
+							if (calisanForm2 != null)
+							{
+								calisanForm2.BeginInvoke(new Action(() =>
+								{
+									calisanForm2.grafikleriGuncelle();
+								}));
+							}
+							MutfakPaneli calisanForm3 = Application.OpenForms.OfType<MutfakPaneli>().FirstOrDefault();
+							if (calisanForm3 != null)
+							{
+								calisanForm3.BeginInvoke(new Action(() =>
+								{
+									calisanForm3.Siparisler();
+								}));
+							}
+						});
+
+						hubProxy.On("OdemeAlindi", () =>
+						{
+							Console.WriteLine("OdemeAlindi olayı alındı.");
+
+							KasaPaneli calisanForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
+							if (calisanForm != null)
+							{
+								calisanForm.BeginInvoke(new Action(() =>
+								{
+									calisanForm.grafikleriGuncelle();
+									calisanForm.BakiyeHesapla();
+								}));
+							}
+							Admin_Paneli calisanForm2 = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
+							if (calisanForm2 != null)
+							{
+								calisanForm2.BeginInvoke(new Action(() =>
+								{
+									calisanForm2.grafikleriGuncelle();
+									calisanForm2.bakiyeHesapla();
+								}));
+							}
+						});
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("SignalR Abone Olma İşlemlerinde Bir Hata Gerçekleşti " + ex);
+					}
+					
+					//MessageBox.Show("SignalR sunucusuna bağlanıldı!", "İşlem Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"SignalR sunucusuna bağlanılamadı: {ex.Message}"); // Hata varsa mesaj göster
+			}
+		}
+		public static bool BaglantiDurumu()
+		{
+			bool _isConnectionOpen = false;
+			switch (connection.State)
+			{
+				case ConnectionState.Connected:
+					_isConnectionOpen = true;
+					break;
+				case ConnectionState.Disconnected:
+					_isConnectionOpen = false;
+					ConnectToSignalR();
+					break;
+				case ConnectionState.Reconnecting:
+					ConnectToSignalR();
+					break;
+				case ConnectionState.Connecting:
+					ConnectToSignalR();
+					break;
+			}
+			return _isConnectionOpen;
+		}
+
 		public static void KontrolEt(Control control, KeyPressEventArgs e)
 		{
 			TextBoxBase textBox = control as TextBoxBase;

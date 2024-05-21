@@ -15,73 +15,17 @@ using System.Windows.Forms;
 using static Restoran_Otomasyon.UrunleriGoster;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Microsoft.AspNet.SignalR.Client;
-using ConnectionState = Microsoft.AspNet.SignalR.Client.ConnectionState;
 
 namespace Restoran_Otomasyon
 {
 	public partial class BosMasa : Form
 	{
-		bool _isConnectionOpen = false;
 		public BosMasa(int masaID, int kullaniciID)
 		{
 			InitializeComponent();
 			masaId = masaID;
 			kullaniciId = kullaniciID;
-
-
-			if (Form1.connection.State == ConnectionState.Connected)
-			{
-				MessageBox.Show("Bağlı");
-				_isConnectionOpen = true;
-			}
-			if (Form1.connection.State == ConnectionState.Disconnected)
-			{
-				MessageBox.Show("Bağlantı Kapalı");
-				_isConnectionOpen = false;
-			}
-			if (Form1.connection.State == ConnectionState.Connecting)
-			{
-				MessageBox.Show("Bağlanıyor");
-			}
 		}
-
-		private void SignalTetikle()
-		{
-			if (_isConnectionOpen == true)
-			{
-				TetikleSendOrderUpdate();
-			}
-			else
-			{
-				MessageBox.Show("SignalR Bağlantısı Açık Değil");
-			}
-			// Sunucudan mesaj alma
-			Form1.hubProxy.On("SendOrderUpdate", (string orderDetails) =>
-			{
-				MessageBox.Show("SignalR ile Tetiklendi: " + orderDetails);
-				// Sipariş listesini güncellemek için gerekli işlemler burada yapılacak
-				// OnaylananSiparisler();
-			});
-		}
-
-		private async void TetikleSendOrderUpdate()
-		{
-			try
-			{
-				if(_isConnectionOpen == true)
-				{
-					// SendOrderUpdate metodunu tetikle
-					await Form1.hubProxy.Invoke("SendOrderUpdate","Deneme");
-					MessageBox.Show("Tetikleme Başarılı");
-				}
-			}
-			catch (Exception ex)
-			{
-				// Hata yönetimi
-				MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
-			}
-		}
-
 
 		int masaId;
 		int kullaniciId;
@@ -172,7 +116,6 @@ namespace Restoran_Otomasyon
 					column.Visible = false;
 				}
 			}
-
 			// Formun constructor veya Load metodu içinde ContextMenuStrip'i oluştur
 			ContextMenuStrip siparisSilMenu = new ContextMenuStrip();
 			ToolStripMenuItem siparisSilMenuItem = new ToolStripMenuItem();
@@ -215,7 +158,6 @@ namespace Restoran_Otomasyon
 							}
 						}
 					}
-
 					// İlgili satırı sil
 					gridSiparisler.Rows.Remove(row);
 				}
@@ -478,16 +420,12 @@ namespace Restoran_Otomasyon
 				Durum.SiparisId = siparis.Id;
 				db.Durumlar.Add(Durum);
 				db.SaveChanges();
-				MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
-				if (calisanForm != null)
-				{
-					calisanForm.MasaButonlariniGuncelle();
-				}
+			
+				//SignalR Tetiklemeleri
+				Yardimcilar.SignalTetikleMasaDurum();
+				Yardimcilar.SignalTetikleSiparis();
 				this.Close();
-				// SignalR hub'ını tetikleme
-				SignalTetikle();
 				#endregion
-
 			}
 			else
 			{
