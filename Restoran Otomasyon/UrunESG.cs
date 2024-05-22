@@ -57,37 +57,6 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 
-		void MalzemeListe()
-		{
-			var malzemeler = db.Malzemeler
-								.Where(m => m.Gorunurluk == true)
-								.Select(m => m.Ad) // Sadece malzeme adını seç
-								.ToList();
-			checkedListMalzeme.DataSource = malzemeler;
-		}
-
-
-		public void kategoriler()
-		{
-
-			comboKategori.DataSource = null;
-			var kategoriler = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Ürün").Select(o => new
-			{
-				Id = o.Id,
-				Ad = o.Ad,
-			}).ToList();
-			comboKategori.DataSource = kategoriler;
-			comboKategori.DisplayMember = "Ad";
-			comboKategori.ValueMember = "Id";
-
-			// txtRolAra için ayrı bir veri kaynağı oluştur
-			var kategoriListesi = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Ürün").ToList();
-			KategoriAra.DisplayMember = "Ad";
-			KategoriAra.ValueMember = "Id";
-			KategoriAra.DataSource = kategoriListesi;
-
-		}
-
 		private void İndirimUygula()
 		{
 			if (txtyuzde.Text == 0.ToString())
@@ -120,6 +89,39 @@ namespace Restoran_Otomasyon.Paneller
 				MessageBox.Show("Kayıt Eklenirken İndirim Uygulanacaktır", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
+
+
+		public void kategoriler()
+		{
+
+			comboKategori.DataSource = null;
+			var kategoriler = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Ürün").Select(o => new
+			{
+				Id = o.Id,
+				Ad = o.Ad,
+			}).ToList();
+			comboKategori.DataSource = kategoriler;
+			comboKategori.DisplayMember = "Ad";
+			comboKategori.ValueMember = "Id";
+
+			// txtRolAra için ayrı bir veri kaynağı oluştur
+			var kategoriListesi = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Ürün").ToList();
+			KategoriAra.DisplayMember = "Ad";
+			KategoriAra.ValueMember = "Id";
+			KategoriAra.DataSource = kategoriListesi;
+
+		}
+
+		void MalzemeListe()
+		{
+			var malzemeler = db.Malzemeler
+								.Where(m => m.Gorunurluk == true)
+								.Select(m => m.Ad) // Sadece malzeme adını seç
+								.ToList();
+			checkedListMalzeme.ClearSelected();
+			checkedListMalzeme.DataSource = malzemeler;
+		}
+
 		#endregion
 
 		#region Eventler
@@ -179,7 +181,6 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void gridSecileMalzemeler_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
-
 			if (e.RowIndex >= 0 && e.ColumnIndex == gridSecilenMalzemeler.Columns["Arttir"].Index)
 			{
 				int currentMiktar = Convert.ToInt32(gridSecilenMalzemeler.Rows[e.RowIndex].Cells["Miktar"].Value);
@@ -630,6 +631,7 @@ namespace Restoran_Otomasyon.Paneller
 								// Veritabanında olan ve gridde olmayan malzemeleri kontrol edin
 								var vtMalzemeleri = db.urunMalzemeler.Where(um => um.UrunId == id && !gridMalzemeIDs.Contains(um.MalzemeId));
 
+								//Bu kısımın olmaması gerrekli gibiemin değilim
 								foreach (var vtMalzeme in vtMalzemeleri)
 								{
 									// Gridde bulunmayan malzemelerin görünürlüğünü kapat
@@ -644,8 +646,19 @@ namespace Restoran_Otomasyon.Paneller
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;
+							CheckGorunurluk.Checked = true;
 							MalzemeSecPaneli.Visible = false;
-							gridSecilenMalzemeler.DataSource = null;
+							hiddenMalzemeId.Text = "";
+							hiddenStokId.Text = "";
+							hiddenUrunId.Text = "";
+							checkedListMalzeme.ClearSelected();
+							gridSecilenMalzemeler.Rows.Clear();
+							// checkedListMalzeme'deki tüm seçimleri temizle
+							for (int i = 0; i < checkedListMalzeme.Items.Count; i++)
+							{
+								checkedListMalzeme.SetItemChecked(i, false);
+							}
+
 						}
 						else
 						{

@@ -110,7 +110,7 @@ namespace Restoran_Otomasyon.Paneller
 				Karsilama.Text = $"Merhaba,{kullaniciAdi}";
 			}
 			grafikleriGuncelle();
-			
+
 			if (Bakiyee.Text.Length > 6)
 			{
 				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 5);
@@ -141,22 +141,19 @@ namespace Restoran_Otomasyon.Paneller
 			Giris girisSayfasi = new Giris();
 			girisSayfasi.Show();
 			this.Close();
+			KomplemiCikiliyor = false;
 		}
 
 		private void programıKapatToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
+			KomplemiCikiliyor = true;
 		}
 
 		private void BilgilerimiGuncelle(object sender, EventArgs e)
 		{
 			BilgileriGuncelle git = new BilgileriGuncelle(KullaniciId);
 			git.Show();
-		}
-
-		private void Musteriİslemleri(object sender, EventArgs e)
-		{
-
 		}
 
 		private void MusteriList(object sender, EventArgs e)
@@ -197,6 +194,30 @@ namespace Restoran_Otomasyon.Paneller
 			Grafikler.MasaYogunluk(MasaYogunluk, db, filteAd);
 			Grafikler.GunlereGoreGrafik(GunlereGore, db, filteAd);
 			Grafikler.OdemeYuzdesi(OdemeYuzde, db, filteAd);
+		}
+		bool KomplemiCikiliyor = false;
+		private void Admin_Paneli_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (KomplemiCikiliyor == true)
+			{
+				DialogResult result = MessageBox.Show("Bu Panel Kapatıldığı Zaman Tüm Projeyle Beraber SignalR Sunucusuda Kapatılacaktır Emin Misiniz ? ", "Onay Bekleniyor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (result == DialogResult.Yes)
+				{
+					try
+					{
+						Yardimcilar.signalRProcess.Kill();
+						Yardimcilar.signalRProcess.WaitForExit(); // İşlemin tamamen kapanmasını bekle
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(ex.ToString());
+					}
+				}
+				else
+				{
+					e.Cancel = true;
+				}
+			}
 		}
 	}
 }

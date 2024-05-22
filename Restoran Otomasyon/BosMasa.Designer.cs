@@ -109,6 +109,7 @@
 			// 
 			// UrunPaneli
 			// 
+			this.UrunPaneli.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.UrunPaneli.Controls.Add(this.DetayPaneli);
 			this.UrunPaneli.Location = new System.Drawing.Point(12, 48);
 			this.UrunPaneli.Name = "UrunPaneli";

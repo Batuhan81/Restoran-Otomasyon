@@ -17,15 +17,9 @@ namespace Restoran_Otomasyon.Data
 
 		public int PersonelId { get; set; }
 
-		public int KasaId { get; set; }
-
-		public int MutfakId { get; set; }
-
-		public Kasa Kasa { get; set; }
+		public int KullaniciId { get; set; }
 
 		public Musteri Musteri { get; set; }
-
-		public Mutfak Mutfak { get; set; }
 
 		public Personel Personel { get; set; }
 	}

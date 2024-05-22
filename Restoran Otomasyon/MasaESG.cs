@@ -75,6 +75,10 @@ namespace Restoran_Otomasyon.Paneller
 			MasaOzellik.DisplayMember = "Ad";
 			MasaOzellik.ValueMember = "Id";
 			MasaOzellik.DataSource = Ozellik;
+
+			comboOzellikFiltre.DisplayMember = "Ad";
+			comboOzellikFiltre.ValueMember = "Id";
+			comboOzellikFiltre.DataSource = Ozellik;
 		}
 		#endregion
 		#region Butonlar

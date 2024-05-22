@@ -34,60 +34,91 @@ namespace Restoran_Otomasyon
 
 		public static void StokKontrol()
 		{
-			Context db = new Context();
-			var tumMalzemeler = db.Malzemeler.ToList();
-
-			foreach (var malzeme in tumMalzemeler)
+			using (Context db = new Context())
 			{
-				// Malzemenin stok bilgisini al
-				var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == malzeme.Id);
+				var tumMalzemeler = db.Malzemeler.ToList();
+				List<string> yetersizMalzemeler = new List<string>();
 
-				if (stok != null)
+				foreach (var malzeme in tumMalzemeler)
 				{
-					//Eğer malze miktarları koşullardan daha küçükse o malzemeyi kullanan her şeyin aktifliği kapatıp sipariş verilmesini engelliyorum
-					if ((malzeme.Tur == "Adet" && stok.Miktar <= 5) ||
-						(malzeme.Tur == "Kg" && stok.Miktar <= 500) ||
-						(malzeme.Tur == "L" && stok.Miktar <= 500))
+					// Malzemenin stok bilgisini al
+					var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == malzeme.Id);
+
+					if (stok != null)
 					{
-						// Malzemeyi kullanan tüm ürünleri bul
-						var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
+						bool yetersizStok =
+							(malzeme.Tur == "Adet" && stok.Miktar <= 5) ||
+							(malzeme.Tur == "Kg" && stok.Miktar <= 500) ||
+							(malzeme.Tur == "L" && stok.Miktar <= 500);
 
-						foreach (var urun in urunler)
+						if (yetersizStok)
 						{
-							// Ürünün aktifliğini kapat
-							urun.Urun.Akitf = false;
+							// Malzemeyi kullanan tüm ürünleri bul
+							var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
 
-							// Ürünü kullanan menülerin aktifliğini kapat
-							var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
-							foreach (var menu in kullananMenuler)
+							bool herhangiBirUrunKapatildi = false;
+
+							foreach (var urun in urunler)
 							{
-								menu.Akitf = false;
+								// Ürünün aktifliğini kapat, eğer zaten kapalı değilse
+								if (urun.Urun.Akitf)
+								{
+									urun.Urun.Akitf = false;
+									herhangiBirUrunKapatildi = true;
+								}
+
+								// Ürünü kullanan menülerin aktifliğini kapat, eğer zaten kapalı değilse
+								var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
+								foreach (var menu in kullananMenuler)
+								{
+									if (menu.Akitf)
+									{
+										menu.Akitf = false;
+									}
+								}
+							}
+
+							// Eğer herhangi bir ürün kapatıldıysa yetersiz malzemeler listesine ekle
+							if (herhangiBirUrunKapatildi)
+							{
+								yetersizMalzemeler.Add(malzeme.Ad);
 							}
 						}
-					}
-					else if (stok.Miktar >= stok.MinStok)
-					{
-						// Malzemeyi kullanan tüm ürünleri bul
-						var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
-
-						foreach (var urun in urunler)
+						else if (stok.Miktar >= stok.MinStok)
 						{
-							// Ürünün aktifliğini aç
-							urun.Urun.Akitf = true;
+							// Malzemeyi kullanan tüm ürünleri bul
+							var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
 
-							// Ürünü kullanan menülerin aktifliğini aç
-							var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
-							foreach (var menu in kullananMenuler)
+							foreach (var urun in urunler)
 							{
-								menu.Akitf = true;
+								// Ürünün aktifliğini aç
+								urun.Urun.Akitf = true;
+
+								// Ürünü kullanan menülerin aktifliğini aç
+								var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
+								foreach (var menu in kullananMenuler)
+								{
+									menu.Akitf = true;
+								}
 							}
 						}
 					}
 				}
+
+				// Yetersiz malzemeler varsa mesaj göster
+				if (yetersizMalzemeler.Any())
+				{
+					string yetersizMalzemelerMesaj = string.Join(", ", yetersizMalzemeler.Distinct());
+					MessageBox.Show($"Stoklar Yetersiz Olduğundan Bazı Ürün ve Menülerin Aktifliği Kapatılmıştır. (Yetersiz Malzemeler => {yetersizMalzemelerMesaj})");
+				}
+
+				// Değişiklikleri kaydet
+				db.SaveChanges();
 			}
-			// Değişiklikleri kaydet
-			db.SaveChanges();
 		}
+
+
+
 
 		private UrunGosterici urunGosterici;
 		private void BosMasa_Load(object sender, EventArgs e)
@@ -127,6 +158,8 @@ namespace Restoran_Otomasyon
 
 			// DataGridView'e ContextMenuStrip'i ata
 			gridSiparisler.ContextMenuStrip = siparisSilMenu;
+			ComboUrun.Text = "";
+			ComboMenu.Text = "";
 		}
 
 		private void SiparisSilMenuItem_Click(object sender, EventArgs e)

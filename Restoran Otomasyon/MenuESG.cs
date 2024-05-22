@@ -94,7 +94,6 @@ namespace Restoran_Otomasyon.Paneller
 			comboKategori.DataSource = kategoriler;
 			comboKategori.DisplayMember = "Ad";
 			comboKategori.ValueMember = "Id";
-			comboKategori.DataSource = null;
 			var kategoriler2 = db.Kategoriler.Where(o => o.Gorunurluk == true && o.Tur == "Menü").Select(o => new
 			{
 				Id = o.Id,
@@ -173,7 +172,7 @@ namespace Restoran_Otomasyon.Paneller
 									menu1.Gorunurluk = CheckGorunurluk.Checked;
 									db.Menuler.Add(menu1);
 									timer1.Start();
-									MessageBox.Show("Yeni Ürün Kayıt Edildi");
+									MessageBox.Show("Yeni Menü Kayıt Edildi");
 									db.SaveChanges();
 									id = db.Menuler.Max(o => o.Id);
 									// Her bir seçilen malzeme için işlem yap
@@ -242,6 +241,7 @@ namespace Restoran_Otomasyon.Paneller
 								x.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 								x.KategoriId = (int)comboKategori.SelectedValue;
 								timer1.Start();
+								db.SaveChanges();
 								MessageBox.Show("Ürün Güncellendi");
 								// Gridde olmayan malzeme ID'leri için HashSet oluşturun
 								HashSet<int> gridUrunIdsi = new HashSet<int>();
@@ -301,7 +301,16 @@ namespace Restoran_Otomasyon.Paneller
 							pictureBox1.Visible = false;
 							Checkİndirim.Checked = false;
 							PanelKategori.Visible = false;
+							hiddenMenuId.Text = "";
 							MalzemeSecPaneli.Visible = false;
+							gridSecilenUrunler.DataSource = null;
+							checkedListMalzeme.ClearSelected();
+							gridSecilenUrunler.Rows.Clear();
+							// checkedListMalzeme'deki tüm seçimleri temizle
+							for (int i = 0; i < checkedListMalzeme.Items.Count; i++)
+							{
+								checkedListMalzeme.SetItemChecked(i, false);
+							}
 						}
 						else
 						{

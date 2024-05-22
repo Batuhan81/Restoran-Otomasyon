@@ -222,6 +222,7 @@ namespace Restoran_Otomasyon
 								_gridSiparisler.Rows.Add(newRow);
 								// Toplam tutarı hesapla ve txttutar.Text'e yaz
 								HesaplaToplamTutar(_gridSiparisler, _txttutar);
+								textBoxMiktar.Text = 0.ToString();
 							}
 							else
 							{
@@ -461,6 +462,7 @@ namespace Restoran_Otomasyon
 								_gridSiparisler.Rows.Add(newRow);
 								// Toplam tutarı hesapla ve txttutar.Text'e yaz
 								HesaplaToplamTutar(_gridSiparisler, _txttutar);
+								textBoxMiktar.Text = 0.ToString();
 							}
 							else
 							{
@@ -516,7 +518,7 @@ namespace Restoran_Otomasyon
 							}
 						}
 					}
-					txttutar.Text = (toplamTutar+tutar).ToString("C2");
+					txttutar.Text = (toplamTutar).ToString("C2");
 				}
 				else
 				{

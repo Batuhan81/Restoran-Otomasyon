@@ -22,16 +22,16 @@ namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
-		//private static Process signalRProcess;
+		public static Process signalRProcess;
 
 		public static void SignalRSunucuBaslat()
 		{
 			try
 			{
-				Process signalRProcess = new Process();
+				signalRProcess = new Process();
 				signalRProcess.StartInfo.FileName = @"C:\Users\Batuhan\Desktop\Signal Sunucu\Signal Sunucu\bin\Debug\Signal Sunucu.exe";
 				signalRProcess.StartInfo.CreateNoWindow = true;
-				signalRProcess.StartInfo.UseShellExecute = false;  // Yönetici olarak çalıştırmak için true olmalı
+				signalRProcess.StartInfo.UseShellExecute = true;  // Yönetici olarak çalıştırmak için true olmalı
 				signalRProcess.StartInfo.Verb = "runas";  // Yönetici olarak çalıştırmak için
 				signalRProcess.Start();
 			}
