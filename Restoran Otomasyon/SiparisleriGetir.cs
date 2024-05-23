@@ -187,7 +187,7 @@ namespace Restoran_Otomasyon
 				}
 				else
 				{
-					textBoxMiktar.Text = "0";
+					textBoxMiktar.Text = "Detay Bulunumadı";
 				}
 				return textBoxMiktar;
 			}

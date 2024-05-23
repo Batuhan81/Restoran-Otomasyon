@@ -91,11 +91,17 @@ namespace Restoran_Otomasyon.Paneller
 
 		public void grafikleriGuncelle()
 		{
-
 			ComboFiltre.SelectedIndex = 0;
 			Grafikler.DolulukGrafik(DolulukOranlari, db);
 			BakiyeHesapla();
-			Invalidate();
+			string filteAd = ComboFiltre.Text;
+			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db, filteAd);
+			Grafikler.EnCokSiparisUrun(EnCokSiparisUrun, db, filteAd);
+			Grafikler.MasaYogunluk(MasaYogunluk, db, filteAd);
+			Grafikler.GunlereGoreGrafik(GunlereGore, db, filteAd);
+			Grafikler.OdemeYuzdesi(OdemeYuzde, db, filteAd);
+			this.Refresh();
+			//Invalidate();
 		}
 
 		private void bilgilerimiGüncelleToolStripMenuItem_Click(object sender, EventArgs e)

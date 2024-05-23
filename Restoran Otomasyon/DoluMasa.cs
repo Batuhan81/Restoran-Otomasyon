@@ -301,7 +301,7 @@ namespace Restoran_Otomasyon
 
 			// Fişin genişliği ve uzunluğunu belirle
 			float receiptWidth = 80; // mm cinsinden genişlik
-			float receiptHeight = 80; // mm cinsinden uzunluk
+			//float receiptHeight = 80; // mm cinsinden uzunluk
 
 			float fontHeight = font.GetHeight();
 			int startX = 10;

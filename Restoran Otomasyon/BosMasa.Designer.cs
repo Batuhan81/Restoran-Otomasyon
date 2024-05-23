@@ -366,6 +366,7 @@
 			// 
 			// BosMasa
 			// 
+			this.AcceptButton = this.button2;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;

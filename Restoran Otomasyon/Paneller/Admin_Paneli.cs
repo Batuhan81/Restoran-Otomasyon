@@ -17,10 +17,12 @@ namespace Restoran_Otomasyon.Paneller
 			InitializeComponent();
 			KullaniciId = KullaniciID;
 		}
+
 		int KullaniciId;
 		string kullaniciAdi;
 		string bakiye;
 		Context db = new Context();
+
 		private void CalisanCRUD_Click(object sender, EventArgs e)
 		{
 			CalisanESG git = new CalisanESG(KullaniciId);
@@ -125,29 +127,35 @@ namespace Restoran_Otomasyon.Paneller
 			bakiye = kasabakiye.Bakiye.ToString();
 			Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
 			this.Refresh();
+
 		}
 
 		public void grafikleriGuncelle()
 		{
 			bakiyeHesapla();
-
 			ComboFiltre.SelectedIndex = 0;
-
+			string filteAd = ComboFiltre.Text;
+			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db, filteAd);
+			Grafikler.EnCokSiparisUrun(EnCokSiparisUrun, db, filteAd);
+			Grafikler.MasaYogunluk(MasaYogunluk, db, filteAd);
+			Grafikler.GunlereGoreGrafik(GunlereGore, db, filteAd);
+			Grafikler.OdemeYuzdesi(OdemeYuzde, db, filteAd);
 			Grafikler.DolulukGrafik(DolulukOranlari, db);
+			this.Refresh();
 		}
 
 		private void GirisSayfasi(object sender, EventArgs e)
 		{
 			Giris girisSayfasi = new Giris();
 			girisSayfasi.Show();
-			this.Close();
 			KomplemiCikiliyor = false;
+			this.Close();
 		}
 
 		private void programıKapatToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Application.Exit();
 			KomplemiCikiliyor = true;
+			Application.Exit();
 		}
 
 		private void BilgilerimiGuncelle(object sender, EventArgs e)
@@ -195,7 +203,7 @@ namespace Restoran_Otomasyon.Paneller
 			Grafikler.GunlereGoreGrafik(GunlereGore, db, filteAd);
 			Grafikler.OdemeYuzdesi(OdemeYuzde, db, filteAd);
 		}
-		bool KomplemiCikiliyor = false;
+		bool KomplemiCikiliyor = true;
 		private void Admin_Paneli_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			if (KomplemiCikiliyor == true)
@@ -206,7 +214,6 @@ namespace Restoran_Otomasyon.Paneller
 					try
 					{
 						Yardimcilar.signalRProcess.Kill();
-						Yardimcilar.signalRProcess.WaitForExit(); // İşlemin tamamen kapanmasını bekle
 					}
 					catch (Exception ex)
 					{

@@ -81,10 +81,13 @@ namespace Restoran_Otomasyon.Paneller
 						if (Yardimcilar.MailKontrol(txtmail.Text))
 						{
 							var x = db.Kullanicilar.Find(kullaniciId);
-							//x.Ad = txtAd.Text;
+							string Ad= txtAd.Text;
 							x.Mail = txtmail.Text;
 							x.Sifre = txtyeniSifre.Text;
 							db.SaveChanges();
+							MessageBox.Show("Bilgileriniz Güncellendi.");
+							Yardimcilar.Temizle(groupBox1 );
+							txtAd.Text = Ad;
 						}
 						else
 						{

@@ -44,7 +44,7 @@ namespace Restoran_Otomasyon.Paneller
 		private OzellikESG OzellikEsgForm;
 		private MasaBilgiGuncelle masabilgisiGuncelle;
 		MasaOzellik ozellik = new MasaOzellik();
-		int masaId;
+		//int masaId;
 		Context db = new Context();
 		bool BaglantiDurum;
 		#endregion

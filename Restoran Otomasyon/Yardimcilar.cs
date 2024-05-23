@@ -57,29 +57,49 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
+				ConnectToSignalR();
 				MessageBox.Show("SignalR Bağlantısı Açık Değil");
 			}
 		}
 
-		public async static void SignalTetikleSiparis()
+		public async static Task SignalTetikleSiparis()
 		{
-			bool baglantiBasarili = BaglantiDurumu();
-			if (baglantiBasarili == true)
-			{
-				try
-				{
-					await Yardimcilar.hubProxy.Invoke("SiparisAlindi");
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
-				}
-			}
-			else
-			{
-				MessageBox.Show("SignalR Bağlantısı Açık Değil");
-			}
+			int maxRetryCount = 3; // Hata alırsan 3 kez bağlanmayı dene
+			int retryCount = 0;
+			int delayBetweenRetries = 2000; // her deneme için 2 sn bekle
 
+			while (retryCount < maxRetryCount)
+			{
+				if (BaglantiDurumu())
+				{
+					try
+					{
+						await Yardimcilar.hubProxy.Invoke("SiparisAlindi");
+						return; // bağlantı başarılı döngüden çık
+					}
+					catch/* (Exception ex)*/
+					{
+						//if (retryCount == 0)
+						//{
+						//	MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
+						//}
+					}
+				}
+				else
+				{
+					ConnectToSignalR();
+					if (retryCount == 0)
+					{
+						MessageBox.Show("SignalR Bağlantısı Açık Değil, tekrar deneniyor...");
+					}
+				}
+
+				// Tekrar denemeden önce biraz bekle
+				await Task.Delay(delayBetweenRetries);
+				retryCount++;
+			}
+			// En son denemede başarısız olunursa hata mesajını göster
+			MessageBox.Show("SignalR bağlantısı kurulamadı, lütfen daha sonra tekrar deneyin.");
 		}
 
 		public async static void SignalTetikleOdemeAlindi()
@@ -105,6 +125,7 @@ namespace Restoran_Otomasyon
 		public static IHubProxy hubProxy;
 		public static HubConnection connection;
 		public static string url = "http://192.168.1.152:8080/signalr/hubs"; // SignalR sunucusunun adresi
+
 		public static async void ConnectToSignalR()
 		{
 			connection = new HubConnection(url);
@@ -131,9 +152,6 @@ namespace Restoran_Otomasyon
 
 						hubProxy.On("SiparisAlindi", () =>
 						{
-							Console.WriteLine("SiparisAlindi olayı alındı.");
-
-							// UI iş parçacığında çalıştır
 							KasaPaneli calisanForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
 							if (calisanForm != null)
 							{
@@ -188,7 +206,7 @@ namespace Restoran_Otomasyon
 					{
 						MessageBox.Show("SignalR Abone Olma İşlemlerinde Bir Hata Gerçekleşti " + ex);
 					}
-					
+
 					//MessageBox.Show("SignalR sunucusuna bağlanıldı!", "İşlem Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
@@ -197,26 +215,52 @@ namespace Restoran_Otomasyon
 				MessageBox.Show($"SignalR sunucusuna bağlanılamadı: {ex.Message}"); // Hata varsa mesaj göster
 			}
 		}
+
 		public static bool BaglantiDurumu()
 		{
 			bool _isConnectionOpen = false;
-			switch (connection.State)
+			int denemeSayisi = 0;
+
+			while (true)
 			{
-				case ConnectionState.Connected:
-					_isConnectionOpen = true;
+				switch (connection.State)
+				{
+					case ConnectionState.Connected:
+						_isConnectionOpen = true;
+					return _isConnectionOpen;
+
+					case ConnectionState.Disconnected:
+						if (denemeSayisi < 3)
+						{
+							_isConnectionOpen = false;
+							SignalRSunucuBaslat();
+							ConnectToSignalR();
+
+							// Bağlantı durumu kontrolü için biraz bekleyelim
+							Task.Delay(2000).Wait();
+
+							// Bağlantı durumu kontrol edildikten sonra eğer bağlanabildiysek döngüden çıkalım
+							if (connection.State == ConnectionState.Connected)
+							{
+								_isConnectionOpen = true;
+								return _isConnectionOpen;
+							}
+							denemeSayisi++;
+						}
+						else
+						{
+							MessageBox.Show("3 kez denenmesine rağmen bağlantı sağlanamadı. Lütfen SignalR sunucunuzu kontrol ediniz!", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							return _isConnectionOpen;
+						}
 					break;
-				case ConnectionState.Disconnected:
-					_isConnectionOpen = false;
-					ConnectToSignalR();
+
+					case ConnectionState.Reconnecting:
+					case ConnectionState.Connecting:
+						// Bu durumlarda sadece bekleyelim
+						Task.Delay(2000).Wait();
 					break;
-				case ConnectionState.Reconnecting:
-					ConnectToSignalR();
-					break;
-				case ConnectionState.Connecting:
-					ConnectToSignalR();
-					break;
+				}
 			}
-			return _isConnectionOpen;
 		}
 
 		public static void KontrolEt(Control control, KeyPressEventArgs e)
@@ -248,6 +292,7 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
+
 		public static void Kopyalama(Control control, object sender, KeyEventArgs e)
 		{
 			TextBoxBase textBox = control as TextBoxBase;
@@ -478,12 +523,14 @@ namespace Restoran_Otomasyon
 			txtPersonel.Text = adSoyad;
 			txtKategori.Text = db.Kategoriler.FirstOrDefault(o => o.Id == x.KategoriId).Ad;
 		}
+
 		public static void GridRenklendir(DataGridView grid)
 		{
 			grid.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
 			grid.RowsDefaultCellStyle.BackColor = Color.White;
 			grid.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
 		}
+
 		public static bool GecerliTarihMi(string tarih)
 		{
 			DateTime sonuc;
@@ -528,6 +575,7 @@ namespace Restoran_Otomasyon
 				}
 			}
 		}
+
 		public static void OpenForm(Form form, Panel panel)
 		{
 			// Panel içinde mevcut herhangi bir formu kaldır
@@ -560,7 +608,6 @@ namespace Restoran_Otomasyon
 			return degerDecimal.ToString("N2") + "₺";
 		}
 
-		//Bunda hayla bir sorun var son eklenen ürünün türüne göre fotmatlıyor hepsini olması gereken şey her satırdaki MalzemeTur Sütununu okuyup o satırdaki tüm formatla işlemlerini burada okuduğu türe göre işlemlerini gerçekleştirmeli bu sayede grid içerisinde birden fazla Ture göre formatlama sağlanmalı
 		public static void gridFormatStokMiktari(DataGridView dataGridView, string hedefSutunAdi)
 		{
 			// Olay dinleyicisini tanımlayalım
@@ -606,7 +653,6 @@ namespace Restoran_Otomasyon
 					}
 				}
 			};
-
 			// Olay dinleyicisini ekleyelim
 			dataGridView.CellFormatting += gridFormatStokMiktariHandler;
 		}
@@ -636,7 +682,6 @@ namespace Restoran_Otomasyon
 			}
 			return formatliDeger;
 		}
-
 
 		public static decimal TemizleVeDondur(TextBox textBox, string birim)
 		{
@@ -692,7 +737,7 @@ namespace Restoran_Otomasyon
 				// Belirtilen sütun adında ise
 				if (dataGridView.Columns[e.ColumnIndex].Name == columnName)
 				{
-					if (e.Value != "Yok")
+					if (e.Value.ToString() != "Yok")
 					{
 						if (columnName == "Yüzde")
 						{
@@ -755,7 +800,6 @@ namespace Restoran_Otomasyon
 					graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 					graphics.DrawImage(image, 0, 0, width, height);
 				}
-
 				return boyutlandirilmisResim;
 			}
 

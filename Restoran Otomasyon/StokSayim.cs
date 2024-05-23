@@ -24,7 +24,7 @@ namespace Restoran_Otomasyon.Paneller
 		decimal kontrolEdilenStok;
 		int malzemeId;
 		int stokId;
-		bool durum = false;
+		//bool durum = false;
 		decimal fark;
 		StokGirdi girdi = new StokGirdi();
 		StokCikti cikti = new StokCikti();

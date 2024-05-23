@@ -72,14 +72,14 @@
 			// sifreT
 			// 
 			this.sifreT.AutoSize = true;
-			this.sifreT.Location = new System.Drawing.Point(95, 228);
+			this.sifreT.Location = new System.Drawing.Point(113, 228);
 			this.sifreT.Name = "sifreT";
 			this.sifreT.Size = new System.Drawing.Size(0, 18);
 			this.sifreT.TabIndex = 1;
 			// 
 			// txtmevcutsifre
 			// 
-			this.txtmevcutsifre.Location = new System.Drawing.Point(122, 110);
+			this.txtmevcutsifre.Location = new System.Drawing.Point(119, 128);
 			this.txtmevcutsifre.Name = "txtmevcutsifre";
 			this.txtmevcutsifre.PasswordChar = '*';
 			this.txtmevcutsifre.Size = new System.Drawing.Size(139, 24);
@@ -89,11 +89,11 @@
 			// 
 			this.label5.AutoSize = true;
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label5.Location = new System.Drawing.Point(11, 112);
+			this.label5.Location = new System.Drawing.Point(6, 128);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(102, 18);
+			this.label5.Size = new System.Drawing.Size(107, 18);
 			this.label5.TabIndex = 8;
-			this.label5.Text = "Mevcut Şifre";
+			this.label5.Text = "Mevcut Şifre:";
 			// 
 			// button1
 			// 
@@ -117,7 +117,7 @@
 			// 
 			// txttekrar
 			// 
-			this.txttekrar.Location = new System.Drawing.Point(122, 184);
+			this.txttekrar.Location = new System.Drawing.Point(119, 218);
 			this.txttekrar.Name = "txttekrar";
 			this.txttekrar.PasswordChar = '*';
 			this.txttekrar.Size = new System.Drawing.Size(139, 24);
@@ -127,7 +127,7 @@
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label4.Location = new System.Drawing.Point(17, 186);
+			this.label4.Location = new System.Drawing.Point(17, 218);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(96, 18);
 			this.label4.TabIndex = 6;
@@ -135,7 +135,7 @@
 			// 
 			// txtyeniSifre
 			// 
-			this.txtyeniSifre.Location = new System.Drawing.Point(122, 147);
+			this.txtyeniSifre.Location = new System.Drawing.Point(119, 173);
 			this.txtyeniSifre.Name = "txtyeniSifre";
 			this.txtyeniSifre.PasswordChar = '*';
 			this.txtyeniSifre.Size = new System.Drawing.Size(139, 24);
@@ -146,7 +146,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label3.Location = new System.Drawing.Point(65, 149);
+			this.label3.Location = new System.Drawing.Point(65, 173);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(48, 18);
 			this.label3.TabIndex = 4;
@@ -154,7 +154,7 @@
 			// 
 			// txtmail
 			// 
-			this.txtmail.Location = new System.Drawing.Point(122, 73);
+			this.txtmail.Location = new System.Drawing.Point(119, 83);
 			this.txtmail.Name = "txtmail";
 			this.txtmail.Size = new System.Drawing.Size(139, 24);
 			this.txtmail.TabIndex = 3;
@@ -163,7 +163,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label2.Location = new System.Drawing.Point(39, 75);
+			this.label2.Location = new System.Drawing.Point(39, 83);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(74, 18);
 			this.label2.TabIndex = 2;
@@ -171,7 +171,7 @@
 			// 
 			// txtAd
 			// 
-			this.txtAd.Location = new System.Drawing.Point(122, 36);
+			this.txtAd.Location = new System.Drawing.Point(119, 38);
 			this.txtAd.Name = "txtAd";
 			this.txtAd.Size = new System.Drawing.Size(139, 24);
 			this.txtAd.TabIndex = 1;
@@ -190,6 +190,7 @@
 			// 
 			// BilgileriGuncelle
 			// 
+			this.AcceptButton = this.button1;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;

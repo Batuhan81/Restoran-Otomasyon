@@ -30,21 +30,14 @@ namespace Restoran_Otomasyon
 				string adminEposta = db.Kullanicilar.Find(1).Mail;
 				if (adminEposta == email)
 				{
-					if (eslesenKayit != 0)
-					{
-						SifreGonder(email);
-						timer1.Start();
-						MessageBox.Show("Yeni Şifreniz Mail Yolu İle İletilmiştir Lütfen Kontrol Edininiz...");
-						this.Close();
-					}
-					else
-					{
-						MessageBox.Show("Girdiğiniz Mail Bulunamadı", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-					}
+					SifreGonder(email);
+					timer1.Start();
+					MessageBox.Show("Yeni Şifreniz Mail Yolu İle İletilmiştir Lütfen Kontrol Edininiz...","Bilgilendirme",MessageBoxButtons.OK,MessageBoxIcon.Information);
+					this.Close();
 				}
 				else
 				{
-					MessageBox.Show("Şifre Sıfırlama Mailleri Yalnızca Yöneticilere Gönderilebilir Lütfen Yöneticinizle İletişime Geçiniz!","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+					MessageBox.Show("Şifre Sıfırlama Mailleri Yalnızca Yöneticilere Gönderilebilir Lütfen Yöneticinizle İletişime Geçiniz!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}
 			else
@@ -65,10 +58,10 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
-				
+
 				// Yeni random şifre oluştur
-				 eslesenKayit= db.Kullanicilar.Count(k=>k.Ad ==secilen);
-				if(eslesenKayit > 0)
+				eslesenKayit = db.Kullanicilar.Count(k => k.Ad == secilen);
+				if (eslesenKayit > 0)
 				{
 					string yeniSifre = RandomSifreOlustur(8);//8 haneli random bir şifre oluştur
 
@@ -112,7 +105,7 @@ namespace Restoran_Otomasyon
 		}
 
 		// E-posta gönderme işlevi
-		public static void EpostaGonder(string alici, string yeniSifre,string talep)
+		public static void EpostaGonder(string alici, string yeniSifre, string talep)
 		{
 			string gonderenEposta = "OrtakProje2@outlook.com";
 			string gonderenSifre = "Bthn185Prj";
