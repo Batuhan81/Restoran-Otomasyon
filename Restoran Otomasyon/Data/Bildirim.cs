@@ -13,11 +13,13 @@ namespace Restoran_Otomasyon.Data
 
 		public bool Okundu { get; set; }
 
-		public int MusteriId { get; set; }
+		public int? MusteriId { get; set; }
 
-		public int PersonelId { get; set; }
+		public int? PersonelId { get; set; }
 
-		public int KullaniciId { get; set; }
+		public int? KullaniciId { get; set; }
+
+		public DateTime Tarih { get; set; }
 
 		public Musteri Musteri { get; set; }
 

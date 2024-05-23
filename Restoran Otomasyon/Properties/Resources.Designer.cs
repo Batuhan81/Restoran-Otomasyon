@@ -73,6 +73,26 @@ namespace Restoran_Otomasyon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bildirimCani {
+            get {
+                object obj = ResourceManager.GetObject("bildirimCani", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bildirimsizCan {
+            get {
+                object obj = ResourceManager.GetObject("bildirimsizCan", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Ekle2 {
             get {
                 object obj = ResourceManager.GetObject("Ekle2", resourceCulture);
@@ -86,6 +106,16 @@ namespace Restoran_Otomasyon.Properties {
         internal static System.Drawing.Bitmap KapatmaTuu {
             get {
                 object obj = ResourceManager.GetObject("KapatmaTuu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Kasa {
+            get {
+                object obj = ResourceManager.GetObject("Kasa", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

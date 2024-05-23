@@ -55,6 +55,7 @@ namespace Restoran_Otomasyon
 								// Kullanıcı adını ve şifreyi dizi elemanlarından alın
 								k.Ad = kullaniciAdlari[i];
 								k.Sifre = sifreler[i];
+								k.Gorunurluk = true;
 
 								// Kullanıcıyı veritabanına ekleyin
 								db.Kullanicilar.Add(k);

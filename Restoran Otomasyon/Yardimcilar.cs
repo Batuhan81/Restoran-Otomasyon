@@ -122,6 +122,26 @@ namespace Restoran_Otomasyon
 			}
 		}
 
+		public async static void SignalTetikleBildirimAlindi()
+		{
+			bool baglantiBasarili = BaglantiDurumu();
+			if (baglantiBasarili == true)
+			{
+				try
+				{
+					await Yardimcilar.hubProxy.Invoke("BildirimAlindi");
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
+				}
+			}
+			else
+			{
+				MessageBox.Show("SignalR Bağlantısı Açık Değil");
+			}
+		}
+
 		public static IHubProxy hubProxy;
 		public static HubConnection connection;
 		public static string url = "http://192.168.1.152:8080/signalr/hubs"; // SignalR sunucusunun adresi
@@ -201,6 +221,28 @@ namespace Restoran_Otomasyon
 								}));
 							}
 						});
+						hubProxy.On("BildirimAlindi", () =>
+						{
+							Console.WriteLine("BildirimAlindi olayı alındı.");
+							KasaPaneli calisanForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
+							if (calisanForm != null)
+							{
+								calisanForm.BeginInvoke(new Action(() =>
+								{
+									calisanForm.grafikleriGuncelle();
+									calisanForm.BakiyeHesapla();
+								}));
+							}
+							Admin_Paneli calisanForm2 = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
+							if (calisanForm2 != null)
+							{
+								calisanForm2.BeginInvoke(new Action(() =>
+								{
+									calisanForm2.grafikleriGuncelle();
+									calisanForm2.bakiyeHesapla();
+								}));
+							}
+						});
 					}
 					catch (Exception ex)
 					{
@@ -227,7 +269,7 @@ namespace Restoran_Otomasyon
 				{
 					case ConnectionState.Connected:
 						_isConnectionOpen = true;
-					return _isConnectionOpen;
+						return _isConnectionOpen;
 
 					case ConnectionState.Disconnected:
 						if (denemeSayisi < 3)
@@ -252,13 +294,13 @@ namespace Restoran_Otomasyon
 							MessageBox.Show("3 kez denenmesine rağmen bağlantı sağlanamadı. Lütfen SignalR sunucunuzu kontrol ediniz!", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
 							return _isConnectionOpen;
 						}
-					break;
+						break;
 
 					case ConnectionState.Reconnecting:
 					case ConnectionState.Connecting:
 						// Bu durumlarda sadece bekleyelim
 						Task.Delay(2000).Wait();
-					break;
+						break;
 				}
 			}
 		}

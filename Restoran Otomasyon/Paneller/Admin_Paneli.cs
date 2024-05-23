@@ -67,14 +67,12 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void stokGirdiToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			StokGirdiESG git = new StokGirdiESG();
-			git.Show();
+			
 		}
 
 		private void StokSayim(object sender, EventArgs e)
 		{
-			StokSayim git = new StokSayim();
-			git.Show();
+			
 		}
 
 		private void malzemeEkleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -117,6 +115,22 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 5);
 			}
+			BildimleriGetir();
+		}
+		int bildirimSayisi = 0;
+
+		void BildimleriGetir()
+		{
+			var bildirim=db.Bildirimler.Where(o=>o.Okundu==false && o.KullaniciId==KullaniciId);
+			bildirimSayisi = bildirim.Count()+1;
+			if(bildirimSayisi > 0)
+			{
+				Bildirimler.Image = Restoran_Otomasyon.Properties.Resources.bildirimCani;
+			}
+			else
+			{
+				Bildirimler.Image = Restoran_Otomasyon.Properties.Resources.bildirimsizCan;
+			}
 		}
 
 		public void bakiyeHesapla()
@@ -127,7 +141,6 @@ namespace Restoran_Otomasyon.Paneller
 			bakiye = kasabakiye.Bakiye.ToString();
 			Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
 			this.Refresh();
-
 		}
 
 		public void grafikleriGuncelle()
@@ -215,9 +228,10 @@ namespace Restoran_Otomasyon.Paneller
 					{
 						Yardimcilar.signalRProcess.Kill();
 					}
-					catch (Exception ex)
+					catch /*(Exception ex)*/
 					{
-						MessageBox.Show(ex.ToString());
+						//MessageBox.Show(ex.ToString());
+						;
 					}
 				}
 				else
@@ -225,6 +239,29 @@ namespace Restoran_Otomasyon.Paneller
 					e.Cancel = true;
 				}
 			}
+		}
+
+		private void Bildirimler_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void stokGirdiToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			StokGirdiESG git = new StokGirdiESG();
+			git.Show();
+		}
+
+		private void StokCiktiToolStrip(object sender, EventArgs e)
+		{
+			StokCiktiSayfasi git = new StokCiktiSayfasi();
+			git.Show();
+		}
+
+		private void StokSayimToolStrip_Click(object sender, EventArgs e)
+		{
+			StokSayim git = new StokSayim();
+			git.Show();
 		}
 	}
 }

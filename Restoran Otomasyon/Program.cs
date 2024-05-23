@@ -18,7 +18,7 @@ namespace Restoran_Otomasyon
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
+			Application.Run(new Admin_Paneli(1));
 		}
 	}
 }

@@ -36,6 +36,8 @@ namespace Restoran_Otomasyon
 		{
 			using (Context db = new Context())
 			{
+				Bildirim bildiri = new Bildirim();
+
 				var tumMalzemeler = db.Malzemeler.ToList();
 				List<string> yetersizMalzemeler = new List<string>();
 
@@ -63,6 +65,14 @@ namespace Restoran_Otomasyon
 								// Ürünün aktifliğini kapat, eğer zaten kapalı değilse
 								if (urun.Urun.Akitf)
 								{
+									bildiri.KullaniciId = 1;
+									bildiri.Aciklama = $"{urun.Malzeme.Ad} Adlı malzememnin Stoğu Tükenmiştir Bu nedenle malzeyi kullannan ürün ve menülerin aktifliği otomatik kapatılmıştır.";
+									bildiri.MusteriId = null;
+									bildiri.PersonelId = null;
+									bildiri.Baslik = "Stok Tükendi";
+									bildiri.Okundu = false;
+
+									Yardimcilar.SignalTetikleBildirimAlindi();
 									urun.Urun.Akitf = false;
 									herhangiBirUrunKapatildi = true;
 								}
