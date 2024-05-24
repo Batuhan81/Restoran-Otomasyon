@@ -25,6 +25,10 @@ namespace Restoran_Otomasyon.Data
 		{
 			Siparisler();
 		}
+		public void Bildirimler()
+		{
+			Yardimcilar.CalBildirimSesi();
+		}
 
 		public  void Siparisler()
 		{

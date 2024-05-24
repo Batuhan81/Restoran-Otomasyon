@@ -251,9 +251,16 @@ namespace Restoran_Otomasyon.Paneller
 
 			// Masa bilgi güncelleme formunu açın
 			var masa = db.Masalar.Find(masaId);
-			masa.Durum = 1;
-			db.SaveChanges();
-			MasaButonlariniGuncelle();
+			if (masa.Durum == 3)
+			{
+				masa.Durum = 1;
+				db.SaveChanges();
+				MasaButonlariniGuncelle();
+			}
+			else
+			{
+				MessageBox.Show("Yalnızca Durumu Kirli Olan Masalar Temizlenebilir.","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Error);
+			}
 		}
 
 		// "Randevular" öğesine tıklama olayı

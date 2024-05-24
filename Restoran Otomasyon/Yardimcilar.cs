@@ -23,6 +23,15 @@ namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
+		// Windows API'yi içe aktar
+		[DllImport("user32.dll")]
+		public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+		[DllImport("user32.dll")]
+		public static extern int SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+		// WM_CLOSE mesajının sabit değeri
+		private const int WM_CLOSE = 0x0010;
 
 		public static Process signalRProcess;
 
@@ -260,6 +269,14 @@ namespace Restoran_Otomasyon
 									calisanForm2.Bildirimler();
 								}));
 							}
+							MutfakPaneli calisanForm3 = Application.OpenForms.OfType<MutfakPaneli>().FirstOrDefault();
+							if (calisanForm3 != null)
+							{
+								calisanForm3.BeginInvoke(new Action(() =>
+								{
+									calisanForm3.Bildirimler();
+								}));
+							}
 						});
 					}
 					catch (Exception ex)
@@ -283,7 +300,7 @@ namespace Restoran_Otomasyon
 
 			while (true)
 			{
-				if(connection != null)
+				if (connection != null)
 				{
 					switch (connection.State)
 					{
@@ -292,44 +309,54 @@ namespace Restoran_Otomasyon
 							return _isConnectionOpen;
 
 						case ConnectionState.Disconnected:
-							if (denemeSayisi < 3)
+							// Uyarı mesajı göstermeden önce bir iş parçacığı oluşturarak sistem kitlenmesini önleyelim
+							Task.Factory.StartNew(() => ShowMessage("SignalR Bağlantısında Bir Sorun Oluştu. Yeniden Bağlantı Sağlanana Kadar Bekleniyor...", MessageBoxIcon.Question));
+
+							// Bağlantı kopması durumunda hemen tekrar bağlanmayı deneyelim
+							_isConnectionOpen = false;
+							SignalRSunucuBaslat();
+							ConnectToSignalR();
+
+							// Bağlantı durumu kontrolü için biraz bekleyelim
+							Task.Delay(2000).Wait();
+
+							// Bağlantı durumu kontrol edildikten sonra eğer bağlanabildiysek döngüden çıkalım
+							if (connection.State == ConnectionState.Connected)
 							{
-								_isConnectionOpen = false;
-								SignalRSunucuBaslat();
-								ConnectToSignalR();
-
-								// Bağlantı durumu kontrolü için biraz bekleyelim
-								Task.Delay(2000).Wait();
-
-								// Bağlantı durumu kontrol edildikten sonra eğer bağlanabildiysek döngüden çıkalım
-								if (connection.State == ConnectionState.Connected)
-								{
-									_isConnectionOpen = true;
-									return _isConnectionOpen;
-								}
-								denemeSayisi++;
+								_isConnectionOpen = true;
+								return _isConnectionOpen;
 							}
-							else
+							denemeSayisi++;
+
+							// 3 denemeden fazla ise hata mesajı göster ve çık
+							if (denemeSayisi >= 3)
 							{
-								MessageBox.Show("3 kez denenmesine rağmen bağlantı sağlanamadı. Lütfen SignalR sunucunuzu kontrol ediniz!", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								ShowMessage("3 kez denenmesine rağmen bağlantı sağlanamadı. Lütfen SignalR sunucunuzu kontrol ediniz!", MessageBoxIcon.Error);
 								return _isConnectionOpen;
 							}
 							break;
 
 						case ConnectionState.Reconnecting:
 						case ConnectionState.Connecting:
-							// Bu durumlarda sadece bekleyelim
-							Task.Delay(2000).Wait();
+							Task.Delay(1000).Wait();
 							break;
 					}
 				}
 				else
 				{
+					ShowMessage("SignalR Bağlantısında Bir Sorun Oluştu. Yeniden Bağlantı Sağlanana Kadar Bekleniyor...", MessageBoxIcon.Question);
 					SignalRSunucuBaslat();
 					ConnectToSignalR();
+					denemeSayisi = 1; // Bağlantı yeniden başlatıldığında deneme sayısını sıfırla
 				}
 			}
 		}
+
+		private static void ShowMessage(string message, MessageBoxIcon icon)
+		{
+			MessageBox.Show(message, "Bilgilendirme", MessageBoxButtons.OK, icon);
+		}
+
 
 		public static void KontrolEt(Control control, KeyPressEventArgs e)
 		{
@@ -536,8 +563,8 @@ namespace Restoran_Otomasyon
 					{
 						case 1: txtsiparisDurum.Text = "Sipariş Alındı"; break;
 						case 2: txtsiparisDurum.Text = "Sipariş Onaylandı"; break;
-						case 3: txtsiparisDurum.Text = " Hazırlanıyor"; break;
-						case 4: txtsiparisDurum.Text = " Hazırlandı"; break;
+						case 3: txtsiparisDurum.Text = "Hazırlanıyor"; break;
+						case 4: txtsiparisDurum.Text = "Hazırlandı"; break;
 						case 5: txtsiparisDurum.Text = "Ödeme Bekliyor"; break;
 						case 6: txtsiparisDurum.Text = "Ödendi"; break;
 						case 7: txtsiparisDurum.Text = "İptal Edildi"; break;

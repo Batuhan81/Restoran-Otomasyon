@@ -529,7 +529,15 @@ namespace Restoran_Otomasyon
 					db.Durumlar.Add(Durum);
 					db.SaveChanges();
 
+					bildirim.Okundu = false;
+					bildirim.KullaniciId = 3;
+					bildirim.Aciklama = $"{masa.Kod} nolu masadan Gelen Sipariş";
+					bildirim.Baslik = "Yeni Sipariş Alındı";
+					bildirim.Tarih = DateTime.Now;
+					db.Bildirimler.Add(bildirim);
+					db.SaveChanges();
 					//SignalR Tetiklemeleri
+					Yardimcilar.SignalTetikleBildirimAlindi();
 					Yardimcilar.SignalTetikleMasaDurum();
 					await Yardimcilar.SignalTetikleSiparis();
 					this.Close();
