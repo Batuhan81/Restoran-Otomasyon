@@ -82,10 +82,12 @@ namespace Restoran_Otomasyon
 							{
 								yetersizMalzemeler.Add(malzeme.Ad);
 							}
-						}
-						else if (stok.Miktar == 0)
-						{
-							BildirimOlustur(db, $"{malzeme.Ad} Adlı Malzemeden Elimizde Kalmadı.", "Stok Tükendi");
+
+							// Gün içerisinde zaten bildirim gönderildi mi kontrol et
+							if (!BildirimGonderildiMi(db, malzeme.Ad, "Stok Tükendi"))
+							{
+								BildirimOlustur(db, $"{malzeme.Ad} Adlı Malzemeden Elimizde Kalmadı.", "Stok Tükendi");
+							}
 						}
 					}
 				}
@@ -161,7 +163,6 @@ namespace Restoran_Otomasyon
 			}
 		}
 
-
 		private static void BildirimOlustur(Context db, string aciklama, string baslik)
 		{
 			Bildirim bildiri = new Bildirim
@@ -178,6 +179,13 @@ namespace Restoran_Otomasyon
 			db.SaveChanges();
 			Yardimcilar.SignalTetikleBildirimAlindi();
 		}
+
+		private static bool BildirimGonderildiMi(Context db, string malzemeAd, string baslik)
+		{
+			var bugun = DateTime.Today;
+			return db.Bildirimler.Any(b => b.Baslik == baslik && b.Aciklama.Contains(malzemeAd) && b.Tarih >= bugun);
+		}
+
 
 		private UrunGosterici urunGosterici;
 		private void BosMasa_Load(object sender, EventArgs e)
@@ -413,27 +421,34 @@ namespace Restoran_Otomasyon
 									// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
 									if (stok.Miktar < stok.MinStok)
 									{
-										bildirim.Tarih = DateTime.Now;
-										bildirim.Aciklama = $"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.";
-										bildirim.Baslik = $"Min Stok Uyarısı";
-										bildirim.KullaniciId = 1;
-										bildirim.Okundu = false;
+										if (!BildirimGonderildiMi(db, malzemeAd, "Min Stok Uyarısı"))
+										{
+											bildirim.Tarih = DateTime.Now;
+											bildirim.Aciklama = $"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.";
+											bildirim.Baslik = $"Min Stok Uyarısı";
+											bildirim.KullaniciId = 1;
+											bildirim.Okundu = false;
 
-										db.Bildirimler.Add(bildirim);
-										db.SaveChanges();
-										Yardimcilar.SignalTetikleBildirimAlindi();
+											db.Bildirimler.Add(bildirim);
+											db.SaveChanges();
+											Yardimcilar.SignalTetikleBildirimAlindi();
+										}
+
 									}
 									else if (stok.Miktar == 0)
 									{
-										bildirim.Tarih = DateTime.Now;
-										bildirim.Aciklama = $"{malzemeAd} adlı malzemenin stoğu Tükendi.";
-										bildirim.Baslik = $"Stok Kalmadı";
-										bildirim.KullaniciId = 1;
-										bildirim.Okundu = false;
+										if (!BildirimGonderildiMi(db, malzemeAd, "Stok Kalmadı"))
+										{
+											bildirim.Tarih = DateTime.Now;
+											bildirim.Aciklama = $"{malzemeAd} adlı malzemenin stoğu Tükendi.";
+											bildirim.Baslik = $"Stok Kalmadı";
+											bildirim.KullaniciId = 1;
+											bildirim.Okundu = false;
 
-										db.Bildirimler.Add(bildirim);
-										db.SaveChanges();
-										Yardimcilar.SignalTetikleBildirimAlindi();
+											db.Bildirimler.Add(bildirim);
+											db.SaveChanges();
+											Yardimcilar.SignalTetikleBildirimAlindi();
+										}
 									}
 									// Stok çıkışı kaydını oluştur
 									var stokCikti = new StokCikti
@@ -537,7 +552,6 @@ namespace Restoran_Otomasyon
 					db.Bildirimler.Add(bildirim);
 					db.SaveChanges();
 					//SignalR Tetiklemeleri
-					Yardimcilar.SignalTetikleBildirimAlindi();
 					Yardimcilar.SignalTetikleMasaDurum();
 					await Yardimcilar.SignalTetikleSiparis();
 					this.Close();

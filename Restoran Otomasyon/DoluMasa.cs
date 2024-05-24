@@ -286,7 +286,7 @@ namespace Restoran_Otomasyon
 				bildirim.KullaniciId = 2;//Kasa
 				db.Bildirimler.Add(bildirim);
 				db.SaveChanges() ;
-				Yardimcilar.SignalTetikleBildirimAlindi();
+				Yardimcilar.SignalTetikleOdemeBildirim();
 			}
 			else if (siparisdurum.Ad == 5)
 			{

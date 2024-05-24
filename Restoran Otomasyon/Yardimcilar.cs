@@ -170,6 +170,25 @@ namespace Restoran_Otomasyon
 				MessageBox.Show("SignalR Bağlantısı Açık Değil");
 			}
 		}
+		public async static void SignalTetikleOdemeBildirim()
+		{
+			bool baglantiBasarili = BaglantiDurumu();
+			if (baglantiBasarili == true)
+			{
+				try
+				{
+					await Yardimcilar.hubProxy.Invoke("OdemeBildirim");
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("SignalR hub ile iletişim kurulurken bir hata oluştu: " + ex.Message);
+				}
+			}
+			else
+			{
+				MessageBox.Show("SignalR Bağlantısı Açık Değil");
+			}
+		}
 
 		public static IHubProxy hubProxy;
 		public static HubConnection connection;
@@ -223,6 +242,7 @@ namespace Restoran_Otomasyon
 								calisanForm3.BeginInvoke(new Action(() =>
 								{
 									calisanForm3.Siparisler();
+									calisanForm3.Bildirimler();
 								}));
 							}
 						});
@@ -250,6 +270,19 @@ namespace Restoran_Otomasyon
 								}));
 							}
 						});
+						hubProxy.On("OdemeBildirim", () =>
+						{
+							Console.WriteLine("OdemeBildirim olayı alındı.");
+
+							KasaPaneli calisanForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
+							if (calisanForm != null)
+							{
+								calisanForm.BeginInvoke(new Action(() =>
+								{
+									calisanForm.Bildirimler();
+								}));
+							}
+						});
 						hubProxy.On("BildirimAlindi", () =>
 						{
 							Console.WriteLine("BildirimAlindi olayı alındı.");
@@ -269,14 +302,7 @@ namespace Restoran_Otomasyon
 									calisanForm2.Bildirimler();
 								}));
 							}
-							MutfakPaneli calisanForm3 = Application.OpenForms.OfType<MutfakPaneli>().FirstOrDefault();
-							if (calisanForm3 != null)
-							{
-								calisanForm3.BeginInvoke(new Action(() =>
-								{
-									calisanForm3.Bildirimler();
-								}));
-							}
+							
 						});
 					}
 					catch (Exception ex)
