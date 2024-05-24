@@ -28,24 +28,26 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend19 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend20 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend21 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea22 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend22 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea23 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend23 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea24 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend24 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			this.components = new System.ComponentModel.Container();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin_Paneli));
 			this.MasaYogunluk = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.çalışanİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CalisanCRUD = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +60,10 @@
 			this.malzemeEkleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.UrunCRUD = new System.Windows.Forms.ToolStripMenuItem();
 			this.menüOluşturToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.stokİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.StokGirdiToolStrip = new System.Windows.Forms.ToolStripMenuItem();
+			this.StokSayimToolStrip = new System.Windows.Forms.ToolStripMenuItem();
+			this.stokÇıktıToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.masaİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.masaOluşturToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.masaÖzellikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,10 +75,14 @@
 			this.kayıtsızMüşteriListesiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.bosluklar = new System.Windows.Forms.ToolStripMenuItem();
+			this.BildirimlerToolStrip = new System.Windows.Forms.ToolStripMenuItem();
 			this.Karsilama = new System.Windows.Forms.ToolStripMenuItem();
 			this.bilgilerimiGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.kasaBilgileriGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mutfakBilgileriGüncelleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.Bakiyee = new System.Windows.Forms.ToolStripMenuItem();
+			this.girişSayfasıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.programıKapatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.OdemeYuzde = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.GunlereGore = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.EnCokSiparisUrun = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -80,14 +90,15 @@
 			this.DolulukOranlari = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.ComboFiltre = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.stokİşlemleriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.StokGirdiToolStrip = new System.Windows.Forms.ToolStripMenuItem();
-			this.StokSayimToolStrip = new System.Windows.Forms.ToolStripMenuItem();
-			this.stokÇıktıToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.Bildirimler = new System.Windows.Forms.ToolStripMenuItem();
-			this.Bakiyee = new System.Windows.Forms.ToolStripMenuItem();
-			this.girişSayfasıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.programıKapatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.BildirimPanel = new System.Windows.Forms.Panel();
+			this.BildirimKapat = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.lblTarih = new System.Windows.Forms.Label();
+			this.txtaciklama = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtbaslik = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.MasaYogunluk)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.OdemeYuzde)).BeginInit();
@@ -95,6 +106,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisUrun)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisMenu)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DolulukOranlari)).BeginInit();
+			this.BildirimPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MasaYogunluk
@@ -105,18 +117,18 @@
 			this.MasaYogunluk.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.MasaYogunluk.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.MasaYogunluk.BorderlineWidth = 5;
-			chartArea19.Name = "ChartArea1";
-			this.MasaYogunluk.ChartAreas.Add(chartArea19);
+			chartArea1.Name = "ChartArea1";
+			this.MasaYogunluk.ChartAreas.Add(chartArea1);
 			this.MasaYogunluk.ImeMode = System.Windows.Forms.ImeMode.HangulFull;
-			legend19.Name = "Legend1";
-			this.MasaYogunluk.Legends.Add(legend19);
+			legend1.Name = "Legend1";
+			this.MasaYogunluk.Legends.Add(legend1);
 			this.MasaYogunluk.Location = new System.Drawing.Point(66, 62);
 			this.MasaYogunluk.Name = "MasaYogunluk";
 			this.MasaYogunluk.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			series19.ChartArea = "ChartArea1";
-			series19.Legend = "Legend1";
-			series19.Name = "Series1";
-			this.MasaYogunluk.Series.Add(series19);
+			series1.ChartArea = "ChartArea1";
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.MasaYogunluk.Series.Add(series1);
 			this.MasaYogunluk.Size = new System.Drawing.Size(383, 333);
 			this.MasaYogunluk.SuppressExceptions = true;
 			this.MasaYogunluk.TabIndex = 1;
@@ -207,6 +219,37 @@
 			this.menüOluşturToolStripMenuItem.Text = "Menü Oluştur";
 			this.menüOluşturToolStripMenuItem.Click += new System.EventHandler(this.MenuESG);
 			// 
+			// stokİşlemleriToolStripMenuItem
+			// 
+			this.stokİşlemleriToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StokGirdiToolStrip,
+            this.StokSayimToolStrip,
+            this.stokÇıktıToolStripMenuItem1});
+			this.stokİşlemleriToolStripMenuItem.Name = "stokİşlemleriToolStripMenuItem";
+			this.stokİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(201, 28);
+			this.stokİşlemleriToolStripMenuItem.Text = "Stok İşlemleri";
+			// 
+			// StokGirdiToolStrip
+			// 
+			this.StokGirdiToolStrip.Name = "StokGirdiToolStrip";
+			this.StokGirdiToolStrip.Size = new System.Drawing.Size(180, 28);
+			this.StokGirdiToolStrip.Text = "Stok Girdi";
+			this.StokGirdiToolStrip.Click += new System.EventHandler(this.stokGirdiToolStripMenuItem1_Click);
+			// 
+			// StokSayimToolStrip
+			// 
+			this.StokSayimToolStrip.Name = "StokSayimToolStrip";
+			this.StokSayimToolStrip.Size = new System.Drawing.Size(180, 28);
+			this.StokSayimToolStrip.Text = "Stok Sayım";
+			this.StokSayimToolStrip.Click += new System.EventHandler(this.StokSayimToolStrip_Click);
+			// 
+			// stokÇıktıToolStripMenuItem1
+			// 
+			this.stokÇıktıToolStripMenuItem1.Name = "stokÇıktıToolStripMenuItem1";
+			this.stokÇıktıToolStripMenuItem1.Size = new System.Drawing.Size(180, 28);
+			this.stokÇıktıToolStripMenuItem1.Text = "Stok Çıktı";
+			this.stokÇıktıToolStripMenuItem1.Click += new System.EventHandler(this.StokCiktiToolStrip);
+			// 
 			// masaİşlemleriToolStripMenuItem
 			// 
 			this.masaİşlemleriToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -260,7 +303,7 @@
             this.kasaToolStripMenuItem,
             this.toolStripMenuItem2,
             this.bosluklar,
-            this.Bildirimler,
+            this.BildirimlerToolStrip,
             this.Karsilama,
             this.Bakiyee,
             this.girişSayfasıToolStripMenuItem,
@@ -306,6 +349,13 @@
 			this.bosluklar.Size = new System.Drawing.Size(159, 27);
 			this.bosluklar.Text = "                           ";
 			// 
+			// BildirimlerToolStrip
+			// 
+			this.BildirimlerToolStrip.Image = global::Restoran_Otomasyon.Properties.Resources.bildirimsizCan;
+			this.BildirimlerToolStrip.Name = "BildirimlerToolStrip";
+			this.BildirimlerToolStrip.Size = new System.Drawing.Size(34, 27);
+			this.BildirimlerToolStrip.Click += new System.EventHandler(this.Bildirimler_Click);
+			// 
 			// Karsilama
 			// 
 			this.Karsilama.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -337,22 +387,45 @@
 			this.mutfakBilgileriGüncelleToolStripMenuItem.Text = "Mutfak Bilgileri Güncelle";
 			this.mutfakBilgileriGüncelleToolStripMenuItem.Click += new System.EventHandler(this.MutfakBilgiGuncelle);
 			// 
+			// Bakiyee
+			// 
+			this.Bakiyee.Image = global::Restoran_Otomasyon.Properties.Resources.Kasa;
+			this.Bakiyee.Name = "Bakiyee";
+			this.Bakiyee.Size = new System.Drawing.Size(143, 27);
+			this.Bakiyee.Text = "Bakiyeniz=>";
+			// 
+			// girişSayfasıToolStripMenuItem
+			// 
+			this.girişSayfasıToolStripMenuItem.Image = global::Restoran_Otomasyon.Properties.Resources.Ana_Ekran;
+			this.girişSayfasıToolStripMenuItem.Name = "girişSayfasıToolStripMenuItem";
+			this.girişSayfasıToolStripMenuItem.Size = new System.Drawing.Size(140, 27);
+			this.girişSayfasıToolStripMenuItem.Text = "Giriş Sayfası";
+			this.girişSayfasıToolStripMenuItem.Click += new System.EventHandler(this.GirisSayfasi);
+			// 
+			// programıKapatToolStripMenuItem
+			// 
+			this.programıKapatToolStripMenuItem.Image = global::Restoran_Otomasyon.Properties.Resources.KapatmaTuu;
+			this.programıKapatToolStripMenuItem.Name = "programıKapatToolStripMenuItem";
+			this.programıKapatToolStripMenuItem.Size = new System.Drawing.Size(167, 27);
+			this.programıKapatToolStripMenuItem.Text = "Programı Kapat";
+			this.programıKapatToolStripMenuItem.Click += new System.EventHandler(this.programıKapatToolStripMenuItem_Click);
+			// 
 			// OdemeYuzde
 			// 
 			this.OdemeYuzde.BackColor = System.Drawing.Color.SkyBlue;
 			this.OdemeYuzde.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.OdemeYuzde.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.OdemeYuzde.BorderlineWidth = 5;
-			chartArea20.Name = "ChartArea1";
-			this.OdemeYuzde.ChartAreas.Add(chartArea20);
-			legend20.Name = "Legend1";
-			this.OdemeYuzde.Legends.Add(legend20);
+			chartArea2.Name = "ChartArea1";
+			this.OdemeYuzde.ChartAreas.Add(chartArea2);
+			legend2.Name = "Legend1";
+			this.OdemeYuzde.Legends.Add(legend2);
 			this.OdemeYuzde.Location = new System.Drawing.Point(566, 62);
 			this.OdemeYuzde.Name = "OdemeYuzde";
-			series20.ChartArea = "ChartArea1";
-			series20.Legend = "Legend1";
-			series20.Name = "Series1";
-			this.OdemeYuzde.Series.Add(series20);
+			series2.ChartArea = "ChartArea1";
+			series2.Legend = "Legend1";
+			series2.Name = "Series1";
+			this.OdemeYuzde.Series.Add(series2);
 			this.OdemeYuzde.Size = new System.Drawing.Size(383, 333);
 			this.OdemeYuzde.TabIndex = 2;
 			this.OdemeYuzde.Text = "chart2";
@@ -363,16 +436,16 @@
 			this.GunlereGore.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.GunlereGore.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.GunlereGore.BorderlineWidth = 5;
-			chartArea21.Name = "ChartArea1";
-			this.GunlereGore.ChartAreas.Add(chartArea21);
-			legend21.Name = "Legend1";
-			this.GunlereGore.Legends.Add(legend21);
+			chartArea3.Name = "ChartArea1";
+			this.GunlereGore.ChartAreas.Add(chartArea3);
+			legend3.Name = "Legend1";
+			this.GunlereGore.Legends.Add(legend3);
 			this.GunlereGore.Location = new System.Drawing.Point(1066, 62);
 			this.GunlereGore.Name = "GunlereGore";
-			series21.ChartArea = "ChartArea1";
-			series21.Legend = "Legend1";
-			series21.Name = "Series1";
-			this.GunlereGore.Series.Add(series21);
+			series3.ChartArea = "ChartArea1";
+			series3.Legend = "Legend1";
+			series3.Name = "Series1";
+			this.GunlereGore.Series.Add(series3);
 			this.GunlereGore.Size = new System.Drawing.Size(383, 333);
 			this.GunlereGore.TabIndex = 3;
 			this.GunlereGore.Text = "chart2";
@@ -383,16 +456,16 @@
 			this.EnCokSiparisUrun.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.EnCokSiparisUrun.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.EnCokSiparisUrun.BorderlineWidth = 5;
-			chartArea22.Name = "ChartArea1";
-			this.EnCokSiparisUrun.ChartAreas.Add(chartArea22);
-			legend22.Name = "Legend1";
-			this.EnCokSiparisUrun.Legends.Add(legend22);
+			chartArea4.Name = "ChartArea1";
+			this.EnCokSiparisUrun.ChartAreas.Add(chartArea4);
+			legend4.Name = "Legend1";
+			this.EnCokSiparisUrun.Legends.Add(legend4);
 			this.EnCokSiparisUrun.Location = new System.Drawing.Point(66, 426);
 			this.EnCokSiparisUrun.Name = "EnCokSiparisUrun";
-			series22.ChartArea = "ChartArea1";
-			series22.Legend = "Legend1";
-			series22.Name = "Series1";
-			this.EnCokSiparisUrun.Series.Add(series22);
+			series4.ChartArea = "ChartArea1";
+			series4.Legend = "Legend1";
+			series4.Name = "Series1";
+			this.EnCokSiparisUrun.Series.Add(series4);
 			this.EnCokSiparisUrun.Size = new System.Drawing.Size(383, 333);
 			this.EnCokSiparisUrun.TabIndex = 4;
 			this.EnCokSiparisUrun.Text = "chart2";
@@ -403,16 +476,16 @@
 			this.EnCokSiparisMenu.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.EnCokSiparisMenu.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.EnCokSiparisMenu.BorderlineWidth = 5;
-			chartArea23.Name = "ChartArea1";
-			this.EnCokSiparisMenu.ChartAreas.Add(chartArea23);
-			legend23.Name = "Legend1";
-			this.EnCokSiparisMenu.Legends.Add(legend23);
+			chartArea5.Name = "ChartArea1";
+			this.EnCokSiparisMenu.ChartAreas.Add(chartArea5);
+			legend5.Name = "Legend1";
+			this.EnCokSiparisMenu.Legends.Add(legend5);
 			this.EnCokSiparisMenu.Location = new System.Drawing.Point(566, 426);
 			this.EnCokSiparisMenu.Name = "EnCokSiparisMenu";
-			series23.ChartArea = "ChartArea1";
-			series23.Legend = "Legend1";
-			series23.Name = "Series1";
-			this.EnCokSiparisMenu.Series.Add(series23);
+			series5.ChartArea = "ChartArea1";
+			series5.Legend = "Legend1";
+			series5.Name = "Series1";
+			this.EnCokSiparisMenu.Series.Add(series5);
 			this.EnCokSiparisMenu.Size = new System.Drawing.Size(383, 333);
 			this.EnCokSiparisMenu.TabIndex = 5;
 			this.EnCokSiparisMenu.Text = "chart2";
@@ -423,17 +496,17 @@
 			this.DolulukOranlari.BorderlineColor = System.Drawing.Color.LightSteelBlue;
 			this.DolulukOranlari.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
 			this.DolulukOranlari.BorderlineWidth = 5;
-			chartArea24.Name = "ChartArea1";
-			this.DolulukOranlari.ChartAreas.Add(chartArea24);
-			legend24.Name = "Legend1";
-			this.DolulukOranlari.Legends.Add(legend24);
+			chartArea6.Name = "ChartArea1";
+			this.DolulukOranlari.ChartAreas.Add(chartArea6);
+			legend6.Name = "Legend1";
+			this.DolulukOranlari.Legends.Add(legend6);
 			this.DolulukOranlari.Location = new System.Drawing.Point(1066, 426);
 			this.DolulukOranlari.Name = "DolulukOranlari";
 			this.DolulukOranlari.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			series24.ChartArea = "ChartArea1";
-			series24.Legend = "Legend1";
-			series24.Name = "Series1";
-			this.DolulukOranlari.Series.Add(series24);
+			series6.ChartArea = "ChartArea1";
+			series6.Legend = "Legend1";
+			series6.Name = "Series1";
+			this.DolulukOranlari.Series.Add(series6);
 			this.DolulukOranlari.Size = new System.Drawing.Size(383, 333);
 			this.DolulukOranlari.SuppressExceptions = true;
 			this.DolulukOranlari.TabIndex = 6;
@@ -463,66 +536,96 @@
 			this.label1.TabIndex = 8;
 			this.label1.Text = "Filtrele:";
 			// 
-			// stokİşlemleriToolStripMenuItem
+			// BildirimPanel
 			// 
-			this.stokİşlemleriToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StokGirdiToolStrip,
-            this.StokSayimToolStrip,
-            this.stokÇıktıToolStripMenuItem1});
-			this.stokİşlemleriToolStripMenuItem.Name = "stokİşlemleriToolStripMenuItem";
-			this.stokİşlemleriToolStripMenuItem.Size = new System.Drawing.Size(201, 28);
-			this.stokİşlemleriToolStripMenuItem.Text = "Stok İşlemleri";
+			this.BildirimPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.BildirimPanel.Controls.Add(this.BildirimKapat);
+			this.BildirimPanel.Controls.Add(this.lblTarih);
+			this.BildirimPanel.Controls.Add(this.txtaciklama);
+			this.BildirimPanel.Controls.Add(this.label4);
+			this.BildirimPanel.Controls.Add(this.label3);
+			this.BildirimPanel.Controls.Add(this.txtbaslik);
+			this.BildirimPanel.Controls.Add(this.label2);
+			this.BildirimPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.BildirimPanel.Location = new System.Drawing.Point(490, 122);
+			this.BildirimPanel.Name = "BildirimPanel";
+			this.BildirimPanel.Size = new System.Drawing.Size(486, 298);
+			this.BildirimPanel.TabIndex = 9;
+			this.BildirimPanel.Visible = false;
 			// 
-			// StokGirdiToolStrip
+			// BildirimKapat
 			// 
-			this.StokGirdiToolStrip.Name = "StokGirdiToolStrip";
-			this.StokGirdiToolStrip.Size = new System.Drawing.Size(180, 28);
-			this.StokGirdiToolStrip.Text = "Stok Girdi";
-			this.StokGirdiToolStrip.Click += new System.EventHandler(this.stokGirdiToolStripMenuItem1_Click);
+			this.BildirimKapat.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.BildirimKapat.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.BildirimKapat.ImageKey = "iptal.png";
+			this.BildirimKapat.ImageList = this.ımageList1;
+			this.BildirimKapat.Location = new System.Drawing.Point(430, -2);
+			this.BildirimKapat.Name = "BildirimKapat";
+			this.BildirimKapat.Size = new System.Drawing.Size(54, 36);
+			this.BildirimKapat.TabIndex = 10;
+			this.BildirimKapat.UseVisualStyleBackColor = false;
+			this.BildirimKapat.Click += new System.EventHandler(this.BildirimKapat_Click);
 			// 
-			// StokSayimToolStrip
+			// ımageList1
 			// 
-			this.StokSayimToolStrip.Name = "StokSayimToolStrip";
-			this.StokSayimToolStrip.Size = new System.Drawing.Size(180, 28);
-			this.StokSayimToolStrip.Text = "Stok Sayım";
-			this.StokSayimToolStrip.Click += new System.EventHandler(this.StokSayimToolStrip_Click);
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "iptal.png");
 			// 
-			// stokÇıktıToolStripMenuItem1
+			// lblTarih
 			// 
-			this.stokÇıktıToolStripMenuItem1.Name = "stokÇıktıToolStripMenuItem1";
-			this.stokÇıktıToolStripMenuItem1.Size = new System.Drawing.Size(180, 28);
-			this.stokÇıktıToolStripMenuItem1.Text = "Stok Çıktı";
-			this.stokÇıktıToolStripMenuItem1.Click += new System.EventHandler(this.StokCiktiToolStrip);
+			this.lblTarih.AutoSize = true;
+			this.lblTarih.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.lblTarih.Location = new System.Drawing.Point(281, 18);
+			this.lblTarih.Name = "lblTarih";
+			this.lblTarih.Size = new System.Drawing.Size(0, 20);
+			this.lblTarih.TabIndex = 5;
 			// 
-			// Bildirimler
+			// txtaciklama
 			// 
-			this.Bildirimler.Image = global::Restoran_Otomasyon.Properties.Resources.bildirimsizCan;
-			this.Bildirimler.Name = "Bildirimler";
-			this.Bildirimler.Size = new System.Drawing.Size(34, 27);
-			this.Bildirimler.Click += new System.EventHandler(this.Bildirimler_Click);
+			this.txtaciklama.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.txtaciklama.Location = new System.Drawing.Point(7, 74);
+			this.txtaciklama.Multiline = true;
+			this.txtaciklama.Name = "txtaciklama";
+			this.txtaciklama.Size = new System.Drawing.Size(465, 212);
+			this.txtaciklama.TabIndex = 4;
 			// 
-			// Bakiyee
+			// label4
 			// 
-			this.Bakiyee.Image = global::Restoran_Otomasyon.Properties.Resources.Kasa;
-			this.Bakiyee.Name = "Bakiyee";
-			this.Bakiyee.Size = new System.Drawing.Size(143, 27);
-			this.Bakiyee.Text = "Bakiyeniz=>";
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label4.Location = new System.Drawing.Point(234, 17);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(63, 22);
+			this.label4.TabIndex = 3;
+			this.label4.Text = "Tarih:";
 			// 
-			// girişSayfasıToolStripMenuItem
+			// label3
 			// 
-			this.girişSayfasıToolStripMenuItem.Image = global::Restoran_Otomasyon.Properties.Resources.Ana_Ekran;
-			this.girişSayfasıToolStripMenuItem.Name = "girişSayfasıToolStripMenuItem";
-			this.girişSayfasıToolStripMenuItem.Size = new System.Drawing.Size(140, 27);
-			this.girişSayfasıToolStripMenuItem.Text = "Giriş Sayfası";
-			this.girişSayfasıToolStripMenuItem.Click += new System.EventHandler(this.GirisSayfasi);
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label3.Location = new System.Drawing.Point(180, 49);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(96, 22);
+			this.label3.TabIndex = 2;
+			this.label3.Text = "Açıklama:";
 			// 
-			// programıKapatToolStripMenuItem
+			// txtbaslik
 			// 
-			this.programıKapatToolStripMenuItem.Image = global::Restoran_Otomasyon.Properties.Resources.KapatmaTuu;
-			this.programıKapatToolStripMenuItem.Name = "programıKapatToolStripMenuItem";
-			this.programıKapatToolStripMenuItem.Size = new System.Drawing.Size(167, 27);
-			this.programıKapatToolStripMenuItem.Text = "Programı Kapat";
-			this.programıKapatToolStripMenuItem.Click += new System.EventHandler(this.programıKapatToolStripMenuItem_Click);
+			this.txtbaslik.Location = new System.Drawing.Point(74, 14);
+			this.txtbaslik.Name = "txtbaslik";
+			this.txtbaslik.Size = new System.Drawing.Size(154, 28);
+			this.txtbaslik.TabIndex = 1;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label2.Location = new System.Drawing.Point(3, 17);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(70, 22);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "Başlık:";
 			// 
 			// Admin_Paneli
 			// 
@@ -531,6 +634,7 @@
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.ClientSize = new System.Drawing.Size(1924, 925);
+			this.Controls.Add(this.BildirimPanel);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.ComboFiltre);
 			this.Controls.Add(this.DolulukOranlari);
@@ -557,6 +661,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisUrun)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.EnCokSiparisMenu)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DolulukOranlari)).EndInit();
+			this.BildirimPanel.ResumeLayout(false);
+			this.BildirimPanel.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -593,7 +699,7 @@
 		private System.Windows.Forms.DataVisualization.Charting.Chart DolulukOranlari;
 		private System.Windows.Forms.ToolStripMenuItem bilgilerimiGüncelleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem müşteriİşlemlerşToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem Bildirimler;
+		private System.Windows.Forms.ToolStripMenuItem BildirimlerToolStrip;
 		private System.Windows.Forms.ToolStripMenuItem müşteriListesiToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem kayıtsızMüşteriListesiToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem kasaBilgileriGüncelleToolStripMenuItem;
@@ -605,5 +711,14 @@
 		private System.Windows.Forms.ToolStripMenuItem StokGirdiToolStrip;
 		private System.Windows.Forms.ToolStripMenuItem StokSayimToolStrip;
 		private System.Windows.Forms.ToolStripMenuItem stokÇıktıToolStripMenuItem1;
+		private System.Windows.Forms.Panel BildirimPanel;
+		private System.Windows.Forms.TextBox txtbaslik;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label lblTarih;
+		private System.Windows.Forms.TextBox txtaciklama;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Button BildirimKapat;
+		private System.Windows.Forms.ImageList ımageList1;
 	}
 }

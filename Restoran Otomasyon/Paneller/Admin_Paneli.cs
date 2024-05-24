@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -65,16 +66,6 @@ namespace Restoran_Otomasyon.Paneller
 			git.Show();
 		}
 
-		private void stokGirdiToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			
-		}
-
-		private void StokSayim(object sender, EventArgs e)
-		{
-			
-		}
-
 		private void malzemeEkleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MalzemeESG git = new MalzemeESG();
@@ -84,12 +75,6 @@ namespace Restoran_Otomasyon.Paneller
 		private void MenuESG(object sender, EventArgs e)
 		{
 			MenuESG git = new MenuESG();
-			git.Show();
-		}
-
-		private void StokCikti(object sender, EventArgs e)
-		{
-			StokCiktiSayfasi git = new StokCiktiSayfasi();
 			git.Show();
 		}
 
@@ -111,28 +96,24 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			grafikleriGuncelle();
 
-			if (Bakiyee.Text.Length > 6)
+			if (Bakiyee.Text.Length == 6)
+			{
+				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 2);
+			}
+			else if (Bakiyee.Text.Length == 8)
 			{
 				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 5);
 			}
-			BildimleriGetir();
+			else if (Bakiyee.Text.Length > 8)
+			{
+				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 8);
+			}
+			Bildirimler();
 		}
-		int bildirimSayisi = 0;
-
-		void BildimleriGetir()
+		public void Bildirimler()
 		{
-			var bildirim=db.Bildirimler.Where(o=>o.Okundu==false && o.KullaniciId==KullaniciId);
-			bildirimSayisi = bildirim.Count()+1;
-			if(bildirimSayisi > 0)
-			{
-				Bildirimler.Image = Restoran_Otomasyon.Properties.Resources.bildirimCani;
-			}
-			else
-			{
-				Bildirimler.Image = Restoran_Otomasyon.Properties.Resources.bildirimsizCan;
-			}
+			BildirimYoneticisi.BildirimleriGetir(db, BildirimlerToolStrip, KullaniciId);
 		}
-
 		public void bakiyeHesapla()
 		{
 			db.Dispose();
@@ -262,6 +243,14 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			StokSayim git = new StokSayim();
 			git.Show();
+		}
+
+		private void BildirimKapat_Click(object sender, EventArgs e)
+		{
+			BildirimPanel.Visible = false;
+			txtaciklama.Text = "";
+			txtbaslik.Text = "";
+			lblTarih.Text = "";
 		}
 	}
 }

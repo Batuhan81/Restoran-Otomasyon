@@ -71,14 +71,10 @@ namespace Restoran_Otomasyon.Paneller
 
 		public void MasaOzellikler()
 		{
-			var Ozellik = db.Ozellikler.Where(o => o.Gorunurluk == true).Select(y => y.Ad).ToList();
+			var masaOzellikler = db.Ozellikler.Where(o => o.Gorunurluk == true).Select(y => y.Ad).ToList();
 			MasaOzellik.DisplayMember = "Ad";
 			MasaOzellik.ValueMember = "Id";
-			MasaOzellik.DataSource = Ozellik;
-
-			comboOzellikFiltre.DisplayMember = "Ad";
-			comboOzellikFiltre.ValueMember = "Id";
-			comboOzellikFiltre.DataSource = Ozellik;
+			MasaOzellik.DataSource = masaOzellikler;
 		}
 		#endregion
 		#region Butonlar

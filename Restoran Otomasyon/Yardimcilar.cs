@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace Restoran_Otomasyon
 {
 	public class Yardimcilar
 	{
+
 		public static Process signalRProcess;
 
 		public static void SignalRSunucuBaslat()
@@ -119,6 +121,24 @@ namespace Restoran_Otomasyon
 			else
 			{
 				MessageBox.Show("SignalR Bağlantısı Açık Değil");
+			}
+		}
+
+		// Bu metot bildirim sesini çalar
+		public static void CalBildirimSesi()
+		{
+			try
+			{
+				// Ses dosyasının yolunu belirtin
+				string sesDosyasiYolu = "C:\\Users\\Batuhan\\Desktop\\Üzerinde Çalıştığım SignalRlı\\Restoran Otomasyon\\Resim Ve İconlar\\Bildirim Sesi.Wav";
+
+				// SoundPlayer ile sesi çal
+				SoundPlayer player = new SoundPlayer(sesDosyasiYolu);
+				player.Play();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Bildirim sesi çalınırken bir hata oluştu: {ex.Message}");
 			}
 		}
 
@@ -229,8 +249,7 @@ namespace Restoran_Otomasyon
 							{
 								calisanForm.BeginInvoke(new Action(() =>
 								{
-									calisanForm.grafikleriGuncelle();
-									calisanForm.BakiyeHesapla();
+									calisanForm.Bildirimler();
 								}));
 							}
 							Admin_Paneli calisanForm2 = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
@@ -238,8 +257,7 @@ namespace Restoran_Otomasyon
 							{
 								calisanForm2.BeginInvoke(new Action(() =>
 								{
-									calisanForm2.grafikleriGuncelle();
-									calisanForm2.bakiyeHesapla();
+									calisanForm2.Bildirimler();
 								}));
 							}
 						});
@@ -265,42 +283,50 @@ namespace Restoran_Otomasyon
 
 			while (true)
 			{
-				switch (connection.State)
+				if(connection != null)
 				{
-					case ConnectionState.Connected:
-						_isConnectionOpen = true;
-						return _isConnectionOpen;
+					switch (connection.State)
+					{
+						case ConnectionState.Connected:
+							_isConnectionOpen = true;
+							return _isConnectionOpen;
 
-					case ConnectionState.Disconnected:
-						if (denemeSayisi < 3)
-						{
-							_isConnectionOpen = false;
-							SignalRSunucuBaslat();
-							ConnectToSignalR();
-
-							// Bağlantı durumu kontrolü için biraz bekleyelim
-							Task.Delay(2000).Wait();
-
-							// Bağlantı durumu kontrol edildikten sonra eğer bağlanabildiysek döngüden çıkalım
-							if (connection.State == ConnectionState.Connected)
+						case ConnectionState.Disconnected:
+							if (denemeSayisi < 3)
 							{
-								_isConnectionOpen = true;
+								_isConnectionOpen = false;
+								SignalRSunucuBaslat();
+								ConnectToSignalR();
+
+								// Bağlantı durumu kontrolü için biraz bekleyelim
+								Task.Delay(2000).Wait();
+
+								// Bağlantı durumu kontrol edildikten sonra eğer bağlanabildiysek döngüden çıkalım
+								if (connection.State == ConnectionState.Connected)
+								{
+									_isConnectionOpen = true;
+									return _isConnectionOpen;
+								}
+								denemeSayisi++;
+							}
+							else
+							{
+								MessageBox.Show("3 kez denenmesine rağmen bağlantı sağlanamadı. Lütfen SignalR sunucunuzu kontrol ediniz!", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
 								return _isConnectionOpen;
 							}
-							denemeSayisi++;
-						}
-						else
-						{
-							MessageBox.Show("3 kez denenmesine rağmen bağlantı sağlanamadı. Lütfen SignalR sunucunuzu kontrol ediniz!", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
-							return _isConnectionOpen;
-						}
-						break;
+							break;
 
-					case ConnectionState.Reconnecting:
-					case ConnectionState.Connecting:
-						// Bu durumlarda sadece bekleyelim
-						Task.Delay(2000).Wait();
-						break;
+						case ConnectionState.Reconnecting:
+						case ConnectionState.Connecting:
+							// Bu durumlarda sadece bekleyelim
+							Task.Delay(2000).Wait();
+							break;
+					}
+				}
+				else
+				{
+					SignalRSunucuBaslat();
+					ConnectToSignalR();
 				}
 			}
 		}

@@ -41,25 +41,25 @@
 			this.UrunPaneli = new System.Windows.Forms.FlowLayoutPanel();
 			this.OdemePaneli = new System.Windows.Forms.Panel();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.btn50 = new System.Windows.Forms.Button();
-			this.btn100 = new System.Windows.Forms.Button();
-			this.label11 = new System.Windows.Forms.Label();
-			this.txtodenecek = new System.Windows.Forms.TextBox();
-			this.txtkisisayisi = new System.Windows.Forms.TextBox();
-			this.label10 = new System.Windows.Forms.Label();
-			this.label12 = new System.Windows.Forms.Label();
-			this.comboOdemeTur = new System.Windows.Forms.ComboBox();
-			this.label13 = new System.Windows.Forms.Label();
-			this.txtmasatutarı = new System.Windows.Forms.TextBox();
-			this.button5 = new System.Windows.Forms.Button();
-			this.label8 = new System.Windows.Forms.Label();
-			this.txtkalan = new System.Windows.Forms.TextBox();
-			this.btn200 = new System.Windows.Forms.Button();
-			this.btn20 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.btn10 = new System.Windows.Forms.Button();
-			this.btn5 = new System.Windows.Forms.Button();
 			this.checkFis = new System.Windows.Forms.CheckBox();
+			this.btn5 = new System.Windows.Forms.Button();
+			this.btn10 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
+			this.btn20 = new System.Windows.Forms.Button();
+			this.btn200 = new System.Windows.Forms.Button();
+			this.txtkalan = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.button5 = new System.Windows.Forms.Button();
+			this.txtmasatutarı = new System.Windows.Forms.TextBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.comboOdemeTur = new System.Windows.Forms.ComboBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtkisisayisi = new System.Windows.Forms.TextBox();
+			this.txtodenecek = new System.Windows.Forms.TextBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.btn100 = new System.Windows.Forms.Button();
+			this.btn50 = new System.Windows.Forms.Button();
 			this.PanelSiparis = new System.Windows.Forms.Panel();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.txtsiparisDurum = new System.Windows.Forms.TextBox();
@@ -78,6 +78,7 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtmasaadi = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.TumunuOde = new System.Windows.Forms.CheckBox();
 			this.UrunPaneli.SuspendLayout();
 			this.OdemePaneli.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -181,6 +182,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.TumunuOde);
 			this.groupBox2.Controls.Add(this.checkFis);
 			this.groupBox2.Controls.Add(this.btn5);
 			this.groupBox2.Controls.Add(this.btn10);
@@ -208,200 +210,15 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Ödeme İşlemi";
 			// 
-			// btn50
+			// checkFis
 			// 
-			this.btn50.BackColor = System.Drawing.Color.SkyBlue;
-			this.btn50.ImageKey = "Para.png";
-			this.btn50.ImageList = this.ımageList1;
-			this.btn50.Location = new System.Drawing.Point(319, 189);
-			this.btn50.Name = "btn50";
-			this.btn50.Size = new System.Drawing.Size(112, 47);
-			this.btn50.TabIndex = 6;
-			this.btn50.Text = "50 ₺";
-			this.btn50.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btn50.UseVisualStyleBackColor = false;
-			this.btn50.Click += new System.EventHandler(this.btn50_Click);
-			// 
-			// btn100
-			// 
-			this.btn100.BackColor = System.Drawing.Color.SkyBlue;
-			this.btn100.ImageKey = "Para.png";
-			this.btn100.ImageList = this.ımageList1;
-			this.btn100.Location = new System.Drawing.Point(319, 247);
-			this.btn100.Name = "btn100";
-			this.btn100.Size = new System.Drawing.Size(112, 47);
-			this.btn100.TabIndex = 7;
-			this.btn100.Text = "100 ₺";
-			this.btn100.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btn100.UseVisualStyleBackColor = false;
-			this.btn100.Click += new System.EventHandler(this.btn100_Click);
-			// 
-			// label11
-			// 
-			this.label11.AutoSize = true;
-			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label11.Location = new System.Drawing.Point(20, 207);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(106, 18);
-			this.label11.TabIndex = 5;
-			this.label11.Text = "Ödeme Türü:";
-			// 
-			// txtodenecek
-			// 
-			this.txtodenecek.Location = new System.Drawing.Point(144, 161);
-			this.txtodenecek.Name = "txtodenecek";
-			this.txtodenecek.Size = new System.Drawing.Size(146, 24);
-			this.txtodenecek.TabIndex = 4;
-			this.txtodenecek.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtodenecek_KeyDown);
-			this.txtodenecek.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtodenecek_KeyPress);
-			this.txtodenecek.Leave += new System.EventHandler(this.txtodenecek_Leave);
-			// 
-			// txtkisisayisi
-			// 
-			this.txtkisisayisi.Location = new System.Drawing.Point(167, 35);
-			this.txtkisisayisi.Name = "txtkisisayisi";
-			this.txtkisisayisi.Size = new System.Drawing.Size(100, 24);
-			this.txtkisisayisi.TabIndex = 9;
-			this.txtkisisayisi.TextChanged += new System.EventHandler(this.txtkisisayisi_TextChanged);
-			this.txtkisisayisi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtkisisayisi_KeyDown);
-			this.txtkisisayisi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtkisisayisi_KeyPress);
-			// 
-			// label10
-			// 
-			this.label10.AutoSize = true;
-			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label10.Location = new System.Drawing.Point(37, 164);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(89, 18);
-			this.label10.TabIndex = 3;
-			this.label10.Text = "Ödenecek:";
-			// 
-			// label12
-			// 
-			this.label12.AutoSize = true;
-			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label12.Location = new System.Drawing.Point(13, 38);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(134, 18);
-			this.label12.TabIndex = 10;
-			this.label12.Text = "Hesap Bölme =>";
-			// 
-			// comboOdemeTur
-			// 
-			this.comboOdemeTur.FormattingEnabled = true;
-			this.comboOdemeTur.Items.AddRange(new object[] {
-            "Nakit",
-            "Kart"});
-			this.comboOdemeTur.Location = new System.Drawing.Point(144, 203);
-			this.comboOdemeTur.Name = "comboOdemeTur";
-			this.comboOdemeTur.Size = new System.Drawing.Size(146, 26);
-			this.comboOdemeTur.TabIndex = 2;
-			// 
-			// label13
-			// 
-			this.label13.AutoSize = true;
-			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label13.Location = new System.Drawing.Point(17, 122);
-			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(109, 18);
-			this.label13.TabIndex = 12;
-			this.label13.Text = "Geriye Kalan:";
-			// 
-			// txtmasatutarı
-			// 
-			this.txtmasatutarı.Location = new System.Drawing.Point(144, 77);
-			this.txtmasatutarı.Name = "txtmasatutarı";
-			this.txtmasatutarı.ReadOnly = true;
-			this.txtmasatutarı.Size = new System.Drawing.Size(146, 24);
-			this.txtmasatutarı.TabIndex = 1;
-			// 
-			// button5
-			// 
-			this.button5.BackColor = System.Drawing.Color.SkyBlue;
-			this.button5.ImageKey = "Ödeme.png";
-			this.button5.ImageList = this.ımageList2;
-			this.button5.Location = new System.Drawing.Point(23, 261);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(142, 77);
-			this.button5.TabIndex = 11;
-			this.button5.Text = "Ödeme Al";
-			this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.button5.UseVisualStyleBackColor = false;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.label8.Location = new System.Drawing.Point(13, 80);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(113, 18);
-			this.label8.TabIndex = 0;
-			this.label8.Text = "Toplam Tutar:";
-			// 
-			// txtkalan
-			// 
-			this.txtkalan.Location = new System.Drawing.Point(144, 119);
-			this.txtkalan.Name = "txtkalan";
-			this.txtkalan.ReadOnly = true;
-			this.txtkalan.Size = new System.Drawing.Size(146, 24);
-			this.txtkalan.TabIndex = 13;
-			// 
-			// btn200
-			// 
-			this.btn200.BackColor = System.Drawing.Color.SkyBlue;
-			this.btn200.ImageKey = "Para.png";
-			this.btn200.ImageList = this.ımageList1;
-			this.btn200.Location = new System.Drawing.Point(319, 305);
-			this.btn200.Name = "btn200";
-			this.btn200.Size = new System.Drawing.Size(112, 47);
-			this.btn200.TabIndex = 8;
-			this.btn200.Text = "200 ₺";
-			this.btn200.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btn200.UseVisualStyleBackColor = false;
-			this.btn200.Click += new System.EventHandler(this.btn200_Click);
-			// 
-			// btn20
-			// 
-			this.btn20.BackColor = System.Drawing.Color.SkyBlue;
-			this.btn20.ImageKey = "Para.png";
-			this.btn20.ImageList = this.ımageList1;
-			this.btn20.Location = new System.Drawing.Point(319, 131);
-			this.btn20.Name = "btn20";
-			this.btn20.Size = new System.Drawing.Size(112, 47);
-			this.btn20.TabIndex = 14;
-			this.btn20.Text = "20 ₺";
-			this.btn20.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btn20.UseVisualStyleBackColor = false;
-			this.btn20.Click += new System.EventHandler(this.btn20_Click);
-			// 
-			// button2
-			// 
-			this.button2.BackColor = System.Drawing.Color.SkyBlue;
-			this.button2.ImageKey = "Sil butonu - Kopya.png";
-			this.button2.ImageList = this.ımageList2;
-			this.button2.Location = new System.Drawing.Point(171, 261);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(142, 77);
-			this.button2.TabIndex = 15;
-			this.button2.Text = "Temizle";
-			this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.button2.UseVisualStyleBackColor = false;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
-			// 
-			// btn10
-			// 
-			this.btn10.BackColor = System.Drawing.Color.SkyBlue;
-			this.btn10.ImageKey = "Para.png";
-			this.btn10.ImageList = this.ımageList1;
-			this.btn10.Location = new System.Drawing.Point(319, 73);
-			this.btn10.Name = "btn10";
-			this.btn10.Size = new System.Drawing.Size(112, 47);
-			this.btn10.TabIndex = 16;
-			this.btn10.Text = "10 ₺";
-			this.btn10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btn10.UseVisualStyleBackColor = false;
-			this.btn10.Click += new System.EventHandler(this.btn10_Click);
+			this.checkFis.AutoSize = true;
+			this.checkFis.Location = new System.Drawing.Point(99, 248);
+			this.checkFis.Name = "checkFis";
+			this.checkFis.Size = new System.Drawing.Size(168, 22);
+			this.checkFis.TabIndex = 58;
+			this.checkFis.Text = "Fiş Kesilecek Mi ?";
+			this.checkFis.UseVisualStyleBackColor = true;
 			// 
 			// btn5
 			// 
@@ -417,15 +234,200 @@
 			this.btn5.UseVisualStyleBackColor = false;
 			this.btn5.Click += new System.EventHandler(this.btn5_Click);
 			// 
-			// checkFis
+			// btn10
 			// 
-			this.checkFis.AutoSize = true;
-			this.checkFis.Location = new System.Drawing.Point(99, 234);
-			this.checkFis.Name = "checkFis";
-			this.checkFis.Size = new System.Drawing.Size(168, 22);
-			this.checkFis.TabIndex = 58;
-			this.checkFis.Text = "Fiş Kesilecek Mi ?";
-			this.checkFis.UseVisualStyleBackColor = true;
+			this.btn10.BackColor = System.Drawing.Color.SkyBlue;
+			this.btn10.ImageKey = "Para.png";
+			this.btn10.ImageList = this.ımageList1;
+			this.btn10.Location = new System.Drawing.Point(319, 73);
+			this.btn10.Name = "btn10";
+			this.btn10.Size = new System.Drawing.Size(112, 47);
+			this.btn10.TabIndex = 16;
+			this.btn10.Text = "10 ₺";
+			this.btn10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btn10.UseVisualStyleBackColor = false;
+			this.btn10.Click += new System.EventHandler(this.btn10_Click);
+			// 
+			// button2
+			// 
+			this.button2.BackColor = System.Drawing.Color.SkyBlue;
+			this.button2.ImageKey = "Sil butonu - Kopya.png";
+			this.button2.ImageList = this.ımageList2;
+			this.button2.Location = new System.Drawing.Point(171, 275);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(142, 77);
+			this.button2.TabIndex = 15;
+			this.button2.Text = "Temizle";
+			this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button2.UseVisualStyleBackColor = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// btn20
+			// 
+			this.btn20.BackColor = System.Drawing.Color.SkyBlue;
+			this.btn20.ImageKey = "Para.png";
+			this.btn20.ImageList = this.ımageList1;
+			this.btn20.Location = new System.Drawing.Point(319, 131);
+			this.btn20.Name = "btn20";
+			this.btn20.Size = new System.Drawing.Size(112, 47);
+			this.btn20.TabIndex = 14;
+			this.btn20.Text = "20 ₺";
+			this.btn20.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btn20.UseVisualStyleBackColor = false;
+			this.btn20.Click += new System.EventHandler(this.btn20_Click);
+			// 
+			// btn200
+			// 
+			this.btn200.BackColor = System.Drawing.Color.SkyBlue;
+			this.btn200.ImageKey = "Para.png";
+			this.btn200.ImageList = this.ımageList1;
+			this.btn200.Location = new System.Drawing.Point(319, 305);
+			this.btn200.Name = "btn200";
+			this.btn200.Size = new System.Drawing.Size(112, 47);
+			this.btn200.TabIndex = 8;
+			this.btn200.Text = "200 ₺";
+			this.btn200.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btn200.UseVisualStyleBackColor = false;
+			this.btn200.Click += new System.EventHandler(this.btn200_Click);
+			// 
+			// txtkalan
+			// 
+			this.txtkalan.Location = new System.Drawing.Point(144, 133);
+			this.txtkalan.Name = "txtkalan";
+			this.txtkalan.ReadOnly = true;
+			this.txtkalan.Size = new System.Drawing.Size(146, 24);
+			this.txtkalan.TabIndex = 13;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label8.Location = new System.Drawing.Point(13, 94);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(113, 18);
+			this.label8.TabIndex = 0;
+			this.label8.Text = "Toplam Tutar:";
+			// 
+			// button5
+			// 
+			this.button5.BackColor = System.Drawing.Color.SkyBlue;
+			this.button5.ImageKey = "Ödeme.png";
+			this.button5.ImageList = this.ımageList2;
+			this.button5.Location = new System.Drawing.Point(23, 275);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(142, 77);
+			this.button5.TabIndex = 11;
+			this.button5.Text = "Ödeme Al";
+			this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.button5.UseVisualStyleBackColor = false;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// txtmasatutarı
+			// 
+			this.txtmasatutarı.Location = new System.Drawing.Point(144, 91);
+			this.txtmasatutarı.Name = "txtmasatutarı";
+			this.txtmasatutarı.ReadOnly = true;
+			this.txtmasatutarı.Size = new System.Drawing.Size(146, 24);
+			this.txtmasatutarı.TabIndex = 1;
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label13.Location = new System.Drawing.Point(17, 136);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(109, 18);
+			this.label13.TabIndex = 12;
+			this.label13.Text = "Geriye Kalan:";
+			// 
+			// comboOdemeTur
+			// 
+			this.comboOdemeTur.FormattingEnabled = true;
+			this.comboOdemeTur.Items.AddRange(new object[] {
+            "Nakit",
+            "Kart"});
+			this.comboOdemeTur.Location = new System.Drawing.Point(144, 217);
+			this.comboOdemeTur.Name = "comboOdemeTur";
+			this.comboOdemeTur.Size = new System.Drawing.Size(146, 26);
+			this.comboOdemeTur.TabIndex = 2;
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label12.Location = new System.Drawing.Point(13, 52);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(134, 18);
+			this.label12.TabIndex = 10;
+			this.label12.Text = "Hesap Bölme =>";
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label10.Location = new System.Drawing.Point(37, 178);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(89, 18);
+			this.label10.TabIndex = 3;
+			this.label10.Text = "Ödenecek:";
+			// 
+			// txtkisisayisi
+			// 
+			this.txtkisisayisi.Location = new System.Drawing.Point(167, 49);
+			this.txtkisisayisi.Name = "txtkisisayisi";
+			this.txtkisisayisi.Size = new System.Drawing.Size(100, 24);
+			this.txtkisisayisi.TabIndex = 9;
+			this.txtkisisayisi.TextChanged += new System.EventHandler(this.txtkisisayisi_TextChanged);
+			this.txtkisisayisi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtkisisayisi_KeyDown);
+			this.txtkisisayisi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtkisisayisi_KeyPress);
+			// 
+			// txtodenecek
+			// 
+			this.txtodenecek.Location = new System.Drawing.Point(144, 175);
+			this.txtodenecek.Name = "txtodenecek";
+			this.txtodenecek.Size = new System.Drawing.Size(146, 24);
+			this.txtodenecek.TabIndex = 4;
+			this.txtodenecek.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtodenecek_KeyDown);
+			this.txtodenecek.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtodenecek_KeyPress);
+			this.txtodenecek.Leave += new System.EventHandler(this.txtodenecek_Leave);
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.label11.Location = new System.Drawing.Point(20, 221);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(106, 18);
+			this.label11.TabIndex = 5;
+			this.label11.Text = "Ödeme Türü:";
+			// 
+			// btn100
+			// 
+			this.btn100.BackColor = System.Drawing.Color.SkyBlue;
+			this.btn100.ImageKey = "Para.png";
+			this.btn100.ImageList = this.ımageList1;
+			this.btn100.Location = new System.Drawing.Point(319, 247);
+			this.btn100.Name = "btn100";
+			this.btn100.Size = new System.Drawing.Size(112, 47);
+			this.btn100.TabIndex = 7;
+			this.btn100.Text = "100 ₺";
+			this.btn100.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btn100.UseVisualStyleBackColor = false;
+			this.btn100.Click += new System.EventHandler(this.btn100_Click);
+			// 
+			// btn50
+			// 
+			this.btn50.BackColor = System.Drawing.Color.SkyBlue;
+			this.btn50.ImageKey = "Para.png";
+			this.btn50.ImageList = this.ımageList1;
+			this.btn50.Location = new System.Drawing.Point(319, 189);
+			this.btn50.Name = "btn50";
+			this.btn50.Size = new System.Drawing.Size(112, 47);
+			this.btn50.TabIndex = 6;
+			this.btn50.Text = "50 ₺";
+			this.btn50.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btn50.UseVisualStyleBackColor = false;
+			this.btn50.Click += new System.EventHandler(this.btn50_Click);
 			// 
 			// PanelSiparis
 			// 
@@ -605,6 +607,17 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Masa Adı:";
 			// 
+			// TumunuOde
+			// 
+			this.TumunuOde.AutoSize = true;
+			this.TumunuOde.Location = new System.Drawing.Point(117, 21);
+			this.TumunuOde.Name = "TumunuOde";
+			this.TumunuOde.Size = new System.Drawing.Size(126, 22);
+			this.TumunuOde.TabIndex = 59;
+			this.TumunuOde.Text = "Tümünü Öde";
+			this.TumunuOde.UseVisualStyleBackColor = true;
+			this.TumunuOde.CheckedChanged += new System.EventHandler(this.TumunuOde_CheckedChanged);
+			// 
 			// DoluMasa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -686,5 +699,6 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtmasaadi;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.CheckBox TumunuOde;
 	}
 }

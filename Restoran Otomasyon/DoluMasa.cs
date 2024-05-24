@@ -50,7 +50,7 @@ namespace Restoran_Otomasyon
 				masatutari = masa.Tutar;
 				masaOdenen = masa.OdenenTutar;
 				geriyekalanUcret = masatutari - masaOdenen;
-				txtkalan.Text =Yardimcilar.FormatliDeger( geriyekalanUcret.ToString());
+				txtkalan.Text = Yardimcilar.FormatliDeger(geriyekalanUcret.ToString());
 			}
 		}
 
@@ -89,7 +89,7 @@ namespace Restoran_Otomasyon
 
 				if (durum.Ad == 5)
 				{
-					txtkalan.Text =Yardimcilar.FormatliDeger( geriyekalanUcret.ToString());
+					txtkalan.Text = Yardimcilar.FormatliDeger(geriyekalanUcret.ToString());
 					OdemePaneli.Visible = true;
 					txtmasatutarı.Text = txttutar.Text;
 				}
@@ -166,11 +166,12 @@ namespace Restoran_Otomasyon
 			txtodenecek.Text = "";
 			Odenecek = 0;
 			comboOdemeTur.Text = "";
+			TumunuOde.Checked = false;	
 		}
 
 		private void txtkisisayisi_TextChanged(object sender, EventArgs e)
 		{
-			if(txtkisisayisi.Text !=""&& txtkisisayisi.Text != 0.ToString())
+			if (txtkisisayisi.Text != "" && txtkisisayisi.Text != 0.ToString())
 			{
 				kisisayisi = Convert.ToInt32(txtkisisayisi.Text);
 				// Kişi başı ücreti hesapla
@@ -199,7 +200,7 @@ namespace Restoran_Otomasyon
 		{
 			Odenecek = Yardimcilar.TemizleVeDondur(txtodenecek, "");
 			Odenecek = Odenecek + Deger;
-			txtodenecek.Text =Yardimcilar.FormatliDeger( Odenecek.ToString());
+			txtodenecek.Text = Yardimcilar.FormatliDeger(Odenecek.ToString());
 			Odenecek = Yardimcilar.TemizleVeDondur(txtodenecek, "");
 		}
 		private void btn50_Click(object sender, EventArgs e)
@@ -262,6 +263,7 @@ namespace Restoran_Otomasyon
 		private void button3_Click(object sender, EventArgs e)
 		{
 			Durum durum = new Durum();
+			Bildirim bildirim=new Bildirim();
 			var maxAd = db.Durumlar.Where(o => o.SiparisId == sonSiparisId)
 						.Max(o => o.Ad); // SiparisId'si sonSiparisId olan durumlar arasından en büyük Ad değerini bul
 			var siparisdurum = db.Durumlar.FirstOrDefault(o => o.SiparisId == sonSiparisId && o.Ad == maxAd); // Bu en büyük Ad değerine sahip olan durumu getir
@@ -276,6 +278,15 @@ namespace Restoran_Otomasyon
 				timer1.Start();
 				MessageBox.Show("Sipariş Müşteriye Teslim Edildi.");
 				Yardimcilar.MasaBilgileri(masaId, txtmasaadi, txtDurum, txtkapasite, txttutar, txtodenen, txtpersonel, txtkategori, txtsiparisDurum, db);
+				var masa=db.Masalar.FirstOrDefault(o => o.Id == masaId);
+				bildirim.Aciklama = $"{masa.Kod	}' Kodlu Masadan {txtkalan.Text} Kadar Ödeme Alınacak";
+				bildirim.Baslik= $"{masa.Kod}' Kodlu Masa Ödeme Bekliyor";
+				bildirim.Tarih=DateTime.Now;
+				bildirim.Okundu = false;
+				bildirim.KullaniciId = 2;//Kasa
+				db.Bildirimler.Add(bildirim);
+				db.SaveChanges() ;
+				Yardimcilar.SignalTetikleBildirimAlindi();
 			}
 			else if (siparisdurum.Ad == 5)
 			{
@@ -301,7 +312,7 @@ namespace Restoran_Otomasyon
 
 			// Fişin genişliği ve uzunluğunu belirle
 			float receiptWidth = 80; // mm cinsinden genişlik
-			//float receiptHeight = 80; // mm cinsinden uzunluk
+									 //float receiptHeight = 80; // mm cinsinden uzunluk
 
 			float fontHeight = font.GetHeight();
 			int startX = 10;
@@ -415,7 +426,7 @@ namespace Restoran_Otomasyon
 
 		private void txtodenecek_Leave(object sender, EventArgs e)
 		{
-			txtodenecek.Text =Yardimcilar.FormatliDeger(txtodenecek.Text);
+			txtodenecek.Text = Yardimcilar.FormatliDeger(txtodenecek.Text);
 		}
 
 		private void txtkisisayisi_KeyDown(object sender, KeyEventArgs e)
@@ -425,26 +436,38 @@ namespace Restoran_Otomasyon
 
 		private void txtkisisayisi_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			Yardimcilar.KontrolEt(txtkisisayisi,e);
+			Yardimcilar.KontrolEt(txtkisisayisi, e);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
 		{
-			if(PanelSiparis.Visible!=true)
+			if (PanelSiparis.Visible != true)
 			{
 				PanelSiparis.Visible = true;
-				Yardimcilar.OpenForm(new BosMasa(masaId,kullaniciId), PanelSiparis);
+				Yardimcilar.OpenForm(new BosMasa(masaId, kullaniciId), PanelSiparis);
 				PanelSiparis.BringToFront();
 			}
 			else
 			{
-				PanelSiparis.Visible=false;
+				PanelSiparis.Visible = false;
 			}
 		}
 
 		private void PanelSiparis_Paint(object sender, PaintEventArgs e)
 		{
 
+		}
+
+		private void TumunuOde_CheckedChanged(object sender, EventArgs e)
+		{
+			if (TumunuOde.Checked == true)
+			{
+				txtodenecek.Text=txtkalan.Text;
+			}
+			else
+			{
+				txtodenecek.Text = "";
+			}
 		}
 	}
 }

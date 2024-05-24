@@ -229,6 +229,7 @@
     <Compile Include="AdresESG.Designer.cs">
       <DependentUpon>AdresESG.cs</DependentUpon>
     </Compile>
+    <Compile Include="BildirimYoneticisi.cs" />
     <Compile Include="BosMasa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -609,6 +610,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resim Ve İconlar\İconlar\Kasa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resim Ve İconlar\İconlar\iptal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

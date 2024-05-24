@@ -36,10 +36,9 @@ namespace Restoran_Otomasyon
 		{
 			using (Context db = new Context())
 			{
-				Bildirim bildiri = new Bildirim();
-
 				var tumMalzemeler = db.Malzemeler.ToList();
 				List<string> yetersizMalzemeler = new List<string>();
+				List<string> gorunurluguAcilanlar = new List<string>();
 
 				foreach (var malzeme in tumMalzemeler)
 				{
@@ -56,79 +55,129 @@ namespace Restoran_Otomasyon
 						if (yetersizStok)
 						{
 							// Malzemeyi kullanan tüm ürünleri bul
-							var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
-
+							var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).Select(u => u.Urun).Distinct().ToList();
 							bool herhangiBirUrunKapatildi = false;
 
 							foreach (var urun in urunler)
 							{
-								// Ürünün aktifliğini kapat, eğer zaten kapalı değilse
-								if (urun.Urun.Akitf)
+								if (urun.Akitf)
 								{
-									bildiri.KullaniciId = 1;
-									bildiri.Aciklama = $"{urun.Malzeme.Ad} Adlı malzememnin Stoğu Tükenmiştir Bu nedenle malzeyi kullannan ürün ve menülerin aktifliği otomatik kapatılmıştır.";
-									bildiri.MusteriId = null;
-									bildiri.PersonelId = null;
-									bildiri.Baslik = "Stok Tükendi";
-									bildiri.Okundu = false;
-
-									Yardimcilar.SignalTetikleBildirimAlindi();
-									urun.Urun.Akitf = false;
+									urun.Akitf = false;
 									herhangiBirUrunKapatildi = true;
 								}
 
-								// Ürünü kullanan menülerin aktifliğini kapat, eğer zaten kapalı değilse
-								var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
+								// Ürünü kullanan menülerin aktifliğini kapat
+								var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.Id).Select(mu => mu.Menu).Distinct().ToList();
 								foreach (var menu in kullananMenuler)
 								{
 									if (menu.Akitf)
 									{
 										menu.Akitf = false;
+										herhangiBirUrunKapatildi = true;
 									}
 								}
 							}
 
-							// Eğer herhangi bir ürün kapatıldıysa yetersiz malzemeler listesine ekle
 							if (herhangiBirUrunKapatildi)
 							{
 								yetersizMalzemeler.Add(malzeme.Ad);
 							}
 						}
-						else if (stok.Miktar >= stok.MinStok)
+						else if (stok.Miktar == 0)
 						{
-							// Malzemeyi kullanan tüm ürünleri bul
-							var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).ToList();
+							BildirimOlustur(db, $"{malzeme.Ad} Adlı Malzemeden Elimizde Kalmadı.", "Stok Tükendi");
+						}
+					}
+				}
 
-							foreach (var urun in urunler)
+				foreach (var malzeme in tumMalzemeler)
+				{
+					var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == malzeme.Id);
+					if (stok != null && stok.Miktar >= stok.MinStok)
+					{
+						var urunler = db.urunMalzemeler.Where(u => u.MalzemeId == malzeme.Id).Select(u => u.Urun).Distinct().ToList();
+						foreach (var urun in urunler)
+						{
+							bool tumMalzemelerYeterli = true;
+
+							// Ürünün tüm malzemelerinin yeterli olup olmadığını kontrol et
+							var urununMalzemeleri = db.urunMalzemeler.Where(u => u.UrunId == urun.Id).ToList();
+							foreach (var um in urununMalzemeleri)
 							{
-								// Ürünün aktifliğini aç
-								urun.Urun.Akitf = true;
+								var urunStok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == um.MalzemeId);
+								if (urunStok != null)
+								{
+									bool yetersizStok =
+										(um.Malzeme.Tur == "Adet" && urunStok.Miktar <= 5) ||
+										(um.Malzeme.Tur == "Kg" && urunStok.Miktar <= 500) ||
+										(um.Malzeme.Tur == "L" && urunStok.Miktar <= 500);
+
+									if (yetersizStok)
+									{
+										tumMalzemelerYeterli = false;
+										break;
+									}
+								}
+								else
+								{
+									tumMalzemelerYeterli = false;
+									break;
+								}
+							}
+
+							if (tumMalzemelerYeterli && !urun.Akitf)
+							{
+								urun.Akitf = true;
+								gorunurluguAcilanlar.Add(malzeme.Ad);
 
 								// Ürünü kullanan menülerin aktifliğini aç
-								var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.UrunId).Select(mu => mu.Menu).Distinct().ToList();
+								var kullananMenuler = db.MenuUrunler.Where(mu => mu.UrunId == urun.Id).Select(mu => mu.Menu).Distinct().ToList();
 								foreach (var menu in kullananMenuler)
 								{
-									menu.Akitf = true;
+									if (!menu.Akitf)
+									{
+										menu.Akitf = true;
+										gorunurluguAcilanlar.Add(malzeme.Ad);
+									}
 								}
 							}
 						}
 					}
 				}
 
-				// Yetersiz malzemeler varsa mesaj göster
+				db.SaveChanges();
+
 				if (yetersizMalzemeler.Any())
 				{
 					string yetersizMalzemelerMesaj = string.Join(", ", yetersizMalzemeler.Distinct());
-					MessageBox.Show($"Stoklar Yetersiz Olduğundan Bazı Ürün ve Menülerin Aktifliği Kapatılmıştır. (Yetersiz Malzemeler => {yetersizMalzemelerMesaj})");
+					BildirimOlustur(db, $"Stoklar Yetersiz Olduğundan Bazı Ürün ve Menülerin Aktifliği Kapatılmıştır. (Yetersiz Malzemeler => {yetersizMalzemelerMesaj})", "Stok Tükendi");
 				}
 
-				// Değişiklikleri kaydet
-				db.SaveChanges();
+				if (gorunurluguAcilanlar.Any())
+				{
+					string gorunurlukAcilanlar = string.Join(", ", gorunurluguAcilanlar.Distinct());
+					BildirimOlustur(db, $"Stoklar Minimum Değerin Üzerine Çıktığından Ürün ve Menülerin Aktifliği Açılmıştır. (Stok Girdisi Olan Malzemeler => {gorunurlukAcilanlar})", "Aktiflikler Açıldı.");
+				}
 			}
 		}
 
 
-
+		private static void BildirimOlustur(Context db, string aciklama, string baslik)
+		{
+			Bildirim bildiri = new Bildirim
+			{
+				KullaniciId = 1,
+				Aciklama = aciklama,
+				MusteriId = null,
+				PersonelId = null,
+				Baslik = baslik,
+				Okundu = false,
+				Tarih = DateTime.Now
+			};
+			db.Bildirimler.Add(bildiri);
+			db.SaveChanges();
+			Yardimcilar.SignalTetikleBildirimAlindi();
+		}
 
 		private UrunGosterici urunGosterici;
 		private void BosMasa_Load(object sender, EventArgs e)
@@ -245,6 +294,7 @@ namespace Restoran_Otomasyon
 			combo.ValueMember = "Id";
 			combo.DataSource = Urunkategori;
 		}
+		Bildirim bildirim = new Bildirim();
 
 		private async void button2_Click(object sender, EventArgs e)//Sipariş Onaylama Butonu
 		{
@@ -280,8 +330,6 @@ namespace Restoran_Otomasyon
 										// Rezervasyonun onay durumunu 3 olarak güncelleyin
 										item.Rezervasyon.Onay = 3;
 										int rezervasyonId = item.Id;
-
-										// Değişiklikleri veritabanına kaydedin
 										db.SaveChanges();
 									}
 								}
@@ -365,12 +413,27 @@ namespace Restoran_Otomasyon
 									// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
 									if (stok.Miktar < stok.MinStok)
 									{
-										//Bunu daha sonra Admine bildirim olarak atıcaz
-										MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
+										bildirim.Tarih = DateTime.Now;
+										bildirim.Aciklama = $"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.";
+										bildirim.Baslik = $"Min Stok Uyarısı";
+										bildirim.KullaniciId = 1;
+										bildirim.Okundu = false;
+
+										db.Bildirimler.Add(bildirim);
+										db.SaveChanges();
+										Yardimcilar.SignalTetikleBildirimAlindi();
 									}
 									else if (stok.Miktar == 0)
 									{
-										MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
+										bildirim.Tarih = DateTime.Now;
+										bildirim.Aciklama = $"{malzemeAd} adlı malzemenin stoğu Tükendi.";
+										bildirim.Baslik = $"Stok Kalmadı";
+										bildirim.KullaniciId = 1;
+										bildirim.Okundu = false;
+
+										db.Bildirimler.Add(bildirim);
+										db.SaveChanges();
+										Yardimcilar.SignalTetikleBildirimAlindi();
 									}
 									// Stok çıkışı kaydını oluştur
 									var stokCikti = new StokCikti
