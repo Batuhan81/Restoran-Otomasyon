@@ -33,20 +33,7 @@ namespace Restoran_Otomasyon.Paneller
 				kullaniciAdi = x.Ad;
 				Karsilama.Text = $"Merhaba,{kullaniciAdi}";
 			}
-			BakiyeHesapla();
 			grafikleriGuncelle();
-			if (Bakiyee.Text.Length == 6)
-			{
-				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 2);
-			}
-			else if (Bakiyee.Text.Length == 8)
-			{
-				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 5);
-			}
-			else if (Bakiyee.Text.Length > 8)
-			{
-				bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 8);
-			}
 			Bildirimler();
 		}
 		public void Bildirimler()
@@ -61,6 +48,22 @@ namespace Restoran_Otomasyon.Paneller
 			var kasabakiye = db.Kasalar.Find(1);
 			bakiye = kasabakiye.Bakiye.ToString();
 			Bakiyee.Text = Yardimcilar.FormatliDeger(bakiye);
+			int sayi = bosluklar.Text.Length;
+			if (sayi > 22)
+			{
+				if (Bakiyee.Text.Length == 6)
+				{
+					bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 2);
+				}
+				else if (Bakiyee.Text.Length == 8)
+				{
+					bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 4);
+				}
+				else if (Bakiyee.Text.Length > 8)
+				{
+					bosluklar.Text = bosluklar.Text.Substring(0, bosluklar.Text.Length - 6);
+				}
+			}
 			this.Refresh();
 		}
 

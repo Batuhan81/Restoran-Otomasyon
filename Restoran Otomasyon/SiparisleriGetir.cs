@@ -181,13 +181,18 @@ namespace Restoran_Otomasyon
 				textBoxMiktar.Width = 100;
 				textBoxMiktar.TextAlign = HorizontalAlignment.Center;
 				var siparisDetay = db.SiparisUrunler.FirstOrDefault(o => o.SiparisId == sonSiparisId && o.UrunId == id);
+				var siparisDetay2 = db.SiparisMenus.FirstOrDefault(o => o.SiparisId == sonSiparisId && o.MenuId == id);
 				if (siparisDetay != null)
 				{
 					textBoxMiktar.Text = siparisDetay.Miktar.ToString();
 				}
+				else if( siparisDetay2 !=null)
+				{
+					textBoxMiktar.Text = siparisDetay2.Miktar.ToString();
+				}
 				else
 				{
-					textBoxMiktar.Text = "Detay Bulunumadı";
+					textBoxMiktar.Text = "Bilgi Bulunamadı";
 				}
 				return textBoxMiktar;
 			}

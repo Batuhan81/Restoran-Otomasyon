@@ -34,8 +34,6 @@ namespace Restoran_Otomasyon.Paneller
 		private bool isGridLoading = false;
 		#endregion
 
-
-
 		#region Metodlar
 		private void YuzdeHesabi()
 		{
@@ -53,6 +51,7 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					timer1.Start();
 					MessageBox.Show("İndirim Yüzdesi Olarak En Fazla %100 Verebilirsiniz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					txtyuzde.Text = 0.ToString();
 				}
 			}
 		}
@@ -433,10 +432,6 @@ namespace Restoran_Otomasyon.Paneller
 
 		}
 
-		private void txtyuzde_Leave(object sender, EventArgs e)
-		{
-			YuzdeHesabi();
-		}
 		#endregion
 
 		#region Butonlar
@@ -919,6 +914,11 @@ namespace Restoran_Otomasyon.Paneller
 			KategoriAra.Text = "";
 			AktiflikAra.Text = "";
 			Yardimcilar.Urunlist(gridUrun);
+		}
+
+		private void txtyuzde_TextChanged(object sender, EventArgs e)
+		{
+			YuzdeHesabi();
 		}
 	}
 }

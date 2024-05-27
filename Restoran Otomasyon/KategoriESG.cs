@@ -114,6 +114,7 @@ namespace Restoran_Otomasyon.Paneller
 				comboTur.Items.Add("Menü");
 			}
 			comboTur.SelectedIndex = 0;
+			ComboFiltre.SelectedIndex = 0;
 			Listele();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridKategori);//grid renklendirme
 			gridKategori.Columns["Id"].Visible = false;//Id sütununu sakla

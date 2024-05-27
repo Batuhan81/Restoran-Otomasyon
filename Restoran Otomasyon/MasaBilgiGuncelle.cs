@@ -127,11 +127,18 @@ namespace Restoran_Otomasyon
 				{
 					masa.Gorunurluk = false; // Masa silme işlemi
 					db.SaveChanges();
+					MessageBox.Show("Masa Başarıyla Silindi");
+					Yardimcilar.SignalTetikleMasaDurum();
+					this.Close();
 				}
 				else
 				{
 					MessageBox.Show($"Masa Silme İşlemi İçin Masa Durumunun Boş Olması ve İleri Tarihli Bir Rezervasyonun Olmaması Gerekir!", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
+			}
+			else
+			{
+				MessageBox.Show("Masa Bilgisi Bulunmadı","Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -231,15 +238,6 @@ namespace Restoran_Otomasyon
 		private void txttutar_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(txttutar, e);
-		}
-
-		private void MasaBilgiGuncelle_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			MasaESG calisanForm = Application.OpenForms.OfType<MasaESG>().FirstOrDefault();
-			if (calisanForm != null)
-			{
-				calisanForm.MasaButonlariniGuncelle();
-			}
 		}
 	}
 }

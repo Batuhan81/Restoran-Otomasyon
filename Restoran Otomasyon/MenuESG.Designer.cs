@@ -140,9 +140,9 @@
 			this.txtyuzde.Name = "txtyuzde";
 			this.txtyuzde.Size = new System.Drawing.Size(54, 24);
 			this.txtyuzde.TabIndex = 68;
+			this.txtyuzde.TextChanged += new System.EventHandler(this.txtyuzde_TextChanged);
 			this.txtyuzde.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtyuzde_KeyDown);
 			this.txtyuzde.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtyuzde_KeyPress);
-			this.txtyuzde.Leave += new System.EventHandler(this.txtyuzde_Leave);
 			// 
 			// txtindirimli
 			// 

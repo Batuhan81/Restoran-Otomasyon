@@ -48,6 +48,7 @@ namespace Restoran_Otomasyon.Paneller
 				{
 					timer1.Start();
 					MessageBox.Show("İndirim Yüzdesi Olarak En Fazla %100 Verebilirsiniz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					txtyuzde.Text=0.ToString();
 				}
 			}
 		}
@@ -507,7 +508,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtyuzde_Leave(object sender, EventArgs e)
 		{
-			YuzdeHesabi();
+			
 		}
 
 		private void txtindirimli_Click(object sender, EventArgs e)
@@ -906,6 +907,11 @@ namespace Restoran_Otomasyon.Paneller
 		private void groupMenu_Enter(object sender, EventArgs e)
 		{
 
+		}
+
+		private void txtyuzde_TextChanged(object sender, EventArgs e)
+		{
+			YuzdeHesabi();
 		}
 	}
 }

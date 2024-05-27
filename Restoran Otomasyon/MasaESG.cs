@@ -65,8 +65,6 @@ namespace Restoran_Otomasyon.Paneller
 			// ComboBox'ın veri kaynağını ayarlayın
 			comboKat.DataSource = kategoriler;
 
-			// ComboBox'ta gösterilecek metni belirtin
-
 		}
 
 		public void MasaOzellikler()
@@ -208,7 +206,6 @@ namespace Restoran_Otomasyon.Paneller
 			MasaOzellik.Click += MenuItemMasaOzellik_Click;
 			contextMenuStrip1.Items.Add(MasaOzellik);
 
-			RezarvasyonKontrol();
 			MasaFiltre.SelectedIndex = 0;
 		}
 
@@ -460,7 +457,7 @@ namespace Restoran_Otomasyon.Paneller
 			db = new Context();
 
 
-			var tumMasalar = query.Where(o=>o.KategoriId==secilenKategoriId).ToList();
+			var tumMasalar = query.Where(o=>o.KategoriId==secilenKategoriId && o.Gorunurluk==true).ToList();
 
 			if (tumMasalar.Count != 0)
 			{
