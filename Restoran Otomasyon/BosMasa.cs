@@ -147,6 +147,30 @@ namespace Restoran_Otomasyon
 					}
 				}
 
+				foreach (var menu in db.MenuUrunler.Select(mu => mu.Menu).Distinct().ToList())
+				{
+					bool menuStokYeterli = true;
+					var menuUrunler = db.MenuUrunler.Where(mu => mu.MenuId == menu.Id).Select(mu => mu.Urun).ToList();
+					foreach (var urun in menuUrunler)
+					{
+						if (!StoklariKontrolEt(urun, 1, db))
+						{
+							menuStokYeterli = false;
+							break;
+						}
+					}
+					if (menuStokYeterli && !menu.Akitf)
+					{
+						menu.Akitf = true;
+						gorunurluguAcilanlar.Add(menu.Ad);
+					}
+					else if (!menuStokYeterli && menu.Akitf)
+					{
+						menu.Akitf = false;
+						yetersizMalzemeler.Add(menu.Ad);
+					}
+				}
+
 				db.SaveChanges();
 
 				if (yetersizMalzemeler.Any())
@@ -161,6 +185,34 @@ namespace Restoran_Otomasyon
 					BildirimOlustur(db, $"Stoklar Minimum Değerin Üzerine Çıktığından Ürün ve Menülerin Aktifliği Açılmıştır. (Stok Girdisi Olan Malzemeler => {gorunurlukAcilanlar})", "Aktiflikler Açıldı.");
 				}
 			}
+		}
+
+		public static bool StoklariKontrolEt(Urun urun, int miktar, Context db)
+		{
+			// Ürünün gerekli malzemelerini bul
+			var gerekliMalzemeler = db.urunMalzemeler.Where(um => um.UrunId == urun.Id).ToList();
+
+			// Her bir malzeme için stok kontrolü yap
+			foreach (var malzeme in gerekliMalzemeler)
+			{
+				// Malzemenin stok bilgisini al
+				var stok = db.Stoklar.FirstOrDefault(s => s.MalzemeId == malzeme.MalzemeId);
+
+				// Eğer stok bulunamadıysa veya stok miktarı yeterli değilse, işlemi durdur
+				if (stok == null || stok.Miktar < malzeme.Miktar * miktar)
+				{
+					return false;
+				}
+			}
+
+			// Eğer tüm malzemelerin stok miktarı yeterli ise true dön
+			return true;
+		}
+
+		private static bool BildirimGonderildiMi(Context db, string malzemeAd, string bildirimBaslik)
+		{
+			var bugun = DateTime.Now.Date;
+			return db.Bildirimler.Any(b => b.Baslik == bildirimBaslik && b.Aciklama.Contains(malzemeAd) && b.Tarih >= bugun);
 		}
 
 		private static void BildirimOlustur(Context db, string aciklama, string baslik)
@@ -180,11 +232,6 @@ namespace Restoran_Otomasyon
 			Yardimcilar.SignalTetikleBildirimAlindi();
 		}
 
-		private static bool BildirimGonderildiMi(Context db, string malzemeAd, string baslik)
-		{
-			var bugun = DateTime.Today;
-			return db.Bildirimler.Any(b => b.Baslik == baslik && b.Aciklama.Contains(malzemeAd) && b.Tarih >= bugun);
-		}
 
 
 		private UrunGosterici urunGosterici;

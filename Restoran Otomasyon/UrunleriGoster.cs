@@ -202,7 +202,6 @@ namespace Restoran_Otomasyon
 						if (int.TryParse(textBoxMiktar.Text, out miktar) && miktar > 0)
 						{
 							bool StokDurum = Yardimcilar.StoklariKontrolEt(urun, miktar, _dbContext);
-
 							if (StokDurum == true)
 							{
 								// Ürün adı, miktar ve fiyat bilgilerini DataGridView'e ekle
@@ -428,6 +427,7 @@ namespace Restoran_Otomasyon
 						if (int.TryParse(textBoxMiktar.Text, out miktar) && miktar > 0)
 						{
 							bool stokDurum = true; // Başlangıçta stok durumu true olarak ayarla
+
 							var menuUrunleri = _dbContext.MenuUrunler.Where(o => o.MenuId == o.MenuId).ToList();
 							// Menünün içindeki her bir ürün için stok kontrolü yap
 							foreach (var menuUrun in menuUrunleri)

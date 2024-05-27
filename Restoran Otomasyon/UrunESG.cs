@@ -582,8 +582,14 @@ namespace Restoran_Otomasyon.Paneller
 								}
 								x.Gorunurluk = CheckGorunurluk.Checked;
 								x.IndirimliFiyat = Yardimcilar.TemizleVeDondur(txtindirimli, "");
-								x.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
-								x.KategorId = (int)comboKategori.SelectedValue;
+								if (txtyuzde.Text == "")
+								{
+									x.IndirimYuzdesi =0;
+								}
+								else
+								{
+									x.KategorId = (int)comboKategori.SelectedValue;
+								}
 								timer1.Start();
 								MessageBox.Show("Ürün Güncellendi");
 

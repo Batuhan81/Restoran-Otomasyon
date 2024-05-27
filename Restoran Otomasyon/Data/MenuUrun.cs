@@ -16,6 +16,6 @@ namespace Restoran_Otomasyon.Data
 
 		public Menu Menu { get; set; } 
 
-		public Urun Urun { get; set; }
+		public virtual Urun Urun { get; set; }
 	}
 }

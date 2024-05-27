@@ -192,7 +192,7 @@ namespace Restoran_Otomasyon
 
 		public static IHubProxy hubProxy;
 		public static HubConnection connection;
-		public static string url = "http://192.168.1.152:8080/signalr/hubs"; // SignalR sunucusunun adresi
+		public static string url = "http://192.168.1.150:8080/signalr/hubs"; // SignalR sunucusunun adresi
 
 		public static async void ConnectToSignalR()
 		{
@@ -302,7 +302,7 @@ namespace Restoran_Otomasyon
 									calisanForm2.Bildirimler();
 								}));
 							}
-							
+
 						});
 					}
 					catch (Exception ex)
@@ -571,6 +571,25 @@ namespace Restoran_Otomasyon
 			// Eğer tüm malzemelerin stok miktarı yeterli ise true dön
 			return true;
 		}
+
+		//public static bool MenuStoklariniKontrolEt(Data.Menu menu, int miktar, Context db)
+		//{
+		//	// Menünün içindeki ürünleri bul
+		//	var menuUrunleri = db.MenuUrunler.Where(mu => mu.MenuId == menu.Id).Select(mu => mu.Urun).ToList();
+
+		//	// Her bir ürün için stok kontrolü yap
+		//	foreach (var urun in menuUrunleri)
+		//	{
+		//		if (!StoklariKontrolEt(urun, miktar, db))
+		//		{
+		//			return false;
+		//		}
+		//	}
+
+		//	// Eğer tüm ürünlerin stok miktarı yeterli ise true dön
+		//	return true;
+		//}
+
 
 		public static void MasaBilgileri(int masaId, TextBox txtMasaAdi, TextBox txtDurum, TextBox txtKapasite, TextBox txtTutar, TextBox txtOdenen, TextBox txtPersonel, TextBox txtKategori, TextBox txtsiparisDurum, Context db)
 		{
