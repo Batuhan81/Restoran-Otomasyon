@@ -41,7 +41,6 @@ namespace Restoran_Otomasyon
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			
 			if (!db.Database.Exists())//Projenin bağlı olduğu vt var mı diye kontrol ediyorum yoksa oluşturma Sayfasına yönlendiriyorum
 			{
 				timer1.Stop();

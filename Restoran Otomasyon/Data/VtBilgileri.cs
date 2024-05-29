@@ -32,7 +32,9 @@ namespace Restoran_Otomasyon.Data
 
 			// Değişiklikleri kaydet ve uygula
 			config.Save(ConfigurationSaveMode.Modified);
-			ConfigurationManager.RefreshSection("connectionStrings");
+			ConfigurationManager.RefreshSection("connectionStrings"); // Yapılandırma bölümünü yeniden yükle
+
+			
 		}
 	}
 }

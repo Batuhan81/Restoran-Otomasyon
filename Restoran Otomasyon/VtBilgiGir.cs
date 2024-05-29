@@ -17,10 +17,10 @@ namespace Restoran_Otomasyon
 		{
 			InitializeComponent();
 		}
-
+		private static Context db;
 		private void button1_Click(object sender, EventArgs e)
-		{ 
-			Context db=new Context();
+		{
+			db = new Context();
 			VtBilgileri vt = new VtBilgileri();
 			if (Yardimcilar.HepsiDoluMu(groupBox1))//veritabanı oluşturmak için gerekli tüm bilgiler girilimi kontrolü
 			{
@@ -34,7 +34,8 @@ namespace Restoran_Otomasyon
 				// Bağlantı dizesini ayarla
 				//string svad, int port, string dbad,string user,string sifre
 				vt.BağlantıDizesiniAyarla(svAdi.Text, Convert.ToInt32(port.Text), DbAdi.Text, UserAdi.Text, VtSifre.Text);
-				db.Database.Connection.ConnectionString = vt.yeniBağlantıDizesi;//Bağlantı Dizesini yenisiyle değiştirdim
+				db.Database.Connection.ConnectionString = "server=localhost;Port=3306;Database=Sunum;Uid=root;Pwd=123456789;";//Bağlantı Dizesini yenisiyle değiştirdim
+					 //db.Database.Connection.ConnectionString = vt.yeniBağlantıDizesi;//Bağlantı Dizesini yenisiyle değiştirdim
 				try
 				{
 					if (!db.Database.Exists()) // Veritabanı yoksa
@@ -60,7 +61,7 @@ namespace Restoran_Otomasyon
 								// Kullanıcıyı veritabanına ekleyin
 								db.Kullanicilar.Add(k);
 							}
-							Kasa kasa= new Kasa();
+							Kasa kasa = new Kasa();
 							kasa.Bakiye = 0;
 							db.Kasalar.Add(kasa);
 							db.SaveChanges();
