@@ -258,6 +258,8 @@ namespace Restoran_Otomasyon
 						temizle();
 						RandevulariYukle();
 						GUnlereRenkVerme(masaId);
+						gridMusteriler.Visible = false;
+						gridKayitsiz.Visible = false;
 					}
 					else
 					{
@@ -314,14 +316,41 @@ namespace Restoran_Otomasyon
 				// İlk satırı seç ve değerlerini ilgili alanlara aktar
 				DataGridViewRow selectedRow = gridRandevular.Rows[0];
 				hiddenID.Text = selectedRow.Cells["RezervasyonID"].Value.ToString();
-				Takvim.SelectionStart = (DateTime)selectedRow.Cells["Tarih"].Value;
-				ComboSaat.SelectedItem = ((TimeSpan)selectedRow.Cells["BaslangicSaat"].Value).Hours;
-				ComboDakika.SelectedItem = ((TimeSpan)selectedRow.Cells["BaslangicSaat"].Value).Minutes;
-				CombobitisSaat.SelectedItem = ((TimeSpan)selectedRow.Cells["BitisSaat"].Value).Hours;
-				bitisDakika.SelectedItem = ((TimeSpan)selectedRow.Cells["BitisSaat"].Value).Minutes;
+				//Takvim.SelectionStart = (DateTime)selectedRow.Cells["Tarih"].Value;
+				ComboSaat.Text = ((TimeSpan)selectedRow.Cells["BaslangicSaat"].Value).Hours.ToString();
+				ComboDakika.Text = ((TimeSpan)selectedRow.Cells["BaslangicSaat"].Value).Minutes.ToString();
+				CombobitisSaat.Text = ((TimeSpan)selectedRow.Cells["BitisSaat"].Value).Hours.ToString();
+				bitisDakika.Text = ((TimeSpan)selectedRow.Cells["BitisSaat"].Value).Minutes.ToString();
 				txtkisiSayisi.Text = selectedRow.Cells["KisiSayisi"].Value.ToString();
 				txttalep.Text = selectedRow.Cells["Talep"].Value.ToString();
-				comboOnay.SelectedIndex = Convert.ToInt32(selectedRow.Cells["Durum"].Value.ToString()) - 1;
+				string durum = selectedRow.Cells["Durum"].Value.ToString();
+				switch (durum)
+				{
+					case "Onay Bekleniyor":
+						comboOnay.SelectedIndex = 0;
+						break;
+					case "Onaylandı":
+						comboOnay.SelectedIndex = 1;
+						break;
+					case "Gerçekleşti":
+						comboOnay.SelectedIndex = 2;
+						break;
+					case "İptal Edildi":
+						comboOnay.SelectedIndex = 3;
+						break;
+					case "Onaylanmadı":
+						comboOnay.SelectedIndex = 4;
+						break;
+					case "Gelmedi":
+						comboOnay.SelectedIndex = 5;
+						break;
+
+					default:
+						// Belirli bir durum eşleşmediğinde yapılacak işlem
+						break;
+				}
+
+
 				ıd = Convert.ToInt32(hiddenID.Text);
 			}
 		}

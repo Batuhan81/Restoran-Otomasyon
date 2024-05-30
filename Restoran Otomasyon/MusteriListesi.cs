@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Restoran_Otomasyon.Paneller
 {
@@ -23,11 +24,11 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			Musteriler();
 			FiltreKaldır();
+			Yardimcilar.GridRenklendir(gridMusteriler);
 		}
 		Context db = new Context();
 		void Musteriler()
 		{
-
 			if (deger == 1)//Kayıtlı müşterileri listelemek için 1 kayıtsızlar için 2 bu sayede gereksiz form oluşturmadım
 			{
 				var Musteriler = db.Musteriler
@@ -62,8 +63,8 @@ namespace Restoran_Otomasyon.Paneller
 					   .ToList();
 				gridMusteriler.DataSource = Kayitsizlar;
 				gridMusteriler.Columns["Id"].Visible = false;
-				txtSoyadAra.ReadOnly=true;
-				txtmailAra.ReadOnly=true;
+				txtSoyadAra.ReadOnly = true;
+				txtmailAra.ReadOnly = true;
 			}
 		}
 
@@ -72,15 +73,23 @@ namespace Restoran_Otomasyon.Paneller
 			Ad = txtAdAra.Text;
 			FiltrelerveGetir();
 		}
+		List<Musteri> query = new List<Musteri>();
 		void FiltrelerveGetir()
 		{
-			
-			telefon = new string(telefon.Where(char.IsDigit).ToArray());
+			query = db.Musteriler.ToList();
+			if (telefon != null)
+			{
+				// Kullanıcının girdiği telefon numarasından sadece rakamları al
+				string temizTelefon = new string(telefon.Where(char.IsDigit).ToArray());
+
+				// Veritabanındaki telefon numaralarından sadece rakamları alarak karşılaştır
+				query = query.Where(o => new string(o.Telefon.Where(char.IsDigit).ToArray()).Contains(temizTelefon)).ToList();
+			}
 			if (deger == 1)//Kayıtlı müşterilerin Filtreleme işlemi
 			{
-				
-				var Musteriler = db.Musteriler
-						.Where(p => p.Gorunurluk == true && p.Ad.Contains(Ad) && p.Soyad.Contains(soyad) && p.Eposta.Contains(mail) && p.Telefon.Contains(telefon))
+
+				var Musteriler = query
+						.Where(p => p.Gorunurluk == true && p.Ad.Contains(Ad) && p.Soyad.Contains(soyad) && p.Eposta.Contains(mail))
 						.OrderByDescending(o => o.Id)
 						.Select(x => new
 						{
@@ -116,7 +125,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtSoyadAra_TextChanged(object sender, EventArgs e)
 		{
-			soyad=txtSoyadAra.Text;
+			soyad = txtSoyadAra.Text;
 			FiltrelerveGetir();
 		}
 
@@ -137,7 +146,7 @@ namespace Restoran_Otomasyon.Paneller
 			FiltreKaldır();
 		}
 		string Ad;
-		string soyad ;
+		string soyad;
 		string mail;
 		string telefon;
 		private void FiltreKaldır()

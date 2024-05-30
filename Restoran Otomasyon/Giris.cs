@@ -44,6 +44,7 @@ namespace Restoran_Otomasyon
 				}
 				else if (kullanici.Ad == "Admin")
 				{
+					Yardimcilar.SignalRSunucuBaslat();
 					Admin_Paneli git = new Admin_Paneli(ıd);
 					git.Show();
 					this.Close();
@@ -58,6 +59,7 @@ namespace Restoran_Otomasyon
 				{
 					MessageBox.Show("Kullanıcı Bulunamadı Lütfen Bilgileri Kontrol Ediniz");
 				}
+				Yardimcilar.ConnectToSignalR();
 			}
 			else
 			{

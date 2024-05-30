@@ -28,6 +28,7 @@ namespace Restoran_Otomasyon.Paneller
 			comboTedarik.DisplayMember = "Firma";
 			comboTedarik.ValueMember = "Id";
 			comboTedarik.DataSource = tedarikciFirma;
+
 			var txtRolAraVeriKaynagi = new List<Tedarikci>(tedarikciFirma);
 			ComboTedarikciAra.DisplayMember = "Firma";
 			ComboTedarikciAra.ValueMember = "Id";
@@ -159,9 +160,11 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void MalzemeESG_Load(object sender, EventArgs e)
 		{
-			MalzemeList();
 			TedarikciDoldur();
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridMalzeme);//Datagridde veriler daha rahat okunsun diye tek çift sütunlara farklı renk verme
+			ComboTedarikciAra.Text = "";
+			Firma = null;
+			MalzemeList();
 		}
 
 		private void gridMalzeme_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -353,13 +356,19 @@ namespace Restoran_Otomasyon.Paneller
 			Yardimcilar.Kopyalama(txtmax, sender, e);
 		}
 
+		string MalzemeAd;
+		string Olcu;
+		string Firma;
 		private void txtAdAra_TextChanged(object sender, EventArgs e)
 		{
+			 MalzemeAd = txtAdAra.Text;
+
 			Filtrele();
 		}
 
 		private void ComboTedarikciAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			Firma = ComboTedarikciAra.Text;
 			Filtrele();
 		}
 
@@ -370,9 +379,6 @@ namespace Restoran_Otomasyon.Paneller
 		}
 		void Filtrele()
 		{
-			string MalzemeAd = txtAdAra.Text;
-			string Olcu = olcuAra.Text;
-			string Firma = ComboTedarikciAra.Text;
 
 			var malzemeStokBilgileri = from malzeme in db.Malzemeler
 									   join stok in db.Stoklar on malzeme.Id equals stok.MalzemeId
@@ -393,6 +399,7 @@ namespace Restoran_Otomasyon.Paneller
 										   StokId = stok.Id,
 									   };
 
+			
 			if (!string.IsNullOrEmpty(MalzemeAd))
 			{
 				malzemeStokBilgileri = malzemeStokBilgileri.Where(p => p.MalzemeAd.Contains(MalzemeAd));
@@ -417,6 +424,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void olcuAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			Olcu = olcuAra.Text;
 			Filtrele();
 		}
 	}

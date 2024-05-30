@@ -192,7 +192,7 @@ namespace Restoran_Otomasyon
 
 		public static IHubProxy hubProxy;
 		public static HubConnection connection;
-		public static string url = "http://192.168.1.150:8080/signalr/hubs"; // SignalR sunucusunun adresi
+		public static string url = "http://192.168.1.144:8080/signalr/hubs"; // SignalR sunucusunun adresi
 
 		public static async void ConnectToSignalR()
 		{
@@ -214,6 +214,7 @@ namespace Restoran_Otomasyon
 								calisanForm.BeginInvoke(new Action(() =>
 								{
 									calisanForm.MasaButonlariniGuncelle();
+									calisanForm.comboKat.SelectedIndex = 0;
 								}));
 							}
 						});

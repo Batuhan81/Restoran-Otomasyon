@@ -82,7 +82,7 @@ namespace Restoran_Otomasyon.Paneller
 				Checkİndirim.Checked = false;
 				Urunlist(gridUrun);
 			}
-			else if (txtindirimli.Text.Length > 0)
+			else if (txtindirimli.Text.Length > 0 && txtindirimli.Text != "")
 			{
 				timer1.Start();
 				MessageBox.Show("Kayıt Eklenirken İndirim Uygulanacaktır", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information);

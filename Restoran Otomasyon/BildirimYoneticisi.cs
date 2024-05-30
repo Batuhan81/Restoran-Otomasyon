@@ -40,10 +40,11 @@ namespace Restoran_Otomasyon
 					if (BildirimlerToolStrip.Image != Restoran_Otomasyon.Properties.Resources.bildirimCani)
 					{
 						BildirimlerToolStrip.Image = Restoran_Otomasyon.Properties.Resources.bildirimCani;
-						if (!okuyatıklandı)
-						{
+						//if (!okuyatıklandı)
+						//{
 							Yardimcilar.CalBildirimSesi(); // Bildirim sesi çal
-						}
+							okuyatıklandı = false;
+						//}
 					}
 				}
 				else

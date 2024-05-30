@@ -491,12 +491,13 @@
 			// 
 			// timer1
 			// 
-			this.timer1.Interval = 2000;
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// RolPaneli
 			// 
 			this.RolPaneli.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.RolPaneli.Location = new System.Drawing.Point(375, 225);
+			this.RolPaneli.Location = new System.Drawing.Point(384, 225);
 			this.RolPaneli.Name = "RolPaneli";
 			this.RolPaneli.Size = new System.Drawing.Size(612, 318);
 			this.RolPaneli.TabIndex = 41;

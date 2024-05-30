@@ -345,8 +345,7 @@
 			// 
 			// timer2
 			// 
-			this.timer2.Enabled = true;
-			this.timer2.Interval = 60000;
+			this.timer2.Interval = 1000;
 			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
 			// 
 			// MasaESG
@@ -388,7 +387,6 @@
 		private System.Windows.Forms.Button btnKatEkle;
 		private System.Windows.Forms.Button MasaEkle;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.ComboBox comboKat;
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.FlowLayoutPanel MasaPanel;
 		private System.Windows.Forms.Button btnKatSil;
@@ -411,5 +409,6 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.ComboBox comboOzellikFiltre;
 		private System.Windows.Forms.Timer timer2;
+		public System.Windows.Forms.ComboBox comboKat;
 	}
 }

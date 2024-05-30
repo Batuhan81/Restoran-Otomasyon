@@ -64,13 +64,13 @@ namespace Restoran_Otomasyon.Paneller
 							int rolId = (int)ComboRol.SelectedValue;//Comboboxtan Seçilendeğerin Idsi
 							if (hiddenPersonelId.Text == "")
 							{
-								var EslesenMail = db.Personeller.FirstOrDefault(x => x.Eposta == txteposta.Text && x.Gorunurluk==true);
+								var EslesenMail = db.Personeller.FirstOrDefault(x => x.Eposta == txteposta.Text && x.Gorunurluk == true);
 								var EslesenTel = db.Personeller.FirstOrDefault(x => x.Telefon == txttelefon.Text && x.Gorunurluk == true);
 								if (EslesenMail == null)
 								{
-									if(EslesenTel == null)
+									if (EslesenTel == null)
 									{
-										if(maasformatsız< 2147483647)
+										if (maasformatsız < 2147483647)
 										{
 											int uzunluk = txttelefon.Text.Length;
 											if (uzunluk == 14)
@@ -224,7 +224,7 @@ namespace Restoran_Otomasyon.Paneller
 		}
 		string gününT;
 
-		
+
 		private void CalisanESG_Load(object sender, EventArgs e)
 		{
 			RolleriDoldur();
@@ -255,6 +255,8 @@ namespace Restoran_Otomasyon.Paneller
 			//Id ve Fotoğraf uzantısını gizleme
 			gridPersonel.Columns["Foto"].Visible = false;
 			gridPersonel.Columns["Id"].Visible = false;
+			txtRolAra.SelectedValue = 0;
+			rol = 0;
 			//Gridi renklendirme
 			Restoran_Otomasyon.Yardimcilar.GridRenklendir(gridPersonel);
 		}
@@ -403,7 +405,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtmaas_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			Yardimcilar.KontrolEt(txtmaas,e);
+			Yardimcilar.KontrolEt(txtmaas, e);
 		}
 
 		private void txtmaas_Leave(object sender, EventArgs e)
@@ -418,35 +420,54 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtAdAra_TextChanged(object sender, EventArgs e)
 		{
+			ad = txtAdAra.Text;
 			FiltreleVeYukle();
 		}
 
 		private void txtmailAra_TextChanged(object sender, EventArgs e)
 		{
+			mail = txtmailAra.Text;
 			FiltreleVeYukle();
 		}
+		string mail;
+		string ad;
+		string telefon;
+		bool? cinsiyet = null;
+		int rol = 0;
+		List<Personel> query = new List<Personel>();
 		private void FiltreleVeYukle()
 		{
-			string ad = txtAdAra.Text;
-			string mail = txtmailAra.Text;
-			string telefon = txtTelAra.Text;
-			bool cinsiyet;
-			if (TxtCinsiyetAra.SelectedIndex == 0)
+			List<Personel> query = new List<Personel>();
+			query = db.Personeller.ToList();
+			if (ad != null)
 			{
-				cinsiyet = false;
+				query = query.Where(o => o.Ad.Contains(ad)).ToList();
 			}
-			else
+			if (mail != null)
 			{
-				cinsiyet=true;
+				query = query.Where(o => o.Eposta.Contains(mail)).ToList();
 			}
-			int rol =(int)txtRolAra.SelectedValue;
+			if (telefon != null)
+			{
+				// Kullanıcının girdiği telefon numarasından sadece rakamları al
+				string temizTelefon = new string(telefon.Where(char.IsDigit).ToArray());
 
-			// Kullanıcı tarafından girilen telefon numarasından gereksiz karakterleri ve boşlukları kaldırma
-			telefon = new string(telefon.Where(char.IsDigit).ToArray());
+				// Veritabanındaki telefon numaralarından sadece rakamları alarak karşılaştır
+				query = query.Where(o => new string(o.Telefon.Where(char.IsDigit).ToArray()).Contains(temizTelefon)).ToList();
+			}
 
+			if (cinsiyet != null)
+			{
+				query = query.Where(o => o.Cinsiyet == cinsiyet).ToList();
+			}
+			if (rol != 0)
+			{
+				query = query.Where(o => o.RolId == rol).ToList();
+			}
+
+			//db.Personeller.Where(p => p.Ad.Contains(ad) && p.Eposta.Contains(mail) && p.Telefon.Contains(telefon) && p.Cinsiyet == cinsiyet && p.RolId == rol)
 			// LINQ sorgusu ile filtreleme yapıyoruz
-			var filtrelenmisPersoneller = db.Personeller
-				.Where(p => p.Ad.Contains(ad) && p.Eposta.Contains(mail) && p.Telefon.Contains(telefon) && p.Cinsiyet==cinsiyet&&p.RolId==rol) // Telefon numarasının içerisinde belirtilen rakamların geçtiği kayıtları al
+			var filtrelenmisPersoneller = query.Where(o => o.Gorunurluk == true)// Telefon numarasının içerisinde belirtilen rakamların geçtiği kayıtları al
 				.Select(o => new
 				{
 					Id = o.Id,
@@ -469,23 +490,52 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void txtTelAra_TextChanged(object sender, EventArgs e)
 		{
+			telefon = txtTelAra.Text;
 			FiltreleVeYukle();
 		}
 
 		private void TxtCinsiyetAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			if (TxtCinsiyetAra.SelectedIndex == 0)
+			{
+				cinsiyet = false;
+			}
+			else if (TxtCinsiyetAra.SelectedIndex == 1)
+			{
+				cinsiyet = true;
+			}
+			else
+			{
+				cinsiyet = null;
+			}
 			FiltreleVeYukle();
 		}
 
 		private void txtRolAra_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			FiltreleVeYukle(); 
+			if (txtRolAra.SelectedValue != null)
+			{
+				rol = (int)txtRolAra.SelectedValue;
+				FiltreleVeYukle();
+			}
 		}
 
 		private void button6_Click(object sender, EventArgs e)
 		{
 			Yardimcilar.Temizle(groupCalisanFiltre);
-			PersonelList();
+			//PersonelList();
+			ad = null;
+			telefon = null;
+			mail = null;
+			cinsiyet = null;
+			rol = 0;
+			FiltreleVeYukle();
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			timer1.Stop();
+			SendKeys.Send("{ESC}");
 		}
 	}
 }

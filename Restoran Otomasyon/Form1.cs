@@ -20,8 +20,7 @@ namespace Restoran_Otomasyon
 		public Form1()
 		{
 			InitializeComponent();
-			Yardimcilar.SignalRSunucuBaslat(); /*Şuanlık otomatik olarak başlatıyor ama bağlanırken sorunlu o yüzden kapattım*/
-			Yardimcilar.ConnectToSignalR();
+			
 		}
 		
 		private void timer1_Tick(object sender, EventArgs e)//timerın her süresi dolduğunda metnin başındaki harfi sonuna ekleyecek

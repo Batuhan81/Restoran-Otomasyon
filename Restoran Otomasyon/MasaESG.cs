@@ -19,7 +19,7 @@ namespace Restoran_Otomasyon.Paneller
 	public partial class MasaESG : Form
 	{
 		public MasaESG(int kullaniciID)
-		{
+		{	
 			InitializeComponent();
 			InitializeEvents();
 			kullaniciId = kullaniciID;
@@ -94,6 +94,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
+				timer2.Start();
 				MessageBox.Show("Masa Eklemeden Önce Bir Kat Eklenmelidir!");
 				KatEklePanel();
 			}
@@ -256,6 +257,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
+				timer2.Start();
 				MessageBox.Show("Yalnızca Durumu Kirli Olan Masalar Temizlenebilir.","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Error);
 			}
 		}
@@ -329,19 +331,20 @@ namespace Restoran_Otomasyon.Paneller
 						}
 					}
 					db.SaveChanges();
+					timer2.Start();
 					MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					ButonlarıGetir(secilenKategoriId);
 				}
 				else
 				{
-					timer1.Start();
+					timer2.Start();
 					MessageBox.Show("Bu Masa Kodu Hali Hazırda Kullanımda !", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					return;
 				}
 			}
 			else
 			{
-				timer1.Start();
+				timer2.Start();
 				MessageBox.Show("Masayla ilgili tüm alanları doldurmalısınız!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
@@ -714,7 +717,8 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void timer2_Tick(object sender, EventArgs e)
 		{
-			//MasaButonlariniGuncelle();//Signal olmayınca bunu koydum buda sayfa yenilenince bunu en öne alıyor
+			timer2.Stop();
+			SendKeys.Send("{ESC}");
 		}
 	}
 }

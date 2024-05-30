@@ -27,19 +27,19 @@ namespace Restoran_Otomasyon
 			{
 				if (Restoran_Otomasyon.Yardimcilar.MailKontrol(txteposta.Text))
 				{
-					var eslesenmail=db.Tedarikciler.FirstOrDefault(o=>o.Eposta==txteposta.Text);
+					var eslesenmail = db.Tedarikciler.FirstOrDefault(o => o.Eposta == txteposta.Text);
 					var eslesentel = db.Tedarikciler.FirstOrDefault(o => o.Telefon == txttelefon.Text);
 					var eslesenFirma = db.Tedarikciler.FirstOrDefault(o => o.Firma == txtfirma.Text);
 					if (hiddenTedarikciId.Text == "")
 					{
 						if (eslesenFirma == null)
 						{
-							if(eslesentel == null)
+							if (eslesentel == null)
 							{
-								if(eslesenmail == null)
+								if (eslesenmail == null)
 								{
-									int uzunluk=txttelefon.Text.Length;
-									if(uzunluk == 14)
+									int uzunluk = txttelefon.Text.Length;
+									if (uzunluk == 14)
 									{
 										tedarikci.AdSoyad = txtad.Text;
 										tedarikci.Firma = txtfirma.Text;
@@ -210,13 +210,30 @@ namespace Restoran_Otomasyon
 				*/
 			}
 		}
+		List<Tedarikci> query = new List<Tedarikci>();
+		string ad;
+		string mail;
+		string telefon;
 		void Filtrele()
 		{
-			string ad = txtAdAra.Text;
-			string mail = txtmailAra.Text;
-			string telefon = txtTelAra.Text;
-			telefon = new string(telefon.Where(char.IsDigit).ToArray());
-			var Tedarikciler = db.Tedarikciler.Where(r => r.Gorunurluk == true&& r.Firma.Contains(ad) && r.Eposta.Contains(mail) && r.Telefon.Contains(telefon)).Select(o => new
+			query = db.Tedarikciler.ToList();
+			if (ad != null)
+			{
+				query=query.Where(o=>o.Firma.Contains(ad)).ToList();
+			}
+			if (mail != null)
+			{
+				query = query.Where(o => o.Eposta.Contains(mail)).ToList();
+			}
+			if (telefon != null)
+			{
+				// Kullanıcının girdiği telefon numarasından sadece rakamları al
+				string temizTelefon = new string(telefon.Where(char.IsDigit).ToArray());
+
+				// Veritabanındaki telefon numaralarından sadece rakamları alarak karşılaştır
+				query = query.Where(o => new string(o.Telefon.Where(char.IsDigit).ToArray()).Contains(temizTelefon)).ToList();
+			}
+			var Tedarikciler = query.Where(o=>o.Gorunurluk==true).Select(o => new
 			{
 				Id = o.Id,
 				Ad = o.AdSoyad,
@@ -230,17 +247,31 @@ namespace Restoran_Otomasyon
 
 		private void txtAdAra_TextChanged(object sender, EventArgs e)
 		{
+			ad = txtAdAra.Text;
 			Filtrele();
 		}
 
 		private void txtmailAra_TextChanged(object sender, EventArgs e)
 		{
+			mail = txtmailAra.Text;
 			Filtrele();
 		}
 
 		private void txtTelAra_TextChanged(object sender, EventArgs e)
 		{
+			telefon = txtTelAra.Text;
 			Filtrele();
+		}
+
+		private void button8_Click(object sender, EventArgs e)
+		{
+			ad = null;
+			mail = null;
+			telefon=null;
+			Filtrele();
+			txtAdAra.Text = "";
+			txtmailAra.Text = "";
+			txtTelAra.Text = "";
 		}
 	}
 }
