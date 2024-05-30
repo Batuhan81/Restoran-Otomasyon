@@ -29,17 +29,18 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OzellikESG));
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OzellikESG));
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtAd = new System.Windows.Forms.TextBox();
 			this.Kaydet = new System.Windows.Forms.Button();
+			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.button1 = new System.Windows.Forms.Button();
 			this.gridOzellik = new System.Windows.Forms.DataGridView();
 			this.hiddenId = new System.Windows.Forms.TextBox();
-			this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.gridOzellik)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -74,6 +75,13 @@
 			this.Kaydet.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.Kaydet.UseVisualStyleBackColor = false;
 			this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
+			// 
+			// ımageList1
+			// 
+			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.ımageList1.Images.SetKeyName(0, "Kaydet.png");
+			this.ımageList1.Images.SetKeyName(1, "Sil butonu - Kopya.png");
 			// 
 			// button1
 			// 
@@ -136,12 +144,10 @@
 			this.hiddenId.TabIndex = 47;
 			this.hiddenId.Visible = false;
 			// 
-			// ımageList1
+			// timer1
 			// 
-			this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
-			this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
-			this.ımageList1.Images.SetKeyName(0, "Kaydet.png");
-			this.ımageList1.Images.SetKeyName(1, "Sil butonu - Kopya.png");
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// OzellikESG
 			// 
@@ -176,5 +182,6 @@
 		private System.Windows.Forms.DataGridView gridOzellik;
 		private System.Windows.Forms.TextBox hiddenId;
 		private System.Windows.Forms.ImageList ımageList1;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

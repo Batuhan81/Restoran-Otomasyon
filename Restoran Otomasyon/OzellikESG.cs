@@ -34,6 +34,7 @@ namespace Restoran_Otomasyon.Paneller
 					}
 					else
 					{
+						timer1.Start();
 						MessageBox.Show("Bu Özellik Adı Hali Hazırda Kullanımda","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Warning);
 						return;
 					}
@@ -80,6 +81,11 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			Ozellikler();
 			gridOzellik.Columns["Id"].Visible = false;
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

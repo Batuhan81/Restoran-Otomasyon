@@ -41,6 +41,7 @@
 			this.ComboNeden = new System.Windows.Forms.ComboBox();
 			this.hiddenMalzemeID = new System.Windows.Forms.TextBox();
 			this.hiddenstokId = new System.Windows.Forms.TextBox();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// VtStok
@@ -154,6 +155,11 @@
 			this.hiddenstokId.TabIndex = 10;
 			this.hiddenstokId.Visible = false;
 			// 
+			// timer1
+			// 
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// StokSayim
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -193,5 +199,6 @@
 		private System.Windows.Forms.TextBox hiddenMalzemeID;
 		private System.Windows.Forms.TextBox hiddenstokId;
 		private System.Windows.Forms.ImageList ımageList1;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

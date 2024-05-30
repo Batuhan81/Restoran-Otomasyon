@@ -44,6 +44,7 @@
 			this.DbAdi = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.baglantiDizesi = new System.Windows.Forms.Label();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -188,6 +189,11 @@
 			this.baglantiDizesi.Size = new System.Drawing.Size(0, 22);
 			this.baglantiDizesi.TabIndex = 16;
 			// 
+			// timer1
+			// 
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// VtBilgiGir
 			// 
 			this.AcceptButton = this.button1;
@@ -225,5 +231,6 @@
 		private System.Windows.Forms.TextBox DbAdi;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label baglantiDizesi;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

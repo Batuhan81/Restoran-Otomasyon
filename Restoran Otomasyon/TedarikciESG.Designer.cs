@@ -55,13 +55,13 @@
 			this.gridTedarikci = new System.Windows.Forms.DataGridView();
 			this.label5 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button8 = new System.Windows.Forms.Button();
 			this.txtTelAra = new System.Windows.Forms.MaskedTextBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.txtmailAra = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.txtAdAra = new System.Windows.Forms.TextBox();
-			this.button8 = new System.Windows.Forms.Button();
 			this.groupTedarikci.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridTedarikci)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -109,7 +109,8 @@
 			// 
 			// timer1
 			// 
-			this.timer1.Interval = 2000;
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// uzanti
 			// 
@@ -338,6 +339,18 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Filtre Seçenekleri";
 			// 
+			// button8
+			// 
+			this.button8.BackColor = System.Drawing.Color.SkyBlue;
+			this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+			this.button8.Location = new System.Drawing.Point(279, 17);
+			this.button8.Name = "button8";
+			this.button8.Size = new System.Drawing.Size(118, 25);
+			this.button8.TabIndex = 50;
+			this.button8.Text = "Kaldır";
+			this.button8.UseVisualStyleBackColor = false;
+			this.button8.Click += new System.EventHandler(this.button8_Click);
+			// 
 			// txtTelAra
 			// 
 			this.txtTelAra.Location = new System.Drawing.Point(537, 48);
@@ -392,18 +405,6 @@
 			this.txtAdAra.Size = new System.Drawing.Size(144, 28);
 			this.txtAdAra.TabIndex = 0;
 			this.txtAdAra.TextChanged += new System.EventHandler(this.txtAdAra_TextChanged);
-			// 
-			// button8
-			// 
-			this.button8.BackColor = System.Drawing.Color.SkyBlue;
-			this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-			this.button8.Location = new System.Drawing.Point(279, 17);
-			this.button8.Name = "button8";
-			this.button8.Size = new System.Drawing.Size(118, 25);
-			this.button8.TabIndex = 50;
-			this.button8.Text = "Kaldır";
-			this.button8.UseVisualStyleBackColor = false;
-			this.button8.Click += new System.EventHandler(this.button8_Click);
 			// 
 			// TedarikciESG
 			// 

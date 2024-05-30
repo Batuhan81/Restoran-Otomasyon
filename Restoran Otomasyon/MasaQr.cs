@@ -38,6 +38,7 @@ namespace Restoran_Otomasyon
 				catch
 				{
 					string dosyayolu = Yardimcilar.KareKodOlustur(masa.Kod);
+					timer1.Start();
 					MessageBox.Show($"Masa Qr'ı Bulunamadı Yeniden Oluşturup Kayıt Ediliyor.(Şuraya Kayıt Edildi=>{dosyayolu})");
 					masa.Qr = dosyayolu;
 					db.SaveChanges();
@@ -52,6 +53,7 @@ namespace Restoran_Otomasyon
 			else
 			{
 				// Masa bulunamadı veya null olarak döndü
+				timer1.Start();
 				MessageBox.Show("Masa bulunamadı.");
 			}
 		}
@@ -73,6 +75,7 @@ namespace Restoran_Otomasyon
 					{
 						// Dosyayı kaydet
 						File.WriteAllBytes(saveFileDialog.FileName, qrBytes);
+						timer1.Start();
 						MessageBox.Show("QR kod başarıyla kaydedildi.");
 					}
 				}
@@ -84,11 +87,16 @@ namespace Restoran_Otomasyon
 			else
 			{
 				string dosyayolu = Yardimcilar.KareKodOlustur(masa.Kod);
-
+				
 				MessageBox.Show($"Masa Qr'ı Bulunamadı Yeniden Oluşturup Kayıt Ediliyor.(Şuraya Kayıt Edildi=>{dosyayolu})");
 				masa.Qr = dosyayolu;
 				db.SaveChanges();
 			}
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

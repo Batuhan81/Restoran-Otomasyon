@@ -99,6 +99,7 @@ namespace Restoran_Otomasyon
 						masa.PersonelId = personelId;
 					}
 					db.SaveChanges();
+					timer1.Start();
 					MessageBox.Show("Güncelleme İşlemi Başarılı");
 
 				}
@@ -109,6 +110,7 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Bu Masa Adına Sahip Bir Masa Zaten Kayıtlı !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				eslesti = false;
 				Yukle();
@@ -127,17 +129,20 @@ namespace Restoran_Otomasyon
 				{
 					masa.Gorunurluk = false; // Masa silme işlemi
 					db.SaveChanges();
+					timer1.Start();
 					MessageBox.Show("Masa Başarıyla Silindi");
 					Yardimcilar.SignalTetikleMasaDurum();
 					this.Close();
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show($"Masa Silme İşlemi İçin Masa Durumunun Boş Olması ve İleri Tarihli Bir Rezervasyonun Olmaması Gerekir!", "İşlem Gerçekleştirilemez", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Masa Bilgisi Bulunmadı","Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -161,12 +166,14 @@ namespace Restoran_Otomasyon
 
 			if (masa == null)
 			{
+				timer1.Start();
 				MessageBox.Show("Masa bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 
 			if (masa.Durum == 2 || masa.Durum == 4)
 			{
+				timer1.Start();
 				MessageBox.Show("Masa kapatma işlemi için masa durumunun boş veya kapalı olması gerekmektedir.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
@@ -175,15 +182,18 @@ namespace Restoran_Otomasyon
 			{
 				if (IleriTarihliRezervasyonVar(masaId))
 				{
+					timer1.Start();
 					MessageBox.Show("Masa kapatma işlemi için ileri tarihli bir rezervasyon olmamalıdır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					return;
 				}
 				masa.Durum = 5; // Masa Kapatma işlemi
+				timer1.Start();
 				MessageBox.Show("Masa kapatıldı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			else if (masa.Durum == 5)
 			{
 				masa.Durum = 1; // Masa Açma işlemi
+				timer1.Start();
 				MessageBox.Show("Masa açıldı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 
@@ -204,10 +214,12 @@ namespace Restoran_Otomasyon
 			if (masa.Durum == 3)
 			{
 				masa.Durum = 1;
+				timer1.Start();
 				MessageBox.Show("Masa Durumu Temiz Olarak Güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Yalnızca Kirli Masaların Durumu Temiz Olarak Ayarlanabilir.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			db.SaveChanges();
@@ -238,6 +250,11 @@ namespace Restoran_Otomasyon
 		private void txttutar_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(txttutar, e);
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

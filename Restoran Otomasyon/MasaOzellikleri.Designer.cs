@@ -36,6 +36,7 @@
 			this.OzellikList = new System.Windows.Forms.CheckedListBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// MasaOzellik
@@ -102,8 +103,14 @@
 			this.label2.Text = "Tüm Özellikler";
 			this.label2.Visible = false;
 			// 
+			// timer1
+			// 
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// MasaOzellikleri
 			// 
+			this.AcceptButton = this.btnKaydet;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -130,5 +137,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ImageList ımageList1;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

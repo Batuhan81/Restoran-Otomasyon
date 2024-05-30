@@ -547,6 +547,7 @@ namespace Restoran_Otomasyon.Paneller
 								kapaliMasa.Show();
 								break;
 							default:
+								timer2.Start();
 								MessageBox.Show("Bilinmeyen masa durumu!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 								break;
 						}
@@ -717,8 +718,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void timer2_Tick(object sender, EventArgs e)
 		{
-			timer2.Stop();
-			SendKeys.Send("{ESC}");
+			Yardimcilar.GeriCik(timer2);
 		}
 	}
 }

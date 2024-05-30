@@ -144,6 +144,7 @@ namespace Restoran_Otomasyon
 					}
 					else
 					{
+						timer1.Start();
 						MessageBox.Show($"{selectedOzellikAd} özelliği zaten masaya eklenmiş!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					}
 				}
@@ -153,6 +154,11 @@ namespace Restoran_Otomasyon
 			MasaOzellik.ClearSelected();
 			OzellikList.ClearSelected();
 
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

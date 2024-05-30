@@ -81,6 +81,7 @@ namespace Restoran_Otomasyon.Paneller
 					malzemeListesi.DataSource = malzemeler;
 					malzemeListesi.DisplayMember = "Ad";
 					malzemeListesi.ValueMember = "Id";
+					timer1.Start();
 					MessageBox.Show("Stoklar Eşleşiyor");
 					Temizle();
 				}
@@ -121,6 +122,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Eldeki Stok Miktarını Giriniz !","Stok Girilmeden İşlem Yapılamaz",MessageBoxButtons.OK,MessageBoxIcon.Warning);
 			}
 			
@@ -151,10 +153,12 @@ namespace Restoran_Otomasyon.Paneller
 				db.SaveChanges();
 				if (x.Malzeme.Tur != "Adet")
 				{
+					timer1.Start();
 					MessageBox.Show($"Yeni Stok Çıktısı Kayıt Edildi (Son Stok {x.Miktar / 1000 + " " + x.Malzeme.Tur})");
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show($"Yeni Stok Çıktısı Kayıt Edildi (Son Stok {x.Miktar + " " + x.Malzeme.Tur})");
 				}
 				
@@ -162,6 +166,7 @@ namespace Restoran_Otomasyon.Paneller
 			else if (kontrolEdilenStok == stokmik)
 			{
 				malzemeListesi.Items.Remove(secilenIndex);
+				timer1.Start();
 				MessageBox.Show("Stoklar Eşleşiyor");
 			}
 			else//stokçıktısı ekle
@@ -186,10 +191,12 @@ namespace Restoran_Otomasyon.Paneller
 				db.SaveChanges();
 				if (x.Malzeme.Tur != "Adet")
 				{
+					timer1.Start();
 					MessageBox.Show($"Yeni Stok Çıktısı Kayıt Edildi (Son Stok {x.Miktar/1000 +" "+x.Malzeme.Tur})");
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show($"Yeni Stok Çıktısı Kayıt Edildi (Son Stok {x.Miktar+ " " + x.Malzeme.Tur})");
 				}
 			}
@@ -214,6 +221,11 @@ namespace Restoran_Otomasyon.Paneller
 		private void EldekiStok_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			Yardimcilar.KontrolEt(EldekiStok, e);
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

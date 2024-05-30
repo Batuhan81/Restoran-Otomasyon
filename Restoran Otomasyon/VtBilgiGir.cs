@@ -40,6 +40,7 @@ namespace Restoran_Otomasyon
 				{
 					if (!db.Database.Exists()) // Veritabanı yoksa
 					{
+						timer1.Start();
 						MessageBox.Show("Veri Tabanı Oluşturuluyor İşlem Biraz Zaman Alabilir.");
 						db.Database.Create(); // Yeni bir veritabanı oluştur
 						if (!db.Kullanicilar.Any())
@@ -70,12 +71,15 @@ namespace Restoran_Otomasyon
 						{
 							;
 						}
+						timer1.Start();
 						MessageBox.Show("Veri Tabanı Oluşturuldu.");
+						timer1.Start();
 						MessageBox.Show("Tekrar Giriş Sayfasına Yönlendirileceksiniz.");
 						this.Close();
 					}
 					else
 					{
+						timer1.Start();
 						MessageBox.Show("Girdiğiniz isimde bir veritabanı zaten mevcut.");
 					}
 				}
@@ -86,8 +90,14 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Tüm Bilgileri Girmeden Bir VeriTabanı Oluşturamazsınız.");
 			}
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

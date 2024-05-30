@@ -39,6 +39,7 @@ namespace Restoran_Otomasyon.Paneller
 					}
 					else
 					{
+						timer1.Start();
 						MessageBox.Show("Girilen Ad Zaten Kullanımda", "Rol Eklenemiyor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 						return;
 					}
@@ -63,6 +64,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Role Bir Ad Verdiğinizden Emin Olun", "Rol Eklenemiyor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}

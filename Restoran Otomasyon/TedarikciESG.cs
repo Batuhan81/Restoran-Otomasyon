@@ -167,6 +167,7 @@ namespace Restoran_Otomasyon
 						var x = db.Tedarikciler.Find(id);
 						x.Gorunurluk = false;
 						db.SaveChanges();
+						timer1.Start();
 						MessageBox.Show("Kayıt Silindi");
 						TedarikciList();
 						Yardimcilar.Temizle(groupTedarikci);
@@ -272,6 +273,11 @@ namespace Restoran_Otomasyon
 			txtAdAra.Text = "";
 			txtmailAra.Text = "";
 			txtTelAra.Text = "";
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

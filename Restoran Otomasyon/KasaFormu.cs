@@ -101,7 +101,6 @@ namespace Restoran_Otomasyon.Paneller
 			}
 		}
 
-
 		private void button2_Click(object sender, EventArgs e)
 		{
 			// Haftanın ilk gününü bulma
@@ -220,7 +219,6 @@ namespace Restoran_Otomasyon.Paneller
 				gridOdemeler.DataSource = odemeler;
 				gridOdemeler.Columns["Id"].Visible = false;
 			}
-
 		}
 	}
 }

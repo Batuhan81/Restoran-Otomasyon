@@ -58,6 +58,7 @@ namespace Restoran_Otomasyon.Paneller
 			else
 			{
 				// Malzeme için stok girdisi bulunamadıysa kullanıcıyı bilgilendir
+				timer1.Start();
 				MessageBox.Show("Seçilen malzeme için stok girdisi bulunamadı.");
 			}
 			var stokKaydi = db.Stoklar.FirstOrDefault(s => s.Malzeme.Id == selectedMalzemeId);
@@ -417,6 +418,11 @@ namespace Restoran_Otomasyon.Paneller
 			FirmaAra.Text = "";
 			MalzemeAra.Text = "";
 			Girdilİstesi();
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

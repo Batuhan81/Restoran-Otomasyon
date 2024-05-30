@@ -78,6 +78,7 @@ namespace Restoran_Otomasyon.Paneller
 				}
 				urun.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 				db.SaveChanges();
+				timer1.Start();
 				MessageBox.Show("İndirim Uygulandı");
 				Checkİndirim.Checked = false;
 				Urunlist(gridUrun);
@@ -314,8 +315,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
-			timer1.Stop();
-			SendKeys.Send("{ESC}");
+			Yardimcilar.GeriCik(timer1);
 		}
 
 		private void gridSecilenMalzemeler_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -426,6 +426,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Girmeye Çalıştığınız Değer Ürünün Kendi Fiyatından Yüksek", "İşlem Yapılamaz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				txtindirimli.Text = "";
 			}
@@ -752,6 +753,7 @@ namespace Restoran_Otomasyon.Paneller
 					urun.IndirimYuzdesi = 0;
 				}
 				db.SaveChanges();
+				timer1.Start();
 				MessageBox.Show("İndirim Kaldırıldı");
 				txtindirimli.Text = "";
 				txtyuzde.Text = "";

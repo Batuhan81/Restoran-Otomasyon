@@ -52,6 +52,7 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtmasaadi = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -288,6 +289,11 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Masa Adı:";
 			// 
+			// timer1
+			// 
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// MasaBilgiGuncelle
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -334,5 +340,6 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtmasaadi;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

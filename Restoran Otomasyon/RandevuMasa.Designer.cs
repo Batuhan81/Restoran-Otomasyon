@@ -72,6 +72,7 @@
 			this.button3 = new System.Windows.Forms.Button();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.txthiddenId = new System.Windows.Forms.TextBox();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.groupBaslangic.SuspendLayout();
 			this.GroupBitis.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridRandevular)).BeginInit();
@@ -519,6 +520,10 @@
 			this.txthiddenId.TabIndex = 51;
 			this.txthiddenId.Visible = false;
 			// 
+			// timer1
+			// 
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// RandevuMasa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 20F);
@@ -598,5 +603,6 @@
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.DataGridView gridKayitsiz;
 		private System.Windows.Forms.TextBox txthiddenId;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

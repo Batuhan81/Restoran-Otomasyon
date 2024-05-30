@@ -41,6 +41,7 @@
 			this.UrunPaneli = new System.Windows.Forms.FlowLayoutPanel();
 			this.OdemePaneli = new System.Windows.Forms.Panel();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.TumunuOde = new System.Windows.Forms.CheckBox();
 			this.checkFis = new System.Windows.Forms.CheckBox();
 			this.btn5 = new System.Windows.Forms.Button();
 			this.btn10 = new System.Windows.Forms.Button();
@@ -78,7 +79,6 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtmasaadi = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.TumunuOde = new System.Windows.Forms.CheckBox();
 			this.UrunPaneli.SuspendLayout();
 			this.OdemePaneli.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -141,7 +141,7 @@
 			// 
 			// timer1
 			// 
-			this.timer1.Interval = 2000;
+			this.timer1.Interval = 1000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// printDocument1
@@ -209,6 +209,17 @@
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Ödeme İşlemi";
+			// 
+			// TumunuOde
+			// 
+			this.TumunuOde.AutoSize = true;
+			this.TumunuOde.Location = new System.Drawing.Point(117, 21);
+			this.TumunuOde.Name = "TumunuOde";
+			this.TumunuOde.Size = new System.Drawing.Size(126, 22);
+			this.TumunuOde.TabIndex = 59;
+			this.TumunuOde.Text = "Tümünü Öde";
+			this.TumunuOde.UseVisualStyleBackColor = true;
+			this.TumunuOde.CheckedChanged += new System.EventHandler(this.TumunuOde_CheckedChanged);
 			// 
 			// checkFis
 			// 
@@ -606,17 +617,6 @@
 			this.label1.Size = new System.Drawing.Size(82, 18);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Masa Adı:";
-			// 
-			// TumunuOde
-			// 
-			this.TumunuOde.AutoSize = true;
-			this.TumunuOde.Location = new System.Drawing.Point(117, 21);
-			this.TumunuOde.Name = "TumunuOde";
-			this.TumunuOde.Size = new System.Drawing.Size(126, 22);
-			this.TumunuOde.TabIndex = 59;
-			this.TumunuOde.Text = "Tümünü Öde";
-			this.TumunuOde.UseVisualStyleBackColor = true;
-			this.TumunuOde.CheckedChanged += new System.EventHandler(this.TumunuOde_CheckedChanged);
 			// 
 			// DoluMasa
 			// 

@@ -74,6 +74,7 @@ namespace Restoran_Otomasyon.Paneller
 				}
 				menu.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 				db.SaveChanges();
+				timer1.Start();
 				MessageBox.Show("İndirim Uygulandı");
 				Checkİndirim.Checked = false;
 				Yardimcilar.Menulist(gridMenu);
@@ -241,8 +242,8 @@ namespace Restoran_Otomasyon.Paneller
 								x.IndirimliFiyat = Yardimcilar.TemizleVeDondur(txtindirimli, "");
 								x.IndirimYuzdesi = Convert.ToInt32(txtyuzde.Text);
 								x.KategoriId = (int)comboKategori.SelectedValue;
-								timer1.Start();
 								db.SaveChanges();
+								timer1.Start();
 								MessageBox.Show("Ürün Güncellendi");
 								// Gridde olmayan malzeme ID'leri için HashSet oluşturun
 								HashSet<int> gridUrunIdsi = new HashSet<int>();
@@ -355,6 +356,7 @@ namespace Restoran_Otomasyon.Paneller
 					menu.IndirimYuzdesi = 0;
 				}
 				db.SaveChanges();
+				timer1.Start();
 				MessageBox.Show("İndirim Kaldırıldı");
 				txtindirimli.Text = "";
 				txtyuzde.Text = "";
@@ -501,6 +503,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Girmeye Çalıştığınız Değer Ürünün Kendi Fiyatından Yüksek", "İşlem Yapılamaz", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				txtindirimli.Text = "";
 			}
@@ -764,8 +767,7 @@ namespace Restoran_Otomasyon.Paneller
 
 		private void timer1_Tick(object sender, EventArgs e)//Mboxları otomatik kapatma
 		{
-			timer1.Stop();
-			SendKeys.Send("{ESC}");
+			Yardimcilar.GeriCik(timer1);
 		}
 		private void gridSecilenUrunler_CellClick(object sender, DataGridViewCellEventArgs e)
 		{

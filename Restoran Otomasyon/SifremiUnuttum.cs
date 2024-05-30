@@ -37,6 +37,7 @@ namespace Restoran_Otomasyon
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show("Şifre Sıfırlama Mailleri Yalnızca Yöneticilere Gönderilebilir Lütfen Yöneticinizle İletişime Geçiniz!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}
@@ -54,6 +55,7 @@ namespace Restoran_Otomasyon
 			//girilen maile kod gidecek ama kullanıcı kontorlü yok gelen talebe göre şifre değişecek
 			if (secilen == "")
 			{
+				timer1.Start();
 				MessageBox.Show("Öncelikle Bir Talep Seçmeniz Gerekmektedir.");
 			}
 			else
@@ -72,6 +74,7 @@ namespace Restoran_Otomasyon
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show("Bu Ada Sahip Bir Kullanıcı Henüz Eklenmemiş");
 				}
 			}
@@ -99,6 +102,7 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Kişi Bilgisi Bulunamadı");
 			}
 			db.SaveChanges();
@@ -129,8 +133,7 @@ namespace Restoran_Otomasyon
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
-			timer1.Stop();
-			SendKeys.Send("ESC");
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

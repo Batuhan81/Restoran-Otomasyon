@@ -77,6 +77,7 @@ namespace Restoran_Otomasyon.Paneller
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Kategoriye Bir Ad Verdiğinizden Emin Olunuz", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}

@@ -95,6 +95,7 @@ namespace Restoran_Otomasyon
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show("Ödeme Yapılmadan Önce Sipariş Teslim Edilmelidir.", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
@@ -135,6 +136,7 @@ namespace Restoran_Otomasyon
 					db.SaveChanges();
 
 					masaBilgileri();
+					timer1.Start();
 					MessageBox.Show($"{Odenecek}₺ Ödeme Alındı Geriye Kalan {geriyekalanUcret}₺");
 					if (geriyekalanUcret == 0)
 					{
@@ -156,6 +158,7 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Alınması Gerekenden Daha Fazla Ücret Alınıyor!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			Temizle();
@@ -295,6 +298,7 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Siparişin Teslim Edilebilmesi İçin Mutfakta Hazırlanmış Olması Gerekir !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}

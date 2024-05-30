@@ -57,12 +57,14 @@ namespace Restoran_Otomasyon
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show("Kullanıcı Bulunamadı Lütfen Bilgileri Kontrol Ediniz");
 				}
 				Yardimcilar.ConnectToSignalR();
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Kullanıcı Bulunamadı Lütfen Bilgileri Kontrol Ediniz");
 			}
 		}
@@ -77,6 +79,11 @@ namespace Restoran_Otomasyon
 		{
 			SifremiUnuttum git = new SifremiUnuttum();
 			git.Show();
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

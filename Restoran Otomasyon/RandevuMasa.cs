@@ -222,6 +222,7 @@ namespace Restoran_Otomasyon
 							masarezervasyon.Gorunurluk = true;
 							db.MasaRezervasyonlar.Add(masarezervasyon);
 							db.SaveChanges();
+							timer1.Start();
 							MessageBox.Show("Rezarvasyon Başarı İle Oluşturuldu.");
 						}
 						else
@@ -252,6 +253,7 @@ namespace Restoran_Otomasyon
 							x.Onay = comboOnay.SelectedIndex + 1;
 							x.Gorunurluk = true;
 							x.TalepTarihi = DateTime.Now;
+							timer1.Start();
 							MessageBox.Show("Rezarvasyon Başarı İle Güncellendi.");
 							db.SaveChanges();
 						}
@@ -263,16 +265,19 @@ namespace Restoran_Otomasyon
 					}
 					else
 					{
+						timer1.Start();
 						MessageBox.Show("Seçilen saatlerde başka bir rezervasyon var, lütfen farklı bir saat seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					}
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show("Rezervasyon İçin Müşteri Seçtiğinizden Emin Olunuz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Rezervasyon İçin Gerekli Tüm Bilgileri Girdiğinizden Emin Olunuz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
@@ -365,6 +370,7 @@ namespace Restoran_Otomasyon
 				x.Rezervasyon.Onay = 4;
 				db.SaveChanges();
 			}
+			timer1.Start();
 			MessageBox.Show("Rezervasyon İptal Edildi");
 			temizle();
 			RandevulariYukle();
@@ -407,6 +413,7 @@ namespace Restoran_Otomasyon
 		{
 			musteriId = (int)gridMusteriler.CurrentRow.Cells["Id"].Value;
 			var x = db.Musteriler.Find(musteriId);
+			timer1.Start();
 			MessageBox.Show($"'{x.Ad}' Adlı Müşteri Seçildi ");
 			kayitsizMusteriId = 0;
 		}
@@ -430,10 +437,12 @@ namespace Restoran_Otomasyon
 						kayitsiz.KayitTarihi = DateTime.Now;
 						kayitsiz.Gorunurluk = true;
 						db.KayitsizMusteriler.Add(kayitsiz);
+						timer1.Start();
 						MessageBox.Show("Bilgiler Kayıt Edildi");
 					}
 					else
 					{
+						timer1.Start();
 						MessageBox.Show("Telefon Numarasını Kontrol Ediniz!","İşlem Başarısız",MessageBoxButtons.OK,MessageBoxIcon.Warning);
 					}
 				}
@@ -443,7 +452,8 @@ namespace Restoran_Otomasyon
 					var x = db.KayitsizMusteriler.Find(kayitsizMusteriId);
 					x.Ad = txtAd.Text;
 					x.Telefon = maskedTel.Text;
-					kayitsiz.Gorunurluk = true;
+					kayitsiz.Gorunurluk = true; 
+					timer1.Start();
 					MessageBox.Show("Bilgiler Güncellendi");
 				}
 				db.SaveChanges();
@@ -468,6 +478,7 @@ namespace Restoran_Otomasyon
 		{
 			kayitsizMusteriId = (int)gridKayitsiz.CurrentRow.Cells["Id"].Value;
 			var x = db.KayitsizMusteriler.Find(kayitsizMusteriId);
+			timer1.Start();
 			MessageBox.Show($"'{x.Ad}' Adlı Müşteri Seçildi ");
 			musteriId = 0;
 		}
@@ -490,6 +501,11 @@ namespace Restoran_Otomasyon
 			{
 				calisanForm.MasaButonlariniGuncelle();
 			}
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			timer1.Start();
 		}
 	}
 }

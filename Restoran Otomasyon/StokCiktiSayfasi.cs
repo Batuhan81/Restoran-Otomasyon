@@ -106,6 +106,7 @@ namespace Restoran_Otomasyon.Paneller
 				decimal islemSonu = ((stok.Miktar / 1000) - miktar) * 1000;
 				if(islemSonu < 0)
 				{
+					timer1.Start();
 					MessageBox.Show("Eldeki Malzemeden Daha Fazla Çıktı Eklenemez","Hata",MessageBoxButtons.OK,MessageBoxIcon.Error);
 					return;
 				}
@@ -113,6 +114,7 @@ namespace Restoran_Otomasyon.Paneller
 				stok.Miktar = islemSonu;
 				db.stokCiktilar.Add(cikti);
 				db.SaveChanges();
+				timer1.Start();
 				MessageBox.Show("Stok Çıktısı Kayıt Edildi");
 			}
 			else
@@ -133,6 +135,7 @@ namespace Restoran_Otomasyon.Paneller
 					// Eğer güncellenmek istenen stok girdisi en son eklenenle aynı değilse uyarı ver
 					if (CiktiID != sonStokCiktisiId)
 					{
+						timer1.Start();
 						MessageBox.Show("Sadece En Son Eklenen Stok Çıktısını Güncelleyebilirsiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 						return; // İşlemi sonlandır
@@ -151,12 +154,14 @@ namespace Restoran_Otomasyon.Paneller
 					decimal islemSonu = ((stok.Miktar / 1000)-miktar) * 1000;
 					if (islemSonu < 0)
 					{
+						timer1.Start();
 						MessageBox.Show("Eldeki Malzemeden Daha Fazla Çıktı Eklenemez", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						return;
 					}
 					ciktib.SonStok = islemSonu;
 					stok.Miktar = islemSonu;
 					db.SaveChanges();
+					timer1.Start();
 					MessageBox.Show("Stok Çıktısı Güncellendi");
 				}
 			}
@@ -282,6 +287,16 @@ namespace Restoran_Otomasyon.Paneller
 			textBox1.Text = "";
 			Malzemeler();
 			Ciktilar();
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
+		}
+
+		private void timer2_Tick(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
