@@ -313,6 +313,7 @@ namespace Restoran_Otomasyon
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Lütfen silmek için bir satır seçin.");
 			}
 		}
@@ -330,6 +331,7 @@ namespace Restoran_Otomasyon
 			}
 			if (txtDurum.Text == "Kapalı")
 			{
+				timer1.Start();
 				MessageBox.Show("Bu Masa Durumu Şuanda Kaplı Durumda Burada Sadece Görüntüleme Yapabilirsiniz Sipariş Alamazsınız !", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
@@ -437,6 +439,7 @@ namespace Restoran_Otomasyon
 						}
 					}
 					db.SaveChanges();
+					timer1.Start();
 					MessageBox.Show("Siparişiniz Onaylanmıştır.");
 					// Seçilen siparişin içindeki ürünleri al
 					var siparisUrunler = db.SiparisUrunler.Where(su => su.SiparisId == siparis.Id).ToList();
@@ -515,6 +518,7 @@ namespace Restoran_Otomasyon
 								{
 									// Ürünün aktifliğini kapat
 									urunMalzeme.Urun.Akitf = false;
+									timer1.Start();
 									MessageBox.Show("Stok yetersiz.");
 									return;
 								}
@@ -551,12 +555,33 @@ namespace Restoran_Otomasyon
 										// Stok miktarı minimum stok değerine ulaştıysa veya altına düştüyse
 										if (stok.Miktar < stok.MinStok)
 										{
-											//Bunu daha sonra Admine bildirim olarak atıcaz
-											MessageBox.Show($"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.");
+											if (!BildirimGonderildiMi(db, malzemeAd, "Min Stok Uyarısı"))
+											{
+												bildirim.Tarih = DateTime.Now;
+												bildirim.Aciklama = $"{malzemeAd} adlı malzeme belirtilen MinStok değerinin altına indi.";
+												bildirim.Baslik = $"Min Stok Uyarısı";
+												bildirim.KullaniciId = 1;
+												bildirim.Okundu = false;
+
+												db.Bildirimler.Add(bildirim);
+												db.SaveChanges();
+												Yardimcilar.SignalTetikleBildirimAlindi();
+											}
 										}
 										else if (stok.Miktar == 0)
 										{
-											MessageBox.Show($"{malzemeAd} adlı malzeme kalmadı.");
+											if (!BildirimGonderildiMi(db, malzemeAd, "Stok Kalmadı"))
+											{
+												bildirim.Tarih = DateTime.Now;
+												bildirim.Aciklama = $"{malzemeAd} adlı malzemenin stoğu Tükendi.";
+												bildirim.Baslik = $"Stok Kalmadı";
+												bildirim.KullaniciId = 1;
+												bildirim.Okundu = false;
+
+												db.Bildirimler.Add(bildirim);
+												db.SaveChanges();
+												Yardimcilar.SignalTetikleBildirimAlindi();
+											}
 										}
 										// Stok çıkışı kaydını oluştur
 										var stokCikti = new StokCikti
@@ -575,7 +600,8 @@ namespace Restoran_Otomasyon
 									else
 									{
 										// Ürünün aktifliğini kapat
-										urunMalzeme.Urun.Akitf = false;
+										urunMalzeme.Urun.Akitf = false; 
+										timer1.Start();
 										MessageBox.Show("Stok yetersiz.");
 										return;
 									}
@@ -606,11 +632,13 @@ namespace Restoran_Otomasyon
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show("Kapalı Masada İşlem Yapamazsınız !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Siparişi Onaylamak İçin En Az 1 Ürün Seçmeniz Gerekmektedir !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -671,6 +699,11 @@ namespace Restoran_Otomasyon
 					kasaPaneliForm.grafikleriGuncelle();
 				}
 			}
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

@@ -376,7 +376,8 @@ namespace Restoran_Otomasyon
 					break;
 			}
 
-			// Siparişlerin günlerine göre sayısını hesapla
+			// Siparişlerin günlerine göre sayısını hesapla ve maksimum sipariş sayısını bul
+			int maksimumSiparisSayisi = 0;
 			foreach (var siparis in siparisler)
 			{
 				// Siparişin tarihinden günü al ve Türkçe adını bul
@@ -392,6 +393,12 @@ namespace Restoran_Otomasyon
 				else
 				{
 					gunlereGoreSiparisSayilari[gunTuru]++;
+				}
+
+				// Maksimum sipariş sayısını güncelle
+				if (gunlereGoreSiparisSayilari[gunTuru] > maksimumSiparisSayisi)
+				{
+					maksimumSiparisSayisi = gunlereGoreSiparisSayilari[gunTuru];
 				}
 			}
 
@@ -422,16 +429,17 @@ namespace Restoran_Otomasyon
 
 			// Grafik renkleri ve stil ayarları
 			//chart.BackColor = Color.FromArgb(255, 255, 255);
-			chart.ChartAreas[0].BackColor = Color.FromArgb(195 ,230 ,252);
-
-
-
+			chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
 			chart.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
 			chart.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.FromArgb(64, 64, 64);
 			chart.Series[0].Color = Color.FromArgb(0, 102, 204);
-			// Legend'i devre dışı bırak
+
+			// Maksimum sipariş sayısına göre y eksenini ayarla
+			chart.ChartAreas[0].AxisY.Maximum = maksimumSiparisSayisi + 1; // Biraz boşluk bırakmak için 1 ekledik
+																		   // Legend'i devre dışı bırak
 			chart.Legends.Clear();
 		}
+
 
 		private static string GunTuruTercihininTercihineGoreCevir(string gunTuru)
 		{

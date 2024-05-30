@@ -44,6 +44,7 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtAd = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -186,6 +187,11 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Ad:";
 			// 
+			// timer1
+			// 
+			this.timer1.Interval = 1000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// BilgileriGuncelle
 			// 
 			this.AcceptButton = this.button1;
@@ -221,5 +227,6 @@
 		private System.Windows.Forms.TextBox txtmevcutsifre;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label sifreT;
+		private System.Windows.Forms.Timer timer1;
 	}
 }

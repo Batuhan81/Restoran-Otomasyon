@@ -35,6 +35,11 @@ namespace Restoran_Otomasyon
 
 		public static Process signalRProcess;
 
+		public static void GeriCik(Timer timer)
+		{
+			timer.Stop();
+			SendKeys.Send("{ESC}");
+		}
 		public static void SignalRSunucuBaslat()
 		{
 			try

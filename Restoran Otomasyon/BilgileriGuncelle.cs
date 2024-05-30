@@ -89,27 +89,32 @@ namespace Restoran_Otomasyon.Paneller
 							x.Mail = txtmail.Text;
 							x.Sifre = txtyeniSifre.Text;
 							db.SaveChanges();
+							timer1.Start();
 							MessageBox.Show("Bilgileriniz Güncellendi.");
 							Yardimcilar.Temizle(groupBox1 );
 							txtAd.Text = Ad;
 						}
 						else
 						{
+							timer1.Start();
 							MessageBox.Show("Geçerli Bir Mail Adresi Giriniz!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						}
 					}
 					else
 					{
+						timer1.Start();
 						MessageBox.Show("Şifreler Eşleşmiyor !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 				}
 				else
 				{
+					timer1.Start();
 					MessageBox.Show("Girilen Mevcut Şifre Yanlış !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 			else
 			{
+				timer1.Start();
 				MessageBox.Show("Tüm Alanları Doldurmalısınız !", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -117,6 +122,11 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtyeniSifre_TextChanged(object sender, EventArgs e)
 		{
 			SifreTuru(txtyeniSifre.Text);
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Yardimcilar.GeriCik(timer1);
 		}
 	}
 }

@@ -68,10 +68,8 @@ namespace Restoran_Otomasyon
 		}
 
 		Kullanici k = new Kullanici();
-		//Veritabanı oluşturulduktan sonra bir kullanıcıyı otomatik olarak ekliyorum kişi projeye ilk bu kişiyle girecek ve kalan işlemleri yapabilecek
 		private void Giris_Load(object sender, EventArgs e)
 		{
-
 			txtAd.Focus();
 		}
 
