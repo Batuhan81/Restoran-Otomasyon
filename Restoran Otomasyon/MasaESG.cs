@@ -334,6 +334,7 @@ namespace Restoran_Otomasyon.Paneller
 					timer2.Start();
 					MessageBox.Show("Masa başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					ButonlarıGetir(secilenKategoriId);
+					Yardimcilar.SignalTetikleMasaDurum();
 				}
 				else
 				{
