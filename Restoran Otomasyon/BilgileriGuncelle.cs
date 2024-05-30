@@ -59,7 +59,11 @@ namespace Restoran_Otomasyon.Paneller
 			{
 				sifreT.Text = "Kolay Şifre";
 			}
-			else
+			else if(kucukharf) 
+			{
+				sifreT.Text = "Kolay Şifre";
+			}
+			else if (kucukharf)
 			{
 				sifreT.Text = "Kolay Şifre";
 			}
@@ -113,15 +117,6 @@ namespace Restoran_Otomasyon.Paneller
 		private void txtyeniSifre_TextChanged(object sender, EventArgs e)
 		{
 			SifreTuru(txtyeniSifre.Text);
-		}
-
-		private void txtAd_TextChanged(object sender, EventArgs e)
-		{
-		}
-
-		private void txtAd_KeyPress(object sender, KeyPressEventArgs e)
-		{
-
 		}
 	}
 }

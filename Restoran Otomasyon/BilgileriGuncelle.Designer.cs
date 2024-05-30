@@ -64,7 +64,7 @@
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.groupBox1.Location = new System.Drawing.Point(12, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(280, 320);
+			this.groupBox1.Size = new System.Drawing.Size(280, 338);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Kullanıcı Bilgileri";
@@ -72,7 +72,7 @@
 			// sifreT
 			// 
 			this.sifreT.AutoSize = true;
-			this.sifreT.Location = new System.Drawing.Point(113, 228);
+			this.sifreT.Location = new System.Drawing.Point(116, 245);
 			this.sifreT.Name = "sifreT";
 			this.sifreT.Size = new System.Drawing.Size(0, 18);
 			this.sifreT.TabIndex = 1;
@@ -100,7 +100,7 @@
 			this.button1.BackColor = System.Drawing.Color.SkyBlue;
 			this.button1.ImageKey = "Kaydet.png";
 			this.button1.ImageList = this.ımageList1;
-			this.button1.Location = new System.Drawing.Point(68, 249);
+			this.button1.Location = new System.Drawing.Point(68, 266);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(139, 65);
 			this.button1.TabIndex = 1;
@@ -175,8 +175,6 @@
 			this.txtAd.Name = "txtAd";
 			this.txtAd.Size = new System.Drawing.Size(139, 24);
 			this.txtAd.TabIndex = 1;
-			this.txtAd.TextChanged += new System.EventHandler(this.txtAd_TextChanged);
-			this.txtAd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAd_KeyPress);
 			// 
 			// label1
 			// 
@@ -194,7 +192,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ClientSize = new System.Drawing.Size(303, 344);
+			this.ClientSize = new System.Drawing.Size(303, 355);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "BilgileriGuncelle";
 			this.ShowIcon = false;
