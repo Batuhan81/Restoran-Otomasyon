@@ -155,6 +155,12 @@ namespace Restoran_Otomasyon
 						this.Close();
 					}
 				}
+				else
+				{
+					timer1.Start();
+					MessageBox.Show("Lütfen Bir Ödeme Yöntemi Seçiniz!", "İşlem Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
 			}
 			else
 			{
@@ -187,7 +193,6 @@ namespace Restoran_Otomasyon
 					// İlgili ücreti yuvarla ve diziye ekle
 					yuvarlanmisUcretler[i] = Math.Floor(kisibasiUcret * 4) / 4; // 0.25 katsayısı ile yuvarla
 				}
-
 				// Orijinal ücrete en yakın olan yuvarlanmış ücreti bul
 				enYakinUcret = yuvarlanmisUcretler.OrderBy(x => Math.Abs(x - kisibasiUcret)).First();
 				txtodenecek.Text = enYakinUcret.ToString();
@@ -248,7 +253,6 @@ namespace Restoran_Otomasyon
 				var adminpaneliform = Application.OpenForms.OfType<Admin_Paneli>().FirstOrDefault();
 				if (adminpaneliform != null)
 				{
-					// Grafikleri güncelle
 					adminpaneliform.grafikleriGuncelle();
 				}
 			}
@@ -257,7 +261,6 @@ namespace Restoran_Otomasyon
 				var kasaPaneliForm = Application.OpenForms.OfType<KasaPaneli>().FirstOrDefault();
 				if (kasaPaneliForm != null)
 				{
-					// Grafikleri güncelle
 					kasaPaneliForm.grafikleriGuncelle();
 				}
 			}
@@ -316,7 +319,7 @@ namespace Restoran_Otomasyon
 
 			// Fişin genişliği ve uzunluğunu belirle
 			float receiptWidth = 80; // mm cinsinden genişlik
-									 //float receiptHeight = 80; // mm cinsinden uzunluk
+			//float receiptHeight = 80; // mm cinsinden uzunluk
 
 			float fontHeight = font.GetHeight();
 			int startX = 10;
@@ -330,7 +333,6 @@ namespace Restoran_Otomasyon
 			graphic.DrawString(DateTime.Now.ToString(), new Font("Arial", 12), new SolidBrush(Color.Black), startX, startY + (int)fontHeight + 10);
 
 			offset += 10;
-
 			// Veritabanından siparişleri çek
 			var sonSiparis = db.MasaSiparisler.Where(o => o.MasaId == masaId).OrderByDescending(o => o.Id).FirstOrDefault();
 

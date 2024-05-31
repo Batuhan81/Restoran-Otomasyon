@@ -174,6 +174,7 @@
 			// 
 			this.txtAd.Location = new System.Drawing.Point(119, 38);
 			this.txtAd.Name = "txtAd";
+			this.txtAd.ReadOnly = true;
 			this.txtAd.Size = new System.Drawing.Size(139, 24);
 			this.txtAd.TabIndex = 1;
 			// 
