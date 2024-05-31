@@ -34,7 +34,7 @@ namespace Restoran_Otomasyon
 				// Bağlantı dizesini ayarla
 				//string svad, int port, string dbad,string user,string sifre
 				vt.BağlantıDizesiniAyarla(svAdi.Text, Convert.ToInt32(port.Text), DbAdi.Text, UserAdi.Text, VtSifre.Text);
-				db.Database.Connection.ConnectionString = "server=localhost;Port=3306;Database=Sunum;Uid=root;Pwd=123456789;";//Bağlantı Dizesini yenisiyle değiştirdim
+				db.Database.Connection.ConnectionString =vt.yeniBağlantıDizesi;//Bağlantı Dizesini yenisiyle değiştirdim
 					 //db.Database.Connection.ConnectionString = vt.yeniBağlantıDizesi;//Bağlantı Dizesini yenisiyle değiştirdim
 				try
 				{
