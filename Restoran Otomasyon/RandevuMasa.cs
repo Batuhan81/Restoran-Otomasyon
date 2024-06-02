@@ -111,10 +111,11 @@ namespace Restoran_Otomasyon
 		{
 			GUnlereRenkVerme(masaId);
 			secilentarih = Takvim.SelectionStart;
+			ComboDakika.Items.Clear();
+			ComboSaat.Items.Clear();
 			if (secilentarih.Date == DateTime.Today)
 			{
-				ComboDakika.Items.Clear();
-				ComboSaat.Items.Clear();
+				
 				int suankiSaat = DateTime.Now.Hour;
 				int suankiDakika = DateTime.Now.Minute;
 				int yuvarlanmisDakika = (suankiDakika + 9) / 10 * 10 % 60;
@@ -262,6 +263,8 @@ namespace Restoran_Otomasyon
 						GUnlereRenkVerme(masaId);
 						gridMusteriler.Visible = false;
 						gridKayitsiz.Visible = false;
+						gridRandevular.Visible=true;
+						PanelMusteri.Visible = false;
 					}
 					else
 					{

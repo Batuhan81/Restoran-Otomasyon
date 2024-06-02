@@ -86,6 +86,7 @@ namespace Restoran_Otomasyon
 				catch (Exception ex)
 				{
 					MessageBox.Show("Veri Tabanı Oluşturulurken Bir Hata Oluştu. Bilgileri Doğru Girdiğinizden Emin Olunuz.\nHata Mesajı: " + ex.InnerException.Message, "Veri Tabanı Oluşturulamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
 				}
 			}
 			else
