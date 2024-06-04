@@ -49,7 +49,9 @@ namespace Restoran_Otomasyon
 				signalRProcess.StartInfo.CreateNoWindow = true;
 				signalRProcess.StartInfo.UseShellExecute = true;  // Yönetici olarak çalıştırmak için true olmalı
 				signalRProcess.StartInfo.Verb = "runas";  // Yönetici olarak çalıştırmak için
+				signalRProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; // Minimalize başlatmak için
 				signalRProcess.Start();
+
 			}
 			catch (Exception ex)
 			{
