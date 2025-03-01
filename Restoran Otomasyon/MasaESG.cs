@@ -482,7 +482,7 @@ namespace Restoran_Otomasyon.Paneller
 					masaButton.FlatStyle = FlatStyle.Flat; // Düz bir stil kullanarak kenarlığı kaldırın
 
 					// Butonun arka planına resim ekleyin
-					masaButton.BackgroundImage = Image.FromFile(@"C:\Users\Batuhan\Desktop\Üzerinde Çalıştığım\Restoran Otomasyon\Resim Ve İconlar\İconlar\masa3.png");
+					masaButton.BackgroundImage = Image.FromFile(@"C:\Users\Batuhan\Desktop\Yedekler\Dönemlik Staj\Restoran Otomasyon Final\Üzerinde Çalıştığım SignalRlı\Restoran Otomasyon\Resim Ve İconlar\İconlar\masa3.png");
 					masaButton.BackgroundImageLayout = ImageLayout.Stretch; // Resmi buton boyutuna sığacak şekilde germe
 
 					// Butonun üzerindeki metni büyük ve belirgin hale getirin
@@ -582,11 +582,11 @@ namespace Restoran_Otomasyon.Paneller
 		{
 			var kat = db.Kategoriler.FirstOrDefault(o => o.Tur == "Masa");
 			int secilenKategoriId = kat.Id;
+			comboKat.SelectedIndex = 0;
 			TemizleMasaButonlari(); // Mevcut butonları temizle
 			RezarvasyonKontrol();
 			ButonlarıGetir(secilenKategoriId);
 		}
-
 
 		public void TemizleMasaButonlari()
 		{

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNet.SignalR.Client;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
+using Mysqlx.Crud;
 using QRCoder;
 using Restoran_Otomasyon.Data;
 using Restoran_Otomasyon.Paneller;
@@ -45,7 +47,9 @@ namespace Restoran_Otomasyon
 			try
 			{
 				signalRProcess = new Process();
-				signalRProcess.StartInfo.FileName = @"C:\Users\Batuhan\Desktop\Signal Sunucu\Signal Sunucu\bin\Debug\Signal Sunucu.exe";
+				//@"C:\Users\Batuhan\Desktop\Dönemlik Staj\Restoran Otomasyon Final\Signal Sunucu\Signal Sunucu\obj\Debug\Signal Sunucu.exe";
+				signalRProcess.StartInfo.FileName = @"C:\Users\Batuhan\Desktop\Yedekler\Dönemlik Staj\Restoran Otomasyon Final\Signal Sunucu\Signal Sunucu\obj\Debug\Signal Sunucu.exe";
+
 				signalRProcess.StartInfo.CreateNoWindow = true;
 				signalRProcess.StartInfo.UseShellExecute = true;  // Yönetici olarak çalıştırmak için true olmalı
 				signalRProcess.StartInfo.Verb = "runas";  // Yönetici olarak çalıştırmak için
@@ -146,7 +150,7 @@ namespace Restoran_Otomasyon
 			try
 			{
 				// Ses dosyasının yolunu belirtin
-				string sesDosyasiYolu = "C:\\Users\\Batuhan\\Desktop\\Üzerinde Çalıştığım SignalRlı\\Restoran Otomasyon\\Resim Ve İconlar\\Bildirim Sesi.Wav";
+				string sesDosyasiYolu = "C:\\Users\\Batuhan\\Desktop\\Yedekler\\Dönemlik Staj\\Restoran Otomasyon Final\\Üzerinde Çalıştığım SignalRlı\\Restoran Otomasyon\\Resim Ve İconlar\\Bildirim Sesi.Wav";
 
 				// SoundPlayer ile sesi çal
 				SoundPlayer player = new SoundPlayer(sesDosyasiYolu);
@@ -199,8 +203,8 @@ namespace Restoran_Otomasyon
 
 		public static IHubProxy hubProxy;
 		public static HubConnection connection;
-		public static string url = "http://192.168.1.249:8080/signalr/hubs"; // SignalR sunucusunun adresi
-
+		public static string url = "http://192.168.1.75:8080/signalr/hubs"; // SignalR sunucusunun adresi
+		//192.168.1.227
 		public static async void ConnectToSignalR()
 		{
 			connection = new HubConnection(url);
@@ -893,7 +897,6 @@ namespace Restoran_Otomasyon
 							{
 								int yuzdeDegeri = (int)e.Value;
 								string yuzdeMetni = "%" + yuzdeDegeri.ToString("N0").Replace(",", "."); // "N2" formatı ile iki basamaklı virgülden sonraki sayıları gösteriyoruz
-
 								// DataGridView hücresine biçimlendirilmiş değeri ata
 								e.Value = yuzdeMetni;
 								e.FormattingApplied = true;
@@ -905,7 +908,6 @@ namespace Restoran_Otomasyon
 							e.FormattingApplied = true;
 						}
 					}
-
 				}
 			}
 		}

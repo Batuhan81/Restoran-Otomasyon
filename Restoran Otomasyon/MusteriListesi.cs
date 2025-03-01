@@ -39,7 +39,7 @@ namespace Restoran_Otomasyon.Paneller
 						Id = x.Id,
 						Ad = x.Ad,
 						Soyad = x.Soyad,
-						Mail = x.Eposta,
+						EMail = x.Eposta,
 						Telefon = x.Telefon,
 						Doğum_Tarihi = x.Dogumtarihi,
 						Kayıt_Tarihi = x.KayitTarihi,
