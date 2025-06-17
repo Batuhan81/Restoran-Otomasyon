@@ -53,7 +53,7 @@ namespace Restoran_Otomasyon
 				signalRProcess.StartInfo.CreateNoWindow = true;
 				signalRProcess.StartInfo.UseShellExecute = true;  // Yönetici olarak çalıştırmak için true olmalı
 				signalRProcess.StartInfo.Verb = "runas";  // Yönetici olarak çalıştırmak için
-				signalRProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; // Minimalize başlatmak için
+				//signalRProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized; // Minimalize başlatmak için
 				signalRProcess.Start();
 
 			}
@@ -203,7 +203,7 @@ namespace Restoran_Otomasyon
 
 		public static IHubProxy hubProxy;
 		public static HubConnection connection;
-		public static string url = "http://192.168.1.75:8080/signalr/hubs"; // SignalR sunucusunun adresi
+		public static string url = "http://192.168.1.245:8080/signalr/hubs"; // SignalR sunucusunun adresi
 		//192.168.1.227
 		public static async void ConnectToSignalR()
 		{

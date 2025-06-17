@@ -196,9 +196,9 @@ namespace Restoran_Otomasyon.Paneller
 		private void ComboFiltre_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string filteAd = ComboFiltre.Text;
-			Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db, filteAd);
 			Grafikler.EnCokSiparisUrun(EnCokSiparisUrun, db, filteAd);
-			Grafikler.MasaYogunluk(MasaYogunluk, db, filteAd);
+            Grafikler.EnCokSiparisMenu(EnCokSiparisMenu, db, filteAd);
+            Grafikler.MasaYogunluk(MasaYogunluk, db, filteAd);
 			Grafikler.GunlereGoreGrafik(GunlereGore, db, filteAd);
 			Grafikler.OdemeYuzdesi(OdemeYuzde, db, filteAd);
 		}

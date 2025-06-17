@@ -123,86 +123,92 @@ namespace Restoran_Otomasyon
 			chart.Update();
 		}
 
-		public static void EnCokSiparisMenu(Chart EnCokSiparisMenu, Context db, string zamanAraligi)
-		{
-			// Ürünlerin sipariş sayılarını hesapla
-			Dictionary<string, int> menuSiparisSayilari = new Dictionary<string, int>();
+        public static void EnCokSiparisMenu(Chart EnCokSiparisMenu, Context db, string zamanAraligi)
+        {
+            // Zaman aralığına göre siparişleri filtrele
+            IQueryable<Siparis> siparisler;
 
-			// Toplam sipariş miktarını hesaplamak için bir değişken tanımla
-			int toplamSiparisSayisi = 0;
+            switch (zamanAraligi)
+            {
+                case "Bugün":
+                    var bugunBaslangic = DateTime.Today;
+                    var bugunBitis = bugunBaslangic.AddDays(1);
+                    siparisler = db.Siparisler.Where(s => s.Tarih >= bugunBaslangic && s.Tarih < bugunBitis);
+                    break;
 
-			// Tüm sipariş ürünlerini al
-			var siparisMenuler = db.SiparisMenus.ToList();
+                case "Bu Hafta":
+                    DateTime baslangicHafta = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+                    DateTime bitisHafta = baslangicHafta.AddDays(7);
+                    siparisler = db.Siparisler.Where(s => s.Tarih >= baslangicHafta && s.Tarih < bitisHafta);
+                    break;
 
-			// Sipariş ürünlerindeki her bir ürünü ve miktarını hesapla
-			foreach (var siparisMenu in siparisMenuler)
-			{
-				// İlgili siparişin bilgilerini al
-				var siparis = db.Siparisler.Find(siparisMenu.SiparisId);
-				if (siparis != null)
-				{
-					int MenuID = siparisMenu.MenuId;
-					string MenuAdi = db.Menuler.Find(MenuID).Ad;
-					// Eğer ürün daha önce listede yoksa, ekleyin ve miktarı 1 olarak ayarlayın
-					if (!menuSiparisSayilari.ContainsKey(MenuAdi))
-					{
-						menuSiparisSayilari[MenuAdi] = siparisMenu.Miktar;
-					}
-					// Eğer ürün zaten listede ise, sipariş miktarını arttırın
-					else
-					{
-						menuSiparisSayilari[MenuAdi] += siparisMenu.Miktar;
-					}
+                case "Bu Ay":
+                    var ayBaslangic = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                    var ayBitis = ayBaslangic.AddMonths(1);
+                    siparisler = db.Siparisler.Where(s => s.Tarih >= ayBaslangic && s.Tarih < ayBitis);
+                    break;
 
-					// Toplam sipariş sayısını güncelle
-					toplamSiparisSayisi += siparisMenu.Miktar;
-				}
-			}
-			// Zaman aralığına göre siparişleri filtrele
-			IQueryable<Siparis> siparisler;
+                default:
+                    siparisler = db.Siparisler;
+                    break;
+            }
 
-			switch (zamanAraligi)
-			{
-				case "Bugün":
-					// Bugünün siparişlerini al
-					siparisler = db.Siparisler.Where(s => s.Tarih.Date == DateTime.Today.Date);
-					break;
-				case "Bu Hafta":
-					// Bu haftanın siparişlerini al
-					DateTime baslangicHafta = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
-					DateTime bitisHafta = baslangicHafta.AddDays(7);
-					siparisler = db.Siparisler.Where(s => s.Tarih.Date >= baslangicHafta.Date && s.Tarih.Date < bitisHafta.Date);
-					break;
-				case "Bu Ay":
-					// Bu ayın siparişlerini al
-					siparisler = db.Siparisler.Where(s => s.Tarih.Month == DateTime.Today.Month && s.Tarih.Year == DateTime.Today.Year);
-					break;
-				default:
-					// Tüm siparişleri al
-					siparisler = db.Siparisler;
-					break;
-			}
-			// En çok sipariş edilen 5 ürünü seç
-			var enCokSiparisEdilenMenuler = menuSiparisSayilari.OrderByDescending(x => x.Value).Take(5);
+            // Ürünlerin sipariş sayılarını hesapla
+            Dictionary<string, int> menuSiparisSayilari = new Dictionary<string, int>();
 
-			// Pasta grafiği oluşturma
-			EnCokSiparisMenu.Series.Clear();
-			EnCokSiparisMenu.Series.Add("Siparişler");
-			EnCokSiparisMenu.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
-			EnCokSiparisMenu.Titles.Clear();
-			EnCokSiparisMenu.Titles.Add($"En Çok Sipariş Edilen Menüler {"- "+zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold); // Başlık ekleme, fontu büyük ve kalın yapma
-			EnCokSiparisMenu.Legends.Clear();
-			EnCokSiparisMenu.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
+            // Toplam sipariş miktarını hesaplamak için bir değişken tanımla
+            int toplamSiparisSayisi = 0;
 
-			// Grafiğe veri ekleme
-			foreach (var Menu in enCokSiparisEdilenMenuler)
-			{
-				double yuzde = (double)Menu.Value / toplamSiparisSayisi * 100; // Yüzde hesaplama
-				EnCokSiparisMenu.Series["Siparişler"].Points.AddXY($"{Menu.Key}- {Menu.Value} Adet", Menu.Value);
-			}
-		}
+            // Filtrelenmiş siparişlerin ID'lerini al
+            var siparisIdler = siparisler.Select(s => s.Id).ToList();
 
-		public static void EnCokSiparisUrun(Chart chart, Context db, string zamanAraligi)
+            // İlgili sipariş ürünlerini filtrelenmiş siparişlere göre al
+            var siparisMenuler = db.SiparisMenus.Where(sm => siparisIdler.Contains(sm.SiparisId)).ToList();
+
+            // Sipariş ürünlerindeki her bir ürünü ve miktarını hesapla
+            foreach (var siparisMenu in siparisMenuler)
+            {
+                int MenuID = siparisMenu.MenuId;
+                string MenuAdi = db.Menuler.Find(MenuID).Ad;
+
+                // Eğer ürün daha önce listede yoksa, ekleyin ve miktarı sipariş miktarı kadar ayarlayın
+                if (!menuSiparisSayilari.ContainsKey(MenuAdi))
+                {
+                    menuSiparisSayilari[MenuAdi] = siparisMenu.Miktar;
+                }
+                else
+                {
+                    menuSiparisSayilari[MenuAdi] += siparisMenu.Miktar;
+                }
+
+                // Toplam sipariş sayısını güncelle
+                toplamSiparisSayisi += siparisMenu.Miktar;
+            }
+
+            // En çok sipariş edilen 5 ürünü seç
+            var enCokSiparisEdilenMenuler = menuSiparisSayilari.OrderByDescending(x => x.Value).Take(5);
+
+            EnCokSiparisMenu.Series.Clear();
+            EnCokSiparisMenu.Series.Add("Siparişler");
+            EnCokSiparisMenu.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
+            EnCokSiparisMenu.Titles.Clear();
+            EnCokSiparisMenu.Titles.Add($"En Çok Sipariş Edilen Menüler - {zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold); // Başlık ekleme, fontu büyük ve kalın yapma
+            EnCokSiparisMenu.Legends.Clear();
+            EnCokSiparisMenu.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
+
+            if (enCokSiparisEdilenMenuler.Any())
+            {
+                // Grafiğe veri ekleme
+                foreach (var Menu in enCokSiparisEdilenMenuler)
+                {
+                    EnCokSiparisMenu.Series["Siparişler"].Points.AddXY($"{Menu.Key} - {Menu.Value} Adet", Menu.Value);
+                }
+            }
+        }
+
+
+
+        public static void EnCokSiparisUrun(Chart chart, Context db, string zamanAraligi)
 		{
 			// Ürünlerin sipariş sayılarını hesapla
 			Dictionary<string, int> urunSiparisSayilari = new Dictionary<string, int>();
@@ -265,22 +271,36 @@ namespace Restoran_Otomasyon
 			// En çok sipariş edilen 5 ürünü seç
 			var enCokSiparisEdilenUrunler = urunSiparisSayilari.OrderByDescending(x => x.Value).Take(5);
 
-			// Pasta grafiği oluşturma
-			chart.Series.Clear();
-			chart.Series.Add("Siparişler");
-			chart.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
-			chart.Titles.Clear();
-			chart.Titles.Add($"En Çok Sipariş Edilen Ürünler {"- " + zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold);  // Başlık ekleme
-			chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
-
-			chart.Legends.Clear();
-			// Grafiğe veri ekleme
-			foreach (var urun in enCokSiparisEdilenUrunler)
+            if (enCokSiparisEdilenUrunler.Count() != 0)
 			{
-				double yuzde = (double)urun.Value / toplamSiparisSayisi * 100; // Yüzde hesaplama
-				chart.Series["Siparişler"].Points.AddXY($"{urun.Key}- {urun.Value} Adet", urun.Value);
+                // Pasta grafiği oluşturma
+                chart.Series.Clear();
+                chart.Series.Add("Siparişler");
+                chart.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
+                chart.Titles.Clear();
+                chart.Titles.Add($"En Çok Sipariş Edilen Ürünler {"- " + zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold);  // Başlık ekleme
+                chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
+
+                chart.Legends.Clear();
+                // Grafiğe veri ekleme
+                foreach (var urun in enCokSiparisEdilenUrunler)
+                {
+                    double yuzde = (double)urun.Value / toplamSiparisSayisi * 100; // Yüzde hesaplama
+                    chart.Series["Siparişler"].Points.AddXY($"{urun.Key}- {urun.Value} Adet", urun.Value);
+                }
+                chart.Series["Siparişler"]["PieLineColor"] = "Black";
 			}
-			chart.Series["Siparişler"]["PieLineColor"] = "Black";
+			else
+			{
+                // Pasta grafiği oluşturma
+                chart.Series.Clear();
+                chart.Series.Add("Siparişler");
+                chart.Series["Siparişler"].ChartType = SeriesChartType.Pie; // Pasta grafiği tipi
+                chart.Titles.Clear();
+                chart.Titles.Add($"En Çok Sipariş Edilen Ürünler {"- " + zamanAraligi}").Font = new Font("Arial", 12, FontStyle.Bold);  // Başlık ekleme
+                chart.ChartAreas[0].BackColor = Color.FromArgb(195, 230, 252);
+            }
+			
 
 		}
 
@@ -490,8 +510,10 @@ namespace Restoran_Otomasyon
 					odemeler = db.Odemeler;
 					break;
 			}
+			decimal nakitOran = 0;
+			decimal kartOran = 0;
 
-			int sayi = odemeler.Count();
+            int sayi = odemeler.Count();
 			if (odemeler.Any())
 			{
 				// Nakit ve Kart ödemelerinin tutarlarını hesapla
@@ -505,8 +527,8 @@ namespace Restoran_Otomasyon
 				decimal toplamTutar = nakitToplam + kartToplam;
 
 				// Nakit ve Kart oranlarını hesapla
-				decimal nakitOran = (nakitToplam / toplamTutar) * 100;
-				decimal kartOran = (kartToplam / toplamTutar) * 100;
+				 nakitOran = (nakitToplam / toplamTutar) * 100;
+				 kartOran = (kartToplam / toplamTutar) * 100;
 
 				// Pasta grafiği oluştur
 				chart.Series.Clear();
@@ -558,6 +580,14 @@ namespace Restoran_Otomasyon
 					}
 				};
 			}
-		}
+			else
+			{
+                chart.Series.Clear();
+                chart.Series.Add("Ödeme Yöntemi");
+                chart.Series["Ödeme Yöntemi"].Points.AddXY("Nakit", nakitOran);
+                chart.Series["Ödeme Yöntemi"].Points.AddXY("Kart", kartOran);
+
+            }
+        }
 	}
 }
